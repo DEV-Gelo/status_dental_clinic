@@ -1,0 +1,40 @@
+import { NextResponse } from "next/server";
+
+export async function POST(req) {
+  try {
+    const parsedBody = await req.json();
+
+    if (!parsedBody || !parsedBody.password) {
+      return NextResponse.json(
+        { success: false, message: "Будь ласка введіть пароль" },
+        { status: 400 }
+      );
+    }
+
+    const { password } = parsedBody;
+
+    if (password === process.env.ADMIN_PASSWORD) {
+      // Встановлюємо cookie
+      const response = NextResponse.json({ success: true });
+
+      // Додаємо cookie у заголовок
+      response.headers.set(
+        "Set-Cookie",
+        `auth=true; HttpOnly; Path=/admin; Max-Age=3600`
+      );
+
+      return response;
+    } else {
+      return NextResponse.json(
+        { success: false, message: "Невірний пароль" },
+        { status: 401 }
+      );
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    return NextResponse.json(
+      { success: false, message: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}

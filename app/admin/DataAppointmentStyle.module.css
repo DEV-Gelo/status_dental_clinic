@@ -1,0 +1,260 @@
+.users_page_wrap {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding: 5rem;
+  overflow: hidden;
+}
+.error_loading {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.alert_loading {
+  display: flex;
+  width: 26rem;
+  height: 10rem;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+}
+.loading_data {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+/* Table navigation */
+.table_navbar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+  justify-content: space-between;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid white;
+  background-color: #5ba3bb;
+}
+
+.table_navigation {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 3.5rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+  order: 1;
+  font-size: 24px;
+}
+
+.button_nav {
+  margin: 0 20px 0 20px;
+  padding: 0.5rem 0 0.5rem 0;
+  transition: ease 0.2s;
+}
+.button_nav:hover {
+  transform: translateY(-0.1rem);
+}
+.button_nav:active {
+  transform: scale(0.99);
+}
+.button_filter {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: auto;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+  padding: 0.8rem;
+}
+
+.filter_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+}
+.filter_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+}
+
+.table_search {
+  display: flex;
+  align-items: center;
+  min-width: 300px;
+  height: 3.5rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  order: 3;
+}
+.table_search input {
+  height: 2rem;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0 0.5rem 0 0.5rem;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.table_search input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.7);
+}
+/* -----Table -------*/
+.table_container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: end;
+  overflow: hidden;
+  border: 2px solid #5ba3bb;
+  border-top: none;
+  background-color: #5ba3bb;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  min-width: 600px;
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  height: 3rem;
+  background-color: #5ba3bb;
+  font-size: 20px;
+  color: #444;
+}
+
+.table th {
+  padding: 0.5rem 0.5rem;
+  text-align: left;
+  text-wrap: nowrap;
+}
+.table td {
+  padding: 0.5rem 0.5rem;
+  text-align: left;
+}
+
+.tbody {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  cursor: pointer;
+}
+
+.thead tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tr_body {
+  border-top: 1px solid #5ba3bb20;
+  border-bottom: 1px solid #5ba3bb20;
+}
+.tr_body_selected {
+  border-top: 2px solid #5ba3bb;
+  border-bottom: 2px solid #5ba3bb;
+  background-color: #e1f1f8;
+}
+
+.id_th {
+  width: 5rem;
+}
+
+.id_td {
+  width: 5rem;
+}
+
+/* Custom scrollbar */
+.table :global(::-webkit-scrollbar) {
+  width: 8px;
+}
+
+.table :global(::-webkit-scrollbar-track) {
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+
+.table :global(::-webkit-scrollbar-thumb) {
+  background: #5ba3bb50;
+  border-radius: 10px;
+}
+
+.table :global(::-webkit-scrollbar-thumb:hover) {
+  background: #5ba3bb80;
+}
+
+@media screen and (max-width: 1024px) {
+  .id_td {
+    width: 2rem;
+  }
+  .id_th {
+    width: 2rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .users_page_wrap {
+    padding: 1rem;
+  }
+  .thead {
+    font-size: 16px;
+  }
+  .tbody {
+    font-size: 14px;
+    padding-top: 0;
+  }
+  .search_icon {
+    display: none;
+  }
+  .table_search {
+    width: 200px;
+  }
+  .table th {
+    padding: 0.2rem;
+  }
+  .table td {
+    padding: 0.2rem;
+  }
+}
+@media screen and (max-width: 640px) {
+  .table_container {
+    overflow: auto;
+  }
+  .users_page_wrap {
+    padding: 0;
+  }
+}

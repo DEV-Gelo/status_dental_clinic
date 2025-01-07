@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gradient: linear-gradient(
+    219deg,
+    rgba(204, 221, 228, 1) 56%,
+    rgba(225, 241, 248, 1) 70%
+  );
+  --nav-gradient: linear-gradient(to right, #ffffff 40%, #ccdde4 60%);
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-gradient {
+  background: var(--nav-gradient);
+}
+
+.text-grey {
+  color: #a7adaf;
+}
+.bg_grey {
+  background-color: #ccdde4;
+}
+
+.blue {
+  background-color: #5ba3bb;
+}
+.gradient {
+  background-color: var(--gradient);
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

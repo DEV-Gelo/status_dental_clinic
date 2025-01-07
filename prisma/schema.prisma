@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  patronymic   String?      // optional field
+  email        String       @unique
+  phone        String       @unique
+  photo        String?
+  role         String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  schedules    Schedule[]   
+  patientAppointments Appointment[] @relation("UserAppointments") 
+  doctorAppointments Appointment[] @relation("DoctorAppointments")
+}
+
+enum Role {
+  User
+  Doctor
+}
+
+model Slot {
+  id           Int       @id @default(autoincrement())
+  time         String    
+  isBooked     Boolean   @default(false)              npx  
+
+  schedule     Schedule  @relation(fields: [scheduleId], references: [id])
+  scheduleId   Int       
+
+  appointment  Appointment? @relation("SlotAppointments", fields: [appointmentId], references: [id])
+  appointmentId Int?  @unique
+}
+
+model Schedule {
+  id           Int          @id @default(autoincrement())
+  date         DateTime
+  doctor       User         @relation(fields: [doctorId], references: [id])
+  doctorId     Int
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  appointments Appointment[] 
+  slots        Slot[]        
+}
+
+model Appointment {
+  id           Int          @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  patronymic   String?      // optional field
+  email        String
+  phone        String
+  service      String
+  time         String
+  date         DateTime
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  schedule     Schedule     @relation(fields: [scheduleId], references: [id])
+  scheduleId   Int
+
+  user         User         @relation("UserAppointments", fields: [userId], references: [id]) 
+  userId       Int
+
+  doctor       User         @relation("DoctorAppointments", fields: [doctorId], references: [id]) 
+  doctorId     Int
+
+  slotId       Int?         
+  slot         Slot?        @relation("SlotAppointments") 
+}
+

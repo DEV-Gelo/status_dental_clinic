@@ -1,0 +1,35 @@
+.delete_window {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  position: absolute;
+  top: 30vh;
+  left: 55vh;
+  background-color: #ccdde4;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.delete_window h6 {
+  margin: 1rem;
+}
+.button_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+.button_ok {
+  background-color: wheat;
+  width: 7rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 2px solid #555;
+  border-radius: 10px;
+}
+.button_cancel {
+  background-color: #5ba3bb;
+  width: 7rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 2px solid #555;
+  border-radius: 10px;
+}
