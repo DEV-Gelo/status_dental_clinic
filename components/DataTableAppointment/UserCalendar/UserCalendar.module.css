@@ -31,7 +31,7 @@
 }
 
 .header button:hover {
-  color: #baf8ba;
+  color: #3498db;
 }
 
 .grid {
@@ -75,11 +75,12 @@
 .highlighted_notavailable {
   background-color: #f8baba;
   color: black;
+  pointer-events: none;
 }
 
 .today {
   font-weight: 600;
-  border: 1px solid blue;
+  border: 1px solid #3498db;
 }
 
 .emptyDay {

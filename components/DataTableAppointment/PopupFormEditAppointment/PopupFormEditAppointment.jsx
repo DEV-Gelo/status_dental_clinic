@@ -14,7 +14,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
-
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
 const theme = createTheme({
   palette: {
@@ -194,16 +194,42 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
           <>
             <div className={styles.main_container}>
               <div className={styles.calendar_container}>
-                <div className={styles.calendar_title}>
-                  <span>1</span>
-                  <h3>Оберіть доступну дату</h3>
+                <div className={styles.title_task}>
+                  {selectedDate ? (
+                    <>
+                      <span className={styles.TaskAltIcon}>
+                        <TaskAltIcon
+                          sx={{ width: "100%", height: "100%", color: "green" }}
+                        />
+                      </span>
+                      <h3>Оберіть доступну дату</h3>
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.title_task_number}>1</span>
+                      <h3>Оберіть доступну дату</h3>
+                    </>
+                  )}
                 </div>
                 <UserCalendar onDateSelect={handleDateSelect} />
               </div>
               <div className={styles.form_fields}>
-                <div className={styles.form_fields_title}>
-                  <span>3</span>
-                  <h3>Редагуйте форму</h3>
+                <div className={styles.title_task}>
+                  {firstName && lastName && phone && date && time && doctor ? (
+                    <>
+                      <span className={styles.TaskAltIcon}>
+                        <TaskAltIcon
+                          sx={{ width: "100%", height: "100%", color: "green" }}
+                        />
+                      </span>
+                      <h3>Заповніть форму</h3>
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.title_task_number}>1</span>
+                      <h3>Заповніть форму</h3>
+                    </>
+                  )}
                 </div>
                 <FormControl fullWidth sx={{ my: 3 }}>
                   <InputLabel id="select-label">Вид послуги</InputLabel>
@@ -300,9 +326,22 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
               </div>
 
               <div className={styles.AvailableDoctors_container}>
-                <div className={styles.AvailableDoctors_title}>
-                  <span>2</span>
-                  <h3>Оберіть годину</h3>
+                <div className={styles.title_task}>
+                  {appointmentData.time ? (
+                    <>
+                      <span className={styles.TaskAltIcon}>
+                        <TaskAltIcon
+                          sx={{ width: "100%", height: "100%", color: "green" }}
+                        />
+                      </span>
+                      <h3>Оберіть годину</h3>
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.title_task_number}>2</span>
+                      <h3>Оберіть годину</h3>
+                    </>
+                  )}
                 </div>
                 <AvailableDoctors
                   selectedDate={selectedDate}
