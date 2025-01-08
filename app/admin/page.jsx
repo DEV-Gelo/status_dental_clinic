@@ -14,7 +14,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 
 import DeleteAppointmentForm from "@/components/DataTableAppointment/DeleteAppointmentForm/DeleteAppointmentForm";
-import { AnimatePresence } from "framer-motion";
 import PopupFormAddAppointment from "@/components/DataTableAppointment/PopupFormAddAppointment/PopupFormAppointment";
 import PopupFormEditAppointment from "@/components/DataTableAppointment/PopupFormEditAppointment/PopupFormEditAppointment";
 import FilterDate from "@/components/FilterDate/FilterDate";
@@ -219,15 +218,14 @@ const Admin = () => {
           </Alert>
         </Snackbar>
         {/* ------------- Delete Window --------------------- */}
-        <AnimatePresence>
-          {isOpenDel && (
-            <DeleteAppointmentForm
-              onClose={() => setIsOpenDel(false)}
-              userId={selectedUserId}
-              selectedInitials={selectedInitials}
-            />
-          )}
-        </AnimatePresence>
+
+        {isOpenDel && (
+          <DeleteAppointmentForm
+            onClose={() => setIsOpenDel(false)}
+            userId={selectedUserId}
+            selectedInitials={selectedInitials}
+          />
+        )}
 
         {/* ---------------- Popup Form --------------------- */}
         {isOpen && (

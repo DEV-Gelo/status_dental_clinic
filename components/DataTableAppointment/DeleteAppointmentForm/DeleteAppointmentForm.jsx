@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import axios from "axios";
 import { mutate } from "swr";
 import styles from "./DeleteAppointmentFormStyle.module.css";
+
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
 const DeleteAppointmentForm = ({ onClose, userId, selectedInitials }) => {
   const [loading, setLoading] = useState(false);
@@ -21,40 +24,44 @@ const DeleteAppointmentForm = ({ onClose, userId, selectedInitials }) => {
   };
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.5 }}
-        className={styles.delete_window}
-      >
-        <h6>
-          {loading
-            ? "Видалення..."
-            : `Ви дійсно бажаєте видалити ${selectedInitials}?`}
-        </h6>
-        <div className={styles.button_block}>
-          <motion.button
-            onClick={handleDelete}
-            disabled={loading}
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.button_ok}
-          >
-            Так
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.button_cancel}
-            onClick={onClose}
-          >
-            ВІДМІНА
-          </motion.button>
+      <div className={styles.delete_window}>
+        <div className={styles.delete_modal}>
+          <div className={styles.icon_text_container}>
+            <WarningAmberIcon sx={{ color: "#ffa726" }} />
+            <h6>
+              {loading ? (
+                <>
+                  Видалення...
+                  <CircularProgress size="1rem" />
+                </>
+              ) : (
+                <p>
+                  Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>
+                  ?
+                </p>
+              )}
+            </h6>
+          </div>
+          <div className={styles.button_block}>
+            <Button
+              sx={{ m: 2 }}
+              variant="outlined"
+              size="medium"
+              onClick={handleDelete}
+            >
+              Так
+            </Button>
+            <Button
+              sx={{ m: 2 }}
+              variant="outlined"
+              size="medium"
+              onClick={onClose}
+            >
+              Ні
+            </Button>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };
