@@ -12,7 +12,7 @@ export default function MobileMenu({ links }) {
   const toggleButtonRef = useRef(null);
 
   const handleClickOutside = (event) => {
-    // Перевірка, чи клікнув користувач поза межами меню та кнопки
+    // Checking if the user clicked outside of the menu and button
     if (
       menuRef.current &&
       !menuRef.current.contains(event.target) &&

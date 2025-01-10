@@ -1,74 +1,78 @@
 .table_container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 65%;
-  height: 45.8rem;
+  height: 80%;
+  width: 100%;
+  align-items: end;
+  overflow: hidden;
   border: 2px solid #5ba3bb;
+  border-top: none;
   background-color: #5ba3bb;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 84px 32px 32px 32px;
-  overflow: hidden;
-}
-
-.month_container {
-  display: flex;
-  height: 3rem;
-  justify-content: center;
-  align-items: center;
-}
-
-.table_wrapper {
-  overflow-y: auto;
-  height: calc(100% - 3rem);
-  width: 100%;
 }
 
 .table {
+  min-width: 500px;
   width: 100%;
   height: 100%;
-  background-color: white;
   border-collapse: collapse;
-  table-layout: fixed;
-}
-.thead {
-  height: 3rem;
 }
 
-.thead th {
-  padding: 0.5rem;
-  text-align: center;
-  background-color: #5ba3bb;
+.thead {
+  height: 3rem;
+  background-color: #ccdde4;
   font-size: 20px;
   color: #444;
 }
 
-.date_header {
-  width: 8rem;
+.table th {
+  padding: 0.5rem 0.5rem;
+  text-align: center;
+  text-wrap: nowrap;
+}
+.table td {
+  padding: 0.5rem 0.5rem;
+  text-align: center;
 }
 
+.date_header {
+  width: 8rem;
+  border-right: 1px solid #5ba3bb20;
+}
+.date_body {
+  width: 8rem;
+  border-right: 1px solid #5ba3bb20;
+}
 .time_header {
   width: calc(100% - 8rem);
 }
 
+.tbody {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  background-color: white;
+}
+
 .tbody tr {
-  display: table-row;
+  display: table;
   width: 100%;
+  table-layout: fixed;
+  cursor: pointer;
+  border-top: 1px solid #5ba3bb20;
+  border-bottom: 1px solid #5ba3bb20;
 }
 
-.td {
-  padding: 0.5rem;
-  text-align: center;
+.thead tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
-.time_body {
-  text-align: start;
-}
-.date_body {
-  color: #000;
-  font-weight: 600;
-  font-size: 20px;
+.slot_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .slot {
@@ -76,21 +80,11 @@
   background-color: wheat;
   border: 1px solid #444;
   min-width: 3.5rem;
-  margin: 0.5rem;
-  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  padding: 0.2rem 0.5rem;
   text-align: center;
   border-radius: 0.3rem;
   color: #000;
   font-weight: 400;
-}
-
-.past_date {
-  color: #44444460;
-}
-.past_date_slot {
-  color: #44444460;
-  background-color: #f5deb360;
-  border-color: #44444460;
 }
 
 /* Custom scrollbar */
@@ -112,21 +106,43 @@
   background: #5ba3bb80;
 }
 
+@media screen and (max-width: 1024px) {
+  .id_td {
+    width: 2rem;
+  }
+  .id_th {
+    width: 2rem;
+  }
+}
 @media screen and (max-width: 768px) {
+  .users_page_wrap {
+    padding: 1rem;
+  }
   .thead {
     font-size: 16px;
   }
   .tbody {
     font-size: 14px;
+    padding-top: 0;
   }
-  .th,
-  .td {
+  .search_icon {
+    display: none;
+  }
+  .table_search {
+    width: 200px;
+  }
+  .table th {
+    padding: 0.2rem;
+  }
+  .table td {
     padding: 0.2rem;
   }
 }
-
 @media screen and (max-width: 640px) {
-  .tbody {
-    height: 23rem;
+  .table_container {
+    overflow: auto;
+  }
+  .users_page_wrap {
+    padding: 0;
   }
 }

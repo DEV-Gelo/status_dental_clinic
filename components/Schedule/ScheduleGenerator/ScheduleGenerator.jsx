@@ -2,8 +2,15 @@
 
 import { useState } from "react";
 
-const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
-  // Генерація розкладу
+const ScheduleGenerator = ({
+  dates,
+  times,
+  doctorId,
+  onSaveSuccess,
+  onToggle,
+  onAlert,
+}) => {
+  // Schedule generation
   const formattedSchedule = dates
     .map((date) => {
       const localDate = new Date(date);
@@ -12,7 +19,7 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
 
       return times.map((time) => {
         return {
-          date: formattedDate, // Використовуємо без змінення часової зони
+          date: formattedDate, // Use it without changing the time zone
           time: time,
           doctorId,
         };
@@ -25,7 +32,7 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
 
   const saveSchedule = async () => {
     if (dates.length <= 0) {
-      alert("Дати не обрані!");
+      onAlert("warning", "Оберіть будь ласка дату");
       return;
     }
 
@@ -36,8 +43,8 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          dates, // Масив обраних дат
-          slots: formattedSchedule, // Інтервали часу
+          dates, // An array of selected dates
+          slots: formattedSchedule, // Time intervals
           doctorId: parseInt(doctorId, 10),
         }),
       });
@@ -51,6 +58,7 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
       alert("Розклад успішно збережено!");
 
       onSaveSuccess();
+      onToggle();
     } catch (err) {
       alert(`Помилка з'єднання: ${err.message}`);
     } finally {
@@ -64,7 +72,7 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          dates, // Масив дат
+          dates, // Array of dates
           doctorId,
         }),
       });
@@ -85,7 +93,7 @@ const ScheduleGenerator = ({ dates, times, doctorId, onSaveSuccess }) => {
   }
 
   return (
-    <div className="flex w-full h-auto p-2 justify-center items-center">
+    <div className="flex w-full h-auto justify-center items-center">
       <button
         className="m-2 p-2 border-[1px] border-[#5ba3bb]"
         onClick={() => saveSchedule()}

@@ -1,8 +1,8 @@
 .users_page_wrap {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  flex-direction: column;
   padding: 5rem;
   overflow: hidden;
 }

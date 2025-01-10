@@ -71,7 +71,7 @@ const SliderTime = ({ onTimeSelect, selectedDates }) => {
   return (
     <>
       <div className="flex flex-col w-full m-2">
-        <div className="flex flex-col justify-center items-center mb-10">
+        <div className="flex flex-col justify-center items-center mb-5">
           <h6>Інтервал прийому</h6>
           <RadioGroup
             row

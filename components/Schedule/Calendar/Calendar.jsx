@@ -11,6 +11,7 @@ export default function Calendar({
   selectedDoctor,
   onDaySchedule,
   resetSelectedDates,
+  onTransferableDate,
 }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDates, setSelectedDates] = useState([]); // Array for selected dates
@@ -62,6 +63,12 @@ export default function Calendar({
       setErrorMessage("");
     }
   }, [selectedDoctor]);
+
+  // -----Send date--------//
+
+  useEffect(() => {
+    onTransferableDate(currentDate);
+  }, [currentDate]);
 
   // -------------------------------------------------//
   const getMonthDays = (year, month) => {
@@ -187,11 +194,13 @@ export default function Calendar({
           );
 
           //  Filter only those slots that correspond to the current day
-          const slotsForDay = slots.find(
-            (slotGroup) =>
-              new Date(slotGroup.date).toDateString() ===
-              new Date(year, month, day).toDateString()
-          );
+          const slotsForDay =
+            day &&
+            slots.find(
+              (slotGroup) =>
+                new Date(slotGroup.date).toDateString() ===
+                new Date(year, month, day).toDateString()
+            );
 
           return (
             <div
@@ -204,7 +213,7 @@ export default function Calendar({
               onClick={() => !isPastDate && handleDayClick(day)}
             >
               {day}
-              {slotsForDay && slotsForDay.slots.length > 0 && (
+              {day && slotsForDay && slotsForDay.slots.length > 0 && (
                 <span className={styles.slot}>
                   {slotsForDay.slots[0].time} -{" "}
                   {slotsForDay.slots[slotsForDay.slots.length - 1].time}

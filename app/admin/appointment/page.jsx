@@ -6,6 +6,10 @@ import SliderTime from "@/components/Schedule/SliderTime/SliderTime";
 import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleGenerator";
 import DataTable from "@/components/Schedule/DataTable/DataTable";
 
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Snackbar from "@mui/material/Snackbar";
+
 const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
@@ -14,10 +18,19 @@ const Appointment = () => {
   const [resSelectedDates, setResSelectedDates] = useState([]);
   // ----Transferring the status from the SliderTime to ScheduleGenerator---//
   const [selectedTimes, setSelectedTimes] = useState([]);
-  // ------------------------------------------------------------------------//
+
   // ----Transferring the array selected dates from Calendar---//
   const [daySchedules, setDaySchedules] = useState([]);
-  // ---------------------------------------------------------//
+  // --------State open/close window create schedule---------------//
+  const [open, setOpen] = useState(false);
+  // --------State alert windows configuration---------------//
+  const [alertConfig, setAlertConfig] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
+  // -----Transfered month and year from calendar---------//
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   // ------Get doctors from the data base-----------//
   useEffect(() => {
@@ -53,13 +66,77 @@ const Appointment = () => {
     setSelectedDates([]);
     setSelectedTimes([]);
   };
+  // -----------Edit window--------------------------//
+  const handleToggleMenu = () => {
+    setOpen((prev) => !prev);
+  };
+  // -----------Alert windows--------------------------//
+  const showAlert = (severity, message) => {
+    setAlertConfig({ open: true, severity, message });
+  };
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAlertConfig({ ...alertConfig, open: false });
+  };
+
+  const transferableDate = (currentDate) => {
+    setCurrentDate(currentDate);
+  };
 
   return (
     <>
-      <div className="flex w-full h-full p-[0rem]">
-        <div className="flex w-[30rem] h-full justify-start items-start border-[2px] rounded-lg">
-          <div className="flex flex-col mx-5">
-            <div className="flex my-[1rem]">
+      <div className="flex flex-col w-full h-full justify-center items-start p-5 pt-2">
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={alertConfig.open}
+          autoHideDuration={6000}
+          onClose={handleCloseAlert}
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity={alertConfig.severity}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {alertConfig.message}
+          </Alert>
+        </Snackbar>
+        <div className="flex w-full h-auto pb-2 justify-center items-center">
+          <h1 className="text-[1.5rem] font-semibold text-center text-[#444]">
+            Графік прийому
+          </h1>
+        </div>
+        <div className="flex h-full w-full justify-center items-center ">
+          <div className="flex flex-col w-auto h-full justify-start items-start bg-[#fff]">
+            <Calendar
+              onDateSelect={setSelectedDates}
+              selectedDoctor={selectedDoctor}
+              onDaySchedule={handleDaySchedule}
+              resetSelectedDates={resSelectedDates}
+              onAlert={showAlert}
+              onTransferableDate={transferableDate}
+            />
+            <div className="flex w-[400px] h-auto py-5 my-3 px-10 rounded-lg shadow-lg bg-[#ccdde4]">
+              <SliderTime
+                selectedDates={selectedDates}
+                onTimeSelect={setSelectedTimes}
+              />
+            </div>
+            <ScheduleGenerator
+              dates={selectedDates}
+              times={selectedTimes}
+              doctorId={selectedDoctor}
+              onSaveSuccess={resetSelectedDates}
+              onToggle={handleToggleMenu}
+              onAlert={showAlert}
+            />
+          </div>
+
+          <div className="flex flex-col w-full h-full ml-10">
+            <div className="flex justify-center items-center bg-[#5ba3bb] rounded-t-lg p-[0.3rem]">
               <div className="flex border-[1px] ">
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
                   <Image
@@ -92,28 +169,12 @@ const Appointment = () => {
                 </select>
               </div>
             </div>
-
-            <Calendar
-              onDateSelect={setSelectedDates}
-              selectedDoctor={selectedDoctor}
-              onDaySchedule={handleDaySchedule}
-              resetSelectedDates={resSelectedDates}
-            />
-            <div className="flex w-auto h-auto my-5 p-10 border-[2px] rounded-lg bg-[#ccdde4] border-gray-100">
-              <SliderTime
-                selectedDates={selectedDates}
-                onTimeSelect={setSelectedTimes}
-              />
-            </div>
-            <ScheduleGenerator
-              dates={selectedDates}
-              times={selectedTimes}
-              doctorId={selectedDoctor}
-              onSaveSuccess={resetSelectedDates}
+            <DataTable
+              daySchedules={daySchedules}
+              onCurrentDate={currentDate}
             />
           </div>
         </div>
-        <DataTable daySchedules={daySchedules} />
       </div>
     </>
   );
