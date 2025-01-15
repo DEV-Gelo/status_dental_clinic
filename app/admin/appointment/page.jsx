@@ -9,6 +9,10 @@ import DataTable from "@/components/Schedule/DataTable/DataTable";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 
 const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
@@ -18,11 +22,11 @@ const Appointment = () => {
   const [resSelectedDates, setResSelectedDates] = useState([]);
   // ----Transferring the status from the SliderTime to ScheduleGenerator---//
   const [selectedTimes, setSelectedTimes] = useState([]);
+  //-------State loading schedule---------//
+  const [isLoadingSchedule, setIsLoadingSchedule] = useState(null);
 
   // ----Transferring the array selected dates from Calendar---//
   const [daySchedules, setDaySchedules] = useState([]);
-  // --------State open/close window create schedule---------------//
-  const [open, setOpen] = useState(false);
   // --------State alert windows configuration---------------//
   const [alertConfig, setAlertConfig] = useState({
     open: false,
@@ -66,10 +70,7 @@ const Appointment = () => {
     setSelectedDates([]);
     setSelectedTimes([]);
   };
-  // -----------Edit window--------------------------//
-  const handleToggleMenu = () => {
-    setOpen((prev) => !prev);
-  };
+
   // -----------Alert windows--------------------------//
   const showAlert = (severity, message) => {
     setAlertConfig({ open: true, severity, message });
@@ -88,7 +89,7 @@ const Appointment = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-full justify-center items-start p-5 pt-2">
+      <div className="flex flex-col w-full h-auto lg:h-full justify-center items-start p-1 lg:p-4 pt-2 mb-5 lg:mb-0">
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -104,40 +105,46 @@ const Appointment = () => {
             {alertConfig.message}
           </Alert>
         </Snackbar>
-        <div className="flex w-full h-auto pb-2 justify-center items-center">
-          <h1 className="text-[1.5rem] font-semibold text-center text-[#444]">
+        <div className="flex w-full h-full pb-2 justify-center items-center">
+          <h1 className="text-[1.5rem] font-semibold text-center text-[#44444460]">
             Графік прийому
           </h1>
         </div>
-        <div className="flex h-full w-full justify-center items-center ">
-          <div className="flex flex-col w-auto h-full justify-start items-start bg-[#fff]">
-            <Calendar
-              onDateSelect={setSelectedDates}
-              selectedDoctor={selectedDoctor}
-              onDaySchedule={handleDaySchedule}
-              resetSelectedDates={resSelectedDates}
-              onAlert={showAlert}
-              onTransferableDate={transferableDate}
-            />
-            <div className="flex w-[400px] h-auto py-5 my-3 px-10 rounded-lg shadow-lg bg-[#ccdde4]">
-              <SliderTime
-                selectedDates={selectedDates}
-                onTimeSelect={setSelectedTimes}
+        <div className="flex flex-col lg:flex-row h-full w-full justify-center items-center lg:items-start ">
+          <div className="flex flex-col md:flex-row lg:flex-col w-full lg:w-auto h-full justify-between items-start bg-[#f5f5f5] rounded-lg p-2 lg:p-0 my-10 lg:my-0">
+            <div className="flex w-full h-full justify-center items-start">
+              <Calendar
+                onDateSelect={setSelectedDates}
+                selectedDoctor={selectedDoctor}
+                onDaySchedule={handleDaySchedule}
+                resetSelectedDates={resSelectedDates}
+                onAlert={showAlert}
+                onTransferableDate={transferableDate}
+                isLoadingSchedule={setIsLoadingSchedule}
               />
             </div>
-            <ScheduleGenerator
-              dates={selectedDates}
-              times={selectedTimes}
-              doctorId={selectedDoctor}
-              onSaveSuccess={resetSelectedDates}
-              onToggle={handleToggleMenu}
-              onAlert={showAlert}
-            />
+            <div className="flex flex-col w-full h-full ml-0 md:ml-3 lg:ml-0">
+              <div className="flex w-full h-auto py-5 my-3 px-10 rounded-lg shadow-lg bg-[#ccdde4]">
+                <SliderTime
+                  selectedDates={selectedDates}
+                  onTimeSelect={setSelectedTimes}
+                />
+              </div>
+              <div className="flex w-full h-full justify-center items-end">
+                <ScheduleGenerator
+                  dates={selectedDates}
+                  times={selectedTimes}
+                  doctorId={selectedDoctor}
+                  onResetSelectedDates={resetSelectedDates}
+                  onAlert={showAlert}
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col w-full h-full ml-10">
+          <div className="flex flex-col w-full h-full lg:ml-10 order-first lg:order-none">
             <div className="flex justify-center items-center bg-[#5ba3bb] rounded-t-lg p-[0.3rem]">
-              <div className="flex border-[1px] ">
+              <div className="flex ">
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
                   <Image
                     src={doctor?.photo || "/image-placeholder.png"}
@@ -148,30 +155,39 @@ const Appointment = () => {
                   />
                 </div>
               </div>
-              <div className="flex p-3 border-[1px]">
-                <select
-                  name="doctor"
-                  value={selectedDoctor}
-                  onChange={handleDoctorChange}
-                >
-                  <option value="" disabled>
-                    Оберіть лікаря!
-                  </option>
-                  {doctors.length === 0 ? (
-                    <option disabled>Лікарі не знайдені</option>
-                  ) : (
-                    doctors.map((doctor) => (
-                      <option key={doctor.id} value={doctor.id}>
-                        {doctor.firstName} {doctor.lastName} {doctor.patronymic}
-                      </option>
-                    ))
-                  )}
-                </select>
+              <div className="flex p-3">
+                <FormControl sx={{ minWidth: "10rem" }}>
+                  <InputLabel id="select-label">
+                    {selectedDoctor ? "Лікар" : "Оберіть лікаря"}
+                  </InputLabel>
+                  <Select
+                    labelId="select-label"
+                    label={selectedDoctor ? "Лікар" : "Оберіть лікаря"}
+                    name="service"
+                    value={selectedDoctor}
+                    onChange={handleDoctorChange}
+                  >
+                    {doctors.length === 0 ? (
+                      <MenuItem disabled>Лікарі не знайдені</MenuItem>
+                    ) : (
+                      doctors.map((doctor) => (
+                        <MenuItem key={doctor.id} value={doctor.id}>
+                          {doctor.firstName} {doctor.lastName}{" "}
+                          {doctor.patronymic}
+                        </MenuItem>
+                      ))
+                    )}
+                  </Select>
+                </FormControl>
               </div>
             </div>
             <DataTable
               daySchedules={daySchedules}
               onCurrentDate={currentDate}
+              onAlert={showAlert}
+              onResetSelectedDates={resetSelectedDates}
+              selectedDoctor={selectedDoctor}
+              isLoadingSchedule={isLoadingSchedule}
             />
           </div>
         </div>

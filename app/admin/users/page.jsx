@@ -221,11 +221,11 @@ const Users = () => {
                 <th className={styles.id_th}>№</th>
                 <th className={styles.photo_th}>Фото</th>
                 <th>ПІБ</th>
-                <th>Категорія</th>
+                <th className={styles.role_th}>Категорія</th>
                 <th>
                   <FaPhone />
                 </th>
-                <th>
+                <th className={styles.email_th}>
                   <MdEmail />
                 </th>
               </tr>
@@ -253,12 +253,16 @@ const Users = () => {
                   <td className={styles.photo_td}>
                     {user.photo && <img src={user.photo} alt="User photo" />}
                   </td>
-                  <td>
+                  <td className={styles.name_td}>
                     {user.lastName} {user.firstName} {user.patronymic}
                   </td>
-                  <td>{user.role}</td>
-                  <td>{user.phone || "No phone available"}</td>
-                  <td>{user.email || "No email available"}</td>
+                  <td className={styles.role_td}>{user.role}</td>
+                  <td className={styles.phone_td}>
+                    {user.phone || "No phone available"}
+                  </td>
+                  <td className={styles.email_td}>
+                    {user.email || "No email available"}
+                  </td>
                 </tr>
               ))}
             </tbody>

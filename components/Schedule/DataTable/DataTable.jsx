@@ -1,123 +1,193 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ScheduleDT.module.css";
 
-const DataTable = ({ daySchedules, selectedDoctor, onCurrentDate }) => {
-  const monthName = onCurrentDate.toLocaleString("uk-UA", { month: "long" });
-  const capitalizedMonthName =
-    monthName.charAt(0).toUpperCase() + monthName.slice(1);
-  const year = onCurrentDate.getFullYear();
+import DeleteIcon from "@mui/icons-material/Delete";
+import CircularProgress from "@mui/material/CircularProgress";
+import Skeleton from "@mui/material/Skeleton";
 
-  // A function to check if a date is in the past
+const DataTable = ({
+  daySchedules,
+  onCurrentDate,
+  onAlert,
+  onResetSelectedDates,
+  selectedDoctor,
+  isLoadingSchedule,
+}) => {
+  const [selectedSlots, setSelectedSlots] = useState([]);
+  const [deletingRows, setDeletingRows] = useState({});
+
+  const monthName = onCurrentDate.toLocaleString("uk-UA", { month: "long" });
+
+  // Selection of slots
+  const toggleSlotSelection = (slot) => {
+    setSelectedSlots((prevSelected) => {
+      if (prevSelected.some((s) => s.id === slot.id)) {
+        return prevSelected.filter((s) => s.id !== slot.id);
+      } else {
+        return [...prevSelected, slot];
+      }
+    });
+  };
+
+  // Deleting slots for a specific date
+  const handleDeleteSlots = async (date) => {
+    setDeletingRows((prev) => ({ ...prev, [date]: true }));
+
+    const slotsForDate = selectedSlots.filter((slot) =>
+      daySchedules[date]?.some((s) => s.id === slot.id)
+    );
+
+    const slotIds = slotsForDate.map((slot) => slot.id);
+
+    try {
+      const response = await fetch("/api/schedule/delete_slots", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slotIds }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        onAlert("success", "Слоти успішно видалено");
+        setSelectedSlots((prevSelected) =>
+          prevSelected.filter((slot) => !slotIds.includes(slot.id))
+        );
+        onResetSelectedDates();
+      } else {
+        console.error("Error:", data.error);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+    } finally {
+      setDeletingRows((prev) => ({ ...prev, [date]: false }));
+    }
+  };
+
   const isPastDate = (scheduleDate) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset the time to compare only dates
+    today.setHours(0, 0, 0, 0);
     const dateToCheck = new Date(scheduleDate);
     return dateToCheck < today;
   };
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-
-    return date.toLocaleDateString("uk-UA"); // Localize the date in the format "dd.mm.yyyy"
+    return date.toLocaleDateString("uk-UA");
   };
 
   return (
-    <>
-      <div className={styles.table_container}>
-        <table className={styles.table}>
-          <thead className={styles.thead}>
-            <tr>
-              <th className={styles.date_header}>Дата</th>
-              <th className={styles.time_header}>Час</th>
-            </tr>
-          </thead>
-          <tbody className={styles.tbody}>
-            {Object.entries(daySchedules)
+    <div className={styles.table_container}>
+      <table className={styles.table}>
+        <thead className={styles.thead}>
+          <tr>
+            <th className={styles.date_header}>Дата</th>
+            <th className={styles.time_header}>Час</th>
+          </tr>
+        </thead>
+        <tbody className={styles.tbody}>
+          {isLoadingSchedule ? (
+            Array.from({ length: 4 }).map((_, index) => (
+              <tr key={index} className={styles.tr_body}>
+                <td className={`${styles.td} ${styles.date_body}`}>
+                  <Skeleton variant="rounded" width="100%" height={120} />
+                </td>
+                <td className={`${styles.td} ${styles.time_body}`}>
+                  <Skeleton variant="rounded" width="100%" height={120} />
+                </td>
+              </tr>
+            ))
+          ) : selectedDoctor ? (
+            Object.entries(daySchedules)
               .filter(([date]) => {
-                const scheduleMonth = new Date(date).getMonth(); // Get a month
-                const currentMonth = onCurrentDate.getMonth(); // A month from the selected date
-                return scheduleMonth === currentMonth; // Compare the months
+                const scheduleMonth = new Date(date).getMonth();
+                const currentMonth = onCurrentDate.getMonth();
+                return scheduleMonth === currentMonth;
               })
               .sort(([dateA], [dateB]) => new Date(dateA) - new Date(dateB))
-              .map(([dates, objects]) => (
+              .map(([date, slots]) => (
                 <tr
-                  key={dates}
+                  key={date}
                   className={`${styles.tr_body} hover:bg-[#5ba3bb20]`}
                 >
                   <td
                     className={`${styles.td} ${styles.date_body} ${
-                      isPastDate(dates) ? styles.past_date : ""
+                      isPastDate(date) ? styles.past_date : ""
                     }`}
                   >
-                    {formatDate(dates)}
+                    {formatDate(date)}
                   </td>
-
                   <td className={`${styles.td} ${styles.time_body}`}>
-                    <div className={`${styles.slot_container}`}>
-                      {objects.map((slot, index) => (
-                        <p
-                          key={index}
-                          className={`${styles.slot} ${
-                            isPastDate(dates) ? styles.past_date_slot : ""
-                          }`}
+                    <div className={styles.slot_button_container}>
+                      <div className={`${styles.slot_container}`}>
+                        {slots.map((slot, index) => (
+                          <p
+                            key={index}
+                            className={`${styles.slot} ${
+                              isPastDate(date) ? styles.past_date_slot : ""
+                            } ${slot.isBooked ? styles.isBooked_slot : ""} ${
+                              selectedSlots.some((s) => s.id === slot.id)
+                                ? styles.selected_slot
+                                : ""
+                            }`}
+                            onClick={() => toggleSlotSelection(slot)}
+                          >
+                            {slot.time}
+                          </p>
+                        ))}
+                      </div>
+                      <div className={styles.button_container}>
+                        <button
+                          title="Видалити"
+                          className={styles.delete_button}
+                          onClick={() => handleDeleteSlots(date)}
+                          disabled={
+                            !selectedSlots.some((s) =>
+                              daySchedules[date]?.some(
+                                (slot) => slot.id === s.id
+                              )
+                            )
+                          }
                         >
-                          {slot.time}
-                        </p>
-                      ))}
+                          {deletingRows[date] ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : (
+                            <DeleteIcon />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </td>
                 </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-      {/* -------------------------------------------------------------------------------------------- */}
-      {/* <div className={styles.table_container}>
-        <div className={styles.table_wrapper}>
-          <table className={styles.table}>
-            <thead className={styles.thead}>
-              <tr>
-                <th className={`${styles.th} ${styles.date_header}`}>Дата</th>
-                <th className={`${styles.th} ${styles.time_header}`}>Час</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tbody}>
-              {Object.entries(daySchedules)
-                .filter(([date]) => {
-                  const scheduleMonth = new Date(date).getMonth(); // Get a month
-                  const currentMonth = onCurrentDate.getMonth(); // A month from the selected date
-                  return scheduleMonth === currentMonth; // Compare the months
-                })
-                .sort(([dateA], [dateB]) => new Date(dateA) - new Date(dateB))
-                .map(([dates, objects]) => (
-                  <tr key={dates} className="hover:bg-[#5ba3bb20]">
+              ))
+              // If there is no data after filtering and sorting
+              .concat(
+                Object.entries(daySchedules).filter(([date]) => {
+                  const scheduleMonth = new Date(date).getMonth();
+                  const currentMonth = onCurrentDate.getMonth();
+                  return scheduleMonth === currentMonth;
+                }).length === 0 && (
+                  <tr key={monthName}>
                     <td
-                      className={`${styles.td} ${styles.date_body} ${
-                        isPastDate(dates) ? styles.past_date : ""
-                      }`}
+                      colSpan={2}
+                      className={`${styles.td} ${styles.noDataMessage}`}
                     >
-                      {formatDate(dates)}
-                    </td>
-
-                    <td className={`${styles.td} ${styles.time_body}`}>
-                      {objects.map((slot, index) => (
-                        <p
-                          key={index}
-                          className={`${styles.slot} ${
-                            isPastDate(dates) ? styles.past_date_slot : ""
-                          }`}
-                        >
-                          {slot.time}
-                        </p>
-                      ))}
+                      {`Записи для обраного лікаря станом на ${monthName} місяць відсутні.`}
                     </td>
                   </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
-    </>
+                )
+              )
+          ) : (
+            <tr>
+              <td
+                colSpan={2}
+                className={`${styles.td} ${styles.noDataMessage}`}
+              >
+                {`Оберіть лікаря, для відображення розкладу.`}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

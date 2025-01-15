@@ -1,11 +1,10 @@
-// файл: app/api/data_appointment/delete/[id]/route.js
 import prisma from "@/lib/prisma";
 
 export async function DELETE(req, { params }) {
   const { id } = params;
 
   try {
-    // Знайти запис і слот, якщо такі є
+    // Find the entry and slot, if any
     const appointment = await prisma.appointment.findUnique({
       where: { id: Number(id) },
       include: { slot: true },
@@ -17,18 +16,18 @@ export async function DELETE(req, { params }) {
       });
     }
 
-    // Оновити слот, якщо він існує
+    // Update the slot if it exists
     if (appointment.slotId) {
       await prisma.slot.update({
         where: { id: appointment.slotId },
         data: {
           isBooked: false,
-          appointmentId: null, // Видалити зв'язок із записом
+          appointmentId: null, // Remove the link from the record
         },
       });
     }
 
-    // Видалити запис
+    // Delete entry
     const deletedAppointment = await prisma.appointment.delete({
       where: { id: Number(id) },
     });

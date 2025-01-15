@@ -6,12 +6,12 @@ import styles from "./DataAppointmentStyle.module.css";
 import { IoPersonAddSharp, IoSearchSharp } from "react-icons/io5";
 import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 import { FaPhone } from "react-icons/fa6";
-import { LuFilter } from "react-icons/lu";
 import { RiCloseLargeFill } from "react-icons/ri";
 
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import DeleteAppointmentForm from "@/components/DataTableAppointment/DeleteAppointmentForm/DeleteAppointmentForm";
 import PopupFormAddAppointment from "@/components/DataTableAppointment/PopupFormAddAppointment/PopupFormAppointment";
@@ -30,7 +30,7 @@ const Admin = () => {
   const [monthFilter, setMonthFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
   const [doctorFilter, setDoctorFilter] = useState("");
-  const [doctors, setDoctors] = useState("");
+  const [doctors, setDoctors] = useState([]);
   const [alertConfig, setAlertConfig] = useState({
     open: false,
     severity: "success",
@@ -142,9 +142,8 @@ const Admin = () => {
       ? appointmentDay === parseInt(dayFilter)
       : true;
     const matchesDoctor = doctorFilter
-      ? appointment.doctor.firstName === doctorFilter
+      ? appointment.doctorId === parseInt(doctorFilter)
       : true;
-
     // Combine search and filtering conditions
     return (
       matchesSearchTerm &&
@@ -281,24 +280,25 @@ const Admin = () => {
               {isOpenFilter ? (
                 <RiCloseLargeFill />
               ) : (
-                <div className={styles.filter_title}>
-                  <h6>Фільтр</h6>
-                  <LuFilter />
+                <div title="Фільтр" className={styles.filter_icon}>
+                  <CalendarMonthIcon />
                 </div>
               )}
             </button>
 
-            {isOpenFilter && (
-              <div className={styles.filter_wrap}>
-                <FilterDate
-                  doctors={doctors}
-                  onDoctorFilter={setDoctorFilter}
-                  onYearFilter={setYearFilter}
-                  onMonthFilter={setMonthFilter}
-                  onDayFilter={setDayFilter}
-                />
-              </div>
-            )}
+            <div
+              className={
+                isOpenFilter ? styles.filter_wrap : styles.filter_wrap_hidden
+              }
+            >
+              <FilterDate
+                doctors={doctors}
+                onDoctorFilter={setDoctorFilter}
+                onYearFilter={setYearFilter}
+                onMonthFilter={setMonthFilter}
+                onDayFilter={setDayFilter}
+              />
+            </div>
           </div>
 
           <div className={styles.table_search}>

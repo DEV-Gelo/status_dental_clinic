@@ -20,7 +20,6 @@ const FilterDate = ({
   const [monthFilter, setMonthFilter] = useState(capitalizedMonthName);
   const [yearFilter, setYearFilter] = useState(new Date().getFullYear());
   const [doctorFilter, setDoctorFilter] = useState("");
-
   useEffect(() => {
     onDoctorFilter(doctorFilter);
     onYearFilter(yearFilter);
@@ -85,7 +84,7 @@ const FilterDate = ({
   const year = new Date(yearFilter);
   const monthsWithDays = getMonthsAndDays(year);
 
-  // Вибір днів для обраного місяця
+  // Selection of days for the selected month
   const filteredDays = monthFilter
     ? monthsWithDays.find((m) => m.month === monthFilter)?.days || []
     : [];
@@ -174,7 +173,7 @@ const FilterDate = ({
               <em>None</em>
             </MenuItem>
             {doctors.map((docName) => (
-              <MenuItem key={docName.id} value={docName.firstName}>
+              <MenuItem key={docName.id} value={docName.id}>
                 {`${docName.lastName} ${docName.firstName} ${docName.patronymic}`}
               </MenuItem>
             ))}

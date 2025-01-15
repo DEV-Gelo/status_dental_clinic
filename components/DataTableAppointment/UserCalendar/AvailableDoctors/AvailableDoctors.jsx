@@ -57,10 +57,17 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   // -----------------------------------------------------------------//
 
   return (
-    <div>
+    <div className="flex w-full">
+      {!selectedDate && (
+        <div className="flex w-full h-full justify-center items-center m-2 p-5 rounded-lg bg-[#f5f5f5]">
+          <h1 className="text-[1rem] text-[#44444460]">
+            Для відображення годин оберіть дату
+          </h1>
+        </div>
+      )}
       {selectedDate && (
-        <div className="mx-5">
-          <h2 className="font-semibold text-xl text-center mb-5">
+        <div className="flex w-full flex-col justify-center items-center mx-5">
+          <h2 className="font-semibold text-xl text-center text-[#44444460] mb-5">
             {doctorTimesMessage}
             {isLoading ? (
               <div className="p-5">

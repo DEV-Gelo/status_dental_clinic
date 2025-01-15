@@ -186,6 +186,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   return (
     <>
       <div className={styles.popup_form}>
+        {console.log(loadingPage)}
         {loadingPage ? (
           <div className={styles.loadingPage_container}>
             <CircularProgress size="3rem" />
@@ -226,7 +227,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                     </>
                   ) : (
                     <>
-                      <span className={styles.title_task_number}>1</span>
+                      <span className={styles.title_task_number}>3</span>
                       <h3>Заповніть форму</h3>
                     </>
                   )}

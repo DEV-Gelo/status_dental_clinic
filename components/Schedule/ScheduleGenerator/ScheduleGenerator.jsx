@@ -2,12 +2,30 @@
 
 import { useState } from "react";
 
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// ----------Stylisation buttons MUI-----------------//
+const theme = createTheme({
+  palette: {
+    save: {
+      main: "#1976d2",
+      contrastText: "#fff",
+    },
+    cancel: {
+      main: "#444",
+      contrastText: "#fff",
+    },
+  },
+});
+
 const ScheduleGenerator = ({
   dates,
   times,
   doctorId,
-  onSaveSuccess,
-  onToggle,
+  onResetSelectedDates,
   onAlert,
 }) => {
   // Schedule generation
@@ -55,10 +73,9 @@ const ScheduleGenerator = ({
         return;
       }
 
-      alert("Розклад успішно збережено!");
+      onAlert("success", "Розклад успішно збережено!");
 
-      onSaveSuccess();
-      onToggle();
+      onResetSelectedDates();
     } catch (err) {
       alert(`Помилка з'єднання: ${err.message}`);
     } finally {
@@ -67,6 +84,11 @@ const ScheduleGenerator = ({
   };
 
   async function deleteSchedule(dates, doctorId) {
+    if (dates.length <= 0) {
+      onAlert("warning", "Оберіть будь ласка дату");
+      return;
+    }
+    setIsDeleting(true);
     try {
       const response = await fetch("/api/schedule/delete", {
         method: "DELETE",
@@ -80,9 +102,9 @@ const ScheduleGenerator = ({
       const result = await response.json();
 
       if (response.ok) {
-        window.alert(result.message);
-
-        onSaveSuccess();
+        onResetSelectedDates();
+        setIsDeleting(false);
+        onAlert("success", "Запис успішно видалено!");
       } else {
         window.alert("Помилка: " + result.error);
       }
@@ -94,20 +116,32 @@ const ScheduleGenerator = ({
 
   return (
     <div className="flex w-full h-auto justify-center items-center">
-      <button
-        className="m-2 p-2 border-[1px] border-[#5ba3bb]"
-        onClick={() => saveSchedule()}
-        disabled={isSaving}
-      >
-        {isSaving ? "Збереження..." : "Зберегти"}
-      </button>
-      <button
-        className="m-2 p-2 border-[1px] border-[#5ba3bb]"
-        onClick={() => deleteSchedule(dates, doctorId)}
-        disabled={isDeleting}
-      >
-        {isDeleting ? "Видалення..." : "Видалити"}
-      </button>
+      <ThemeProvider theme={theme}>
+        <LoadingButton
+          sx={{ m: 1 }}
+          color="save"
+          onClick={saveSchedule}
+          loading={isSaving}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="contained"
+          size="large"
+        >
+          Записати
+        </LoadingButton>
+        <LoadingButton
+          sx={{ m: 1 }}
+          color="cancel"
+          onClick={() => deleteSchedule(dates, doctorId)}
+          loading={isDeleting}
+          loadingPosition="start"
+          startIcon={<DeleteForeverIcon className="text-red-300" />}
+          variant="contained"
+          size="large"
+        >
+          Видалити
+        </LoadingButton>
+      </ThemeProvider>
     </div>
   );
 };

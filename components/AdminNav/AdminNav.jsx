@@ -16,7 +16,7 @@ const icons = [
   },
   {
     icon: <RiPagesLine />,
-    title: "Робочі графіки",
+    title: "Графік прийому",
     link: "/admin/appointment",
   },
   {

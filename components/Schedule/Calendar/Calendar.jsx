@@ -12,6 +12,8 @@ export default function Calendar({
   onDaySchedule,
   resetSelectedDates,
   onTransferableDate,
+  onAlert,
+  isLoadingSchedule,
 }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDates, setSelectedDates] = useState([]); // Array for selected dates
@@ -22,6 +24,7 @@ export default function Calendar({
   useEffect(() => {
     if (selectedDoctor) {
       setSelectedDates(resetSelectedDates);
+      isLoadingSchedule(true);
       fetch(`/api/schedule/get?doctorId=${selectedDoctor}`)
         .then((response) => response.json())
         .then((data) => {
@@ -34,7 +37,7 @@ export default function Calendar({
             acc[scheduleDate].push(slot);
             return acc;
           }, {});
-
+          // ------Transfer grouped slots by date-----------//
           onDaySchedule(groupedSlots);
 
           // Select the first and last slot for each date
@@ -46,6 +49,7 @@ export default function Calendar({
           });
 
           setSlots(firstAndLastSlots);
+          isLoadingSchedule(false);
         })
         .catch((error) => {
           console.error("Error loading slots:", error);
@@ -115,9 +119,14 @@ export default function Calendar({
 
   // -----------Select a day in the calendar-----------//
   const handleDayClick = (day) => {
+    if (!day) {
+      // If the cell is empty, exit the function
+      return;
+    }
     if (!selectedDoctor) {
       // If the doctor is not selected, we do not allow the selection of the date
-      setErrorMessage("Будь ласка, оберіть лікаря!");
+      // setErrorMessage("Будь ласка, оберіть лікаря!");
+      onAlert("warning", "Будь ласка, оберіть лікаря!");
       return; // Stop further processing
     }
 

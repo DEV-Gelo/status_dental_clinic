@@ -18,10 +18,10 @@ export async function DELETE(req) {
       const parsedDate = new Date(dateString);
 
       if (isNaN(parsedDate.getTime())) {
-        continue; // Пропускаємо некоректні дати
+        continue; // Skip incorrect dates
       }
 
-      // Зсуваємо дату вперед
+      // Move the date forward
       const adjustedDate = new Date(
         parsedDate.getUTCFullYear(),
         parsedDate.getUTCMonth(),
