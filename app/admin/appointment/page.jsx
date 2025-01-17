@@ -7,7 +7,6 @@ import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleG
 import DataTable from "@/components/Schedule/DataTable/DataTable";
 
 import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";

@@ -13,13 +13,14 @@
 .delete_modal {
   display: flex;
   flex-direction: column;
+  min-width: 20rem;
   width: auto;
   height: auto;
   border: 1px solid #ffa726;
   border-radius: 0.5rem;
   background-color: #fff;
 
-  padding: 1rem;
+  padding: 2rem 2rem 0 2rem;
   margin: 1rem;
 }
 .icon_text_container {

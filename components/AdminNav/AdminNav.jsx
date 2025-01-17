@@ -11,7 +11,7 @@ import styles from "./AdminNav.module.css";
 const icons = [
   {
     icon: <FiUsers />,
-    title: "База зареєстрованих користувачів",
+    title: "Користувачі",
     link: "/admin/users",
   },
   {

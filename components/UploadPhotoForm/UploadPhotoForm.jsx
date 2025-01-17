@@ -1,6 +1,9 @@
 "use client";
+import React from "react";
 import { useRef } from "react";
-import styles from "./UploadPhotoForm.module.css";
+
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export default function UploadPhotoForm({ handleFileChange }) {
   const fileInput = useRef(null);
@@ -16,13 +19,18 @@ export default function UploadPhotoForm({ handleFileChange }) {
       body: formData,
     });
     const result = await response.json();
-    console.log(result);
   }
 
   return (
-    <form className={styles.upload_form}>
-      <label htmlFor="file-input" className={styles.custom_file_upload}>
-        ОБЕРІТЬ ФОТО
+    <form className="flex flex-col w-full justify-center items-center p-[1rem]">
+      <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        startIcon={<CloudUploadIcon />}
+      >
+        ЗАВАНТАЖИТИ
         <input
           className="hidden"
           id="file-input"
@@ -35,7 +43,7 @@ export default function UploadPhotoForm({ handleFileChange }) {
             uploadFile(e);
           }}
         />
-      </label>
+      </Button>
     </form>
   );
 }

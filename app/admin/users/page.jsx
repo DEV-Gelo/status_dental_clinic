@@ -2,9 +2,17 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import styles from "./UsersStyle.module.css";
-import { IoPersonAddSharp, IoSearchSharp } from "react-icons/io5";
-import { MdDeleteForever, MdEditSquare, MdEmail } from "react-icons/md";
+import { IoSearchSharp } from "react-icons/io5";
+import { MdEmail } from "react-icons/md";
 import { FaUserDoctor, FaUserLarge, FaPhone } from "react-icons/fa6";
+
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Snackbar from "@mui/material/Snackbar";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm";
 import { AnimatePresence } from "framer-motion";
@@ -20,6 +28,11 @@ const Users = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedInitials, setSelectedInitials] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [alertConfig, setAlertConfig] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   // ------Cancellation of line selection with a key Esc-----//
   useEffect(() => {
@@ -50,8 +63,21 @@ const Users = () => {
 
   const { data, error } = useSWR("/api/users", fetchUsers);
 
-  if (error) return <div>Error loading users</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error)
+    return (
+      <div className={styles.error_loading}>
+        <Alert className={styles.alert_loading} severity="warning">
+          <h6>Помилка завантаження даних</h6>
+          <p>Перевірте з'єднання</p>
+        </Alert>
+      </div>
+    );
+  if (!data)
+    return (
+      <div className={styles.loading_data}>
+        <CircularProgress size="3rem" />
+      </div>
+    );
 
   // -----------------------------------------------//
 
@@ -78,7 +104,7 @@ const Users = () => {
   };
   const handlePopupEdit_form = () => {
     if (!selectedUserId) {
-      alert("Будь ласка, оберіть користувача для редагування.");
+      showAlert("warning", "Будь ласка, оберіть користувача для редагування.");
       return;
     }
     setIsOpenEditForm(true);
@@ -88,7 +114,7 @@ const Users = () => {
   // --------Open delete window------------------------//
   const handleDelete = () => {
     if (!selectedUserId) {
-      alert("Будь ласка, оберіть користувача перед видаленням.");
+      showAlert("warning", "Будь ласка, оберіть користувача для видалення.");
       return;
     }
     setIsOpenDel(true);
@@ -116,11 +142,36 @@ const Users = () => {
     setTriggerUser(true); // Activate user filter
   };
 
-  //-------------------------------------------------------//
+  // -----------Alert windows--------------------------//
+  const showAlert = (severity, message) => {
+    setAlertConfig({ open: true, severity, message });
+  };
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAlertConfig({ ...alertConfig, open: false });
+  };
 
   return (
     <>
       <div className={styles.users_page_wrap}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={alertConfig.open}
+          autoHideDuration={6000}
+          onClose={handleCloseAlert}
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity={alertConfig.severity}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {alertConfig.message}
+          </Alert>
+        </Snackbar>
         {/* ------------- Delete Window --------------------- */}
         <AnimatePresence>
           {isOpenDel && (
@@ -128,50 +179,59 @@ const Users = () => {
               onClose={() => setIsOpenDel(false)}
               userId={selectedUserId}
               selectedInitials={selectedInitials}
+              onAlert={showAlert}
             />
           )}
         </AnimatePresence>
-        {/* ------------------------------------------------- */}
 
         {/* ---------------- Popup Form --------------------- */}
-        {isOpen && <PopupForm onClose={() => setIsOpen(false)} />}
+        {isOpen && (
+          <PopupForm onAlert={showAlert} onClose={() => setIsOpen(false)} />
+        )}
         {isOpenEditForm && (
           <PopupFormEdit
+            onAlert={showAlert}
             userId={selectedUserId}
             onClose={() => setIsOpenEditForm(false)}
           />
         )}
 
-        {/* --------------------------------------------------- */}
-
         {/* -------------------Table Navbar---------------------- */}
 
         <div className={styles.table_navbar}>
           <div className={styles.table_navigation}>
-            <button
+            <Fab
+              sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopup_form}
-              type="button"
               title="Додати користувача"
-              className={`${styles.button_nav} mx-5 text-green-900`}
+              size="small"
+              aria-label="add"
+              color="primary"
             >
-              <IoPersonAddSharp />
-            </button>
-            <button
+              <AddIcon />
+            </Fab>
+
+            <Fab
+              sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopupEdit_form}
-              type="button"
               title="Редагувати користувача"
-              className={`${styles.button_nav} mx-5 text-yellow-700`}
+              size="small"
+              aria-label="edit"
+              color="primary"
             >
-              <MdEditSquare />
-            </button>
-            <button
+              <EditIcon />
+            </Fab>
+
+            <Fab
+              sx={{ zIndex: 0, m: 2 }}
               onClick={handleDelete}
-              type="button"
               title="Видалити користувача"
-              className={`${styles.button_nav} mx-5 text-red-900`}
+              size="small"
+              aria-label="delete"
+              color="primary"
             >
-              <MdDeleteForever />
-            </button>
+              <DeleteIcon />
+            </Fab>
           </div>
           <div className={styles.table_switch}>
             <button
@@ -210,8 +270,6 @@ const Users = () => {
           </div>
         </div>
 
-        {/* --------------------------------------------------- */}
-
         {/* -------------------Users Table------------------- */}
 
         <div className={styles.table_container}>
@@ -221,7 +279,7 @@ const Users = () => {
                 <th className={styles.id_th}>№</th>
                 <th className={styles.photo_th}>Фото</th>
                 <th>ПІБ</th>
-                <th className={styles.role_th}>Категорія</th>
+                <th>Категорія</th>
                 <th>
                   <FaPhone />
                 </th>
@@ -253,13 +311,11 @@ const Users = () => {
                   <td className={styles.photo_td}>
                     {user.photo && <img src={user.photo} alt="User photo" />}
                   </td>
-                  <td className={styles.name_td}>
+                  <td>
                     {user.lastName} {user.firstName} {user.patronymic}
                   </td>
-                  <td className={styles.role_td}>{user.role}</td>
-                  <td className={styles.phone_td}>
-                    {user.phone || "No phone available"}
-                  </td>
+                  <td>{user.role}</td>
+                  <td>{user.phone || "No phone available"}</td>
                   <td className={styles.email_td}>
                     {user.email || "No email available"}
                   </td>

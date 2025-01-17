@@ -9,22 +9,11 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
-const theme = createTheme({
-  palette: {
-    save: {
-      main: "#1976d2",
-      contrastText: "#fff",
-    },
-    cancel: {
-      main: "#444",
-      contrastText: "#fff",
-    },
-  },
-});
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 // -----------Import components--------------------//
 import UserCalendar from "../UserCalendar/UserCalendar";
 import AvailableDoctors from "../UserCalendar/AvailableDoctors/AvailableDoctors";
@@ -105,7 +94,6 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
       }
       if (!appointmentData.lastName) {
         onAlert("warning", "Будь ласка, введіть прізвище");
-        setHelperText("Будь ласка, введіть прізвище");
         return false;
       }
       if (!appointmentData.phone) {

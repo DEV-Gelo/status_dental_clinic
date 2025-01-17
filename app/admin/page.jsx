@@ -223,6 +223,7 @@ const Admin = () => {
             onClose={() => setIsOpenDel(false)}
             userId={selectedUserId}
             selectedInitials={selectedInitials}
+            onAlert={showAlert}
           />
         )}
 

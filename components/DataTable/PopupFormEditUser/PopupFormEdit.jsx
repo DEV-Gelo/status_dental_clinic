@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { popup_form_variants } from "@/utils/variants";
 import Switch from "@mui/material/Switch";
-import { motion } from "framer-motion";
 import { mutate } from "swr";
 import UploadPhotoForm from "@/components/UploadPhotoForm/UploadPhotoForm";
 import styles from "./PopupFormEditStyle.module.css";
 
+// --------------Import MUI--------------------------//
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import { ThemeProvider } from "@mui/material/styles";
+import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
+
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const PopupFormEdit = ({ userId, onClose }) => {
+const PopupFormEdit = ({ userId, onClose, onAlert }) => {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -18,12 +31,16 @@ const PopupFormEdit = ({ userId, onClose }) => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
     if (!userId) return;
 
     const fetchUserData = async () => {
       try {
+        setLoadingData(true);
         const response = await fetch(`/api/users/edit/${userId}`);
         const data = await response.json();
         setFirstName(data.firstName || "");
@@ -34,6 +51,7 @@ const PopupFormEdit = ({ userId, onClose }) => {
         setRole(data.role || "");
         setImage(data.photo || "/image-placeholder.png");
         setSwitchDisplayPhoto(data.photo !== "/image-placeholder.png");
+        setLoadingData(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -41,7 +59,8 @@ const PopupFormEdit = ({ userId, onClose }) => {
 
     fetchUserData();
   }, [userId]);
-  // ----------------------------------------------//
+
+  // ---------Switch mode with photo or without-------------//
 
   const handleSwitch = () => {
     setSwitchDisplayPhoto((prev) => {
@@ -66,10 +85,62 @@ const PopupFormEdit = ({ userId, onClose }) => {
     }
   };
 
-  // ---------------------------------------------//
+  //---Get and save value from TextField and validation---//
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // Validation for email
+    if (name === "email") {
+      // Update the value without checking the email at each step
+      setEmail(value);
+
+      // After the update, check email for validity
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setEmailError(!emailRegex.test(value));
+    }
+    // Validation for phone
+    else if (name === "phone") {
+      const sanitizedValue = value.replace(/\D/g, "");
+      if (sanitizedValue.length <= 10) {
+        setPhone(sanitizedValue);
+      }
+    }
+  };
 
   // The function of sending the form to the server ---
   const handleSubmit = async () => {
+    // --------Validation form-----------//
+    const validateForm = () => {
+      if (!firstName) {
+        onAlert("warning", "Будь ласка, введіть ім'я");
+        return false;
+      }
+      if (!lastName) {
+        onAlert("warning", "Будь ласка, введіть прізвище");
+        return false;
+      }
+      if (!phone) {
+        onAlert("warning", "Будь ласка, введіть телефон");
+        return false;
+      }
+      if (!email) {
+        onAlert("warning", "Будь ласка, введіть електронну пошту");
+        return false;
+      }
+
+      if (!role) {
+        onAlert("warning", "Будь ласка, оберіть категорію користувача.");
+        return false;
+      }
+
+      return true; // All checks passed
+    };
+
+    // Using the function
+    if (!validateForm()) {
+      return; // Stop the execution if the check is not passed
+    }
+
     const formData = new FormData();
 
     // Add data text
@@ -85,6 +156,7 @@ const PopupFormEdit = ({ userId, onClose }) => {
 
     if (file) {
       try {
+        setLoading(true);
         // Downloading a file via a separate route
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
@@ -114,6 +186,7 @@ const PopupFormEdit = ({ userId, onClose }) => {
     }
 
     try {
+      setLoading(true);
       // Send data user
       const response = await fetch("/api/users/edit", {
         method: "PUT",
@@ -122,9 +195,10 @@ const PopupFormEdit = ({ userId, onClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("User updated:", result);
         mutate("/api/users");
+        setLoading(false);
         onClose();
+        onAlert("success", "Редагування запису успішно виконано");
       } else {
         console.error("Failed to update user");
       }
@@ -133,107 +207,146 @@ const PopupFormEdit = ({ userId, onClose }) => {
     }
   };
 
-  // --------------------------------------------------//
   return (
     <>
-      <motion.div
-        initial={false}
-        variants={popup_form_variants}
-        className={styles.popup_form}
-      >
-        <div className={styles.main_container}>
-          <div
-            className={
-              switchDisplayPhoto === false
-                ? styles.hidden_photo_container
-                : styles.photo_container
-            }
-          >
-            <div className={styles.photo_field}>
-              <div className={styles.displaying_file}>
-                {image && <img src={image} alt="Uploaded" />}
-              </div>
-
-              <UploadPhotoForm handleFileChange={handleFileChange} />
-            </div>
-          </div>
-          <div className={styles.form_fields}>
-            <select
-              name="category"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+      {loadingData ? (
+        <div className="flex w-full h-full justify-center items-center absolute top-0 left-0 z-30 bg-[#fff]">
+          <CircularProgress />
+        </div>
+      ) : (
+        <div className={styles.popup_form}>
+          <div className={styles.main_container}>
+            <div
+              className={
+                switchDisplayPhoto === false
+                  ? styles.hidden_photo_container
+                  : styles.photo_container
+              }
             >
-              <option className={styles.disabled_selected} value="" disabled>
-                Оберіть категорію користувача!
-              </option>
-              <option value="Лікар">Лікар</option>
-              <option value="Пацієнт">Пацієнт</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Ім'я"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Прізвище"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="По батькові"
-              value={patronymic}
-              onChange={(e) => setPatronymic(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Номер телефону"
-              className="input_phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Електронна пошта"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <div className={styles.switch_display_photo}>
-              <h6>Додати фото користувача</h6>
-              <Switch
-                onClick={handleSwitch}
-                {...label}
-                checked={switchDisplayPhoto}
+              <div className={styles.photo_field}>
+                <div className={styles.displaying_file}>
+                  {image && <img src={image} alt="Uploaded" />}
+                </div>
+
+                <UploadPhotoForm handleFileChange={handleFileChange} />
+              </div>
+            </div>
+            <div className={styles.form_fields}>
+              <FormControl fullWidth sx={{ my: 3 }}>
+                <InputLabel id="select-label">Категорія користувача</InputLabel>
+                <Select
+                  labelId="select-label"
+                  label="Категорія користувача"
+                  name="category"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <MenuItem value="Лікар">Лікар</MenuItem>
+                  <MenuItem value="Пацієнт">Пацієнт</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                id="firstname"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label="Ім'я"
+                name="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
+              <TextField
+                id="lastname"
+                sx={{
+                  width: "100%",
+                  "& .MuiFormHelperText-root": {
+                    color: "red",
+                  },
+                }}
+                helperText=" "
+                label="Прізвище"
+                name="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <TextField
+                id="patronymic"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label="По батькові"
+                name="patronymic"
+                value={patronymic}
+                onChange={(e) => setPatronymic(e.target.value)}
+              />
+              <TextField
+                id="phone"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label="Номер телефону"
+                placeholder="097 000 00 00"
+                name="phone"
+                value={phone}
+                onChange={handleInputChange}
+                slotProps={{
+                  input: {
+                    inputMode: "numeric",
+                    maxLength: 10,
+                    startAdornment: (
+                      <InputAdornment position="start">+38</InputAdornment>
+                    ),
+                  },
+                }}
+              />
+              <TextField
+                id="email"
+                sx={{ width: "100%" }}
+                label="Електронна пошта"
+                name="email"
+                value={email}
+                onChange={handleInputChange}
+                error={emailError}
+                helperText={emailError ? "Некоректний формат Е-пошти" : " "}
+              />
+
+              <div className={styles.switch_display_photo}>
+                <h6>Додати фото користувача</h6>
+                <Switch
+                  onClick={handleSwitch}
+                  {...label}
+                  checked={switchDisplayPhoto}
+                />
+              </div>
             </div>
           </div>
+          <div className={styles.buttons_container}>
+            <ThemeProvider theme={theme}>
+              <LoadingButton
+                sx={{ m: 1 }}
+                color="save"
+                onClick={handleSubmit}
+                loading={loading}
+                loadingPosition="start"
+                startIcon={<SaveIcon />}
+                variant="contained"
+                size="large"
+              >
+                Записати
+              </LoadingButton>
+              <LoadingButton
+                sx={{ m: 1 }}
+                color="cancel"
+                onClick={() => {
+                  onClose();
+                  setImage(null);
+                }}
+                variant="contained"
+                size="large"
+              >
+                Відміна
+              </LoadingButton>
+            </ThemeProvider>
+          </div>
         </div>
-        <div className={styles.buttons_container}>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="submit"
-            className={styles.save_button}
-            onClick={handleSubmit}
-          >
-            ЗБЕРЕГТИ
-          </motion.button>
-          <motion.button
-            onClick={() => {
-              onClose();
-              setImage(null);
-            }}
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.cancel_button}
-          >
-            ВІДМІНИТИ
-          </motion.button>
-        </div>
-      </motion.div>
+      )}
     </>
   );
 };

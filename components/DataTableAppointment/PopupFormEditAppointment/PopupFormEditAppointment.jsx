@@ -12,22 +12,11 @@ import TextField from "@mui/material/TextField";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
-const theme = createTheme({
-  palette: {
-    save: {
-      main: "#1976d2",
-      contrastText: "#fff",
-    },
-    cancel: {
-      main: "#444",
-      contrastText: "#fff",
-    },
-  },
-});
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
 const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   const [loadingPage, setLoadingPage] = useState(false);
@@ -186,7 +175,6 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   return (
     <>
       <div className={styles.popup_form}>
-        {console.log(loadingPage)}
         {loadingPage ? (
           <div className={styles.loadingPage_container}>
             <CircularProgress size="3rem" />

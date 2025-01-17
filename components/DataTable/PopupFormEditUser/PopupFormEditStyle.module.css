@@ -7,19 +7,20 @@
   z-index: 3;
   top: 0;
   left: 0;
-  height: 38.5rem;
+  height: 100%;
   width: 100%;
-  border-radius: 10px;
-  background: #5ba3bb20;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #fff;
 }
 
 .main_container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+
+  padding: 0rem;
 }
 
 .photo_field {
@@ -27,11 +28,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 200px;
-  width: 37%;
+  height: auto;
+  width: 100%;
   min-width: 200px;
-  background-color: #5ba3bb;
-  border: 2px solid #555;
+  background-color: #f5f5f5;
   border-radius: 10px;
 
   padding: 1rem;
@@ -59,12 +59,11 @@
 
 .photo_container {
   display: flex;
-  flex: 1 1 50%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100%;
+  width: 20rem;
   margin: 1rem;
 }
 .hidden_photo_container {
@@ -73,45 +72,13 @@
 
 .form_fields {
   display: flex;
-  flex: 1 1 50%;
   flex-direction: column;
-  width: auto;
+  width: 40rem;
   height: 100%;
   justify-content: center;
   align-items: center;
-}
 
-.form_fields input {
-  width: 80%;
-  padding: 0.5rem;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 30px;
-  border: 2px solid #5ba3bb;
-  border-radius: 10px;
-  margin: 1rem 1rem 0 1rem;
-}
-
-.form_fields input::placeholder {
-  color: #989898;
-}
-.switch_display_photo {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-.form_fields select {
-  width: 80%;
-  padding: 0.5rem;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 30px;
-  border: 2px solid #5ba3bb;
-  border-radius: 10px;
-  margin: 1rem 1rem 0 1rem;
-  color: #000;
+  padding: 2rem;
 }
 
 .buttons_container {
@@ -123,68 +90,40 @@
   font-weight: 600;
   font-size: 14px;
 }
-.save_button {
-  width: 7rem;
-  padding: 0.5rem;
-  border: 2px solid #444;
-  border-radius: 10px;
-  background-color: wheat;
 
-  margin-right: 0.5rem;
-}
-.cancel_button {
-  width: 7rem;
-  padding: 0.5rem;
-  border: 2px solid #444;
-  border-radius: 10px;
-  background-color: #5ba3bb;
-
-  margin-left: 0.5rem;
-}
-
-@media screen and (max-width: 978px) {
+@media screen and (max-width: 768px) {
   .popup_form {
+    justify-content: start;
     height: 100%;
+    overflow-y: auto;
   }
-}
-@media screen and (max-width: 640px) {
-  .popup_form {
-    height: 100%;
-  }
-
   .main_container {
     flex-direction: column;
-    width: 100%;
-    height: 70%;
-  }
-  .photo_and_category {
-    height: 50%;
-    width: 100%;
-    margin: 1rem 0 0 0;
-  }
-
-  .category {
-    max-width: 30%;
-    font-size: 14px;
-    padding: 0.5rem;
-  }
-  .trigger_category {
-    margin: 0.5rem;
-  }
-  .photo_field {
-    margin: 0.5rem;
   }
   .form_fields {
     width: 100%;
-    height: 150px;
+    padding: 4rem 6rem 0 6rem;
+    order: 1;
   }
-  .form_fields input {
-    margin: 0.5rem 0.5rem 0 0.5rem;
-    padding: 0 0.5rem 0 0.5rem;
-    font-size: 14px;
-    line-height: 26px;
+  .photo_container {
+    width: 100%;
+    padding: 0 6rem 0 6rem;
+    margin-top: 0.5rem;
+    order: 2;
   }
-  .custom-file-upload {
-    font-size: 14px;
+  .photo_field {
+    height: auto;
+    width: 100%;
+
+    padding: 1rem;
+    margin: 0rem;
+  }
+}
+@media screen and (max-width: 640px) {
+  .form_fields {
+    padding: 2rem 3rem 0 3rem;
+  }
+  .photo_container {
+    padding: 0 3rem 0 3rem;
   }
 }

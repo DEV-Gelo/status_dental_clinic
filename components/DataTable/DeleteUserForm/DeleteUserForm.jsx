@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import axios from "axios";
 import { mutate } from "swr";
 import styles from "./DeleteFormStyle.module.css";
 
-const DeleteUserForm = ({ onClose, userId, selectedInitials }) => {
+import LoadingButton from "@mui/lab/LoadingButton";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+
+const DeleteUserForm = ({ onClose, userId, selectedInitials, onAlert }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -13,6 +15,7 @@ const DeleteUserForm = ({ onClose, userId, selectedInitials }) => {
       // Making a request to the API to delete a user
       await axios.delete(`/api/users/${userId}`);
       mutate("/api/users");
+      onAlert("success", "Запис видалено успішно");
       onClose();
     } catch (error) {
       alert("Error deleting user");
@@ -20,42 +23,39 @@ const DeleteUserForm = ({ onClose, userId, selectedInitials }) => {
       setLoading(false);
     }
   };
+
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.5 }}
-        className={styles.delete_window}
-      >
-        <h6>
-          {loading
-            ? "Видалення..."
-            : `Ви дійсно бажаєте видалити ${selectedInitials}?`}
-        </h6>
-        <div className={styles.button_block}>
-          <motion.button
-            onClick={handleDelete}
-            disabled={loading}
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.button_ok}
-          >
-            Так
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.button_cancel}
-            onClick={onClose}
-          >
-            ВІДМІНА
-          </motion.button>
+      <div className={styles.delete_window}>
+        <div className={styles.delete_modal}>
+          <div className={styles.icon_text_container}>
+            <WarningAmberIcon sx={{ color: "#ffa726" }} />
+            <h6>
+              Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>?
+            </h6>
+          </div>
+          <div className={styles.button_block}>
+            <LoadingButton
+              sx={{ m: 2, px: 5 }}
+              variant="outlined"
+              loading={loading}
+              loadingPosition="end"
+              size="large"
+              onClick={handleDelete}
+            >
+              {!loading ? "ТАК" : "ВИДАЛЕННЯ..."}
+            </LoadingButton>
+            <LoadingButton
+              sx={{ m: 2, px: 5 }}
+              variant="outlined"
+              size="large"
+              onClick={onClose}
+            >
+              Ні
+            </LoadingButton>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };

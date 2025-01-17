@@ -3,11 +3,15 @@ import axios from "axios";
 import { mutate } from "swr";
 import styles from "./DeleteAppointmentFormStyle.module.css";
 
-import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
-const DeleteAppointmentForm = ({ onClose, userId, selectedInitials }) => {
+const DeleteAppointmentForm = ({
+  onClose,
+  userId,
+  selectedInitials,
+  onAlert,
+}) => {
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
     setLoading(true);
@@ -16,6 +20,7 @@ const DeleteAppointmentForm = ({ onClose, userId, selectedInitials }) => {
       await axios.delete(`/api/data_appointment/delete/${userId}`);
       mutate("/api/data_appointment");
       onClose();
+      onAlert("success", "Запис успішно видалено");
     } catch (error) {
       alert("Error deleting appointment");
     } finally {
@@ -29,36 +34,28 @@ const DeleteAppointmentForm = ({ onClose, userId, selectedInitials }) => {
           <div className={styles.icon_text_container}>
             <WarningAmberIcon sx={{ color: "#ffa726" }} />
             <h6>
-              {loading ? (
-                <>
-                  Видалення...
-                  <CircularProgress size="1rem" />
-                </>
-              ) : (
-                <p>
-                  Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>
-                  ?
-                </p>
-              )}
+              Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>?
             </h6>
           </div>
           <div className={styles.button_block}>
-            <Button
-              sx={{ m: 2 }}
+            <LoadingButton
+              sx={{ m: 2, px: 5 }}
               variant="outlined"
-              size="medium"
+              loading={loading}
+              loadingPosition="end"
+              size="large"
               onClick={handleDelete}
             >
-              Так
-            </Button>
-            <Button
-              sx={{ m: 2 }}
+              {!loading ? "ТАК" : "ВИДАЛЕННЯ..."}
+            </LoadingButton>
+            <LoadingButton
+              sx={{ m: 2, px: 5 }}
               variant="outlined"
-              size="medium"
+              size="large"
               onClick={onClose}
             >
               Ні
-            </Button>
+            </LoadingButton>
           </div>
         </div>
       </div>

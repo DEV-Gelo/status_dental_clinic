@@ -3,10 +3,10 @@ import React from "react";
 
 const AdminLayout = ({ children }) => {
   return (
-    <section className="flex flex-col w-full h-full">
+    <nav className="flex flex-col w-full h-full">
       {children}
       <AdminNav />
-    </section>
+    </nav>
   );
 };
 

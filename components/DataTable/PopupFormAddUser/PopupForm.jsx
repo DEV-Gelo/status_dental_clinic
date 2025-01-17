@@ -1,14 +1,26 @@
 import React, { useState } from "react";
-import { popup_form_variants } from "@/utils/variants";
 import Switch from "@mui/material/Switch";
-import { motion } from "framer-motion";
 import { mutate } from "swr";
 import UploadPhotoForm from "@/components/UploadPhotoForm/UploadPhotoForm";
 import styles from "./PopupFormStyle.module.css";
 
+// --------------Import MUI--------------------------//
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import { ThemeProvider } from "@mui/material/styles";
+import InputAdornment from "@mui/material/InputAdornment";
+
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const PopupForm = ({ onClose }) => {
+const PopupForm = ({ onClose, onAlert }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
@@ -17,8 +29,9 @@ const PopupForm = ({ onClose }) => {
   const [patronymic, setPatronymic] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
   // Uploading and displaying a photo in the form
 
@@ -48,10 +61,62 @@ const PopupForm = ({ onClose }) => {
     setSwitchDisplayPhoto((prev) => !prev);
   };
 
-  //----------------------------------------------//
+  //---Get and save value from TextField and validation---//
 
-  // The function of sending the form to the server ---
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // Validation for email
+    if (name === "email") {
+      // Update the value without checking the email at each step
+      setEmail(value);
+
+      // After the update, check email for validity
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setEmailError(!emailRegex.test(value));
+    }
+    // Validation for phone
+    else if (name === "phone") {
+      const sanitizedValue = value.replace(/\D/g, "");
+      if (sanitizedValue.length <= 10) {
+        setPhone(sanitizedValue);
+      }
+    }
+  };
+
+  //--- The function of sending the form to the server ---//
   const handleSubmit = async () => {
+    // --------Validation form-----------//
+    const validateForm = () => {
+      if (!firstName) {
+        onAlert("warning", "Будь ласка, введіть ім'я");
+        return false;
+      }
+      if (!lastName) {
+        onAlert("warning", "Будь ласка, введіть прізвище");
+        return false;
+      }
+      if (!phone) {
+        onAlert("warning", "Будь ласка, введіть телефон");
+        return false;
+      }
+      if (!email) {
+        onAlert("warning", "Будь ласка, введіть електронну пошту");
+        return false;
+      }
+
+      if (!role) {
+        onAlert("warning", "Будь ласка, оберіть категорію користувача.");
+        return false;
+      }
+
+      return true; // All checks passed
+    };
+
+    // Using the function
+    if (!validateForm()) {
+      return; // Stop the execution if the check is not passed
+    }
+
     const formData = new FormData();
 
     // Add data text
@@ -68,6 +133,7 @@ const PopupForm = ({ onClose }) => {
 
     if (file) {
       try {
+        setLoading(true);
         // Downloading a file via a separate route
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
@@ -97,6 +163,7 @@ const PopupForm = ({ onClose }) => {
     }
 
     try {
+      setLoading(true);
       // Send data user
       const response = await fetch("/api/users/create", {
         method: "POST",
@@ -105,8 +172,8 @@ const PopupForm = ({ onClose }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("User created:", result);
         mutate("/api/users");
+        setLoading(false);
 
         // Clear form
         setFirstName("");
@@ -114,9 +181,9 @@ const PopupForm = ({ onClose }) => {
         setPatronymic("");
         setPhone("");
         setEmail("");
-
         setRole("");
         closeForm();
+        onAlert("success", "Запис створено успішно");
       } else {
         console.error("Failed to create user");
       }
@@ -125,15 +192,9 @@ const PopupForm = ({ onClose }) => {
     }
   };
 
-  // --------------------------------------------------
   return (
     <>
-      <motion.div
-        initial={false}
-        // animate={isOpen ? "open" : "closed"}
-        variants={popup_form_variants}
-        className={styles.popup_form}
-      >
+      <div className={styles.popup_form}>
         <div className={styles.main_container}>
           <div
             className={
@@ -151,52 +212,81 @@ const PopupForm = ({ onClose }) => {
             </div>
           </div>
           <div className={styles.form_fields}>
-            <select
-              name="category"
-              value={selectedCategory}
-              onChange={handlSelectCategory}
-            >
-              <option className={styles.disabled_selected} value="" disabled>
-                Оберіть категорію користувача!
-              </option>
-              <option className={styles.selected_variant_1} value="doctor">
-                Лікар
-              </option>
-              <option className={styles.selected_variant_2} value="patient">
-                Пацієнт
-              </option>
-            </select>
-            <input
-              type="text"
-              placeholder="Ім'я"
+            <FormControl fullWidth sx={{ my: 3 }}>
+              <InputLabel id="select-label">Категорія користувача</InputLabel>
+              <Select
+                labelId="select-label"
+                label="Категорія користувача"
+                name="category"
+                value={selectedCategory}
+                onChange={handlSelectCategory}
+              >
+                <MenuItem value="doctor">Лікар</MenuItem>
+                <MenuItem value="patient">Пацієнт</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              id="firstname"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="Ім'я"
+              name="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <input
-              type="text"
-              placeholder="Прізвище"
+            <TextField
+              id="lastname"
+              sx={{
+                width: "100%",
+                "& .MuiFormHelperText-root": {
+                  color: "red",
+                },
+              }}
+              helperText=" "
+              label="Прізвище"
+              name="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-            <input
-              type="text"
-              placeholder="По батькові"
+            <TextField
+              id="patronymic"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="По батькові"
+              name="patronymic"
               value={patronymic}
               onChange={(e) => setPatronymic(e.target.value)}
             />
-            <input
-              type="text"
-              placeholder="Номер телефону"
-              className="input_phone"
+            <TextField
+              id="phone"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="Номер телефону"
+              placeholder="097 000 00 00"
+              name="phone"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={handleInputChange}
+              slotProps={{
+                input: {
+                  inputMode: "numeric",
+                  maxLength: 10,
+                  startAdornment: (
+                    <InputAdornment position="start">+38</InputAdornment>
+                  ),
+                },
+              }}
             />
-            <input
-              type="text"
-              placeholder="Електронна пошта"
+            <TextField
+              id="email"
+              sx={{ width: "100%" }}
+              label="Електронна пошта"
+              name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
+              error={emailError}
+              helperText={emailError ? "Некоректний формат Е-пошти" : " "}
             />
+
             <div className={styles.switch_display_photo}>
               <h6>Додати фото користувача</h6>
               <Switch
@@ -208,29 +298,34 @@ const PopupForm = ({ onClose }) => {
           </div>
         </div>
         <div className={styles.buttons_container}>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="submit"
-            className={styles.save_button}
-            onClick={handleSubmit}
-          >
-            ЗБЕРЕГТИ
-          </motion.button>
-          <motion.button
-            onClick={() => {
-              closeForm();
-              setImage(null);
-            }}
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className={styles.cancel_button}
-          >
-            ВІДМІНИТИ
-          </motion.button>
+          <ThemeProvider theme={theme}>
+            <LoadingButton
+              sx={{ m: 1 }}
+              color="save"
+              onClick={handleSubmit}
+              loading={loading}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              size="large"
+            >
+              Записати
+            </LoadingButton>
+            <LoadingButton
+              sx={{ m: 1 }}
+              color="cancel"
+              onClick={() => {
+                closeForm();
+                setImage(null);
+              }}
+              variant="contained"
+              size="large"
+            >
+              Відміна
+            </LoadingButton>
+          </ThemeProvider>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };

@@ -5,21 +5,10 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 // ----------Stylisation buttons MUI-----------------//
-const theme = createTheme({
-  palette: {
-    save: {
-      main: "#1976d2",
-      contrastText: "#fff",
-    },
-    cancel: {
-      main: "#444",
-      contrastText: "#fff",
-    },
-  },
-});
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
 const ScheduleGenerator = ({
   dates,
