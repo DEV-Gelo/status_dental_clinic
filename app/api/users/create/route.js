@@ -10,6 +10,32 @@ export async function POST(req) {
   const photoUrl = photo ? photo : null;
 
   try {
+    // Checking the presence of an email or phone number in the database
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { phone }],
+      },
+    });
+
+    if (existingUser) {
+      if (existingUser.email === email) {
+        return new Response(
+          JSON.stringify({ message: "Дана Е-пошта вже існує" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+      if (existingUser.phone === phone) {
+        return new Response(
+          JSON.stringify({ message: "Даний номер телефону вже існує" }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+    }
+
+    // Create a new user
     const user = await prisma.user.create({
       data: {
         lastName,
@@ -25,10 +51,6 @@ export async function POST(req) {
     return new Response(JSON.stringify(user), { status: 201 });
   } catch (error) {
     console.error(error);
-
-    if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-      return new Response("Email already exists", { status: 400 });
-    }
 
     return new Response("Error creating user", { status: 500 });
   } finally {

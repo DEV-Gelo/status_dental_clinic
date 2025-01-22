@@ -222,12 +222,15 @@ export default function Calendar({
               onClick={() => !isPastDate && handleDayClick(day)}
             >
               {day}
-              {day && slotsForDay && slotsForDay.slots.length > 0 && (
-                <span className={styles.slot}>
-                  {slotsForDay.slots[0].time} -{" "}
-                  {slotsForDay.slots[slotsForDay.slots.length - 1].time}
-                </span>
-              )}
+              {day &&
+                !isPastDate &&
+                slotsForDay &&
+                slotsForDay.slots.length > 0 && (
+                  <span className={styles.slot}>
+                    {slotsForDay.slots[0].time} -{" "}
+                    {slotsForDay.slots[slotsForDay.slots.length - 1].time}
+                  </span>
+                )}
             </div>
           );
         })}

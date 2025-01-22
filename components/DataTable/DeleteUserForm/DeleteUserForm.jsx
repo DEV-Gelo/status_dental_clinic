@@ -6,7 +6,13 @@ import styles from "./DeleteFormStyle.module.css";
 import LoadingButton from "@mui/lab/LoadingButton";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
-const DeleteUserForm = ({ onClose, userId, selectedInitials, onAlert }) => {
+const DeleteUserForm = ({
+  onClose,
+  userId,
+  onClearUserId,
+  selectedInitials,
+  onAlert,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -16,11 +22,16 @@ const DeleteUserForm = ({ onClose, userId, selectedInitials, onAlert }) => {
       await axios.delete(`/api/users/${userId}`);
       mutate("/api/users");
       onAlert("success", "Запис видалено успішно");
+      onClearUserId();
       onClose();
     } catch (error) {
-      alert("Error deleting user");
+      onAlert(
+        "error",
+        "Неможливо видалити лікаря, який має майбутні записи пацієнтів"
+      );
     } finally {
       setLoading(false);
+      onClose();
     }
   };
 

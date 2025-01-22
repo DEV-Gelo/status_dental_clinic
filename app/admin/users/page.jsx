@@ -13,9 +13,12 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm";
-import { AnimatePresence } from "framer-motion";
 import PopupForm from "@/components/DataTable/PopupFormAddUser/PopupForm";
 import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdit";
 
@@ -23,8 +26,9 @@ const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
   const [isOpenDel, setIsOpenDel] = useState(false);
-  const [triggerDoctor, setTriggerDoctor] = useState(true);
-  const [triggerUser, setTriggerUser] = useState(false);
+  // const [triggerDoctor, setTriggerDoctor] = useState(true);
+  // const [triggerUser, setTriggerUser] = useState(false);
+  const [role, setRole] = useState("Лікар");
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedInitials, setSelectedInitials] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,7 +37,6 @@ const Users = () => {
     severity: "success",
     message: "",
   });
-
   // ------Cancellation of line selection with a key Esc-----//
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -49,8 +52,6 @@ const Users = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
-  // --------------------------------------------------------//
 
   // -------------Get Data--------------------------//
   const fetchUsers = async () => {
@@ -79,15 +80,13 @@ const Users = () => {
       </div>
     );
 
-  // -----------------------------------------------//
+  // ----------Filtration users for role-------------//
 
   const filteredUsers = data
     .filter((user) => {
       if (!user.role) return false;
-      if (triggerDoctor && !triggerUser)
-        return user.role.toLowerCase() === "лікар";
-      if (triggerUser && !triggerDoctor)
-        return user.role.toLowerCase() === "пацієнт";
+      if (role === "Лікар") return user.role.toLowerCase() === "лікар";
+      if (role === "Пацієнт") return user.role.toLowerCase() === "пацієнт";
       return true;
     })
     .filter((user) =>
@@ -109,7 +108,6 @@ const Users = () => {
     }
     setIsOpenEditForm(true);
   };
-  // -----------------------------------------------//
 
   // --------Open delete window------------------------//
   const handleDelete = () => {
@@ -119,28 +117,28 @@ const Users = () => {
     }
     setIsOpenDel(true);
   };
-  // -----------------------------------------------//
+
   // ----------Select row in table and get ID---------//
   const handleRowClick = (id) => {
     setSelectedUserId(id);
   };
-  // ------------------------------------------------//
+
   // ------Select row in table and get initials------//
   const handleSelectInitials = (lastName, firstName, patronymic) => {
     setSelectedInitials(`${lastName} ${firstName} ${patronymic}`);
   };
-  // ------------------------------------------------//
+
   // Switch between categories in the table ------------
 
-  const activeTriggerDoctor = () => {
-    setTriggerDoctor(true); // Activate doctor filter
-    setTriggerUser(false); // Deactivate user filter
-  };
+  // const activeTriggerDoctor = () => {
+  //   setTriggerDoctor(true); // Activate doctor filter
+  //   setTriggerUser(false); // Deactivate user filter
+  // };
 
-  const activeTriggerUser = () => {
-    setTriggerDoctor(false); // Deactivate doctor filter
-    setTriggerUser(true); // Activate user filter
-  };
+  // const activeTriggerUser = () => {
+  //   setTriggerDoctor(false); // Deactivate doctor filter
+  //   setTriggerUser(true); // Activate user filter
+  // };
 
   // -----------Alert windows--------------------------//
   const showAlert = (severity, message) => {
@@ -173,16 +171,16 @@ const Users = () => {
           </Alert>
         </Snackbar>
         {/* ------------- Delete Window --------------------- */}
-        <AnimatePresence>
-          {isOpenDel && (
-            <DeleteUserForm
-              onClose={() => setIsOpenDel(false)}
-              userId={selectedUserId}
-              selectedInitials={selectedInitials}
-              onAlert={showAlert}
-            />
-          )}
-        </AnimatePresence>
+
+        {isOpenDel && (
+          <DeleteUserForm
+            onClose={() => setIsOpenDel(false)}
+            userId={selectedUserId}
+            selectedInitials={selectedInitials}
+            onAlert={showAlert}
+            onClearUserId={() => setSelectedUserId(null)}
+          />
+        )}
 
         {/* ---------------- Popup Form --------------------- */}
         {isOpen && (
@@ -234,7 +232,20 @@ const Users = () => {
             </Fab>
           </div>
           <div className={styles.table_switch}>
-            <button
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="role-label">Role</InputLabel>
+              <Select
+                labelId="role-label"
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                label="Role"
+              >
+                <MenuItem value="Лікар">Лікар</MenuItem>
+                <MenuItem value="Пацієнт">Пацієнт</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <button
               type="button"
               title="Фільтр лікарів"
               onClick={activeTriggerDoctor}
@@ -253,7 +264,7 @@ const Users = () => {
               } ${styles.trigger}`}
             >
               <FaUserLarge />
-            </button>
+            </button> */}
           </div>
           <div className={styles.table_search}>
             <input

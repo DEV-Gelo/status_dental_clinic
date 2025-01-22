@@ -104,7 +104,7 @@ const Appointment = () => {
             {alertConfig.message}
           </Alert>
         </Snackbar>
-        <div className="flex w-full h-full pb-2 justify-center items-center">
+        <div className="flex w-full h-auto pb-2 justify-center items-center">
           <h1 className="text-[1.5rem] font-semibold text-center text-[#44444460]">
             Графік прийому
           </h1>
@@ -171,7 +171,7 @@ const Appointment = () => {
                     ) : (
                       doctors.map((doctor) => (
                         <MenuItem key={doctor.id} value={doctor.id}>
-                          {doctor.firstName} {doctor.lastName}{" "}
+                          {doctor.lastName} {doctor.firstName}{" "}
                           {doctor.patronymic}
                         </MenuItem>
                       ))

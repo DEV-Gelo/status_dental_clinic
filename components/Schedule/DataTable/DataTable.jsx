@@ -4,6 +4,7 @@ import styles from "./ScheduleDT.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
 import Skeleton from "@mui/material/Skeleton";
+import Switch from "@mui/material/Switch";
 
 const DataTable = ({
   daySchedules,
@@ -15,9 +16,9 @@ const DataTable = ({
 }) => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [deletingRows, setDeletingRows] = useState({});
+  const [switchDisplayPastDate, setSwitchDisplayPastDate] = useState(true);
 
   const monthName = onCurrentDate.toLocaleString("uk-UA", { month: "long" });
-
   // Selection of slots
   const toggleSlotSelection = (slot) => {
     setSelectedSlots((prevSelected) => {
@@ -76,6 +77,16 @@ const DataTable = ({
 
   return (
     <div className={styles.table_container}>
+      <div className={styles.switchDisplayPastDate}>
+        <p>Фільтр дат</p>
+        <Switch
+          title="Фільтр дат"
+          checked={switchDisplayPastDate}
+          onClick={() => setSwitchDisplayPastDate((prev) => !prev)}
+          inputProps={{ "aria-label": "controlled" }}
+          size="small"
+        />
+      </div>
       <table className={styles.table}>
         <thead className={styles.thead}>
           <tr>
@@ -84,6 +95,7 @@ const DataTable = ({
           </tr>
         </thead>
         <tbody className={styles.tbody}>
+          {/* ----Display skeleton when loading the schedule----- */}
           {isLoadingSchedule ? (
             Array.from({ length: 4 }).map((_, index) => (
               <tr key={index} className={styles.tr_body}>
@@ -103,61 +115,65 @@ const DataTable = ({
                 return scheduleMonth === currentMonth;
               })
               .sort(([dateA], [dateB]) => new Date(dateA) - new Date(dateB))
-              .map(([date, slots]) => (
-                <tr
-                  key={date}
-                  className={`${styles.tr_body} hover:bg-[#5ba3bb20]`}
-                >
-                  <td
-                    className={`${styles.td} ${styles.date_body} ${
-                      isPastDate(date) ? styles.past_date : ""
-                    }`}
+              .map(([date, slots]) =>
+                switchDisplayPastDate && isPastDate(date) ? (
+                  ""
+                ) : (
+                  <tr
+                    key={date}
+                    className={`${styles.tr_body} hover:bg-[#5ba3bb20]`}
                   >
-                    {formatDate(date)}
-                  </td>
-                  <td className={`${styles.td} ${styles.time_body}`}>
-                    <div className={styles.slot_button_container}>
-                      <div className={`${styles.slot_container}`}>
-                        {slots.map((slot, index) => (
-                          <p
-                            key={index}
-                            className={`${styles.slot} ${
-                              isPastDate(date) ? styles.past_date_slot : ""
-                            } ${slot.isBooked ? styles.isBooked_slot : ""} ${
-                              selectedSlots.some((s) => s.id === slot.id)
-                                ? styles.selected_slot
-                                : ""
-                            }`}
-                            onClick={() => toggleSlotSelection(slot)}
-                          >
-                            {slot.time}
-                          </p>
-                        ))}
-                      </div>
-                      <div className={styles.button_container}>
-                        <button
-                          title="Видалити"
-                          className={styles.delete_button}
-                          onClick={() => handleDeleteSlots(date)}
-                          disabled={
-                            !selectedSlots.some((s) =>
-                              daySchedules[date]?.some(
-                                (slot) => slot.id === s.id
+                    <td
+                      className={`${styles.td} ${styles.date_body} ${
+                        isPastDate(date) ? styles.past_date : ""
+                      }`}
+                    >
+                      {formatDate(date)}
+                    </td>
+                    <td className={`${styles.td} ${styles.time_body}`}>
+                      <div className={styles.slot_button_container}>
+                        <div className={`${styles.slot_container}`}>
+                          {slots.map((slot, index) => (
+                            <p
+                              key={index}
+                              className={`${styles.slot} ${
+                                isPastDate(date) ? styles.past_date_slot : ""
+                              } ${slot.isBooked ? styles.isBooked_slot : ""} ${
+                                selectedSlots.some((s) => s.id === slot.id)
+                                  ? styles.selected_slot
+                                  : ""
+                              }`}
+                              onClick={() => toggleSlotSelection(slot)}
+                            >
+                              {slot.time}
+                            </p>
+                          ))}
+                        </div>
+                        <div className={styles.button_container}>
+                          <button
+                            title="Видалити"
+                            className={styles.delete_button}
+                            onClick={() => handleDeleteSlots(date)}
+                            disabled={
+                              !selectedSlots.some((s) =>
+                                daySchedules[date]?.some(
+                                  (slot) => slot.id === s.id
+                                )
                               )
-                            )
-                          }
-                        >
-                          {deletingRows[date] ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : (
-                            <DeleteIcon />
-                          )}
-                        </button>
+                            }
+                          >
+                            {deletingRows[date] ? (
+                              <CircularProgress color="inherit" size={20} />
+                            ) : (
+                              <DeleteIcon />
+                            )}
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ))
+                    </td>
+                  </tr>
+                )
+              )
               // If there is no data after filtering and sorting
               .concat(
                 Object.entries(daySchedules).filter(([date]) => {

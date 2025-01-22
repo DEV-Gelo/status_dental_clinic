@@ -32,19 +32,19 @@ enum Role {
 model Slot {
   id           Int       @id @default(autoincrement())
   time         String    
-  isBooked     Boolean   @default(false)              npx  
+  isBooked     Boolean   @default(false) 
 
-  schedule     Schedule  @relation(fields: [scheduleId], references: [id])
+  schedule     Schedule  @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
   scheduleId   Int       
 
-  appointment  Appointment? @relation("SlotAppointments", fields: [appointmentId], references: [id])
+  appointment  Appointment? @relation("SlotAppointments", fields: [appointmentId], references: [id], onDelete: Cascade)
   appointmentId Int?  @unique
 }
 
 model Schedule {
   id           Int          @id @default(autoincrement())
   date         DateTime
-  doctor       User         @relation(fields: [doctorId], references: [id])
+  doctor       User         @relation(fields: [doctorId], references: [id], onDelete: Cascade)
   doctorId     Int
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
@@ -66,16 +66,15 @@ model Appointment {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
-  schedule     Schedule     @relation(fields: [scheduleId], references: [id])
+  schedule     Schedule     @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
   scheduleId   Int
 
-  user         User         @relation("UserAppointments", fields: [userId], references: [id]) 
+  user         User         @relation("UserAppointments", fields: [userId], references: [id], onDelete: Cascade) 
   userId       Int
 
-  doctor       User         @relation("DoctorAppointments", fields: [doctorId], references: [id]) 
+  doctor       User         @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: Cascade) 
   doctorId     Int
 
   slotId       Int?         
   slot         Slot?        @relation("SlotAppointments") 
 }
-

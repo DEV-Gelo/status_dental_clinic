@@ -1,8 +1,8 @@
-import prisma from "@/lib/prisma"; // Підключення до prisma для роботи з базою даних
+import prisma from "@/lib/prisma"; // Connecting to prisma to work with the database
 
 export async function POST(req) {
   try {
-    // Отримуємо дані з запиту
+    // Receive data from the request
     const body = await req.json();
     const {
       firstName,
@@ -18,7 +18,7 @@ export async function POST(req) {
       slotId,
     } = body;
 
-    // Валідація даних
+    // Validation data
     if (
       !firstName ||
       !lastName ||
@@ -36,7 +36,7 @@ export async function POST(req) {
       });
     }
 
-    // Перевірка на доступність слоту
+    // Check for slot availability
     const existingSlot = await prisma.slot.findUnique({
       where: { id: slotId },
     });
@@ -48,7 +48,7 @@ export async function POST(req) {
       );
     }
 
-    // Формуємо об'єкт для запису
+    // Create an object for recording
     const appointmentData = {
       firstName,
       lastName,
@@ -79,7 +79,7 @@ export async function POST(req) {
             lastName,
             email,
             phone,
-            patronymic: patronymic || null,
+            patronymic: patronymic || "",
             role: "Пацієнт",
             photo: "/image-placeholder.png",
           },
@@ -87,7 +87,7 @@ export async function POST(req) {
       },
     };
 
-    // Використання транзакції для атомарності операцій
+    // Using transaction for atomicity of operations
     const [newAppointment, _] = await prisma.$transaction([
       prisma.appointment.create({
         data: appointmentData,

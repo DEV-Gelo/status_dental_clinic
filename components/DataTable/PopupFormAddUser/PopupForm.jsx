@@ -185,10 +185,15 @@ const PopupForm = ({ onClose, onAlert }) => {
         closeForm();
         onAlert("success", "Запис створено успішно");
       } else {
-        console.error("Failed to create user");
+        const errorData = await response.json();
+        console.error(errorData.message);
+        onAlert("warning", errorData.message);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("An error occurred:", error);
+      onAlert("error", "Сталася помилка. Будь ласка спробуйте ще раз.");
+    } finally {
+      setLoading(false);
     }
   };
 
