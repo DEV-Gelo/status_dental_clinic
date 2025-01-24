@@ -30,6 +30,16 @@
   background-color: #f8f9fa;
 }
 
+.title {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #44444460;
+
+  margin-bottom: 0.5rem;
+}
+
 /* Table navigation */
 .table_navbar {
   display: flex;

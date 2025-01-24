@@ -6,10 +6,6 @@ import styles from "./PopupFormStyle.module.css";
 
 // --------------Import MUI--------------------------//
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { ThemeProvider } from "@mui/material/styles";
@@ -20,8 +16,8 @@ import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const PopupForm = ({ onClose, onAlert }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+const PopupForm = ({ onClose, onAlert, role }) => {
+  // const [selectedCategory, setSelectedCategory] = useState("");
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -32,9 +28,9 @@ const PopupForm = ({ onClose, onAlert }) => {
   const [emailError, setEmailError] = useState(false);
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
-  // Uploading and displaying a photo in the form
+  const [specialization, setSpecialization] = useState("");
 
+  // Uploading and displaying a photo in the form
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -43,18 +39,10 @@ const PopupForm = ({ onClose, onAlert }) => {
     }
   };
 
-  // ---------------------------------------------//
+  // -----------Close window---------------//
 
   const closeForm = () => {
     onClose();
-  };
-
-  const handlSelectCategory = (event) => {
-    const value = event.target.value;
-    setSelectedCategory(value);
-    setRole(
-      value === "doctor" ? "Лікар" : value === "patient" ? "Пацієнт" : ""
-    );
   };
 
   const handleSwitch = () => {
@@ -123,6 +111,7 @@ const PopupForm = ({ onClose, onAlert }) => {
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("patronymic", patronymic);
+    formData.append("specialization", specialization);
     formData.append("phone", phone);
     formData.append("email", email);
     formData.append("role", role);
@@ -132,6 +121,21 @@ const PopupForm = ({ onClose, onAlert }) => {
     let photoUrl = defaultAvatar;
 
     if (file) {
+      // -----Check file validity---------//
+      if (file) {
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+        if (!allowedTypes.includes(file.type)) {
+          onAlert("warning", "Файл має бути у форматі JPEG або PNG");
+          return;
+        }
+
+        if (file.size > maxFileSize) {
+          onAlert("warning", "Розмір файлу не може перевищувати 2 МБ");
+          return;
+        }
+      }
       try {
         setLoading(true);
         // Downloading a file via a separate route
@@ -153,6 +157,7 @@ const PopupForm = ({ onClose, onAlert }) => {
         }
       } catch (error) {
         console.error("File upload error:", error);
+        onAlert("error", "Не вдалося завантажити файл");
         return;
       }
     }
@@ -181,7 +186,7 @@ const PopupForm = ({ onClose, onAlert }) => {
         setPatronymic("");
         setPhone("");
         setEmail("");
-        setRole("");
+        setSpecialization("");
         closeForm();
         onAlert("success", "Запис створено успішно");
       } else {
@@ -200,6 +205,7 @@ const PopupForm = ({ onClose, onAlert }) => {
   return (
     <>
       <div className={styles.popup_form}>
+        <h1 className={styles.title}>Створення користувача</h1>
         <div className={styles.main_container}>
           <div
             className={
@@ -217,19 +223,6 @@ const PopupForm = ({ onClose, onAlert }) => {
             </div>
           </div>
           <div className={styles.form_fields}>
-            <FormControl fullWidth sx={{ my: 3 }}>
-              <InputLabel id="select-label">Категорія користувача</InputLabel>
-              <Select
-                labelId="select-label"
-                label="Категорія користувача"
-                name="category"
-                value={selectedCategory}
-                onChange={handlSelectCategory}
-              >
-                <MenuItem value="doctor">Лікар</MenuItem>
-                <MenuItem value="patient">Пацієнт</MenuItem>
-              </Select>
-            </FormControl>
             <TextField
               id="firstname"
               sx={{ width: "100%" }}
@@ -262,6 +255,17 @@ const PopupForm = ({ onClose, onAlert }) => {
               value={patronymic}
               onChange={(e) => setPatronymic(e.target.value)}
             />
+            {role === "Лікар" && (
+              <TextField
+                id="specialization"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label="Спеціалізація"
+                name="specialization"
+                value={specialization}
+                onChange={(e) => setSpecialization(e.target.value)}
+              />
+            )}
             <TextField
               id="phone"
               sx={{ width: "100%" }}

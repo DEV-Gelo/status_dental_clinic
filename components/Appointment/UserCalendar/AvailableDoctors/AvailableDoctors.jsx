@@ -1,44 +1,54 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import useSWR from "swr";
+import CircularProgress from "@mui/material/CircularProgress";
 
-// Функція для завантаження даних
+// Data download function
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [doctorTimesMessage, setDoctorTimesMessage] = useState("");
 
-  // Формуємо URL залежно від обраної дати
+  // Form the URL depending on the selected date
   const url = selectedDate
     ? `/api/appointment?date=${selectedDate.toISOString().split("T")[0]}`
     : null;
 
-  // Використовуємо SWR для завантаження даних
-  const { data: doctorsAvailability, error, mutate } = useSWR(url, fetcher);
+  // Use SWR to download data
+  const { data: doctorsAvailability, error, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
     if (selectedDate) {
-      if (doctorsAvailability && doctorsAvailability.length > 0) {
+      if (isLoading) {
+        setDoctorTimesMessage("Завантаження даних, будь ласка, зачекайте...");
+      } else if (doctorsAvailability && doctorsAvailability.length > 0) {
         setDoctorTimesMessage(
-          `Доступні лікарі та години для запису на обрану дату ${selectedDate.toLocaleDateString(
+          `Доступні записи станом на ${selectedDate.toLocaleDateString(
             "uk-UA"
           )}`
         );
-      } else {
+      } else if (!isLoading && doctorsAvailability) {
         setDoctorTimesMessage(
-          `Вибачте, немає доступних годин для запису на обрану дату ${selectedDate.toLocaleDateString(
+          `Вибачте, немає доступного запису станом на  ${selectedDate.toLocaleDateString(
             "uk-UA"
           )}`
         );
       }
-      onAvailability(doctorsAvailability);
+      onAvailability(doctorsAvailability || []);
     }
-  }, [doctorsAvailability, selectedDate]);
+  }, [doctorsAvailability, selectedDate, isLoading]);
 
   // -------Get selected data and send to Appointment page -----------//
-  const handleSlotClick = (doctorId, time, scheduleId, slotId) => {
-    const selectedData = { doctorId, time, scheduleId, slotId, selectedDate };
+  const handleSlotClick = (doctorName, doctorId, time, scheduleId, slotId) => {
+    const selectedData = {
+      doctorName,
+      doctorId,
+      time,
+      scheduleId,
+      slotId,
+      selectedDate,
+    };
     if (selectedData) {
       setSelectedSlot(selectedData);
       onSlotSelect(selectedData);
@@ -47,19 +57,36 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   // -----------------------------------------------------------------//
 
   return (
-    <div>
+    <div className="flex w-full">
+      {!selectedDate && (
+        <div className="flex w-full h-full justify-center items-center m-2 p-5 rounded-lg bg-[#f5f5f5]">
+          <h1 className="text-[1rem] text-[#44444460]">
+            Для відображення годин оберіть дату
+          </h1>
+        </div>
+      )}
       {selectedDate && (
-        <div className="m-5">
-          <h2 className="font-semibold text-xl">{doctorTimesMessage}</h2>
+        <div className="flex w-full flex-col justify-center items-center mx-5">
+          <h2 className="font-semibold text-xl text-center text-[#44444460] mb-5">
+            {doctorTimesMessage}
+            {isLoading ? (
+              <div className="p-5">
+                <CircularProgress size="3rem" />
+              </div>
+            ) : (
+              ""
+            )}
+          </h2>
           {error && <p className="text-red-500">Помилка: {error.message}</p>}
 
           {doctorsAvailability && doctorsAvailability.length > 0
             ? doctorsAvailability.map((doctor) => (
                 <div
                   key={doctor.doctorId}
-                  className="flex w-[25rem] flex-col mb-5"
+                  className="flex flex-col xl:flex-row xl:items-start w-full h-auto justify-center items-center mb-5 border-[1px] border-[#d3d3d3] rounded-md"
                 >
-                  <div className="flex items-center mb-3">
+                  <div className="flex min-w-[200px] w-auto h-full flex-col items-center justify-center text-center p-2">
+                    <h3 className="font-semibold ">{doctor.specialization}</h3>
                     <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
                       <Image
                         src={doctor.photo}
@@ -71,30 +98,33 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                     </div>
                     <p className="font-medium text-lg">{doctor.doctorName}</p>
                   </div>
-                  <h3 className="font-semibold">Доступні години:</h3>
-                  <ul>
-                    {doctor.availableTimes.map((slot, index) => (
-                      <li
-                        key={index}
-                        onClick={() =>
-                          handleSlotClick(
-                            doctor.doctorId,
-                            slot.time,
-                            slot.scheduleId,
-                            slot.slotId
-                          )
-                        }
-                        className={`${
-                          selectedSlot?.doctorId === doctor.doctorId &&
-                          selectedSlot?.time === slot.time
-                            ? "bg-blue-700 text-white"
-                            : " bg-green-200 text-black"
-                        } flex w-14 text-center justify-center items-center px-2 py-1 rounded-lg my-3 cursor-pointer`}
-                      >
-                        {slot.time}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex flex-col w-full h-full justify-center items-center m-2">
+                    <h3 className="font-semibold ">Доступні години:</h3>
+                    <ul className="flex flex-wrap justify-center items-center">
+                      {doctor.availableTimes.map((slot, index) => (
+                        <li
+                          key={index}
+                          onClick={() =>
+                            handleSlotClick(
+                              doctor.doctorName,
+                              doctor.doctorId,
+                              slot.time,
+                              slot.scheduleId,
+                              slot.slotId
+                            )
+                          }
+                          className={`${
+                            selectedSlot?.doctorId === doctor.doctorId &&
+                            selectedSlot?.time === slot.time
+                              ? "bg-blue-700 text-white"
+                              : " bg-green-200 text-black"
+                          } flex w-14 text-center justify-center items-center px-2 py-1 rounded-lg m-2 cursor-pointer`}
+                        >
+                          {slot.time}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               ))
             : null}

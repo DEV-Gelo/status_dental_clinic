@@ -1,13 +1,33 @@
 "use client";
-import { useState } from "react";
-import UserCalendar from "@/components/Appointment/UserCalendar/UserCalendar";
+import React, { useState } from "react";
+import { mutate } from "swr";
 import styles from "./AppointmentStyle.module.css";
-import AvailableDoctors from "@/components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";
+import Link from "next/link";
+// --------------Import MUI--------------------------//
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import { ThemeProvider } from "@mui/material/styles";
+import InputAdornment from "@mui/material/InputAdornment";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Snackbar from "@mui/material/Snackbar";
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+// -----------Import components--------------------//
+import UserCalendar from "../../components/Appointment/UserCalendar/UserCalendar";
+import AvailableDoctors from "../../components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";
 
 const Appointment = () => {
+  const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
-  const [error, setError] = useState(null);
   const [appointmentData, setAppointmentData] = useState({
     firstName: "",
     lastName: "",
@@ -20,7 +40,11 @@ const Appointment = () => {
     time: null,
     selectedDate: null,
   });
-
+  const [alertConfig, setAlertConfig] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
     setAppointmentData((prev) => ({
@@ -40,57 +64,84 @@ const Appointment = () => {
       date.getTime() - date.getTimezoneOffset() * 60000
     );
     setSelectedDate(localDate);
-    setError(null);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAppointmentData((prev) => ({ ...prev, [name]: value }));
+    // Validation for email
+    if (name === "email") {
+      // Update the value without checking the email at each step
+      setAppointmentData((prev) => ({ ...prev, [name]: value }));
+
+      // After the update, check email for validity
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(value)) {
+        setEmailError(false);
+      } else {
+        setEmailError(true);
+      }
+    }
+    // Validation for phone
+    else if (name === "phone") {
+      const sanitizedValue = value.replace(/\D/g, "");
+      if (sanitizedValue.length <= 10) {
+        setAppointmentData((prev) => ({ ...prev, [name]: sanitizedValue }));
+      }
+    } else {
+      setAppointmentData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   // ----------------Send data to server-------------------------------//
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Запобігає перезавантаженню сторінки
+    e.preventDefault(); // Prevents the page from reloading
 
-    // Перевіряємо, чи всі необхідні дані наявні
     const validateForm = () => {
-      if (
-        !appointmentData.firstName ||
-        !appointmentData.lastName ||
-        !appointmentData.phone ||
-        !appointmentData.email
-      ) {
-        alert("Будь ласка, заповніть усі поля форми.");
+      if (!appointmentData.firstName) {
+        showAlert("warning", "Будь ласка, введіть ім'я");
+        return false;
+      }
+      if (!appointmentData.lastName) {
+        showAlert("warning", "Будь ласка, введіть прізвище");
+        return false;
+      }
+      if (!appointmentData.phone) {
+        showAlert("warning", "Будь ласка, введіть телефон");
+        return false;
+      }
+      if (!appointmentData.email) {
+        showAlert("warning", "Будь ласка, введіть електронну пошту");
         return false;
       }
 
       if (!selectedDate) {
-        alert("Будь ласка, оберіть дату для запису.");
+        showAlert("warning", "Будь ласка, оберіть дату для запису.");
         return false;
       }
 
       if (doctorsAvailability?.error) {
-        alert("Будь ласка, оберіть іншу дату для запису.");
+        showAlert("warning", "Будь ласка, оберіть іншу дату для запису.");
         return false;
       }
 
       if (!appointmentData.time) {
-        alert("Будь ласка, оберіть час для запису.");
+        showAlert("warning", "Будь ласка, оберіть час для запису.");
         return false;
       }
 
-      return true; // Усі перевірки пройдені
+      return true; // All checks passed
     };
 
-    // Використання функції
+    // Using the function
     if (!validateForm()) {
-      return; // Зупиняємо виконання, якщо перевірка не пройдена
+      return; // Stop the execution if the check is not passed
     }
 
-    // Форматування дати для передачі в базу даних
+    // Date formatting for transfer to the database
     const appointmentDate = new Date(appointmentData.selectedDate);
 
     try {
+      setLoading(true);
       const response = await fetch("/api/appointment/add", {
         method: "POST",
         headers: {
@@ -104,7 +155,7 @@ const Appointment = () => {
           email: appointmentData.email,
           service: appointmentData.service,
           time: appointmentData.time,
-          date: appointmentDate.toISOString(), // Потрібно перевести в формат ISO
+          date: appointmentDate.toISOString(), // Need to convert to ISO format
           scheduleId: appointmentData.scheduleId,
           doctorId: appointmentData.doctorId,
           slotId: appointmentData.slotId,
@@ -113,114 +164,229 @@ const Appointment = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert("Запис успішно зроблений!");
-        // Скидання стану
-        setAppointmentData({
-          firstName: "",
-          lastName: "",
-          patronymic: "",
-          phone: "",
-          email: "",
-          service: "",
-          doctorId: null,
-          scheduleId: null,
-          time: null,
-          selectedDate: null,
-          slotId: null,
-        });
-        mutate();
+        setLoading(false);
+        mutate("/api/data_appointment");
+        showAlert("success", "Запис успішно створено!");
       } else {
         const data = await response.json();
-        alert("Сталася помилка: " + (data.error || "Невідома помилка"));
+        showAlert(
+          "error",
+          "Сталася помилка: " + (data.error || "Невідома помилка")
+        );
       }
     } catch (err) {
-      setError(err.message);
+      showAlert("error", "Сталася непередбачувана помилка.");
     }
   };
 
-  // -----------------------------------------------------------------//
+  // -----------Alert windows--------------------------//
+  const showAlert = (severity, message) => {
+    setAlertConfig({ open: true, severity, message });
+  };
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAlertConfig({ ...alertConfig, open: false });
+  };
 
   return (
-    <div className="flex flex-col w-full h-full">
-      <header className="flex w-full h-[100px] justify-center items-center">
-        <h1 className="font-bold text-grey text-[40px]">Запис до лікаря</h1>
-      </header>
-      <main>
-        <div className="flex">
-          <div className="flex m-5">
+    <>
+      <div className={styles.popup_form}>
+        <h1 className={styles.title}>ЗАПИС НА ПРИЙОМ</h1>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={alertConfig.open}
+          autoHideDuration={6000}
+          onClose={handleCloseAlert}
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity={alertConfig.severity}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {alertConfig.message}
+          </Alert>
+        </Snackbar>
+        <div className={styles.main_container}>
+          <div className={styles.calendar_container}>
+            <div className={styles.title_task}>
+              {selectedDate ? (
+                <>
+                  <span className={styles.TaskAltIcon}>
+                    <TaskAltIcon
+                      sx={{ width: "100%", height: "100%", color: "green" }}
+                    />
+                  </span>
+                  <h3>Оберіть доступну дату</h3>
+                </>
+              ) : (
+                <>
+                  <span className={styles.title_task_number}>1</span>
+                  <h3>Оберіть доступну дату</h3>
+                </>
+              )}
+            </div>
             <UserCalendar onDateSelect={handleDateSelect} />
           </div>
           <div className={styles.form_fields}>
-            <input
-              type="text"
-              placeholder="Ім'я"
+            <div className={styles.title_task}>
+              {appointmentData.firstName &&
+              appointmentData.lastName &&
+              appointmentData.phone &&
+              appointmentData.email ? (
+                <>
+                  <span className={styles.TaskAltIcon}>
+                    <TaskAltIcon
+                      sx={{ width: "100%", height: "100%", color: "green" }}
+                    />
+                  </span>
+                  <h3>Заповніть форму</h3>
+                </>
+              ) : (
+                <>
+                  <span className={styles.title_task_number}>3</span>
+                  <h3>Заповніть форму</h3>
+                </>
+              )}
+            </div>
+            <FormControl fullWidth sx={{ my: 3 }}>
+              <InputLabel id="select-label">Вид послуги</InputLabel>
+              <Select
+                labelId="select-label"
+                label="Вид послуги"
+                name="service"
+                value={appointmentData.service}
+                onChange={handleInputChange}
+              >
+                <MenuItem value="Огляд та консультація">
+                  Огляд та консультація
+                </MenuItem>
+                <MenuItem value="Чистка (ультразвукова, AirFlow)">
+                  Професійна чистка (ультразвукова, AirFlow)
+                </MenuItem>
+                <MenuItem value="Лікування зубів">Лікування</MenuItem>
+                <MenuItem value="Видалення зубів">Видалення</MenuItem>
+                <MenuItem value="Інше">Інше</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              id="firstname"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="Ім'я"
               name="firstName"
               value={appointmentData.firstName}
               onChange={handleInputChange}
             />
-            <input
-              type="text"
-              placeholder="Прізвище"
+            <TextField
+              id="lastname"
+              sx={{
+                width: "100%",
+                "& .MuiFormHelperText-root": {
+                  color: "red",
+                },
+              }}
+              helperText=" "
+              label="Прізвище"
               name="lastName"
               value={appointmentData.lastName}
               onChange={handleInputChange}
             />
-            <input
-              type="text"
-              placeholder="По батькові"
+            <TextField
+              id="patronymic"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="По батькові"
               name="patronymic"
               value={appointmentData.patronymic}
               onChange={handleInputChange}
             />
-            <input
-              type="text"
-              placeholder="Номер телефону"
+            <TextField
+              id="phone"
+              sx={{ width: "100%" }}
+              helperText=" "
+              label="Номер телефону"
+              placeholder="097 000 00 00"
               name="phone"
               value={appointmentData.phone}
               onChange={handleInputChange}
-              className="input_phone"
+              slotProps={{
+                input: {
+                  inputMode: "numeric",
+                  maxLength: 10,
+                  startAdornment: (
+                    <InputAdornment position="start">+38</InputAdornment>
+                  ),
+                },
+              }}
             />
-            <input
-              type="text"
-              placeholder="Електронна пошта"
+            <TextField
+              id="email"
+              sx={{ width: "100%" }}
+              label="Електронна пошта"
               name="email"
               value={appointmentData.email}
               onChange={handleInputChange}
+              error={emailError}
+              helperText={emailError ? "Некоректний формат email" : " "}
             />
-            <select
-              name="service"
-              value={appointmentData.service}
-              onChange={handleInputChange}
-            >
-              <option value="" disabled>
-                Оберіть вид послуги
-              </option>
-              <option value="Огляд та консультація">
-                Огляд та консультація
-              </option>
-              <option value="Чистка (ультразвукова, AirFlow)">
-                Професійна чистка (ультразвукова, AirFlow)
-              </option>
-              <option value="Лікування зубів">Лікування</option>
-              <option value="Видалення зубів">Видалення</option>
-              <option value="Інше">Інше</option>
-            </select>
+          </div>
+          <div className={styles.AvailableDoctors_container}>
+            <div className={styles.title_task}>
+              {appointmentData.time ? (
+                <>
+                  <span className={styles.TaskAltIcon}>
+                    <TaskAltIcon
+                      sx={{ width: "100%", height: "100%", color: "green" }}
+                    />
+                  </span>
+                  <h3>Оберіть годину</h3>
+                </>
+              ) : (
+                <>
+                  <span className={styles.title_task_number}>2</span>
+                  <h3>Оберіть годину</h3>
+                </>
+              )}
+            </div>
+            <AvailableDoctors
+              selectedDate={selectedDate}
+              onSlotSelect={handleSlotSelection}
+              onAvailability={handleAvailabilityChange}
+            />
           </div>
         </div>
-        <div>
-          <AvailableDoctors
-            selectedDate={selectedDate}
-            onSlotSelect={handleSlotSelection}
-            onAvailability={handleAvailabilityChange}
-          />
+        <div className={styles.buttons_container}>
+          <ThemeProvider theme={theme}>
+            <LoadingButton
+              sx={{ m: 1 }}
+              color="save"
+              onClick={handleSubmit}
+              loading={loading}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              size="large"
+            >
+              Записати
+            </LoadingButton>
+            <Link href="/">
+              <LoadingButton
+                sx={{ m: 1 }}
+                color="cancel"
+                variant="contained"
+                size="large"
+              >
+                Відміна
+              </LoadingButton>
+            </Link>
+          </ThemeProvider>
         </div>
-        <div className="flex w-full h-auto justify-center items-center mb-10">
-          <button className="p-2 bg-slate-400" onClick={handleSubmit}>
-            Записатися
-          </button>
-        </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 };
 

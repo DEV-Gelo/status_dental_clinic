@@ -15,7 +15,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 // -----------Import components--------------------//
-import UserCalendar from "../UserCalendar/UserCalendar";
+import UserCalendar from "../../Appointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "../UserCalendar/AvailableDoctors/AvailableDoctors";
 
 const PopupFormAppointment = ({ onClose, onAlert }) => {
@@ -35,7 +35,6 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
     time: null,
     selectedDate: null,
   });
-
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
     setAppointmentData((prev) => ({
@@ -180,6 +179,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
   return (
     <>
       <div className={styles.popup_form}>
+        <h1 className={styles.title}>Створення запису</h1>
         <div className={styles.main_container}>
           <div className={styles.calendar_container}>
             <div className={styles.title_task}>

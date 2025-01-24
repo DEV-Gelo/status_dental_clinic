@@ -6,10 +6,6 @@ import styles from "./PopupFormEditStyle.module.css";
 
 // --------------Import MUI--------------------------//
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { ThemeProvider } from "@mui/material/styles";
@@ -21,7 +17,7 @@ import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const PopupFormEdit = ({ userId, onClose, onAlert }) => {
+const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -29,7 +25,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
   const [patronymic, setPatronymic] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+  const [specialization, setSpecialization] = useState("");
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,7 +44,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
         setPatronymic(data.patronymic || "");
         setPhone(data.phone || "");
         setEmail(data.email || "");
-        setRole(data.role || "");
+        setSpecialization(data.specialization || "");
         setImage(data.photo || "/image-placeholder.png");
         setSwitchDisplayPhoto(data.photo !== "/image-placeholder.png");
         setLoadingData(false);
@@ -128,11 +124,6 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
         return false;
       }
 
-      if (!role) {
-        onAlert("warning", "Будь ласка, оберіть категорію користувача.");
-        return false;
-      }
-
       return true; // All checks passed
     };
 
@@ -150,11 +141,26 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
     formData.append("patronymic", patronymic);
     formData.append("phone", phone);
     formData.append("email", email);
-    formData.append("role", role);
+    formData.append("specialization", specialization);
 
     let photoUrl = image;
 
     if (file) {
+      // -----Check file validity---------//
+      if (file) {
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+        if (!allowedTypes.includes(file.type)) {
+          onAlert("warning", "Файл має бути у форматі JPEG або PNG");
+          return;
+        }
+
+        if (file.size > maxFileSize) {
+          onAlert("warning", "Розмір файлу не може перевищувати 2 МБ");
+          return;
+        }
+      }
       try {
         setLoading(true);
         // Downloading a file via a separate route
@@ -176,6 +182,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
         }
       } catch (error) {
         console.error("File upload error:", error);
+        onAlert("error", "Не вдалося завантажити файл");
         return;
       }
     }
@@ -215,6 +222,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
         </div>
       ) : (
         <div className={styles.popup_form}>
+          <h1 className={styles.title}>Редагування користувача</h1>
           <div className={styles.main_container}>
             <div
               className={
@@ -232,19 +240,6 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
               </div>
             </div>
             <div className={styles.form_fields}>
-              <FormControl fullWidth sx={{ my: 3 }}>
-                <InputLabel id="select-label">Категорія користувача</InputLabel>
-                <Select
-                  labelId="select-label"
-                  label="Категорія користувача"
-                  name="category"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <MenuItem value="Лікар">Лікар</MenuItem>
-                  <MenuItem value="Пацієнт">Пацієнт</MenuItem>
-                </Select>
-              </FormControl>
               <TextField
                 id="firstname"
                 sx={{ width: "100%" }}
@@ -277,6 +272,17 @@ const PopupFormEdit = ({ userId, onClose, onAlert }) => {
                 value={patronymic}
                 onChange={(e) => setPatronymic(e.target.value)}
               />
+              {role === "Лікар" && (
+                <TextField
+                  id="specialization"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label="Спеціалізація"
+                  name="specialization"
+                  value={specialization}
+                  onChange={(e) => setSpecialization(e.target.value)}
+                />
+              )}
               <TextField
                 id="phone"
                 sx={{ width: "100%" }}

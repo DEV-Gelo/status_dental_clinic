@@ -184,13 +184,18 @@ const Users = () => {
 
         {/* ---------------- Popup Form --------------------- */}
         {isOpen && (
-          <PopupForm onAlert={showAlert} onClose={() => setIsOpen(false)} />
+          <PopupForm
+            role={role}
+            onAlert={showAlert}
+            onClose={() => setIsOpen(false)}
+          />
         )}
         {isOpenEditForm && (
           <PopupFormEdit
             onAlert={showAlert}
             userId={selectedUserId}
             onClose={() => setIsOpenEditForm(false)}
+            role={role}
           />
         )}
 
@@ -245,26 +250,6 @@ const Users = () => {
                 <MenuItem value="Пацієнт">Пацієнт</MenuItem>
               </Select>
             </FormControl>
-            {/* <button
-              type="button"
-              title="Фільтр лікарів"
-              onClick={activeTriggerDoctor}
-              className={`${
-                triggerDoctor ? "border-[2px] border-green-500" : "border-[1px]"
-              } ${styles.trigger}`}
-            >
-              <FaUserDoctor />
-            </button>
-            <button
-              type="button"
-              title="Фільтр пацієнтів"
-              onClick={activeTriggerUser}
-              className={`${
-                triggerUser ? "border-[2px] border-green-500" : "border-[1px]"
-              } ${styles.trigger}`}
-            >
-              <FaUserLarge />
-            </button> */}
           </div>
           <div className={styles.table_search}>
             <input
@@ -325,7 +310,9 @@ const Users = () => {
                   <td>
                     {user.lastName} {user.firstName} {user.patronymic}
                   </td>
-                  <td>{user.role}</td>
+                  <td>
+                    {role === "Пацієнт" ? user.role : user.specialization}
+                  </td>
                   <td>{user.phone || "No phone available"}</td>
                   <td className={styles.email_td}>
                     {user.email || "No email available"}

@@ -201,6 +201,7 @@ const Admin = () => {
   return (
     <>
       <div className={styles.users_page_wrap}>
+        <h1 className={styles.title}>Записи на прийом</h1>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}

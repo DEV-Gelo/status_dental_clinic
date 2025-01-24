@@ -12,6 +12,7 @@ export async function GET() {
         lastName: true,
         patronymic: true,
         photo: true,
+        specialization: true,
       },
     });
     return new Response(JSON.stringify(doctors), { status: 200 });

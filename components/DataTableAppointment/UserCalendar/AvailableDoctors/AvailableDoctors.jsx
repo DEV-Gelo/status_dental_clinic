@@ -3,19 +3,19 @@ import Image from "next/image";
 import useSWR from "swr";
 import CircularProgress from "@mui/material/CircularProgress";
 
-// Функція для завантаження даних
+// Data download function
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [doctorTimesMessage, setDoctorTimesMessage] = useState("");
 
-  // Формуємо URL залежно від обраної дати
+  // Form the URL depending on the selected date
   const url = selectedDate
     ? `/api/appointment?date=${selectedDate.toISOString().split("T")[0]}`
     : null;
 
-  // Використовуємо SWR для завантаження даних
+  // Use SWR to download data
   const { data: doctorsAvailability, error, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                   className="flex flex-col xl:flex-row xl:items-start w-full h-auto justify-center items-center mb-5 border-[1px] border-[#d3d3d3] rounded-md"
                 >
                   <div className="flex min-w-[200px] w-auto h-full flex-col items-center justify-center text-center p-2">
-                    <h3 className="font-semibold ">Лікар</h3>
+                    <h3 className="font-semibold ">{doctor.specialization}</h3>
                     <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
                       <Image
                         src={doctor.photo}

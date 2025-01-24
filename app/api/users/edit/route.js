@@ -4,8 +4,16 @@ export async function PUT(req) {
   try {
     const formData = await req.formData();
     const data = Object.fromEntries(formData.entries());
-    const { id, firstName, lastName, patronymic, phone, email, role, photo } =
-      data;
+    const {
+      id,
+      firstName,
+      lastName,
+      patronymic,
+      phone,
+      email,
+      specialization,
+      photo,
+    } = data;
 
     const updatedUser = await prisma.user.update({
       where: { id: Number(id) },
@@ -15,7 +23,7 @@ export async function PUT(req) {
         patronymic,
         phone,
         email,
-        role,
+        specialization,
         photo,
       },
     });

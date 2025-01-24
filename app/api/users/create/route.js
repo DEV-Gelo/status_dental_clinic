@@ -4,7 +4,16 @@ export async function POST(req) {
   const formData = await req.formData();
   const data = Object.fromEntries(formData.entries());
 
-  const { lastName, firstName, patronymic, role, phone, email, photo } = data;
+  const {
+    lastName,
+    firstName,
+    patronymic,
+    role,
+    specialization,
+    phone,
+    email,
+    photo,
+  } = data;
 
   // Checking and assigning null to the photo if it doesn't exist
   const photoUrl = photo ? photo : null;
@@ -42,6 +51,7 @@ export async function POST(req) {
         firstName,
         patronymic,
         role,
+        specialization,
         phone,
         email,
         photo: photoUrl,

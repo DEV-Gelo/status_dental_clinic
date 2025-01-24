@@ -3,7 +3,7 @@ import { mutate } from "swr";
 import styles from "./PopupFormEditAppointmentStyle.module.css";
 
 // -----------Import components--------------------//
-import UserCalendar from "../UserCalendar/UserCalendar";
+import UserCalendar from "../../Appointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "../UserCalendar/AvailableDoctors/AvailableDoctors";
 
 // --------------Import MUI--------------------------//
@@ -42,6 +42,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
     doctorName: "",
     doctorId: null,
   });
+
   useEffect(() => {
     if (!userId) return;
     const fetchUserData = async () => {
@@ -62,7 +63,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
           : "";
 
         setDoctor({
-          doctorName: getdName, // Збереження ПІБ лікаря
+          doctorName: getdName, // Saving the doctor's name
           doctorId: data.doctorId ? Number(data.doctorId) : null,
         });
       } catch (error) {
@@ -181,6 +182,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
           </div>
         ) : (
           <>
+            <h1 className={styles.title}>Редагування запису</h1>
             <div className={styles.main_container}>
               <div className={styles.calendar_container}>
                 <div className={styles.title_task}>
