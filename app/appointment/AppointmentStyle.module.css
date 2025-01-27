@@ -1,36 +1,33 @@
 /* Custom scrollbar */
-.popup_form::-webkit-scrollbar {
+.appointment_form::-webkit-scrollbar {
   width: 8px;
 }
 
-.popup_form::-webkit-scrollbar-track {
+.appointment_form::-webkit-scrollbar-track {
   background: #f3f4f6;
   border-radius: 10px;
 }
 
-.popup_form::-webkit-scrollbar-thumb {
+.appointment_form::-webkit-scrollbar-thumb {
   background: #5ba3bb50;
   border-radius: 10px;
 }
 
-.popup_form::-webkit-scrollbar-thumb:hover {
+.appointment_form::-webkit-scrollbar-thumb:hover {
   background: #5ba3bb80;
 }
 /* Scrollbar styles for Firefox */
-.popup_form {
+.appointment_form {
   scrollbar-width: thin;
   scrollbar-color: #5ba3bb50 #f3f4f6; /* Scrollbar and track color */
 }
 
-.popup_form {
+.appointment_form {
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: 0;
+  position: relative;
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -39,15 +36,77 @@
   -webkit-backdrop-filter: blur(10px); */
 }
 
-.title {
+.loadingPage_container {
+  display: flex;
   width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_window_info {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.modal_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_form h2 {
+  border-radius: 0.5rem;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2e8b57;
+
+  padding: 2rem;
+}
+
+.modal_form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.5rem;
+
+  padding: 1rem;
+}
+.modal_form p span {
+  color: #44444480;
+  font-size: 1rem;
+
+  margin-right: 0.3rem;
+}
+.modal_form p {
+  border-bottom: 1px solid #44444480;
+  color: #444;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  margin: 0.2rem;
+}
+
+.title {
   text-align: center;
+  width: 100%;
   font-weight: 600;
   font-size: 1.5rem;
   color: #44444460;
   border-bottom: 1px solid #44444460;
 
-  padding: 1rem;
+  padding-bottom: 1rem;
+  margin: 1rem 0 0 0;
 }
 
 .main_container {
@@ -59,31 +118,28 @@
   max-width: 1500px;
 }
 
-.calendar_container {
+.calendar_wrapper {
+  display: grid;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
+  justify-items: center;
+  align-items: start;
+}
+
+.calendar_container {
   min-width: 450px;
   width: 100%;
   background-color: #fff;
   border-radius: 0.5rem;
 
-  display: grid;
-  justify-items: center;
-  align-items: start;
-  position: relative;
-
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 .title_task {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   font-weight: 600;
   font-size: 1.2rem;
-  padding: 0.5rem;
-  position: absolute;
-  top: -4rem;
-  left: 0;
 }
 .title_task h3 {
   color: #444;
@@ -108,36 +164,43 @@
 
   margin: 0.5rem;
 }
-.AvailableDoctors_container {
+
+.AvailableDoctors_wrapper {
   display: grid;
-  max-height: 1008px;
+
   grid-column: 2 / 4;
   grid-row: 1 / 4;
+  justify-items: center;
+  align-items: start;
+
+  margin-bottom: 4rem;
+}
+
+.AvailableDoctors_container {
+  height: 1086px;
   min-width: 20rem;
   width: 100%;
   background-color: #fff;
   border-radius: 0.5rem;
-  position: relative;
-  justify-items: center;
-  align-items: start;
   overflow: auto;
 
-  padding: 1rem;
-  margin-bottom: 4rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.form_fields_wrapper {
+  display: grid;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  justify-items: start;
+  align-items: start;
 }
 
 .form_fields {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
   width: 100%;
   background-color: #fff;
   border-radius: 0.5rem;
 
-  display: grid;
-  justify-items: start;
-  align-items: start;
-  position: relative;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 
 .buttons_container {
@@ -151,19 +214,22 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .calendar_container {
+  .calendar_wrapper {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     margin-bottom: 2rem;
   }
 
-  .AvailableDoctors_container {
+  .AvailableDoctors_wrapper {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     margin-bottom: 2rem;
   }
+  .AvailableDoctors_container {
+    height: 100%;
+  }
 
-  .form_fields {
+  .form_fields_wrapper {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
   }
@@ -173,19 +239,14 @@
 }
 
 @media screen and (max-width: 640px) {
-  .popup_form {
-    justify-content: center;
-    align-items: center;
-    height: auto;
-  }
   .main_container {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
-    padding: 4rem 1rem 1rem 1rem;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
     gap: 2rem;
   }
-  .calendar_container {
+  .calendar_wrapper {
     display: grid;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -196,40 +257,38 @@
 
     padding: 0;
   }
-  .calendar_title {
-    font-size: 1rem;
+  .calendar_container {
+    min-width: 100%;
   }
-  .calendar_title h3 {
-    color: #444;
-  }
-  .calendar_title span {
-    width: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-  }
-  .AvailableDoctors_container {
+
+  .AvailableDoctors_wrapper {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    min-width: 15rem;
   }
-  .AvailableDoctors_title {
-    font-size: 1rem;
-  }
-  .AvailableDoctors_title span {
-    width: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-  }
-  .form_fields {
+
+  .form_fields_wrapper {
     grid-column: 1 / 2;
     grid-row: 3 / 4;
   }
-  .form_fields_title {
+
+  .title {
+    font-size: 1.2rem;
+  }
+  .title_task {
     font-size: 1rem;
   }
-  .form_fields_title span {
+  .title_task_number {
     width: 2rem;
     height: 2rem;
     line-height: 2rem;
+
+    margin: 0.5rem;
+  }
+  .TaskAltIcon {
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+
+    margin: 0.5rem;
   }
 }
