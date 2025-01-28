@@ -60,6 +60,9 @@ const Admin = () => {
         setSelectedUserId(null);
         setIsOpenDel(false);
       }
+      if (event.key === "Delete") {
+        handleDelete();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -67,11 +70,27 @@ const Admin = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [selectedUserId]);
 
   const handleOpenFilter = () => {
     setIsOpenFilter((prev) => !prev);
   };
+  // --------------------------------------------
+  // Handle "Del" key press
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     if (event.key === "Delete") {
+  //       handleDelete();
+  //     }
+  //   };
+
+  //   // Add the event listener
+  //   document.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     // Remove the event listener
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [selectedUserId]); // Ensure this runs once
 
   // -------------Get Data--------------------------//
   const fetchData_Appointment = async () => {
@@ -106,6 +125,12 @@ const Admin = () => {
   // ------Select row in table and get initials------//
   const handleSelectInitials = (lastName, firstName, patronymic) => {
     setSelectedInitials(`${lastName} ${firstName} ${patronymic}`);
+  };
+
+  //---------Сlear the selected user-------------//
+  const clearSelectedUser = () => {
+    setSelectedUserId(null);
+    setSelectedInitials("");
   };
 
   // Function for filtering and searching records
@@ -225,6 +250,7 @@ const Admin = () => {
             userId={selectedUserId}
             selectedInitials={selectedInitials}
             onAlert={showAlert}
+            clearSelectedUser={clearSelectedUser}
           />
         )}
 

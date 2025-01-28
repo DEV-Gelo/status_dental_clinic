@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { mutate } from "swr";
 import styles from "./DeleteAppointmentFormStyle.module.css";
@@ -11,14 +11,17 @@ const DeleteAppointmentForm = ({
   userId,
   selectedInitials,
   onAlert,
+  clearSelectedUser,
 }) => {
   const [loading, setLoading] = useState(false);
+
   const handleDelete = async () => {
     setLoading(true);
     try {
       // Making a request to the API to delete a user
       await axios.delete(`/api/data_appointment/delete/${userId}`);
       mutate("/api/data_appointment");
+      clearSelectedUser();
       onClose();
       onAlert("success", "Запис успішно видалено");
     } catch (error) {
@@ -27,6 +30,7 @@ const DeleteAppointmentForm = ({
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className={styles.delete_window}>

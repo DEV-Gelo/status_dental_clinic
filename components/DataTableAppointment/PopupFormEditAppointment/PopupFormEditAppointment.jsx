@@ -120,6 +120,15 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   // ---The function of sending the form to the server ---//
   const handleSubmit = async () => {
     const validateForm = () => {
+      if (doctorsAvailability?.error) {
+        onAlert("warning", "Будь ласка, оберіть іншу дату для запису");
+        return false;
+      }
+
+      if (!appointmentData.time) {
+        onAlert("warning", "Будь ласка, оберіть час для запису");
+        return false;
+      }
       if (!firstName) {
         onAlert("warning", "Будь ласка, введіть ім'я");
         return false;
@@ -130,16 +139,6 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
       }
       if (!phone) {
         onAlert("warning", "Будь ласка, введіть телефон");
-        return false;
-      }
-
-      if (doctorsAvailability?.error) {
-        onAlert("warning", "Будь ласка, оберіть іншу дату для запису");
-        return false;
-      }
-
-      if (!appointmentData.time) {
-        onAlert("warning", "Будь ласка, оберіть час для запису");
         return false;
       }
 

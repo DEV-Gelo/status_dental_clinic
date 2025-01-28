@@ -40,6 +40,7 @@ const Appointment = () => {
     scheduleId: null,
     time: null,
     selectedDate: null,
+    doctorName: null,
   });
   const [alertConfig, setAlertConfig] = useState({
     open: false,
@@ -214,7 +215,6 @@ const Appointment = () => {
       return () => clearTimeout(timer);
     }
   }, [appointmentData.time]);
-  console.log("appointmentDate", appointmentData.time);
   return (
     <>
       {isSuccess && (
@@ -222,6 +222,12 @@ const Appointment = () => {
           <div className={styles.modal_container}>
             <div className={styles.modal_form}>
               <h2>ЗАПИС ВИКОНАНО УСПІШНО</h2>
+              <address>
+                Чекаємо Вас за адресою:{" "}
+                <span>
+                  м.Київ вул. Васильківська, 20, стоматологічна клініка DentaPro
+                </span>
+              </address>
               <p>
                 <span>ПІБ:</span>
                 {appointmentData.firstName} {appointmentData.lastName}{" "}
@@ -230,7 +236,6 @@ const Appointment = () => {
               <p>
                 <span>Дата:</span>
                 {formattedDate}
-                {}
               </p>
               <p>
                 <span>Час:</span>
@@ -238,6 +243,7 @@ const Appointment = () => {
               </p>
               <p>
                 <span>Лікар:</span>
+                {appointmentData.doctorName}
               </p>
             </div>
             <ThemeProvider theme={theme}>

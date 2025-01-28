@@ -79,3 +79,10 @@ model Appointment {
   slotId       Int?         
   slot         Slot?        @relation("SlotAppointments") 
 }
+
+model Services {
+  id           Int          @id @default(autoincrement())
+  name         String       // optional field
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}

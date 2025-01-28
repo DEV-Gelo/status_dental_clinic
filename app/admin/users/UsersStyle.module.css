@@ -149,7 +149,7 @@
 }
 
 .table {
-  min-width: 600px;
+  min-width: 700px;
   width: 100%;
   height: 100%;
   border-collapse: collapse;
@@ -182,7 +182,6 @@
   display: table;
   width: 100%;
   table-layout: fixed;
-  cursor: pointer;
 }
 .tbody td {
   padding: 0.5rem;
@@ -213,11 +212,22 @@
   width: 5rem;
 }
 
+.create_record_th {
+  width: 3rem;
+}
+
 .photo_td img {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.create_record_td {
+  width: 4rem;
+  text-align: center !important;
+  color: #2e8b57;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1024px) {
@@ -231,6 +241,9 @@
 @media screen and (max-width: 768px) {
   .users_page_wrap {
     padding: 1rem;
+  }
+  .table_container {
+    overflow: auto;
   }
   .thead {
     font-size: 16px;
@@ -253,14 +266,7 @@
   }
 }
 @media screen and (max-width: 640px) {
-  .table_container {
-    overflow: auto;
-  }
   .users_page_wrap {
     padding: 0;
-  }
-  .role_th,
-  .role_td {
-    padding: 10rem;
   }
 }

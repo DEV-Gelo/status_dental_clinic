@@ -3,23 +3,22 @@ import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
-import LanguageIcon from "@mui/icons-material/Language";
+// ---------------------MUI components------------------------//
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
 import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import IconButton from "@mui/material/IconButton";
+import Services from "@/components/settings/services";
 
 const Settings = () => {
   const [isOpenAside, setIsOpenAside] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const menu = [
-    { icon: <LanguageIcon />, text: "Мова", id: "language" },
     { icon: <MedicalServicesIcon />, text: "Послуги", id: "services" },
     { icon: <PriceChangeIcon />, text: "Прайс", id: "pricing" },
     { icon: <ContactEmergencyIcon />, text: "Контакти", id: "contacts" },
   ];
   const titles = {
-    language: "мови",
     services: "послуг",
     pricing: "прайсу",
     contacts: "контактів",
@@ -80,14 +79,10 @@ const Settings = () => {
               ))}
             </div>
           </aside>
-          {/* Контент для активного меню */}
 
           {activeIndex !== null && (
             <div className="flex w-full h-full p-4">
-              {menu[activeIndex].id === "language" && (
-                <h1>Language settings</h1>
-              )}
-              {menu[activeIndex].id === "services" && <h1>Service settings</h1>}
+              {menu[activeIndex].id === "services" && <Services />}
               {menu[activeIndex].id === "pricing" && <h1>Pricing settings</h1>}
               {menu[activeIndex].id === "contacts" && <h1>Contact settings</h1>}
             </div>

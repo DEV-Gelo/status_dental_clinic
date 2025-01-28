@@ -1,33 +1,36 @@
 /* Custom scrollbar */
-.appointment_form::-webkit-scrollbar {
+.popup_form::-webkit-scrollbar {
   width: 8px;
 }
 
-.appointment_form::-webkit-scrollbar-track {
+.popup_form::-webkit-scrollbar-track {
   background: #f3f4f6;
   border-radius: 10px;
 }
 
-.appointment_form::-webkit-scrollbar-thumb {
+.popup_form::-webkit-scrollbar-thumb {
   background: #5ba3bb50;
   border-radius: 10px;
 }
 
-.appointment_form::-webkit-scrollbar-thumb:hover {
+.popup_form::-webkit-scrollbar-thumb:hover {
   background: #5ba3bb80;
 }
 /* Scrollbar styles for Firefox */
-.appointment_form {
+.popup_form {
   scrollbar-width: thin;
   scrollbar-color: #5ba3bb50 #f3f4f6; /* Scrollbar and track color */
 }
 
-.appointment_form {
+.popup_form {
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  position: relative;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -42,67 +45,6 @@
   height: 100%;
   justify-content: center;
   align-items: center;
-}
-
-.modal_window_info {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-}
-
-.modal_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal_form h2 {
-  border-radius: 0.5rem;
-
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2e8b57;
-
-  padding: 2rem;
-}
-
-.modal_form {
-  display: flex;
-  width: 30rem;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: 0.5rem;
-
-  padding: 1rem;
-}
-.modal_form address {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #444;
-}
-.modal_form p span {
-  display: inline-block;
-  width: 3rem;
-  color: #44444480;
-  font-size: 1rem;
-
-  margin-right: 0.3rem;
-}
-.modal_form p {
-  border-bottom: 1px solid #44444420;
-  color: #444;
-  font-weight: 600;
-  font-size: 1.2rem;
-  padding: 0.2rem;
-  margin: 0.2rem;
 }
 
 .title {

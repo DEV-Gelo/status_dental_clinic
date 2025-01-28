@@ -17,14 +17,17 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm";
 import PopupForm from "@/components/DataTable/PopupFormAddUser/PopupForm";
 import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdit";
+import FormAddAppointment from "@/components/DataTable/FormAddAppointment/FormAddAppointment";
 
 const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
+  const [isOpenAddAppointment, setIsOpenAddAppointment] = useState(false);
   const [isOpenDel, setIsOpenDel] = useState(false);
   // const [triggerDoctor, setTriggerDoctor] = useState(true);
   // const [triggerUser, setTriggerUser] = useState(false);
@@ -44,6 +47,9 @@ const Users = () => {
         setSelectedUserId(null);
         setIsOpenDel(false);
       }
+      if (event.key === "Delete") {
+        handleDelete();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -51,7 +57,7 @@ const Users = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [selectedUserId]);
 
   // -------------Get Data--------------------------//
   const fetchUsers = async () => {
@@ -198,6 +204,13 @@ const Users = () => {
             role={role}
           />
         )}
+        {isOpenAddAppointment && (
+          <FormAddAppointment
+            onAlert={showAlert}
+            userId={selectedUserId}
+            onClose={() => setIsOpenAddAppointment(false)}
+          />
+        )}
 
         {/* -------------------Table Navbar---------------------- */}
 
@@ -282,6 +295,7 @@ const Users = () => {
                 <th className={styles.email_th}>
                   <MdEmail />
                 </th>
+                <th className={styles.create_record_th}></th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>
@@ -317,6 +331,18 @@ const Users = () => {
                   <td className={styles.email_td}>
                     {user.email || "No email available"}
                   </td>
+                  {role === "Пацієнт" ? (
+                    <td
+                      className={styles.create_record_td}
+                      title="Створити запис"
+                    >
+                      <AddCircleOutlineIcon
+                        onClick={() => setIsOpenAddAppointment(true)}
+                      />
+                    </td>
+                  ) : (
+                    ""
+                  )}
                 </tr>
               ))}
             </tbody>
