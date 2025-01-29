@@ -11,6 +11,25 @@
   --nav-gradient: linear-gradient(to right, #ffffff 40%, #ccdde4 60%);
 }
 
+/* Custom scrollbar */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #5ba3bb50;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #5ba3bb80;
+}
+
 html,
 body {
   height: 100%;

@@ -53,7 +53,7 @@ const Admin = () => {
     fetchDoctors();
   }, []);
 
-  // ------Cancellation of line selection with a key Esc-----//
+  // ---Cancellation of line selection with a key Esc and delete with key Delete---//
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -75,22 +75,6 @@ const Admin = () => {
   const handleOpenFilter = () => {
     setIsOpenFilter((prev) => !prev);
   };
-  // --------------------------------------------
-  // Handle "Del" key press
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     if (event.key === "Delete") {
-  //       handleDelete();
-  //     }
-  //   };
-
-  //   // Add the event listener
-  //   document.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     // Remove the event listener
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [selectedUserId]); // Ensure this runs once
 
   // -------------Get Data--------------------------//
   const fetchData_Appointment = async () => {
