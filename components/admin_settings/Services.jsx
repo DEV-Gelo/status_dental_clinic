@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import useSWR, { mutate } from "swr";
 // --------------Import MUI components-----------------//
 import DeleteIcon from "@mui/icons-material/Delete";
 import Fab from "@mui/material/Fab";
@@ -8,30 +9,29 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import Skeleton from "@mui/material/Skeleton";
 
 import { ThemeProvider } from "@mui/material/styles";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
+// Function for receiving data
+const fetchData = async () => {
+  const response = await fetch("/api/admin_setting/service");
+  if (!response.ok) throw new Error("Помилка при отриманні даних");
+  return response.json();
+};
+
 const Services = ({ onAlert }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [serverData, setServerData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(null);
   const containerRef = useRef(null);
-  // --------Get data from server------//
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/admin_setting/service");
-      if (!response.ok)
-        throw new Error(result.message || "Помилка при отриманні даних");
-      const data = await response.json();
-      setServerData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   //--- The function of sending the form to the server ---//
   const handleSubmit = async () => {
     if (inputValue.trim().length === 0) {
@@ -54,6 +54,7 @@ const Services = ({ onAlert }) => {
       const result = await response.json();
 
       setInputValue("");
+      mutate("/api/admin_setting/service");
       onAlert("success", "Запис успішно виконано");
       fetchData();
       setIsOpen(false);
@@ -64,18 +65,11 @@ const Services = ({ onAlert }) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // ---Cancellation of line selection with a key Esc and delete with key Delete---//
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setSelectedRow(null);
-      }
-      if (event.key === "Delete") {
-        // handleDelete();
       }
     };
 
@@ -97,19 +91,77 @@ const Services = ({ onAlert }) => {
     };
   }, []);
 
+  // ----Delete service function ---------//
+  async function deleteService(id) {
+    if (!id || id <= 0) {
+      onAlert("warning", "Будь ласка, оберіть рядок");
+      return;
+    }
+    setIsDeleting(id);
+    try {
+      const response = await fetch("/api/admin_setting/service/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      });
+
+      if (!response.ok) {
+        const errorResult = await response.json();
+        throw new Error(errorResult.error || "Помилка видалення");
+      }
+      fetchData();
+      onAlert("success", "Запис успішно видалено!");
+    } catch (error) {
+      console.error("Помилка видалення:", error);
+      onAlert("error", "Сталася помилка при спробі видалення.");
+    } finally {
+      setIsDeleting(null);
+    }
+  }
+  // ------- Calling function for receiving data from server------------//
+  const { data, error } = useSWR("/api/admin_setting/service", fetchData);
+  const serverData = data;
+
   return (
     <div className="flex w-full h-full justify-center items-center py-5">
       <div
         ref={containerRef}
-        className={`flex flex-col relative w-auto min-w-0 sm:min-w-[30rem] h-[38rem] justify-start items-start border-[1px] border-[#5ba3bb] rounded-md ${
+        className={`flex flex-col relative w-full sm:w-[30rem] h-[38rem] justify-start items-start border-[1px] border-[#5ba3bb] rounded-md ${
           isOpen ? "overflow-hidden" : "overflow-auto"
         }`}
       >
+        <h1 className="w-full text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold p-2 bg-[#5ba3bb]">
+          Послуги
+        </h1>
+        {error && (
+          <div className="flex justify-center items-center w-full h-full">
+            <Alert
+              className="flex justify-center items-center"
+              severity="warning"
+            >
+              <h6>Помилка завантаження даних</h6>
+              <p>Перевірте з'єднання</p>
+            </Alert>
+          </div>
+        )}
+        {!serverData && !error && (
+          <div className="flex flex-col justify-center items-center w-full h-full p-10">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                variant="rounded"
+                width="100%"
+                height={40}
+                sx={{ m: 1 }}
+              />
+            ))}
+          </div>
+        )}
         {isOpen && (
           <div className="flex flex-col w-full h-full items-center absolute inset-0 z-30 p-3 bg-white bg-opacity-50 backdrop-blur-sm">
             <div className="flex sticky top-2 right-2 ml-auto mb-auto">
               <IconButton
-                size="large"
+                size="small"
                 edge="start"
                 color="inherit"
                 aria-label="close"
@@ -156,29 +208,49 @@ const Services = ({ onAlert }) => {
             </div>
           </div>
         )}
-        {serverData.map((service, index) => (
-          <div
-            onClick={() => setSelectedRow(index)}
-            key={service.id}
-            className={`flex ${
-              selectedRow === index
-                ? "bg-[#e1f1f8] outline outline-2 outline-[#5ba3bb]"
-                : ""
-            } justify-between w-full font-semibold text-[1.2rem] text-[#555] py-2 px-10 hover:bg-[#e1f1f8] cursor-default`}
-          >
-            <p>
-              <span className="mr-2">{index + 1}.</span>
-              {service.name}
-            </p>
-            <span className="ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer">
-              <DeleteIcon />
-            </span>
-          </div>
-        ))}
+        {serverData && (
+          <>
+            {serverData.map((service, index) => (
+              <div
+                onClick={() => {
+                  setSelectedRow(index);
+                }}
+                key={service.id}
+                className={`flex ${
+                  selectedRow === index
+                    ? "bg-[#e1f1f8] outline outline-2 outline-[#5ba3bb]"
+                    : ""
+                } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap py-2 px-5 hover:bg-[#e1f1f8] cursor-default`}
+              >
+                <p>
+                  <span className="mr-2">{index + 1}.</span>
+                  {service.name}
+                </p>
+                <span className="flex w-10 justify-center items-center ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer">
+                  {selectedRow === index && isDeleting !== service.id ? (
+                    <DeleteIcon
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop the event so that onClick does not fire on the <div>
+                        deleteService(service.id);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {isDeleting === service.id ? (
+                    <CircularProgress size="1rem" />
+                  ) : (
+                    ""
+                  )}
+                </span>
+              </div>
+            ))}
+          </>
+        )}
 
         <span
           onClick={() => setIsOpen(true)}
-          className="sticky bottom-2 right-2 ml-auto mt-auto text-red-300"
+          className="sticky bottom-2 right-2 ml-auto mt-auto"
         >
           <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">
             <AddIcon />

@@ -12,6 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 // ---------------App components----------------------------//
 import Services from "@/components/admin_settings/Services";
+import Pricing from "@/components/admin_settings/Pricing";
 
 const Settings = () => {
   const [isOpenAside, setIsOpenAside] = useState(false);
@@ -94,7 +95,7 @@ const Settings = () => {
               >
                 <span className="text-[#808080]">{item.icon}</span>
                 <p
-                  className={`ml-4 transition-all duration-500 ${
+                  className={`text-[0.8rem] sm:text-[1rem] ml-4 transition-all duration-500 ${
                     isOpenAside ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -107,16 +108,18 @@ const Settings = () => {
 
         {activeIndex !== null && (
           <div className="flex flex-col w-full h-full p-4">
-            <div className="flex w-full h-auto justify-center items-center">
-              <h1 className="text-[1.5rem] font-semibold text-[#a7adaf]">
+            <header className="flex w-full h-auto justify-center items-center">
+              <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-3">
                 Налаштування{" "}
                 {activeIndex >= 0 ? titles[menu[activeIndex]?.id] || "" : ""}
               </h1>
-            </div>
+            </header>
             {menu[activeIndex].id === "services" && (
               <Services onAlert={showAlert} />
             )}
-            {menu[activeIndex].id === "pricing" && <h1>Pricing settings</h1>}
+            {menu[activeIndex].id === "pricing" && (
+              <Pricing onAlert={showAlert} />
+            )}
             {menu[activeIndex].id === "contacts" && <h1>Contact settings</h1>}
           </div>
         )}

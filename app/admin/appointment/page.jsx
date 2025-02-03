@@ -5,7 +5,7 @@ import Image from "next/image";
 import SliderTime from "@/components/Schedule/SliderTime/SliderTime";
 import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleGenerator";
 import DataTable from "@/components/Schedule/DataTable/DataTable";
-
+// --------------Import MUI components-----------------//
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import MenuItem from "@mui/material/MenuItem";

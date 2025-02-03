@@ -23,6 +23,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
     firstName: "",
     lastName: "",
@@ -192,6 +193,22 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
     }
   }, [appointmentData.time]);
 
+  // --------Get data service from server------//
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin_setting/service");
+      if (!response.ok)
+        throw new Error(result.message || "Помилка при отриманні даних");
+      const data = await response.json();
+      setServiceData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className={styles.popup_form}>
@@ -250,15 +267,11 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                   value={appointmentData.service}
                   onChange={handleInputChange}
                 >
-                  <MenuItem value="Огляд та консультація">
-                    Огляд та консультація
-                  </MenuItem>
-                  <MenuItem value="Чистка (ультразвукова, AirFlow)">
-                    Професійна чистка (ультразвукова, AirFlow)
-                  </MenuItem>
-                  <MenuItem value="Лікування зубів">Лікування</MenuItem>
-                  <MenuItem value="Видалення зубів">Видалення</MenuItem>
-                  <MenuItem value="Інше">Інше</MenuItem>
+                  {serviceData.map((service) => (
+                    <MenuItem key={service.id} value={service.name}>
+                      {service.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <TextField

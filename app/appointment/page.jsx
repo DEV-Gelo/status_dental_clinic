@@ -28,6 +28,7 @@ const Appointment = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [serviceData, setServiceData] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
     firstName: "",
@@ -215,6 +216,23 @@ const Appointment = () => {
       return () => clearTimeout(timer);
     }
   }, [appointmentData.time]);
+
+  // --------Get data service from server------//
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin_setting/service");
+      if (!response.ok)
+        throw new Error(result.message || "Помилка при отриманні даних");
+      const data = await response.json();
+      setServiceData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       {isSuccess && (
@@ -332,15 +350,11 @@ const Appointment = () => {
                   value={appointmentData.service}
                   onChange={handleInputChange}
                 >
-                  <MenuItem value="Огляд та консультація">
-                    Огляд та консультація
-                  </MenuItem>
-                  <MenuItem value="Чистка (ультразвукова, AirFlow)">
-                    Професійна чистка (ультразвукова, AirFlow)
-                  </MenuItem>
-                  <MenuItem value="Лікування зубів">Лікування</MenuItem>
-                  <MenuItem value="Видалення зубів">Видалення</MenuItem>
-                  <MenuItem value="Інше">Інше</MenuItem>
+                  {serviceData.map((service) => (
+                    <MenuItem key={service.id} value={service.name}>
+                      {service.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <TextField
