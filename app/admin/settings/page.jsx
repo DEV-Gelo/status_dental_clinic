@@ -48,7 +48,7 @@ const Settings = () => {
 
   return (
     <>
-      <main className="flex w-full h-full">
+      <main className="flex w-full h-full overflow-hidden">
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -109,7 +109,7 @@ const Settings = () => {
         {activeIndex !== null && (
           <div className="flex flex-col w-full h-full p-4">
             <header className="flex w-full h-auto justify-center items-center">
-              <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-3">
+              <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-5 sm:mb-3">
                 Налаштування{" "}
                 {activeIndex >= 0 ? titles[menu[activeIndex]?.id] || "" : ""}
               </h1>

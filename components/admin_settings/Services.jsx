@@ -56,7 +56,6 @@ const Services = ({ onAlert }) => {
       setInputValue("");
       mutate("/api/admin_setting/service");
       onAlert("success", "Запис успішно виконано");
-      fetchData();
       setIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -134,7 +133,7 @@ const Services = ({ onAlert }) => {
           Послуги
         </h1>
         {error && (
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex absolute top-0 left-0 justify-center items-center w-full h-full">
             <Alert
               className="flex justify-center items-center"
               severity="warning"
