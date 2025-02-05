@@ -13,32 +13,85 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+// --------------Import React icons-----------------//
+import { CiSaveUp2 } from "react-icons/ci";
 
 import { ThemeProvider } from "@mui/material/styles";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
 
-// Function for receiving data
+// Function for receiving category data
 const fetchData = async () => {
   const response = await fetch("/api/admin_setting/category");
   if (!response.ok) throw new Error("Помилка при отриманні даних");
   return response.json();
 };
+// Function for receiving pricing data
+const fetchPricingData = async () => {
+  const response = await fetch("/api/admin_setting/pricing");
+  if (!response.ok) throw new Error("Помилка при отриманні даних");
+  return response.json();
+};
 
 const Pricing = ({ onAlert }) => {
+  // const [categoryId, setCategoryId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedRow, setSelectedRow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenEditRow, setIsOpenEditRow] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
+  const [service, setService] = useState("");
+  const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(null);
-  const containerRef = useRef(null);
+  const [loadingPrice, setLoadingPrice] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isActionRow, setIsActionRow] = useState(false);
 
   // ------- Calling function for receiving data from server------------//
   const { data, error } = useSWR("/api/admin_setting/category", fetchData);
+  const { data: dataPricing, error: errorPricing } = useSWR(
+    "/api/admin_setting/pricing",
+    fetchPricingData
+  );
+
+  // ---Cancellation of line selection with a key Esc and delete with key Delete---//
+  const containerRefs = useRef(new Map());
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setSelectedRow(null);
+        setSelectedCategory(null);
+      }
+    };
+
+    const handleClickOutside = (event) => {
+      let isInsideAnyContainer = false;
+
+      containerRefs.current.forEach((ref) => {
+        if (ref && ref.contains(event.target)) {
+          isInsideAnyContainer = true;
+        }
+      });
+
+      if (!isInsideAnyContainer) {
+        setSelectedRow(null);
+        setSelectedCategory(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   //--- The function of sending the form to the server ---//
   const handleSubmit = async () => {
@@ -108,7 +161,6 @@ const Pricing = ({ onAlert }) => {
       return;
     }
     try {
-      setLoading(true);
       const response = await fetch(`/api/admin_setting/category/${id}`, {
         method: "PUT",
         headers: {
@@ -125,14 +177,106 @@ const Pricing = ({ onAlert }) => {
     } catch (error) {
       console.error(error);
       onAlert("error", "Помилка редагування");
+    }
+  };
+
+  //--- The function of sending the form to the server ---//
+  const handlePriceSubmit = async (categoryId) => {
+    if (service.trim().length === 0) {
+      onAlert("warning", "Будь ласка, введіть назву послуги");
+      return;
+    }
+    if (!price.trim() || isNaN(price)) {
+      onAlert("warning", "Будь ласка, введіть коректну вартість");
+      return;
+    }
+    try {
+      setLoadingPrice(true);
+      const response = await fetch("/api/admin_setting/pricing", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: service, price, categoryId }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok)
+        throw new Error(result.message || "Помилка при відправці даних");
+
+      setService("");
+      setPrice("");
+      mutate("/api/admin_setting/pricing");
+      onAlert("success", "Запис успішно виконано");
+      setIsOpen(false);
+    } catch (error) {
+      console.error(error);
+      onAlert("error", error.message || "Сталася помилка. Спробуйте ще раз");
     } finally {
-      setLoading(false);
+      setLoadingPrice(false);
+    }
+  };
+
+  // ----Delete and Edite Price function ---------//
+  const handlePriceAction = async (action, id, data = {}) => {
+    if (!id || id <= 0) {
+      onAlert("warning", "Відсутні реквізити для операції");
+      return;
+    }
+
+    let method, body, successMessage, errorMessage, mutatePath;
+
+    if (action === "delete") {
+      method = "DELETE";
+      body = JSON.stringify({ id });
+      successMessage = "Запис успішно видалено!";
+      errorMessage = "Помилка видалення";
+      mutatePath = "/api/admin_setting/pricing";
+    } else if (action === "edit") {
+      if (!data.name || data.name.trim().length === 0) {
+        onAlert("warning", "Будь ласка, введіть назву категорії");
+        return;
+      }
+
+      method = "PUT";
+      body = JSON.stringify(data);
+      successMessage = "Категорію успішно оновлено!";
+      errorMessage = "Помилка редагування";
+      mutatePath = "/api/admin_setting/pricing";
+    } else {
+      console.error("Невідомий тип операції:", action);
+      return;
+    }
+    setIsActionRow(true);
+    try {
+      const response = await fetch(`/api/admin_setting/pricing/${id}`, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body,
+      });
+
+      if (!response.ok) {
+        const errorResult = await response.json();
+        throw new Error(errorResult.error || errorMessage);
+      }
+
+      mutate(mutatePath);
+      onAlert("success", successMessage);
+
+      if (action === "edit") setIsOpenEdit(false);
+    } catch (error) {
+      console.error(errorMessage, error);
+      onAlert("error", errorMessage);
+    } finally {
+      setIsActionRow(false);
     }
   };
 
   return (
     <div className="flex relative w-full h-full items-center justify-center flex-wrap overflow-auto">
       <span
+        title="Додати категорію"
         onClick={() => setIsOpenCategory((prev) => !prev)}
         className="fixed top-[4rem] left-[0.8rem] sm:top-[2rem] sm:left-[10rem]"
       >
@@ -166,6 +310,7 @@ const Pricing = ({ onAlert }) => {
               aria-label="close"
               onClick={() => setIsOpenCategory((prev) => !prev)}
               className="text-[#44444495]"
+              title="Закрити"
             >
               <CloseIcon />
             </IconButton>
@@ -211,10 +356,17 @@ const Pricing = ({ onAlert }) => {
       {data &&
         data.map((category, index) => (
           <div
+            ref={(el) => containerRefs.current.set(category.id, el)}
+            onClick={() => {
+              setSelectedCategory(index);
+            }}
             key={category.id}
-            ref={containerRef}
-            className={`flex flex-col relative w-full sm:w-[30rem] h-[38rem] m-2 sm:m-5 justify-start items-start border-[1px] border-[#5ba3bb] rounded-md ${
+            className={`flex flex-col relative w-full sm:w-[30rem] min-h-[20rem] h-auto m-2 sm:m-5 justify-start items-start rounded-md bg-[whitesmoke] ${
               isOpen ? "overflow-hidden" : "overflow-auto"
+            } ${
+              selectedCategory === index
+                ? "outline outline-2 outline-[#5ba3bb]"
+                : "outline-none"
             }`}
           >
             {/* ---------------------Category header and navbar------------------------------- */}
@@ -233,16 +385,17 @@ const Pricing = ({ onAlert }) => {
                       className="flex w-full px-3 py-1 rounded-sm bg-slate-200"
                     />
                   </div>
-                  <div className="flex flex-[20%] justify-end items-center">
+                  <div className="flex mr-3 flex-[20%] justify-end items-center">
                     <IconButton
                       size="small"
                       edge="start"
                       color="inherit"
                       aria-label="close"
                       onClick={() => handleEditSubmit(category.id)}
-                      className="text-[#44444495]"
+                      className="text-[#444444]"
+                      title="Зберегти"
                     >
-                      <CloseIcon />
+                      <CiSaveUp2 />
                     </IconButton>
                   </div>
                 </form>
@@ -253,37 +406,227 @@ const Pricing = ({ onAlert }) => {
                   {category.name}
                 </h1>
               </div>
+
               <nav className="flex flex-[15%] h-auto justify-end items-center">
-                <EditIcon
-                  onClick={() => {
-                    setIsOpenEdit(true),
-                      setSelectedCategory(index),
-                      setCategoryName(category.name);
-                  }}
-                  sx={{
-                    mx: 1,
-                    color: "#77777750",
-                    "@media (max-width: 600px)": {
-                      fontSize: 20,
-                    },
-                    "&:hover": { color: "#777", cursor: "pointer" },
-                  }}
-                />
-                <DeleteIcon
-                  onClick={() => {
-                    setSelectedCategory(index), setIsOpenDelete(true);
-                  }}
-                  sx={{
-                    mx: 1,
-                    color: "#77777750",
-                    "@media (max-width: 600px)": {
-                      fontSize: 20,
-                    },
-                    "&:hover": { color: "#777", cursor: "pointer" },
-                  }}
-                />
+                {selectedCategory === index && (
+                  <>
+                    <span title="Редагувати">
+                      <EditIcon
+                        onClick={() => {
+                          setIsOpenEdit(true),
+                            setSelectedCategory(index),
+                            setCategoryName(category.name);
+                        }}
+                        sx={{
+                          mx: 1,
+                          color: "#77777750",
+                          "@media (max-width: 600px)": {
+                            fontSize: 20,
+                          },
+                          "&:hover": { color: "#777", cursor: "pointer" },
+                        }}
+                      />
+                    </span>
+                    <span title="Видалити">
+                      <DeleteIcon
+                        onClick={() => {
+                          setSelectedCategory(index), setIsOpenDelete(true);
+                        }}
+                        sx={{
+                          mx: 1,
+                          color: "#77777750",
+                          "@media (max-width: 600px)": {
+                            fontSize: 20,
+                          },
+                          "&:hover": { color: "#777", cursor: "pointer" },
+                        }}
+                      />
+                    </span>
+                  </>
+                )}
               </nav>
             </header>
+            {/* -------------------Service & price content ---------------------- */}
+
+            {dataPricing &&
+              dataPricing
+                .filter((pricing) => pricing.categoryId === category.id) // Filter by category
+                .map((pricing, index) => (
+                  <div
+                    ref={(el) => containerRefs.current.set(pricing.id, el)}
+                    onClick={() => setSelectedRow(pricing.id)}
+                    key={pricing.id}
+                    className={`flex relative ${
+                      selectedRow === pricing.id
+                        ? "bg-[#e1f1f8]"
+                        : index % 2 === 0
+                        ? "bg-[#eaeaea]"
+                        : "f5f5f5"
+                    } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap p-2 hover:bg-[#e1f1f8] cursor-default`}
+                  >
+                    {/* -----------Edit window --------------- */}
+                    {selectedRow === pricing.id && isOpenEditRow && (
+                      <form className="flex absolute top-0 left-0 z-30 justify-center items-center w-full h-auto p-[0.3rem] bg-[#5ba3bb]">
+                        <div className="flex flex-[60%]">
+                          <input
+                            type="text"
+                            name="service"
+                            id="service"
+                            // value={}
+                            // onChange={(e) => setCategoryName(e.target.value)}
+                            className="flex w-full px-3 py-1 rounded-sm bg-slate-200"
+                          />
+                        </div>
+                        <div className="flex flex-[30%] justify-center items-center">
+                          <input
+                            type="text"
+                            name="price"
+                            id="price"
+                            // value={categoryName}
+                            // onChange={(e) => setCategoryName(e.target.value)}
+                            className="flex w-[6rem] px-3 py-1 rounded-sm bg-slate-200"
+                          />
+                        </div>
+                        <div className="flex mr-3 flex-[10%] justify-end items-center">
+                          <IconButton
+                            size="small"
+                            edge="start"
+                            color="inherit"
+                            aria-label="close"
+                            onClick={() => setIsOpenEditRow(false)}
+                            className="text-[#444444]"
+                            title="Зберегти"
+                          >
+                            <CiSaveUp2 />
+                          </IconButton>
+                        </div>
+                      </form>
+                    )}
+
+                    <p>
+                      <span className="mr-2">{index + 1}.</span>
+                      {pricing.name}
+                    </p>
+                    <div className="flex">
+                      <p>
+                        {pricing.price} <span>грн.</span>{" "}
+                      </p>
+                      <span
+                        title="Редагувати"
+                        className="flex w-10 justify-center items-center ml-2 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
+                      >
+                        {selectedRow === pricing.id && (
+                          <EditIcon
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsOpenEditRow(true);
+                            }}
+                          />
+                        )}
+                      </span>
+                      <span
+                        title="Видалити"
+                        className="flex w-10 justify-center items-center ml-1 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
+                      >
+                        {selectedRow === pricing.id && (
+                          <DeleteIcon
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePriceAction("delete", pricing.id);
+                            }}
+                          />
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+            {/* -------------------Add services window --------------------------- */}
+
+            {selectedCategory === index && isOpen && (
+              <div className="flex flex-col w-full h-full items-center absolute inset-0 z-30 p-3 bg-white">
+                <div className="flex sticky top-2 right-2 ml-auto mb-auto">
+                  <IconButton
+                    size="small"
+                    edge="start"
+                    color="inherit"
+                    aria-label="close"
+                    onClick={() => setIsOpen(false)}
+                    className="text-[#44444495]"
+                    title="Закрити"
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </div>
+                <TextField
+                  id="service"
+                  value={service}
+                  onChange={(e) => setService(e.target.value)}
+                  helperText=" "
+                  label="Назва послуги"
+                  name="service"
+                  sx={{
+                    width: "100%",
+                    my: 1,
+                    "& .MuiInputBase-input": {
+                      fontSize: "18px",
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: "16px",
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  id="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value.replace(/\D/g, ""))}
+                  helperText=" "
+                  label="Вартість"
+                  name="price"
+                  type="number"
+                  sx={{
+                    width: "35%",
+                    my: 1,
+                    "& .MuiInputBase-input": {
+                      fontSize: "18px",
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: "16px",
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
+                    },
+                  }}
+                />
+
+                <div className="flex mb-auto">
+                  <ThemeProvider theme={theme}>
+                    <LoadingButton
+                      sx={{ m: 1 }}
+                      color="save"
+                      onClick={() => handlePriceSubmit(category.id)}
+                      loading={loadingPrice}
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="contained"
+                      size="large"
+                    >
+                      Записати
+                    </LoadingButton>
+                  </ThemeProvider>
+                </div>
+              </div>
+            )}
+
             {/*------------------- Delete modal window -----------------------------*/}
             {selectedCategory === index && isOpenDelete && (
               <div className="flex flex-col absolute top-[8rem] left-0 w-[90%] h-auto mx-[0.8rem] sm:mx-[1.5rem] z-30 justify-center items-center bg-slate-100 border-[1px] p-1 sm:p-5 border-[#ffa726] rounded-md">
@@ -325,6 +668,22 @@ const Pricing = ({ onAlert }) => {
                 </div>
               </div>
             )}
+            <span
+              title="Додати послугу"
+              onClick={() => {
+                setIsOpen(true), setSelectedCategory(index);
+              }}
+              className="sticky bottom-2 right-2 ml-auto mt-auto"
+            >
+              <Fab
+                sx={{ zIndex: 0 }}
+                color="primary"
+                size="small"
+                aria-label="add"
+              >
+                <AddIcon />
+              </Fab>
+            </span>
           </div>
         ))}
     </div>

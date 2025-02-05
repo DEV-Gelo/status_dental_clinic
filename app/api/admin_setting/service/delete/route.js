@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function DELETE(req) {
   try {
-    // Парсимо JSON з `body`
+    // Parse JSON from `body`
     const { id } = await req.json();
 
     if (!id || typeof id !== "number") {
@@ -15,7 +15,7 @@ export async function DELETE(req) {
       );
     }
 
-    // Перевіряємо, чи існує сервіс у базі
+    // Check whether the service exists in the database
     const existingService = await prisma.services.findUnique({
       where: { id },
     });
@@ -27,7 +27,7 @@ export async function DELETE(req) {
       );
     }
 
-    // Видаляємо запис
+    // Delete the record
     await prisma.services.delete({
       where: { id },
     });
