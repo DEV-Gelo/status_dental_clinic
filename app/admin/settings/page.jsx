@@ -13,6 +13,7 @@ import Snackbar from "@mui/material/Snackbar";
 // ---------------App components----------------------------//
 import Services from "@/components/admin_settings/Services";
 import Pricing from "@/components/admin_settings/Pricing";
+import Contacts from "@/components/admin_settings/Contacts";
 
 const Settings = () => {
   const [isOpenAside, setIsOpenAside] = useState(false);
@@ -120,7 +121,7 @@ const Settings = () => {
             {menu[activeIndex].id === "pricing" && (
               <Pricing onAlert={showAlert} />
             )}
-            {menu[activeIndex].id === "contacts" && <h1>Contact settings</h1>}
+            {menu[activeIndex].id === "contacts" && <Contacts />}
           </div>
         )}
       </main>

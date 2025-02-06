@@ -108,7 +108,7 @@ const Services = ({ onAlert }) => {
         const errorResult = await response.json();
         throw new Error(errorResult.error || "Помилка видалення");
       }
-      fetchData();
+      mutate("/api/admin_setting/service");
       onAlert("success", "Запис успішно видалено!");
     } catch (error) {
       console.error("Помилка видалення:", error);
@@ -121,15 +121,20 @@ const Services = ({ onAlert }) => {
   const { data, error } = useSWR("/api/admin_setting/service", fetchData);
   const serverData = data;
 
+  // ------------Close window function-----------------------//
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setInputValue("");
+  };
+
   return (
     <div className="flex w-full h-full justify-center items-center py-5">
       <div
         ref={containerRef}
-        className={`flex flex-col relative w-full sm:w-[30rem] h-[38rem] justify-start items-start border-[1px] border-[#5ba3bb] rounded-md ${
-          isOpen ? "overflow-hidden" : "overflow-auto"
-        }`}
+        className="flex flex-col relative w-full sm:w-[30rem] h-[38rem] justify-start items-start bg-[#f5f5f5] rounded-md overflow-hidden"
       >
-        <h1 className="w-full text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold p-2 bg-[#5ba3bb]">
+        <h1 className="w-full h-[4rem] text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold p-4 bg-[#5ba3bb]">
           Послуги
         </h1>
         {error && (
@@ -143,110 +148,113 @@ const Services = ({ onAlert }) => {
             </Alert>
           </div>
         )}
-        {!serverData && !error && (
-          <div className="flex flex-col justify-center items-center w-full h-full p-10">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                variant="rounded"
-                width="100%"
-                height={40}
-                sx={{ m: 1 }}
-              />
-            ))}
-          </div>
-        )}
-        {isOpen && (
-          <div className="flex flex-col w-full h-full items-center absolute inset-0 z-30 p-3 bg-white bg-opacity-50 backdrop-blur-sm">
-            <div className="flex sticky top-2 right-2 ml-auto mb-auto">
-              <IconButton
-                size="small"
-                edge="start"
-                color="inherit"
-                aria-label="close"
-                onClick={() => setIsOpen(false)}
-                className="text-[#44444495]"
-              >
-                <CloseIcon />
-              </IconButton>
-            </div>
-            <TextField
-              id="serviceInput"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              helperText=" "
-              label="Назва послуги"
-              name="serviceInput"
-              sx={{
-                width: "100%",
-                my: 5,
-                "& .MuiInputBase-input": {
-                  fontSize: "18px",
-                  "@media (max-width: 600px)": {
-                    fontSize: "14px",
-                  },
-                },
-              }}
-            />
-
-            <div className="flex mb-auto">
-              <ThemeProvider theme={theme}>
-                <LoadingButton
+        <div className="flex flex-col w-full h-[80%] overflow-auto">
+          {!serverData && !error && (
+            <div className="flex flex-col justify-center items-center w-full h-full p-10">
+              {Array.from({ length: 7 }).map((_, index) => (
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  width="100%"
+                  height={40}
                   sx={{ m: 1 }}
-                  color="save"
-                  onClick={handleSubmit}
-                  loading={loading}
-                  loadingPosition="start"
-                  startIcon={<SaveIcon />}
-                  variant="contained"
-                  size="large"
-                >
-                  Записати
-                </LoadingButton>
-              </ThemeProvider>
+                />
+              ))}
             </div>
-          </div>
-        )}
-        {serverData && (
-          <>
-            {serverData.map((service, index) => (
-              <div
-                onClick={() => {
-                  setSelectedRow(index);
-                }}
-                key={service.id}
-                className={`flex ${
-                  selectedRow === index
-                    ? "bg-[#e1f1f8] outline outline-2 outline-[#5ba3bb]"
-                    : ""
-                } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap py-2 px-5 hover:bg-[#e1f1f8] cursor-default`}
-              >
-                <p>
-                  <span className="mr-2">{index + 1}.</span>
-                  {service.name}
-                </p>
-                <span className="flex w-10 justify-center items-center ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer">
-                  {selectedRow === index && isDeleting !== service.id ? (
-                    <DeleteIcon
-                      onClick={(e) => {
-                        e.stopPropagation(); // Stop the event so that onClick does not fire on the <div>
-                        deleteService(service.id);
-                      }}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  {isDeleting === service.id ? (
-                    <CircularProgress size="1rem" />
-                  ) : (
-                    ""
-                  )}
-                </span>
+          )}
+          {isOpen && (
+            <div className="flex flex-col w-full h-full items-center absolute inset-0 z-30 p-3 bg-[#f5f5f5]">
+              <div className="flex sticky top-2 right-2 ml-auto mb-auto">
+                <IconButton
+                  size="small"
+                  edge="start"
+                  color="inherit"
+                  aria-label="close"
+                  onClick={() => handleClose()}
+                  className="text-[#44444495]"
+                >
+                  <CloseIcon />
+                </IconButton>
               </div>
-            ))}
-          </>
-        )}
+              <TextField
+                id="serviceInput"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                helperText=" "
+                label="Назва послуги"
+                name="serviceInput"
+                sx={{
+                  width: "100%",
+                  my: 5,
+                  "& .MuiInputBase-input": {
+                    fontSize: "18px",
+                    "@media (max-width: 600px)": {
+                      fontSize: "14px",
+                    },
+                  },
+                }}
+              />
 
+              <div className="flex mb-auto">
+                <ThemeProvider theme={theme}>
+                  <LoadingButton
+                    sx={{ m: 1 }}
+                    color="save"
+                    onClick={handleSubmit}
+                    loading={loading}
+                    loadingPosition="start"
+                    startIcon={<SaveIcon />}
+                    variant="contained"
+                    size="large"
+                  >
+                    Записати
+                  </LoadingButton>
+                </ThemeProvider>
+              </div>
+            </div>
+          )}
+          {serverData && (
+            <>
+              {serverData.map((service, index) => (
+                <div
+                  onClick={() => {
+                    setSelectedRow(index);
+                  }}
+                  key={service.id}
+                  className={`flex ${
+                    selectedRow === index
+                      ? "bg-[#1976D2] text-[#fff]"
+                      : index % 2 === 0
+                      ? "bg-[#eaeaea]"
+                      : "bg-[#f5f5f5]"
+                  } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap py-2 px-5 hover:bg-[#1976D2] hover:text-[#fff] cursor-default`}
+                >
+                  <p>
+                    <span className="mr-2">{index + 1}.</span>
+                    {service.name}
+                  </p>
+                  <span className="flex w-10 justify-center items-center ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer">
+                    {selectedRow === index && isDeleting !== service.id ? (
+                      <DeleteIcon
+                        onClick={(e) => {
+                          e.stopPropagation(); // Stop the event so that onClick does not fire on the <div>
+                          deleteService(service.id);
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    {isDeleting === service.id ? (
+                      <CircularProgress size="1rem" />
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
         <span
           onClick={() => setIsOpen(true)}
           className="sticky bottom-2 right-2 ml-auto mt-auto"
