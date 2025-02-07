@@ -106,3 +106,23 @@ model Pricing {
   category     Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId   Int          
 }
+
+model Contact {
+  id          Int       @id @default(autoincrement())
+  country     String?   
+  city        String?   
+  district    String?   
+  region      String?   
+  street      String?   
+  house       String?   
+  office      String?   
+  zipcode     String?   
+  email       String?
+  phoneNumbers Json? 
+  x           Float?
+  y           Float?
+  z           Float?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+

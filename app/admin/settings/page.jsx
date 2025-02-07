@@ -121,7 +121,9 @@ const Settings = () => {
             {menu[activeIndex].id === "pricing" && (
               <Pricing onAlert={showAlert} />
             )}
-            {menu[activeIndex].id === "contacts" && <Contacts />}
+            {menu[activeIndex].id === "contacts" && (
+              <Contacts onAlert={showAlert} />
+            )}
           </div>
         )}
       </main>

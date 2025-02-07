@@ -2,38 +2,31 @@
 import React, { useEffect, useRef } from "react";
 // ----------Map configuration-----------------------//
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet"; // Імпортуємо Leaflet
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const position = [50.3938821, 30.4930841, 21]; // Київ
+const position = [50.3938821, 30.4930841, 21];
 
-// 🔥 Фікс для іконки маркера
+// -----Marker icon----------//
 const customIcon = new L.Icon({
   iconUrl: "/marker-icon.png",
-  iconSize: [25, 41], // Розмір іконки
-  iconAnchor: [12, 41], // Точка прив’язки
-  popupAnchor: [1, -34], // Позиція попапа
+  iconSize: [25, 41],
+  iconAnchor: [12, 41], // Anchor point
+  popupAnchor: [1, -34], // Popup position
 });
 
 const CustomMap = () => {
-  const mapRef = useRef(null); // Використовуємо ref для карти
+  const mapRef = useRef(null);
 
   useEffect(() => {
+    // Initialize the map only if it has not been initialized
     if (mapRef.current && !mapRef.current._leaflet_id) {
-      // Ініціалізуємо карту тільки якщо вона не була ініціалізована
-      const customIcon = new L.Icon({
-        iconUrl: "/marker-icon.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-      });
-
-      // Тепер використовуємо ref для карти
-      mapRef.current.invalidateSize(); // Оновлюємо розміри карти після рендерингу
+      // Use the ref for the map
+      mapRef.current.invalidateSize(); // Update the dimensions of the map after rendering
     }
 
     return () => {
-      // Очищаємо карту після демонтажу компонента
+      // Clean the map after dismantling the component
       if (mapRef.current) {
         mapRef.current.remove();
       }
@@ -45,7 +38,7 @@ const CustomMap = () => {
       center={position}
       zoom={15}
       style={{ height: "100%", width: "100%", borderRadius: "10px" }}
-      ref={mapRef} // Підключаємо ref до MapContainer
+      ref={mapRef} // Connect ref to MapContainer
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker position={position} icon={customIcon}>
