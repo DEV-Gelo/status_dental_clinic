@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import styles from "./UsersStyle.module.css";
-import { IoSearchSharp } from "react-icons/io5";
+// -------Import React components------------------//
 import { MdEmail } from "react-icons/md";
-import { FaUserDoctor, FaUserLarge, FaPhone } from "react-icons/fa6";
-
+import { FaPhone } from "react-icons/fa6";
+// -------Import MUI components------------------//
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
@@ -18,19 +18,25 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
+import SearchIcon from "@mui/icons-material/Search";
+// ----------Import stylisation for serch input----------------//
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+} from "@/components/Stylisation_MUI/stylisation_search";
+// ----------Import of internal components----------------//
 import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm";
 import PopupForm from "@/components/DataTable/PopupFormAddUser/PopupForm";
 import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdit";
 import FormAddAppointment from "@/components/DataTable/FormAddAppointment/FormAddAppointment";
+import styled from "@emotion/styled";
 
 const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
   const [isOpenAddAppointment, setIsOpenAddAppointment] = useState(false);
   const [isOpenDel, setIsOpenDel] = useState(false);
-  // const [triggerDoctor, setTriggerDoctor] = useState(true);
-  // const [triggerUser, setTriggerUser] = useState(false);
   const [role, setRole] = useState("Лікар");
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedInitials, setSelectedInitials] = useState("");
@@ -134,18 +140,6 @@ const Users = () => {
     setSelectedInitials(`${lastName} ${firstName} ${patronymic}`);
   };
 
-  // Switch between categories in the table ------------
-
-  // const activeTriggerDoctor = () => {
-  //   setTriggerDoctor(true); // Activate doctor filter
-  //   setTriggerUser(false); // Deactivate user filter
-  // };
-
-  // const activeTriggerUser = () => {
-  //   setTriggerDoctor(false); // Deactivate doctor filter
-  //   setTriggerUser(true); // Activate user filter
-  // };
-
   // -----------Alert windows--------------------------//
   const showAlert = (severity, message) => {
     setAlertConfig({ open: true, severity, message });
@@ -215,6 +209,7 @@ const Users = () => {
         {/* -------------------Table Navbar---------------------- */}
 
         <div className={styles.table_navbar}>
+          {/* -------Buttons navigstion------- */}
           <div className={styles.table_navigation}>
             <Fab
               sx={{ zIndex: 0, m: 2 }}
@@ -249,9 +244,15 @@ const Users = () => {
               <DeleteIcon />
             </Fab>
           </div>
+          {/* ------Switch role container----- */}
           <div className={styles.table_switch}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="role-label">Role</InputLabel>
+            <button className={styles.table_switch_button_doctor}>Лікар</button>
+            <button className={styles.table_switch_button_active}>
+              Пацієнт
+            </button>
+
+            {/* <FormControl variant="standard" sx={{ m: 1, minWidth: "auto" }}>
+              <InputLabel id="role-label">Фільтр</InputLabel>
               <Select
                 labelId="role-label"
                 id="role"
@@ -262,20 +263,23 @@ const Users = () => {
                 <MenuItem value="Лікар">Лікар</MenuItem>
                 <MenuItem value="Пацієнт">Пацієнт</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </div>
+
+          {/* ------Search container------- */}
           <div className={styles.table_search}>
-            <input
-              type="text"
-              title="Введіть текст для пошуку"
-              placeholder="Пошук"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <div
-              className={`${styles.search_icon} text-[24px] text-white mx-[0.5rem]`}
-            >
-              <IoSearchSharp />
-            </div>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Пошук…"
+                inputProps={{ "aria-label": "search" }}
+                type="text"
+                title="Введіть текст для пошуку"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Search>
           </div>
         </div>
 
@@ -295,7 +299,9 @@ const Users = () => {
                 <th className={styles.email_th}>
                   <MdEmail />
                 </th>
-                <th className={styles.create_record_th}></th>
+                {role !== "Лікар" && (
+                  <th className={styles.create_record_th}></th>
+                )}
               </tr>
             </thead>
             <tbody className={styles.tbody}>

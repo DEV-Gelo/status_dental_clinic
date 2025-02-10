@@ -6,7 +6,6 @@ import prisma from "@/lib/prisma";
 export async function POST(req) {
   try {
     const data = await req.json();
-    console.log("Отримані дані:", data);
     const { id, ...contactData } = data;
 
     const contact = await prisma.contact.upsert({

@@ -12,7 +12,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 

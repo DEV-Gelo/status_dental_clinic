@@ -14,7 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CircularProgress from "@mui/material/CircularProgress";
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // -----------Import components--------------------//
 import UserCalendar from "@/components/DataTableAppointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "@/components/DataTableAppointment/UserCalendar/AvailableDoctors/AvailableDoctors";
@@ -24,6 +24,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
   const [loadingData, setLoadingData] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [serviceData, setServiceData] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -64,6 +65,22 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
 
     fetchUserData();
   }, [userId]);
+
+  // --------Get data from service------//
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin_setting/service");
+      if (!response.ok)
+        throw new Error(result.message || "Помилка при отриманні даних");
+      const data = await response.json();
+      setServiceData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
     setAppointmentData((prev) => ({
@@ -72,7 +89,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
     }));
   };
 
-  // ---------------------------------------------------//
+  // -------------Available doctors------------------//
 
   const handleAvailabilityChange = (availability) => {
     setDoctorsAvailability(availability);
@@ -88,7 +105,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Перевіряємо локальні стани
+    // check the local states
     if (name === "firstName") {
       setFirstName(value);
     } else if (name === "lastName") {
@@ -311,15 +328,11 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
                     value={appointmentData.service}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="Огляд та консультація">
-                      Огляд та консультація
-                    </MenuItem>
-                    <MenuItem value="Чистка (ультразвукова, AirFlow)">
-                      Професійна чистка (ультразвукова, AirFlow)
-                    </MenuItem>
-                    <MenuItem value="Лікування зубів">Лікування</MenuItem>
-                    <MenuItem value="Видалення зубів">Видалення</MenuItem>
-                    <MenuItem value="Інше">Інше</MenuItem>
+                    {serviceData.map((service) => (
+                      <MenuItem key={service.id} value={service.name}>
+                        {service.name}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
                 <TextField

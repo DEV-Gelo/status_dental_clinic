@@ -1,11 +1,25 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+// ---------Import MUI component-------------//
+import IconButton from "@mui/material/IconButton";
+
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+
+import FormControl from "@mui/material/FormControl";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,20 +54,38 @@ const AdminLogin = () => {
         </h1>
         <form className="mt-6">
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              required
-            />
+            <FormControl sx={{ width: "100%" }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                size="small"
+                error={error}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                sx={{
+                  input: { padding: "15px 10px" },
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? "hide the password"
+                          : "display the password"
+                      }
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
           </div>
           {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
           <button

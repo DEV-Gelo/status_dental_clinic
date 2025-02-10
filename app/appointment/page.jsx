@@ -18,7 +18,7 @@ import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // -----------Import components--------------------//
 import UserCalendar from "../../components/Appointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "../../components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";

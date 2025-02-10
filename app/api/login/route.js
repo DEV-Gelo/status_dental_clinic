@@ -14,10 +14,10 @@ export async function POST(req) {
     const { password } = parsedBody;
 
     if (password === process.env.ADMIN_PASSWORD) {
-      // Встановлюємо cookie
+      // Set the cookie
       const response = NextResponse.json({ success: true });
 
-      // Додаємо cookie у заголовок
+      // Add a cookie to the header
       response.headers.set(
         "Set-Cookie",
         `auth=true; HttpOnly; Path=/admin; Max-Age=3600`

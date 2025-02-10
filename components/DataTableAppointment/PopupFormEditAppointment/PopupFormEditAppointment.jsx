@@ -16,7 +16,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   const [loadingPage, setLoadingPage] = useState(false);

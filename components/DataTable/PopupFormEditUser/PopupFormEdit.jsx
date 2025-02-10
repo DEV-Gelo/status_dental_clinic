@@ -13,7 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 

@@ -8,7 +8,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { ThemeProvider } from "@mui/material/styles";
 
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 const ScheduleGenerator = ({
   dates,

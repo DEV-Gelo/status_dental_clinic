@@ -18,7 +18,7 @@ import { CiSaveUp2 } from "react-icons/ci";
 
 import { ThemeProvider } from "@mui/material/styles";
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 // Function for receiving category data
 const fetchData = async () => {

@@ -13,7 +13,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 // ----------Stylisation buttons MUI-----------------//
-import { theme } from "@/components/Stylisation_Buttons/stylisation_button_MUI";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // -----------Import components--------------------//
 import UserCalendar from "../../Appointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "../UserCalendar/AvailableDoctors/AvailableDoctors";
