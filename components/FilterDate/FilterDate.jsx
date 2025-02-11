@@ -90,7 +90,7 @@ const FilterDate = ({
     : [];
 
   return (
-    <div className="flex flex-col sm:flex-row">
+    <div className="flex flex-col flex-wrap justify-center">
       <div className="flex flex-nowrap m-2">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="month-label">Місяць</InputLabel>

@@ -155,7 +155,7 @@ const Contacts = ({ onAlert }) => {
         </div>
       )}
       {data && !error && (
-        <div className="flex flex-col justify-start items-start sm:justify-center sm:items-center overflow-auto">
+        <div className="flex flex-col justify-start items-center sm:justify-center overflow-auto">
           <div className="flex flex-col sm:flex-row mr-2">
             <address className="flex flex-col w-full h-auto lg:w-[35rem] sm:h-[38rem] border-[1px] rounded-md sm:overflow-auto mr-4 my-10 sm:my-0 p-3">
               <TextField
@@ -462,7 +462,7 @@ const Contacts = ({ onAlert }) => {
               <MapComponent position={position} />
             </div>
           </div>
-          <div className="flex w-full justify-center items-center">
+          <div className="flex w-full justify-center items-center mt-10">
             <ThemeProvider theme={theme}>
               <LoadingButton
                 sx={{ m: 1 }}

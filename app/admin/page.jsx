@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import useSWR from "swr";
 import styles from "./DataAppointmentStyle.module.css";
 // ----------Import React components---------------//
-import { IoPersonAddSharp } from "react-icons/io5";
-import { MdDeleteForever, MdEditSquare } from "react-icons/md";
 import { FaPhone } from "react-icons/fa6";
 import { RiCloseLargeFill } from "react-icons/ri";
+import { RiArrowDownWideLine } from "react-icons/ri";
+import { RiArrowUpWideLine } from "react-icons/ri";
 // ----------Import MUI components---------------//
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -302,52 +302,29 @@ const Admin = () => {
               <DeleteIcon />
             </Fab>
           </div>
-          {/* <div className={styles.table_navigation}>
-            <button
-              onClick={handlePopup_form}
-              type="button"
-              title="Додати запис"
-              className={`${styles.button_nav} text-green-900`}
-            >
-              <IoPersonAddSharp />
-            </button>
-            <button
-              onClick={handlePopupEdit_form}
-              type="button"
-              title="Редагувати запис"
-              className={`${styles.button_nav} text-yellow-700`}
-            >
-              <MdEditSquare />
-            </button>
-            <button
-              onClick={handleDelete}
-              type="button"
-              title="Видалити запис"
-              className={`${styles.button_nav} text-red-900`}
-            >
-              <MdDeleteForever />
-            </button>
-          </div> */}
-
+          {/* ----------Filter container----------- */}
           <div className={styles.filter_container}>
             <button
               className={styles.button_filter}
               type="button"
+              title="Фільтр"
               onClick={handleOpenFilter}
             >
               {isOpenFilter ? (
-                <RiCloseLargeFill />
+                <span>
+                  <RiArrowUpWideLine />
+                </span>
               ) : (
-                <div title="Фільтр" className={styles.filter_icon}>
-                  <CalendarMonthIcon />
-                </div>
+                <span>
+                  <RiArrowDownWideLine />
+                </span>
               )}
             </button>
 
             <div
-              className={
-                isOpenFilter ? styles.filter_wrap : styles.filter_wrap_hidden
-              }
+              className={`${styles.filter_wrap} ${
+                isOpenFilter ? styles.open : styles.closed
+              }`}
             >
               <FilterDate
                 doctors={doctors}
@@ -358,7 +335,7 @@ const Admin = () => {
               />
             </div>
           </div>
-
+          {/* -----------Search container----------- */}
           <div className={styles.table_search}>
             <Search>
               <SearchIconWrapper>

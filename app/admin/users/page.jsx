@@ -13,10 +13,6 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import SearchIcon from "@mui/icons-material/Search";
 // ----------Import stylisation for serch input----------------//
@@ -30,7 +26,6 @@ import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm
 import PopupForm from "@/components/DataTable/PopupFormAddUser/PopupForm";
 import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdit";
 import FormAddAppointment from "@/components/DataTable/FormAddAppointment/FormAddAppointment";
-import styled from "@emotion/styled";
 
 const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,6 +150,7 @@ const Users = () => {
   return (
     <>
       <div className={styles.users_page_wrap}>
+        <h1 className={styles.title}>Користувачі</h1>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -245,25 +241,23 @@ const Users = () => {
             </Fab>
           </div>
           {/* ------Switch role container----- */}
-          <div className={styles.table_switch}>
-            <button className={styles.table_switch_button_doctor}>Лікар</button>
-            <button className={styles.table_switch_button_active}>
+          <div className={styles.table_switch} title="Фільтр">
+            <button
+              onClick={() => setRole("Лікар")}
+              className={`${styles.table_switch_button_doctor} ${
+                role === "Лікар" ? styles.table_switch_button_active : ""
+              }`}
+            >
+              Лікар
+            </button>
+            <button
+              onClick={() => setRole("Пацієнт")}
+              className={`${styles.table_switch_button_pacient} ${
+                role === "Пацієнт" ? styles.table_switch_button_active : ""
+              }`}
+            >
               Пацієнт
             </button>
-
-            {/* <FormControl variant="standard" sx={{ m: 1, minWidth: "auto" }}>
-              <InputLabel id="role-label">Фільтр</InputLabel>
-              <Select
-                labelId="role-label"
-                id="role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                label="Role"
-              >
-                <MenuItem value="Лікар">Лікар</MenuItem>
-                <MenuItem value="Пацієнт">Пацієнт</MenuItem>
-              </Select>
-            </FormControl> */}
           </div>
 
           {/* ------Search container------- */}
