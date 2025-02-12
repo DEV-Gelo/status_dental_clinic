@@ -1,13 +1,17 @@
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
 import "./globals.css";
 
 const kollektif = localFont({
-  src: "./fonts/Kollektif.woff2",
+  src: "../fonts/Kollektif.woff2",
   variable: "--font-kollektif",
   weight: "100 900",
 });
 const playfairDisplay = localFont({
-  src: "./fonts/PlayfairDisplay-Italic.woff2",
+  src: "../fonts/PlayfairDisplay-Italic.woff2",
   variable: "--font-display",
   weight: "100 900",
 });
@@ -35,9 +39,18 @@ export const metadata = {
   icons: "/favicon.ico",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children, params }) {
+  const { locale } = params;
+
+  // Перевірка, чи є локаль в списку доступних
+  if (!routing.locales.includes(locale)) {
+    notFound();
+  }
+
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,7 +58,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${kollektif.variable} ${playfairDisplay.variable} antialiased`}
       >
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

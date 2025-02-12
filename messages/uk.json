@@ -1,0 +1,40 @@
+{
+  "admin": {
+    "Appointments": "Записи на прийом",
+    "Search": "Пошук...",
+    "Search_title": "Введіть текст для пошуку",
+    "Add a record": "Додати запис",
+    "Edit entry": "Редагувати запис",
+    "Delete entry": "Видалити запис",
+    "Filter": "Фільтр",
+    "Name_table": "ПІБ",
+    "Date_table": "Дата",
+    "Time_table": "Час",
+    "Service_table": "Послуга",
+    "Doctor_table": "Лікар",
+    "language": "uk-UA",
+    "Delete_alert": "Будь ласка, оберіть запис який бажаєте видалити.",
+    "Edit_alert": "Будь ласка, оберіть користувача для редагування.",
+    "Error loading data": "Помилка завантаження даних",
+    "Doctor error": "Помилка при завантаженні лікарів"
+  },
+  "admin__FilterDate": {
+    "January": "Січень",
+    "February": "Лютий",
+    "March": "Березень",
+    "April": "Квітень",
+    "May": "Травень",
+    "June": "Червень",
+    "July": "Липень",
+    "August": "Серпень",
+    "September": "Вересень",
+    "October": "Жовтень",
+    "November": "Листопад",
+    "December": "Грудень",
+    "month": "Місяць",
+    "day": "День",
+    "year": "Рік",
+    "doctor": "Лікар",
+    "clear_title": "Очистити"
+  }
+}

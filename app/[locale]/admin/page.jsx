@@ -2,16 +2,15 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import styles from "./DataAppointmentStyle.module.css";
+import { useTranslations } from "next-intl";
 // ----------Import React components---------------//
 import { FaPhone } from "react-icons/fa6";
-import { RiCloseLargeFill } from "react-icons/ri";
 import { RiArrowDownWideLine } from "react-icons/ri";
 import { RiArrowUpWideLine } from "react-icons/ri";
 // ----------Import MUI components---------------//
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -47,13 +46,16 @@ const Admin = () => {
     severity: "success",
     message: "",
   });
+  // -------Translations----------//
+  const t = useTranslations("admin");
+  const locale = t("language");
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const response = await fetch("/api/doctors");
         if (!response.ok) {
-          throw new Error("Помилка при завантаженні лікарів");
+          throw new Error(`${t("Doctor error")}`);
         }
         const data = await response.json();
         setDoctors(data);
@@ -105,8 +107,7 @@ const Admin = () => {
     return (
       <div className={styles.error_loading}>
         <Alert className={styles.alert_loading} severity="warning">
-          <h6>Помилка завантаження даних</h6>
-          <p>Перевірте з'єднання</p>
+          <h6>{t("Error loading data")}</h6>
         </Alert>
       </div>
     );
@@ -132,13 +133,12 @@ const Admin = () => {
   const filteredData = data.filter((appointment) => {
     const appointmentDate = new Date(appointment.date);
     const appointmentYear = appointmentDate.getFullYear();
-    const appointmentMonth = appointmentDate.toLocaleString("uk-UA", {
+    const appointmentMonth = appointmentDate.toLocaleString(locale, {
       month: "long",
     });
     const capitalizedMonthName =
       appointmentMonth[0].toUpperCase() + appointmentMonth.slice(1);
     const appointmentDay = appointmentDate.getDate();
-
     // Search
     const searchTermLower = searchTerm.toLowerCase();
     const fullName =
@@ -179,7 +179,7 @@ const Admin = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
-    return date.toLocaleDateString("uk-UA"); // Localize the date in the format "dd.mm.yyyy"
+    return date.toLocaleDateString(locale || "en-US"); // Localize the date in the format "dd.mm.yyyy"
   };
 
   // --------Open popup window------------------------//
@@ -188,7 +188,7 @@ const Admin = () => {
   };
   const handlePopupEdit_form = () => {
     if (!selectedUserId) {
-      showAlert("warning", "Будь ласка, оберіть користувача для редагування.");
+      showAlert("warning", `${t("Edit_alert")}`);
       return;
     }
     setIsOpenEditForm(true);
@@ -197,7 +197,7 @@ const Admin = () => {
   // --------Open delete window------------------------//
   const handleDelete = () => {
     if (!selectedUserId) {
-      showAlert("warning", "Будь ласка, оберіть запис який бажаєте видалити.");
+      showAlert("warning", `${t("Delete_alert")}`);
       return;
     }
     setIsOpenDel(true);
@@ -221,7 +221,7 @@ const Admin = () => {
   return (
     <>
       <div className={styles.users_page_wrap}>
-        <h1 className={styles.title}>Записи на прийом</h1>
+        <h1 className={styles.title}>{t("Appointments")}</h1>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -272,7 +272,7 @@ const Admin = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopup_form}
-              title="Додати запис"
+              title={t("Add a record")}
               size="small"
               aria-label="add"
               color="primary"
@@ -283,7 +283,7 @@ const Admin = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopupEdit_form}
-              title="Редагувати запис"
+              title={t("Edit entry")}
               size="small"
               aria-label="edit"
               color="primary"
@@ -294,7 +294,7 @@ const Admin = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handleDelete}
-              title="Видалити запис"
+              title={t("Delete entry")}
               size="small"
               aria-label="delete"
               color="primary"
@@ -307,7 +307,7 @@ const Admin = () => {
             <button
               className={styles.button_filter}
               type="button"
-              title="Фільтр"
+              title={t("Filter")}
               onClick={handleOpenFilter}
             >
               {isOpenFilter ? (
@@ -342,31 +342,31 @@ const Admin = () => {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Пошук…"
+                placeholder={t("Search")}
                 inputProps={{ "aria-label": "search" }}
                 type="text"
-                title="Введіть текст для пошуку"
+                title={t("Search_title")}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </Search>
           </div>
         </div>
 
-        {/* -------------------Users Table------------------- */}
+        {/* -------------------Appoinment Table------------------- */}
 
         <div className={styles.table_container}>
           <table className={styles.table}>
             <thead className={styles.thead}>
               <tr>
                 <th className={styles.id_th}>№</th>
-                <th>ПІБ</th>
+                <th>{t("Name_table")}</th>
                 <th>
                   <FaPhone />
                 </th>
-                <th>Дата</th>
-                <th>Час</th>
-                <th>Сервіс</th>
-                <th>Лікар</th>
+                <th>{t("Date_table")}</th>
+                <th>{t("Time_table")}</th>
+                <th>{t("Service_table")}</th>
+                <th>{t("Doctor_table")}</th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>

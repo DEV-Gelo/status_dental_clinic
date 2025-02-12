@@ -20,8 +20,8 @@ import Snackbar from "@mui/material/Snackbar";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // -----------Import components--------------------//
-import UserCalendar from "../../components/Appointment/UserCalendar/UserCalendar";
-import AvailableDoctors from "../../components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";
+import UserCalendar from "../../../components/Appointment/UserCalendar/UserCalendar";
+import AvailableDoctors from "../../../components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";
 
 const Appointment = () => {
   const [loading, setLoading] = useState(false);

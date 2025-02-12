@@ -47,12 +47,13 @@ const Navbar = () => {
   // Scroll-away Navbar ----------------------------------------//
 
   const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   const links = [
-    { href: "/", label: "ГОЛОВНА" },
-    { href: "/about", label: "ПРО НАС" },
-    { href: "/service", label: "ПОСЛУГИ" },
-    { href: "/contacts", label: "КОНТАКТИ" },
+    { href: `/${locale}`, label: "ГОЛОВНА" },
+    { href: `/${locale}/about`, label: "ПРО НАС" },
+    { href: `/${locale}/service`, label: "ПОСЛУГИ" },
+    { href: `/${locale}/contacts`, label: "КОНТАКТИ" },
   ];
 
   return (
@@ -85,7 +86,7 @@ const Navbar = () => {
         <MobileMenu links={links} />
 
         <Link
-          href="/appointment"
+          href={`/${locale}/appointment`}
           className="hidden lg:flex justify-end items-center pr-[2rem] ml-[2rem]"
         >
           <motion.button

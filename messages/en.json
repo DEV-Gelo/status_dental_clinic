@@ -1,0 +1,40 @@
+{
+  "admin": {
+    "Appointments": "Appointments",
+    "Search": "Search...",
+    "Search_title": "Enter text to search",
+    "Add a record": "Add a record",
+    "Edit entry": "Edit entry",
+    "Delete entry": "Delete entry",
+    "Filter": "Filter",
+    "Name_table": "Full Name",
+    "Date_table": "Date",
+    "Time_table": "Time",
+    "Service_table": "Service",
+    "Doctor_table": "Doctor",
+    "language": "en-US",
+    "Delete_alert": "Please select the record you want to delete.",
+    "Edit_alert": "Please select a user to edit.",
+    "Error loading data": "Error loading data",
+    "Doctor error": "Error loading doctors"
+  },
+  "admin__FilterDate": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+    "month": "Month",
+    "day": "Day",
+    "year": "Year",
+    "doctor": "Doctor",
+    "clear_title": "Clear"
+  }
+}

@@ -8,32 +8,34 @@ import { SlNote } from "react-icons/sl";
 import Link from "next/link";
 import styles from "./AdminNav.module.css";
 
-const icons = [
-  {
-    icon: <FiUsers />,
-    title: "Користувачі",
-    link: "/admin/users",
-  },
-  {
-    icon: <RiPagesLine />,
-    title: "Графік прийому",
-    link: "/admin/appointment",
-  },
-  {
-    icon: <SlNote />,
-    title: "Записи на прийом",
-    link: "/admin",
-  },
-  {
-    icon: <IoSettingsOutline />,
-    title: "Налаштування",
-    link: "/admin/settings",
-  },
-];
-
 const AdminNav = () => {
   const pathname = usePathname();
+  const locale = pathname.split("/")[1];
+
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const icons = [
+    {
+      icon: <FiUsers />,
+      title: "Користувачі",
+      link: `/${locale}/admin/users`,
+    },
+    {
+      icon: <RiPagesLine />,
+      title: "Графік прийому",
+      link: `/${locale}/admin/appointment`,
+    },
+    {
+      icon: <SlNote />,
+      title: "Записи на прийом",
+      link: `/${locale}/admin`,
+    },
+    {
+      icon: <IoSettingsOutline />,
+      title: "Налаштування",
+      link: `/${locale}/admin/settings`,
+    },
+  ];
 
   useEffect(() => {
     const currentIndex = icons.findIndex((item) => item.link === pathname);
