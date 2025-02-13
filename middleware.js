@@ -1,59 +1,56 @@
 import { NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
-// Налаштовуємо next-intl
+// Configure next-intl
 const intlMiddleware = createMiddleware({
-  locales: ["en", "uk"], // Підтримувані мови
-  defaultLocale: "en", // Локаль за замовчуванням
+  locales: ["en", "uk"], // Supported languages
+  defaultLocale: "en", // Default locale
 });
 
-// Головний middleware
+// Main middleware
 export function middleware(request) {
-  // Виконуємо middleware для i18n
+  // Execute middleware for i18n
   const response = intlMiddleware(request);
 
-  // Логіка авторизації для /admin
+  // Authorization logic for /admin
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    const cookie = request.cookies.get("auth"); // Перевіряємо cookie
+    const cookie = request.cookies.get("auth"); // Check the cookie
 
     if (!cookie) {
-      // Отримуємо локаль з URL, якщо вона є
+      // Get the locale from the URL, if there is one
       let locale = request.nextUrl.pathname.split("/")[0];
 
-      // Якщо локаль не вказана в URL, намагаємось отримати її з заголовку Accept-Language
+      // If the locale is not specified in the URL, we try to get it from the Accept-Language header
       if (!locale) {
         const acceptLanguage = request.headers.get("accept-language");
 
         if (acceptLanguage) {
-          // Список мов, що підтримуються в додатку
+          // List of languages ​​supported by the application
           const supportedLocales = ["en", "uk"];
-          const preferredLocale = acceptLanguage.split(",")[0].toLowerCase(); // Отримуємо першу мову в списку
+          const preferredLocale = acceptLanguage.split(",")[0].toLowerCase(); // Get the first language in the list
 
-          // Якщо мова є в списку підтримуваних, використовуємо її, інакше — мову за замовчуванням
+          // If the language is in the supported list, use it, otherwise, use the default language
           locale = supportedLocales.includes(preferredLocale)
             ? preferredLocale
             : "en";
         } else {
-          locale = "en"; // Якщо заголовок не присутній, використовуємо 'en' за замовчуванням
+          locale = "en"; // If header is not present, use 'en' by default
         }
       }
 
-      // Вивести в консоль, щоб перевірити локаль
-      console.log("locale from request:", locale);
-
-      // Перенаправляємо на сторінку /login з врахуванням локалі
+      // Redirect to the /login page, taking into account the locale
       return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
     }
   }
 
-  return response; // Повертаємо оброблений response
+  return response; // Return the processed response
 }
 
-// Налаштування matcher для роботи middleware на відповідних маршрутах
+// Setup matcher for middleware operation on the corresponding routes
 export const config = {
   matcher: [
-    "/", // Коренева сторінка (автоматично перенаправляє на /en)
-    "/(en|uk)/:path*", // Усі сторінки з локалями
-    "/admin/:path*", // Усі сторінки адмінки
+    "/", // Root page (automatically redirects to /en)
+    "/(en|uk)/:path*", // All pages with locales
+    "/admin/:path*", // All admin pages
   ],
 };

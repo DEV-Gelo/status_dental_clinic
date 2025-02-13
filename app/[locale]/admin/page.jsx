@@ -129,17 +129,17 @@ const Admin = () => {
     setSelectedInitials("");
   };
 
-  // Function for filtering and searching records
+  // ---Function for filtering and searching records--//
   const filteredData = data.filter((appointment) => {
     const appointmentDate = new Date(appointment.date);
     const appointmentYear = appointmentDate.getFullYear();
-    const appointmentMonth = appointmentDate.toLocaleString(locale, {
+    const appointmentMonth = appointmentDate.toLocaleString(locale || "en-US", {
       month: "long",
     });
     const capitalizedMonthName =
       appointmentMonth[0].toUpperCase() + appointmentMonth.slice(1);
     const appointmentDay = appointmentDate.getDate();
-    // Search
+    // -------------------Search------------------//
     const searchTermLower = searchTerm.toLowerCase();
     const fullName =
       `${appointment.lastName} ${appointment.firstName} ${appointment.patronymic}`.toLowerCase();
@@ -151,7 +151,7 @@ const Admin = () => {
       phone.includes(searchTermLower) ||
       service.includes(searchTermLower);
 
-    // Filtration
+    //------ Filtration---------//
     const matchesYear = yearFilter
       ? appointmentYear === parseInt(yearFilter)
       : true;
@@ -164,7 +164,7 @@ const Admin = () => {
     const matchesDoctor = doctorFilter
       ? appointment.doctorId === parseInt(doctorFilter)
       : true;
-    // Combine search and filtering conditions
+    // -----Combine search and filtering conditions--//
     return (
       matchesSearchTerm &&
       matchesYear &&

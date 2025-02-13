@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import useSWR from "swr";
+import { useTranslations } from "next-intl";
 import CircularProgress from "@mui/material/CircularProgress";
 
 // Data download function
@@ -9,6 +10,10 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [doctorTimesMessage, setDoctorTimesMessage] = useState("");
+
+  // -------Translations----------//
+  const t = useTranslations("admin__AvailableDoctors");
+  const locale = t("language");
 
   // Form the URL depending on the selected date
   const url = selectedDate
@@ -21,17 +26,17 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   useEffect(() => {
     if (selectedDate) {
       if (isLoading) {
-        setDoctorTimesMessage("Завантаження даних, будь ласка, зачекайте...");
+        setDoctorTimesMessage(t("LoaadingData"));
       } else if (doctorsAvailability && doctorsAvailability.length > 0) {
         setDoctorTimesMessage(
-          `Доступні записи станом на ${selectedDate.toLocaleDateString(
-            "uk-UA"
+          `${t("Available records as of")} ${selectedDate.toLocaleDateString(
+            locale || "en-US"
           )}`
         );
       } else if (!isLoading && doctorsAvailability) {
         setDoctorTimesMessage(
-          `Вибачте, немає доступного запису станом на  ${selectedDate.toLocaleDateString(
-            "uk-UA"
+          `${t("No entry available")}  ${selectedDate.toLocaleDateString(
+            locale || "en-US"
           )}`
         );
       }
@@ -54,14 +59,13 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
       onSlotSelect(selectedData);
     }
   };
-  // -----------------------------------------------------------------//
 
   return (
     <div className="flex w-full">
       {!selectedDate && (
         <div className="flex w-full h-full justify-center items-center m-2 p-5 rounded-lg bg-[#f5f5f5]">
           <h1 className="text-[1rem] text-[#44444460]">
-            Для відображення годин оберіть дату
+            {t("Select a date to display the hours")}
           </h1>
         </div>
       )}
@@ -77,7 +81,11 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
               ""
             )}
           </h2>
-          {error && <p className="text-red-500">Помилка: {error.message}</p>}
+          {error && (
+            <p className="text-red-500">
+              {t("Error")}: {error.message}
+            </p>
+          )}
 
           {doctorsAvailability && doctorsAvailability.length > 0
             ? doctorsAvailability.map((doctor) => (
@@ -99,7 +107,7 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                     <p className="font-medium text-lg">{doctor.doctorName}</p>
                   </div>
                   <div className="flex flex-col w-full h-full justify-center items-center m-2">
-                    <h3 className="font-semibold ">Доступні години:</h3>
+                    <h3 className="font-semibold ">{t("Available hours")}:</h3>
                     <ul className="flex flex-wrap justify-center items-center">
                       {doctor.availableTimes.map((slot, index) => (
                         <li

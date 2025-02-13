@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+// ---------Import MUI components-------------//
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+// ---------Import React icons------------//
 import { MdAutorenew } from "react-icons/md";
 
 const FilterDate = ({
@@ -15,17 +17,18 @@ const FilterDate = ({
   onMonthFilter,
   onDayFilter,
 }) => {
+  // ---------Translation---------------//
   const t = useTranslations("admin__FilterDate");
   const l = useTranslations("admin");
   const locale = l("language");
-
+  // ----Get current month--------//
   const currentMonth = new Date();
-  const monthName = currentMonth.toLocaleString(locale || "uk-UA", {
+  const monthName = currentMonth.toLocaleString(locale || "en-US", {
     month: "long",
   });
   const capitalizedMonthName =
     monthName.charAt(0).toUpperCase() + monthName.slice(1);
-
+  //-----------------States-------------------------//
   const [dayFilter, setDayFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState(capitalizedMonthName);
   const [yearFilter, setYearFilter] = useState(new Date().getFullYear());
@@ -83,7 +86,8 @@ const FilterDate = ({
     : [];
 
   return (
-    <div className="flex flex-col flex-wrap justify-center">
+    <div className="flex flex-col flex-wrap justify-center items-center">
+      <h6>{t("Filter")}</h6>
       <div className="flex flex-nowrap m-2">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="month-label">{t("month")}</InputLabel>

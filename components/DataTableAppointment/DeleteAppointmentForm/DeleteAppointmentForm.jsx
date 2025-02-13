@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
 import styles from "./DeleteAppointmentFormStyle.module.css";
 
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -15,6 +16,10 @@ const DeleteAppointmentForm = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
+  // -------Translations----------//
+  const t = useTranslations("admin__delete_window");
+
+  // ------Delete function---------//
   const handleDelete = async () => {
     setLoading(true);
     try {
@@ -23,9 +28,9 @@ const DeleteAppointmentForm = ({
       mutate("/api/data_appointment");
       clearSelectedUser();
       onClose();
-      onAlert("success", "Запис успішно видалено");
+      onAlert("success", t("Success_delete_alert"));
     } catch (error) {
-      alert("Error deleting appointment");
+      onAlert("Error", "deleting appointment");
     } finally {
       setLoading(false);
     }
@@ -38,7 +43,8 @@ const DeleteAppointmentForm = ({
           <div className={styles.icon_text_container}>
             <WarningAmberIcon sx={{ color: "#ffa726" }} />
             <h6>
-              Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>?
+              {t("You really want to delete")}{" "}
+              <strong>{selectedInitials}</strong>?
             </h6>
           </div>
           <div className={styles.button_block}>
@@ -50,7 +56,7 @@ const DeleteAppointmentForm = ({
               size="large"
               onClick={handleDelete}
             >
-              {!loading ? "ТАК" : "ВИДАЛЕННЯ..."}
+              {!loading ? t("Yes") : t("Deleting")}
             </LoadingButton>
             <LoadingButton
               sx={{ m: 2, px: 5 }}
@@ -58,7 +64,7 @@ const DeleteAppointmentForm = ({
               size="large"
               onClick={onClose}
             >
-              Ні
+              {t("No")}
             </LoadingButton>
           </div>
         </div>

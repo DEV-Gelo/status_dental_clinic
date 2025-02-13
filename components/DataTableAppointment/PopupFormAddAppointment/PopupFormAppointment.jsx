@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import styles from "./PopupFormAppointmentStyle.module.css";
 // --------------Import MUI--------------------------//
 import TextField from "@mui/material/TextField";
@@ -44,7 +46,10 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
     }));
   };
 
-  // ---------------------------------------------------//
+  // -------Translations----------//
+  const t = useTranslations("admin__add_window");
+
+  const pathname = usePathname();
 
   const handleAvailabilityChange = (availability) => {
     setDoctorsAvailability(availability);
@@ -56,7 +61,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
     );
     setSelectedDate(localDate);
   };
-
+  // --------Get and save value from input ------//
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     // Validation for email
@@ -89,33 +94,33 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
 
     const validateForm = () => {
       if (!selectedDate) {
-        onAlert("warning", "Будь ласка, оберіть дату для запису");
+        onAlert("warning", t("Date_alert"));
         return false;
       }
 
       if (doctorsAvailability?.error) {
-        onAlert("warning", "Будь ласка, оберіть іншу дату для запису");
+        onAlert("warning", t("Date_doctor_alert"));
         return false;
       }
 
       if (!appointmentData.time) {
-        onAlert("warning", "Будь ласка, оберіть час для запису");
+        onAlert("warning", t("Time_alert"));
         return false;
       }
       if (!appointmentData.firstName) {
-        onAlert("warning", "Будь ласка, введіть ім'я");
+        onAlert("warning", t("FirstName_alert"));
         return false;
       }
       if (!appointmentData.lastName) {
-        onAlert("warning", "Будь ласка, введіть прізвище");
+        onAlert("warning", t("LastName_alert"));
         return false;
       }
       if (!appointmentData.phone) {
-        onAlert("warning", "Будь ласка, введіть телефон");
+        onAlert("warning", t("Phone_alert"));
         return false;
       }
       if (!appointmentData.email) {
-        onAlert("warning", "Будь ласка, введіть електронну пошту");
+        onAlert("warning", t("Email_alert"));
         return false;
       }
 
@@ -157,20 +162,20 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
         setLoading(false);
         onClose();
         mutate("/api/data_appointment");
-        onAlert("success", "Запис успішно створено!");
+        onAlert("success", t("Success_entry_alert"));
       } else {
         const data = await response.json();
         onAlert(
           "error",
-          "Сталася помилка: " + (data.error || "Невідома помилка")
+          t("An error occurred") + (data.error || t("Unknown error"))
         );
       }
     } catch (err) {
-      onAlert("error", "Сталася непередбачувана помилка.");
+      onAlert("error", t("Error_alert"));
     }
   };
 
-  // -----------------------------------------------------------------//
+  // -----------Function close window-----------------//
 
   const closeForm = () => {
     onClose();
@@ -198,7 +203,9 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
     try {
       const response = await fetch("/api/admin_setting/service");
       if (!response.ok)
-        throw new Error(result.message || "Помилка при отриманні даних");
+        throw new Error(
+          result.message || t("An error occurred while receiving data")
+        );
       const data = await response.json();
       setServiceData(data);
     } catch (error) {
@@ -212,7 +219,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
   return (
     <>
       <div className={styles.popup_form}>
-        <h1 className={styles.title}>Створення запису</h1>
+        <h1 className={styles.title}>{t("Creating an entry")}</h1>
         <div className={styles.main_container}>
           <div className={styles.calendar_wrapper}>
             <div className={styles.calendar_container}>
@@ -224,12 +231,12 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Оберіть доступну дату</h3>
+                    <h3>{t("Choose an available date")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>1</span>
-                    <h3>Оберіть доступну дату</h3>
+                    <h3>{t("Choose an available date")}</h3>
                   </>
                 )}
               </div>
@@ -237,7 +244,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
             </div>
           </div>
           <div className={styles.form_fields_wrapper}>
-            <div className={styles.form_fields}>
+            <form className={styles.form_fields}>
               <div className={styles.title_task}>
                 {appointmentData.firstName &&
                 appointmentData.lastName &&
@@ -249,20 +256,22 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Заповніть форму</h3>
+                    <h3>{t("Fill out the form")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>3</span>
-                    <h3>Заповніть форму</h3>
+                    <h3>{t("Fill out the form")}</h3>
                   </>
                 )}
               </div>
               <FormControl id="target" fullWidth sx={{ my: 3 }}>
-                <InputLabel id="select-label">Вид послуги</InputLabel>
+                <InputLabel id="select-label">
+                  {t("Type of service")}
+                </InputLabel>
                 <Select
                   labelId="select-label"
-                  label="Вид послуги"
+                  label={t("Type of service")}
                   name="service"
                   value={appointmentData.service}
                   onChange={handleInputChange}
@@ -278,7 +287,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                 id="firstname"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Ім'я"
+                label={t("FirstName")}
                 name="firstName"
                 value={appointmentData.firstName}
                 onChange={handleInputChange}
@@ -292,26 +301,32 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                   },
                 }}
                 helperText=" "
-                label="Прізвище"
+                label={t("LastName")}
                 name="lastName"
                 value={appointmentData.lastName}
                 onChange={handleInputChange}
               />
-              <TextField
-                id="patronymic"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label="По батькові"
-                name="patronymic"
-                value={appointmentData.patronymic}
-                onChange={handleInputChange}
-              />
+              {pathname.split("/")[1] === "uk" && (
+                <TextField
+                  id="patronymic"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label="По батькові"
+                  name="patronymic"
+                  value={appointmentData.patronymic}
+                  onChange={handleInputChange}
+                />
+              )}
               <TextField
                 id="phone"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Номер телефону"
-                placeholder="097 000 00 00"
+                label={t("Phone number")}
+                placeholder={
+                  pathname.split("/")[1] === "uk"
+                    ? "097 000 00 00"
+                    : "555 123 4567"
+                }
                 name="phone"
                 value={appointmentData.phone}
                 onChange={handleInputChange}
@@ -320,7 +335,9 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                     inputMode: "numeric",
                     maxLength: 10,
                     startAdornment: (
-                      <InputAdornment position="start">+38</InputAdornment>
+                      <InputAdornment position="start">
+                        {pathname.split("/")[1] === "uk" ? "+38" : "+1"}
+                      </InputAdornment>
                     ),
                   },
                 }}
@@ -328,17 +345,21 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
               <TextField
                 id="email"
                 sx={{ width: "100%" }}
-                label="Електронна пошта"
+                label={t("Email")}
                 name="email"
                 value={appointmentData.email}
                 onChange={handleInputChange}
                 error={emailError}
-                helperText={emailError ? "Некоректний формат email" : " "}
+                helperText={emailError ? t("emailError") : " "}
               />
-            </div>
+            </form>
           </div>
           <div className={styles.AvailableDoctors_wrapper}>
-            <div className={styles.AvailableDoctors_container}>
+            <div
+              className={`${styles.AvailableDoctors_container} ${
+                pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1007px]"
+              }`}
+            >
               <div className={styles.title_task}>
                 {appointmentData.time ? (
                   <>
@@ -347,12 +368,12 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Оберіть годину</h3>
+                    <h3>{t("Choose an hour")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>2</span>
-                    <h3>Оберіть годину</h3>
+                    <h3>{t("Choose an hour")}</h3>
                   </>
                 )}
               </div>
@@ -376,7 +397,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
               variant="contained"
               size="large"
             >
-              Записати
+              {t("Save")}
             </LoadingButton>
             <LoadingButton
               sx={{ m: 1 }}
@@ -385,7 +406,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
               variant="contained"
               size="large"
             >
-              Відміна
+              {t("Cancel")}
             </LoadingButton>
           </ThemeProvider>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./UserCalendar.module.css";
 import {
   MdOutlineArrowBackIosNew,
@@ -12,13 +13,17 @@ export default function UserCalendar({ onDateSelect }) {
   const [highlightedDates, setHighlightedDates] = useState([]);
   // const [errorMessage, setErrorMessage] = useState("");
 
+  // -------Translations----------//
+  const t = useTranslations("calendar");
+  const locale = t("language");
+
   useEffect(() => {
     const fetchHighlightedDates = async () => {
       try {
         const response = await fetch("/api/appointment/calendarHighlight");
         if (!response.ok) throw new Error("Failed to fetch highlighted dates");
         const data = await response.json();
-        setHighlightedDates(data.dates); // Зберігаємо отримані дати
+        setHighlightedDates(data.dates); // save the received dates
       } catch (error) {
         console.error("Error fetching highlighted dates:", error);
       }
@@ -41,7 +46,7 @@ export default function UserCalendar({ onDateSelect }) {
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
     );
   };
-  // ----------------------------------------------//
+
   // ------------Switch month to next------------//
   const nextMonth = () => {
     setCurrentDate(
@@ -59,7 +64,7 @@ export default function UserCalendar({ onDateSelect }) {
     return day > 0 && day <= daysInMonth ? day : "";
   });
 
-  const monthName = currentDate.toLocaleString("uk-UA", { month: "long" });
+  const monthName = currentDate.toLocaleString(locale, { month: "long" });
   const capitalizedMonthName = monthName[0].toUpperCase() + monthName.slice(1);
 
   const today = new Date();
@@ -102,14 +107,22 @@ export default function UserCalendar({ onDateSelect }) {
           <MdOutlineArrowBackIosNew />
         </button>
         <h2>
-          {capitalizedMonthName} {year}р.
+          {capitalizedMonthName} {year}
         </h2>
         <button onClick={nextMonth}>
           <MdOutlineArrowForwardIos />
         </button>
       </div>
       <div className={styles.grid}>
-        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((day) => (
+        {[
+          t("Mon"),
+          t("Tue"),
+          t("Wed"),
+          t("Thu"),
+          t("Fri"),
+          t("Sat"),
+          t("Sun"),
+        ].map((day) => (
           <div key={day} className={styles.dayName}>
             {day}
           </div>
