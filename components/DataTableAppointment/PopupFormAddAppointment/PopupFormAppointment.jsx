@@ -322,11 +322,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                 sx={{ width: "100%" }}
                 helperText=" "
                 label={t("Phone number")}
-                placeholder={
-                  pathname.split("/")[1] === "uk"
-                    ? "097 000 00 00"
-                    : "555 123 4567"
-                }
+                placeholder={t("placeholder")}
                 name="phone"
                 value={appointmentData.phone}
                 onChange={handleInputChange}
@@ -336,7 +332,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
                     maxLength: 10,
                     startAdornment: (
                       <InputAdornment position="start">
-                        {pathname.split("/")[1] === "uk" ? "+38" : "+1"}
+                        {t("prefix")}
                       </InputAdornment>
                     ),
                   },
@@ -357,7 +353,7 @@ const PopupFormAppointment = ({ onClose, onAlert }) => {
           <div className={styles.AvailableDoctors_wrapper}>
             <div
               className={`${styles.AvailableDoctors_container} ${
-                pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1007px]"
+                pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1008px]"
               }`}
             >
               <div className={styles.title_task}>

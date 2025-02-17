@@ -23,7 +23,7 @@ const FilterDate = ({
   const locale = l("language");
   // ----Get current month--------//
   const currentMonth = new Date();
-  const monthName = currentMonth.toLocaleString(locale || "en-US", {
+  const monthName = currentMonth.toLocaleString(locale, {
     month: "long",
   });
   const capitalizedMonthName =

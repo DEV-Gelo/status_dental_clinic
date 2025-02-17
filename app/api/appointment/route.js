@@ -20,7 +20,7 @@ export async function GET(req) {
     // Отримання лікарів з розкладом і слотами
     const doctors = await prisma.user.findMany({
       where: {
-        role: "Лікар",
+        role: "doctor",
         schedules: {
           some: {
             date: {

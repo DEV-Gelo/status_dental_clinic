@@ -30,13 +30,13 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
       } else if (doctorsAvailability && doctorsAvailability.length > 0) {
         setDoctorTimesMessage(
           `${t("Available records as of")} ${selectedDate.toLocaleDateString(
-            locale || "en-US"
+            locale
           )}`
         );
       } else if (!isLoading && doctorsAvailability) {
         setDoctorTimesMessage(
           `${t("No entry available")}  ${selectedDate.toLocaleDateString(
-            locale || "en-US"
+            locale
           )}`
         );
       }

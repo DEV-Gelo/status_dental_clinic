@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
 import styles from "./DeleteFormStyle.module.css";
-
+// -------Import MUI components------------------//
 import LoadingButton from "@mui/lab/LoadingButton";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
@@ -15,20 +16,20 @@ const DeleteUserForm = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
+  // -------Translations----------//
+  const t = useTranslations("users_delete_window");
+
   const handleDelete = async () => {
     setLoading(true);
     try {
       // Making a request to the API to delete a user
       await axios.delete(`/api/users/${userId}`);
       mutate("/api/users");
-      onAlert("success", "Запис видалено успішно");
+      onAlert("success", t("Record deleted successfully"));
       onClearUserId();
       onClose();
     } catch (error) {
-      onAlert(
-        "error",
-        "Неможливо видалити лікаря, який має майбутні записи пацієнтів"
-      );
+      onAlert("error", t("It is not possible to delete"));
     } finally {
       setLoading(false);
       onClose();
@@ -42,7 +43,8 @@ const DeleteUserForm = ({
           <div className={styles.icon_text_container}>
             <WarningAmberIcon sx={{ color: "#ffa726" }} />
             <h6>
-              Ви дійсно бажаєте видалити <strong>{selectedInitials}</strong>?
+              {t("You really want to delete")}{" "}
+              <strong>{selectedInitials}</strong>?
             </h6>
           </div>
           <div className={styles.button_block}>
@@ -54,7 +56,7 @@ const DeleteUserForm = ({
               size="large"
               onClick={handleDelete}
             >
-              {!loading ? "ТАК" : "ВИДАЛЕННЯ..."}
+              {!loading ? t("Yes") : t("Deleting")}
             </LoadingButton>
             <LoadingButton
               sx={{ m: 2, px: 5 }}
@@ -62,7 +64,7 @@ const DeleteUserForm = ({
               size="large"
               onClick={onClose}
             >
-              Ні
+              {t("No")}
             </LoadingButton>
           </div>
         </div>

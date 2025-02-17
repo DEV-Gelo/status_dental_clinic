@@ -1,12 +1,16 @@
 "use client";
 import React from "react";
 import { useRef } from "react";
-
+import { useTranslations } from "next-intl";
+// --------------Import MUI--------------------------//
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export default function UploadPhotoForm({ handleFileChange }) {
   const fileInput = useRef(null);
+
+  // -------Translations----------//
+  const t = useTranslations("UploadPhotoForm");
 
   async function uploadFile(evt) {
     evt.preventDefault();
@@ -30,7 +34,7 @@ export default function UploadPhotoForm({ handleFileChange }) {
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
       >
-        ЗАВАНТАЖИТИ
+        {t("DOWNLOAD")}
         <input
           className="hidden"
           id="file-input"

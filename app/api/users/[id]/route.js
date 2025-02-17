@@ -19,7 +19,7 @@ export async function DELETE(req, { params }) {
       });
     }
 
-    if (user.role === "Лікар") {
+    if (user.role === "doctor") {
       // Перевірити майбутні графіки лікаря зі слотами isBooked: true
       const hasFutureBookedSchedules = await prisma.schedule.findFirst({
         where: {

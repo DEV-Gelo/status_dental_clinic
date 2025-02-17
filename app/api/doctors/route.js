@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const doctors = await prisma.user.findMany({
       where: {
-        role: "Лікар", // Get only doctors
+        role: "doctor", // Get only doctors
       },
       select: {
         id: true,

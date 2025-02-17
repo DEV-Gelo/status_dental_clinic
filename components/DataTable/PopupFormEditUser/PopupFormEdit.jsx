@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Switch from "@mui/material/Switch";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import UploadPhotoForm from "@/components/UploadPhotoForm/UploadPhotoForm";
 import styles from "./PopupFormEditStyle.module.css";
 
@@ -31,6 +33,11 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
 
+  // -------Translations----------//
+  const t = useTranslations("users_edit_window");
+  const pathname = usePathname();
+
+  // --------Get data from users-------------//
   useEffect(() => {
     if (!userId) return;
 
@@ -108,19 +115,19 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
     // --------Validation form-----------//
     const validateForm = () => {
       if (!firstName) {
-        onAlert("warning", "Будь ласка, введіть ім'я");
+        onAlert("warning", t("validation.firstName"));
         return false;
       }
       if (!lastName) {
-        onAlert("warning", "Будь ласка, введіть прізвище");
+        onAlert("warning", t("validation.lastName"));
         return false;
       }
       if (!phone) {
-        onAlert("warning", "Будь ласка, введіть телефон");
+        onAlert("warning", t("validation.phone"));
         return false;
       }
       if (!email) {
-        onAlert("warning", "Будь ласка, введіть електронну пошту");
+        onAlert("warning", t("validation.email"));
         return false;
       }
 
@@ -152,12 +159,12 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         const maxFileSize = 2 * 1024 * 1024; // 2MB
 
         if (!allowedTypes.includes(file.type)) {
-          onAlert("warning", "Файл має бути у форматі JPEG або PNG");
+          onAlert("warning", t("validation.invalidType"));
           return;
         }
 
         if (file.size > maxFileSize) {
-          onAlert("warning", "Розмір файлу не може перевищувати 2 МБ");
+          onAlert("warning", t("validation.sizeExceeded"));
           return;
         }
       }
@@ -182,7 +189,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         }
       } catch (error) {
         console.error("File upload error:", error);
-        onAlert("error", "Не вдалося завантажити файл");
+        onAlert("error", t("validation.uploadError"));
         return;
       }
     }
@@ -205,12 +212,13 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         mutate("/api/users");
         setLoading(false);
         onClose();
-        onAlert("success", "Редагування запису успішно виконано");
+        onAlert("success", t("validation.editSuccess"));
       } else {
         console.error("Failed to update user");
       }
     } catch (error) {
       console.error("Error updating user:", error);
+      onAlert("error", t("validation.editError"));
     }
   };
 
@@ -222,7 +230,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         </div>
       ) : (
         <div className={styles.popup_form}>
-          <h1 className={styles.title}>Редагування користувача</h1>
+          <h1 className={styles.title}>{t("title")}</h1>
           <div className={styles.main_container}>
             <div
               className={
@@ -244,7 +252,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                 id="firstname"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Ім'я"
+                label={t("firstName")}
                 name="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
@@ -259,25 +267,27 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                 }}
                 helperText=" "
                 label="Прізвище"
-                name="lastName"
+                name={t("lastName")}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
-              <TextField
-                id="patronymic"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label="По батькові"
-                name="patronymic"
-                value={patronymic}
-                onChange={(e) => setPatronymic(e.target.value)}
-              />
-              {role === "Лікар" && (
+              {pathname.split("/")[1] === "uk" && (
+                <TextField
+                  id="patronymic"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label={t("patronymic")}
+                  name="patronymic"
+                  value={patronymic}
+                  onChange={(e) => setPatronymic(e.target.value)}
+                />
+              )}
+              {role === "doctor" && (
                 <TextField
                   id="specialization"
                   sx={{ width: "100%" }}
                   helperText=" "
-                  label="Спеціалізація"
+                  label={t("specialization")}
                   name="specialization"
                   value={specialization}
                   onChange={(e) => setSpecialization(e.target.value)}
@@ -287,8 +297,8 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                 id="phone"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Номер телефону"
-                placeholder="097 000 00 00"
+                label={t("Phone number")}
+                placeholder={t("placeholder")}
                 name="phone"
                 value={phone}
                 onChange={handleInputChange}
@@ -297,7 +307,9 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                     inputMode: "numeric",
                     maxLength: 10,
                     startAdornment: (
-                      <InputAdornment position="start">+38</InputAdornment>
+                      <InputAdornment position="start">
+                        {t("prefix")}
+                      </InputAdornment>
                     ),
                   },
                 }}
@@ -305,16 +317,16 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
               <TextField
                 id="email"
                 sx={{ width: "100%" }}
-                label="Електронна пошта"
+                label={t("label email")}
                 name="email"
                 value={email}
                 onChange={handleInputChange}
                 error={emailError}
-                helperText={emailError ? "Некоректний формат Е-пошти" : " "}
+                helperText={emailError ? t("error") : " "}
               />
 
               <div className={styles.switch_display_photo}>
-                <h6>Додати фото користувача</h6>
+                <h6>{t("addPhoto")}</h6>
                 <Switch
                   onClick={handleSwitch}
                   {...label}
@@ -335,7 +347,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                 variant="contained"
                 size="large"
               >
-                Записати
+                {t("save")}
               </LoadingButton>
               <LoadingButton
                 sx={{ m: 1 }}
@@ -347,7 +359,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
                 variant="contained"
                 size="large"
               >
-                Відміна
+                {t("cancel")}
               </LoadingButton>
             </ThemeProvider>
           </div>

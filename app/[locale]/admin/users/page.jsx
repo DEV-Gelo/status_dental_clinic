@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { useTranslations } from "next-intl";
 import styles from "./UsersStyle.module.css";
 // -------Import React components------------------//
 import { MdEmail } from "react-icons/md";
@@ -32,7 +33,7 @@ const Users = () => {
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
   const [isOpenAddAppointment, setIsOpenAddAppointment] = useState(false);
   const [isOpenDel, setIsOpenDel] = useState(false);
-  const [role, setRole] = useState("Лікар");
+  const [role, setRole] = useState("doctor");
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedInitials, setSelectedInitials] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,6 +42,10 @@ const Users = () => {
     severity: "success",
     message: "",
   });
+
+  // -------Translations----------//
+  const t = useTranslations("users");
+
   // ------Cancellation of line selection with a key Esc-----//
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -75,8 +80,7 @@ const Users = () => {
     return (
       <div className={styles.error_loading}>
         <Alert className={styles.alert_loading} severity="warning">
-          <h6>Помилка завантаження даних</h6>
-          <p>Перевірте з'єднання</p>
+          <h6>{t("Error loading data")}</h6>
         </Alert>
       </div>
     );
@@ -92,8 +96,8 @@ const Users = () => {
   const filteredUsers = data
     .filter((user) => {
       if (!user.role) return false;
-      if (role === "Лікар") return user.role.toLowerCase() === "лікар";
-      if (role === "Пацієнт") return user.role.toLowerCase() === "пацієнт";
+      if (role === "doctor") return user.role.toLowerCase() === "doctor";
+      if (role === "patient") return user.role.toLowerCase() === "patient";
       return true;
     })
     .filter((user) =>
@@ -110,7 +114,7 @@ const Users = () => {
   };
   const handlePopupEdit_form = () => {
     if (!selectedUserId) {
-      showAlert("warning", "Будь ласка, оберіть користувача для редагування.");
+      showAlert("warning", t("Please select a user to edit"));
       return;
     }
     setIsOpenEditForm(true);
@@ -119,7 +123,7 @@ const Users = () => {
   // --------Open delete window------------------------//
   const handleDelete = () => {
     if (!selectedUserId) {
-      showAlert("warning", "Будь ласка, оберіть користувача для видалення.");
+      showAlert("warning", t("Please select a user to delete"));
       return;
     }
     setIsOpenDel(true);
@@ -150,7 +154,7 @@ const Users = () => {
   return (
     <>
       <div className={styles.users_page_wrap}>
-        <h1 className={styles.title}>Користувачі</h1>
+        <h1 className={styles.title}>{t("Users")}</h1>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -210,7 +214,7 @@ const Users = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopup_form}
-              title="Додати користувача"
+              title={t("Add user")}
               size="small"
               aria-label="add"
               color="primary"
@@ -221,7 +225,7 @@ const Users = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handlePopupEdit_form}
-              title="Редагувати користувача"
+              title={t("Edit user")}
               size="small"
               aria-label="edit"
               color="primary"
@@ -232,7 +236,7 @@ const Users = () => {
             <Fab
               sx={{ zIndex: 0, m: 2 }}
               onClick={handleDelete}
-              title="Видалити користувача"
+              title={t("Delete user")}
               size="small"
               aria-label="delete"
               color="primary"
@@ -241,22 +245,22 @@ const Users = () => {
             </Fab>
           </div>
           {/* ------Switch role container----- */}
-          <div className={styles.table_switch} title="Фільтр">
+          <div className={styles.table_switch} title={t("Filter")}>
             <button
-              onClick={() => setRole("Лікар")}
+              onClick={() => setRole("doctor")}
               className={`${styles.table_switch_button_doctor} ${
-                role === "Лікар" ? styles.table_switch_button_active : ""
+                role === "doctor" ? styles.table_switch_button_active : ""
               }`}
             >
-              Лікар
+              {t("Doctor")}
             </button>
             <button
-              onClick={() => setRole("Пацієнт")}
+              onClick={() => setRole("patient")}
               className={`${styles.table_switch_button_pacient} ${
-                role === "Пацієнт" ? styles.table_switch_button_active : ""
+                role === "patient" ? styles.table_switch_button_active : ""
               }`}
             >
-              Пацієнт
+              {t("Patient")}
             </button>
           </div>
 
@@ -267,10 +271,10 @@ const Users = () => {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Пошук…"
+                placeholder={t("Search")}
                 inputProps={{ "aria-label": "search" }}
                 type="text"
-                title="Введіть текст для пошуку"
+                title={t("Search title")}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </Search>
@@ -284,16 +288,16 @@ const Users = () => {
             <thead className={styles.thead}>
               <tr>
                 <th className={styles.id_th}>№</th>
-                <th className={styles.photo_th}>Фото</th>
-                <th>ПІБ</th>
-                <th>Категорія</th>
+                <th className={styles.photo_th}>{t("Photo")}</th>
+                <th>{t("FullName")}</th>
+                <th>{t("Category")}</th>
                 <th>
                   <FaPhone />
                 </th>
                 <th className={styles.email_th}>
                   <MdEmail />
                 </th>
-                {role !== "Лікар" && (
+                {role !== "doctor" && (
                   <th className={styles.create_record_th}></th>
                 )}
               </tr>
@@ -325,16 +329,18 @@ const Users = () => {
                     {user.lastName} {user.firstName} {user.patronymic}
                   </td>
                   <td>
-                    {role === "Пацієнт" ? user.role : user.specialization}
+                    {role === "patient"
+                      ? t("defaultCategory")
+                      : user.specialization || t("defaultSpecialization")}
                   </td>
-                  <td>{user.phone || "No phone available"}</td>
+                  <td>{user.phone || t("No phone available")}</td>
                   <td className={styles.email_td}>
-                    {user.email || "No email available"}
+                    {user.email || t("No email available")}
                   </td>
-                  {role === "Пацієнт" ? (
+                  {role === "patient" ? (
                     <td
                       className={styles.create_record_td}
-                      title="Створити запис"
+                      title={t("Create record")}
                     >
                       <AddCircleOutlineIcon
                         onClick={() => setIsOpenAddAppointment(true)}

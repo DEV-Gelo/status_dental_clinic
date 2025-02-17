@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Switch from "@mui/material/Switch";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import UploadPhotoForm from "@/components/UploadPhotoForm/UploadPhotoForm";
 import styles from "./PopupFormStyle.module.css";
 
@@ -17,7 +19,6 @@ import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const PopupForm = ({ onClose, onAlert, role }) => {
-  // const [selectedCategory, setSelectedCategory] = useState("");
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -29,6 +30,10 @@ const PopupForm = ({ onClose, onAlert, role }) => {
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
   const [loading, setLoading] = useState(false);
   const [specialization, setSpecialization] = useState("");
+
+  // -------Translations----------//
+  const t = useTranslations("users_add_window");
+  const pathname = usePathname();
 
   // Uploading and displaying a photo in the form
   const handleFileChange = (e) => {
@@ -76,24 +81,24 @@ const PopupForm = ({ onClose, onAlert, role }) => {
     // --------Validation form-----------//
     const validateForm = () => {
       if (!firstName) {
-        onAlert("warning", "Будь ласка, введіть ім'я");
+        onAlert("warning", t("validation.firstName"));
         return false;
       }
       if (!lastName) {
-        onAlert("warning", "Будь ласка, введіть прізвище");
+        onAlert("warning", t("validation.lastName"));
         return false;
       }
       if (!phone) {
-        onAlert("warning", "Будь ласка, введіть телефон");
+        onAlert("warning", t("validation.phone"));
         return false;
       }
       if (!email) {
-        onAlert("warning", "Будь ласка, введіть електронну пошту");
+        onAlert("warning", t("validation.email"));
         return false;
       }
 
       if (!role) {
-        onAlert("warning", "Будь ласка, оберіть категорію користувача.");
+        onAlert("warning", t("validation.role"));
         return false;
       }
 
@@ -127,12 +132,12 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         const maxFileSize = 2 * 1024 * 1024; // 2MB
 
         if (!allowedTypes.includes(file.type)) {
-          onAlert("warning", "Файл має бути у форматі JPEG або PNG");
+          onAlert("warning", t("validation.invalidType"));
           return;
         }
 
         if (file.size > maxFileSize) {
-          onAlert("warning", "Розмір файлу не може перевищувати 2 МБ");
+          onAlert("warning", t("validation.sizeExceeded"));
           return;
         }
       }
@@ -157,7 +162,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         }
       } catch (error) {
         console.error("File upload error:", error);
-        onAlert("error", "Не вдалося завантажити файл");
+        onAlert("error", t("validation.uploadError"));
         return;
       }
     }
@@ -188,7 +193,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         setEmail("");
         setSpecialization("");
         closeForm();
-        onAlert("success", "Запис створено успішно");
+        onAlert("success", t("validation.createSuccess"));
       } else {
         const errorData = await response.json();
         console.error(errorData.message);
@@ -196,7 +201,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      onAlert("error", "Сталася помилка. Будь ласка спробуйте ще раз.");
+      onAlert("error", t("validation.createError"));
     } finally {
       setLoading(false);
     }
@@ -205,7 +210,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
   return (
     <>
       <div className={styles.popup_form}>
-        <h1 className={styles.title}>Створення користувача</h1>
+        <h1 className={styles.title}>{t("title")}</h1>
         <div className={styles.main_container}>
           <div
             className={
@@ -227,7 +232,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
               id="firstname"
               sx={{ width: "100%" }}
               helperText=" "
-              label="Ім'я"
+              label={t("firstName")}
               name="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -241,26 +246,28 @@ const PopupForm = ({ onClose, onAlert, role }) => {
                 },
               }}
               helperText=" "
-              label="Прізвище"
+              label={t("lastName")}
               name="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-            <TextField
-              id="patronymic"
-              sx={{ width: "100%" }}
-              helperText=" "
-              label="По батькові"
-              name="patronymic"
-              value={patronymic}
-              onChange={(e) => setPatronymic(e.target.value)}
-            />
-            {role === "Лікар" && (
+            {pathname.split("/")[1] === "uk" && (
+              <TextField
+                id="patronymic"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label={t("patronymic")}
+                name="patronymic"
+                value={patronymic}
+                onChange={(e) => setPatronymic(e.target.value)}
+              />
+            )}
+            {role === "doctor" && (
               <TextField
                 id="specialization"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Спеціалізація"
+                label={t("specialization")}
                 name="specialization"
                 value={specialization}
                 onChange={(e) => setSpecialization(e.target.value)}
@@ -271,7 +278,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
               sx={{ width: "100%" }}
               helperText=" "
               label="Номер телефону"
-              placeholder="097 000 00 00"
+              placeholder={t("placeholder")}
               name="phone"
               value={phone}
               onChange={handleInputChange}
@@ -280,7 +287,9 @@ const PopupForm = ({ onClose, onAlert, role }) => {
                   inputMode: "numeric",
                   maxLength: 10,
                   startAdornment: (
-                    <InputAdornment position="start">+38</InputAdornment>
+                    <InputAdornment position="start">
+                      {t("prefix")}
+                    </InputAdornment>
                   ),
                 },
               }}
@@ -288,16 +297,16 @@ const PopupForm = ({ onClose, onAlert, role }) => {
             <TextField
               id="email"
               sx={{ width: "100%" }}
-              label="Електронна пошта"
+              label={t("label email")}
               name="email"
               value={email}
               onChange={handleInputChange}
               error={emailError}
-              helperText={emailError ? "Некоректний формат Е-пошти" : " "}
+              helperText={emailError ? t("error") : " "}
             />
 
             <div className={styles.switch_display_photo}>
-              <h6>Додати фото користувача</h6>
+              <h6>{t("addPhoto")}</h6>
               <Switch
                 onClick={handleSwitch}
                 {...label}
@@ -318,7 +327,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
               variant="contained"
               size="large"
             >
-              Записати
+              {t("save")}
             </LoadingButton>
             <LoadingButton
               sx={{ m: 1 }}
@@ -330,7 +339,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
               variant="contained"
               size="large"
             >
-              Відміна
+              {t("cancel")}
             </LoadingButton>
           </ThemeProvider>
         </div>

@@ -186,13 +186,13 @@
   height: 100%;
   overflow-y: auto;
   background-color: white;
+  cursor: default;
 }
 
 .tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
-  cursor: pointer;
 }
 
 .thead tr {

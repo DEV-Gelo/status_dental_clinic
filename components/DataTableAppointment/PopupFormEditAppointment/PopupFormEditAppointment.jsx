@@ -197,7 +197,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
-    return date.toLocaleDateString(locale || "en-US"); // Localize the date in the format "dd.mm.yyyy"
+    return date.toLocaleDateString(locale); // Localize the date in the format "dd.mm.yyyy"
   };
 
   // ---------------Validation phone field-----------------------//
@@ -362,11 +362,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                     sx={{ width: "100%" }}
                     helperText=" "
                     label={t("Phone number")}
-                    placeholder={
-                      pathname.split("/")[1] === "uk"
-                        ? "097 000 00 00"
-                        : "555 123 4567"
-                    }
+                    placeholder={t("placeholder")}
                     name="phone"
                     value={phone}
                     onChange={handlePhoneChange}
@@ -376,7 +372,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                         maxLength: 10,
                         startAdornment: (
                           <InputAdornment position="start">
-                            {pathname.split("/")[1] === "uk" ? "+38" : "+1"}
+                            {t("prefix")}
                           </InputAdornment>
                         ),
                       },

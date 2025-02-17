@@ -163,6 +163,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   background-color: white;
+  cursor: default;
 }
 
 .tbody tr {

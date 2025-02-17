@@ -39,6 +39,8 @@
     "Filter": "Фільтр"
   },
   "admin__add_window": {
+    "Error fetching user data": "Помилка отримання даних користувача",
+    "Error retrieving data": "Помилка при отриманні даних",
     "Date_alert": "Будь ласка, оберіть дату для запису",
     "Date_doctor_alert": "Будь ласка, оберіть іншу дату для запису",
     "Time_alert": "Будь ласка, оберіть час для запису",
@@ -58,6 +60,8 @@
     "FirstName": "Ім'я",
     "LastName": "Прізвище",
     "Phone number": "Номер телефону",
+    "placeholder": "097 000 00 00",
+    "prefix": "+38",
     "Email": "Електронна пошта",
     "emailError": "Некоректний формат Е-пошти",
     "Choose an hour": "Оберіть годину",
@@ -116,5 +120,94 @@
     "Sat": "Сб",
     "Sun": "Нд",
     "language": "uk-UA"
+  },
+  "users": {
+    "Error loading data": "Помилка завантаження даних",
+    "Please select a user to edit": "Будь ласка, оберіть користувача для редагування.",
+    "Please select a user to delete": "Будь ласка, оберіть користувача для видалення.",
+    "Users": "Користувачі",
+    "Add user": "Додати користувача",
+    "Edit user": "Редагувати користувача",
+    "Delete user": "Видалити користувача",
+    "Filter": "Фільтр",
+    "Doctor": "Лікар",
+    "Patient": "Пацієнт",
+    "Search": "Пошук…",
+    "Search title": "Введіть текст для пошуку",
+    "Photo": "Фото",
+    "FullName": "ПІБ",
+    "Category": "Категорія",
+    "No phone available": "Немає телефону",
+    "No email available": "Немає email",
+    "Create record": "Створити запис",
+    "defaultSpecialization": "Лікар-стоматолог",
+    "defaultCategory": "Пацієнт"
+  },
+  "users_delete_window": {
+    "Record deleted successfully": "Запис видалено успішно",
+    "It is not possible to delete": "Неможливо видалити лікаря, який має майбутні записи пацієнтів",
+    "You really want to delete": "Ви дійсно бажаєте видалити",
+    "Yes": "ТАК",
+    "No": "НІ",
+    "Deleting": "ВИДАЛЕННЯ..."
+  },
+  "users_add_window": {
+    "validation": {
+      "firstName": "Будь ласка, введіть ім'я",
+      "lastName": "Будь ласка, введіть прізвище",
+      "phone": "Будь ласка, введіть телефон",
+      "email": "Будь ласка, введіть електронну пошту",
+      "role": "Будь ласка, оберіть категорію користувача",
+      "invalidType": "Файл має бути у форматі JPEG або PNG",
+      "sizeExceeded": "Розмір файлу не може перевищувати 2 МБ",
+      "uploadError": "Не вдалося завантажити файл",
+      "createSuccess": "Запис створено успішно",
+      "createError": "Сталася помилка. Будь ласка спробуйте ще раз."
+    },
+    "title": "Створення користувача",
+    "firstName": "Ім'я",
+    "lastName": "Прізвище",
+    "patronymic": "По батькові",
+    "specialization": "Спеціалізація",
+    "Phone number": "Номер телефону",
+    "placeholder": "097 000 00 00",
+    "prefix": "+38",
+    "label email": "Електронна пошта",
+    "error": "Некоректний формат Е-пошти",
+    "addPhoto": "Додати фото користувача",
+    "uploadAlt": "Завантажене фото",
+    "save": "Записати",
+    "cancel": "Відміна"
+  },
+  "users_edit_window": {
+    "validation": {
+      "firstName": "Будь ласка, введіть ім'я",
+      "lastName": "Будь ласка, введіть прізвище",
+      "phone": "Будь ласка, введіть телефон",
+      "email": "Будь ласка, введіть електронну пошту",
+      "role": "Будь ласка, оберіть категорію користувача",
+      "invalidType": "Файл має бути у форматі JPEG або PNG",
+      "sizeExceeded": "Розмір файлу не може перевищувати 2 МБ",
+      "uploadError": "Не вдалося завантажити файл",
+      "editSuccess": "Редагування запису успішно виконано",
+      "editError": "Сталася помилка. Будь ласка спробуйте ще раз."
+    },
+    "title": "Редагування користувача",
+    "firstName": "Ім'я",
+    "lastName": "Прізвище",
+    "patronymic": "По батькові",
+    "specialization": "Спеціалізація",
+    "Phone number": "Номер телефону",
+    "placeholder": "097 000 00 00",
+    "prefix": "+38",
+    "label email": "Електронна пошта",
+    "error": "Некоректний формат Е-пошти",
+    "addPhoto": "Додати фото користувача",
+    "uploadAlt": "Завантажене фото",
+    "save": "Записати",
+    "cancel": "Відміна"
+  },
+  "UploadPhotoForm": {
+    "DOWNLOAD": "ЗАВАНТАЖИТИ"
   }
 }

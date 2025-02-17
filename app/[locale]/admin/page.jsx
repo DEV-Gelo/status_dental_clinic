@@ -133,7 +133,7 @@ const Admin = () => {
   const filteredData = data.filter((appointment) => {
     const appointmentDate = new Date(appointment.date);
     const appointmentYear = appointmentDate.getFullYear();
-    const appointmentMonth = appointmentDate.toLocaleString(locale || "en-US", {
+    const appointmentMonth = appointmentDate.toLocaleString(locale, {
       month: "long",
     });
     const capitalizedMonthName =
@@ -179,7 +179,7 @@ const Admin = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
-    return date.toLocaleDateString(locale || "en-US"); // Localize the date in the format "dd.mm.yyyy"
+    return date.toLocaleDateString(locale); // Localize the date in the format "dd.mm.yyyy"
   };
 
   // --------Open popup window------------------------//

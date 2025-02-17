@@ -67,8 +67,6 @@ export default function UserCalendar({ onDateSelect }) {
   const monthName = currentDate.toLocaleString(locale, {
     month: "long",
   });
-  console.log("locale :", locale);
-  console.log("monthName :", monthName);
   const capitalizedMonthName = monthName[0].toUpperCase() + monthName.slice(1);
 
   const today = new Date();

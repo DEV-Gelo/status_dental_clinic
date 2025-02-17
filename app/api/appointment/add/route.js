@@ -80,7 +80,7 @@ export async function POST(req) {
             email,
             phone,
             patronymic: patronymic || "",
-            role: "Пацієнт",
+            role: "patient",
             photo: "/image-placeholder.png",
           },
         },
