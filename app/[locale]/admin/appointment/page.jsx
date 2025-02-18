@@ -1,7 +1,9 @@
 "use client";
-import Calendar from "@/components/Schedule/Calendar/Calendar";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+// --------------Internal components------------------//
+import Calendar from "@/components/Schedule/Calendar/Calendar";
 import SliderTime from "@/components/Schedule/SliderTime/SliderTime";
 import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleGenerator";
 import DataTable from "@/components/Schedule/DataTable/DataTable";
@@ -35,13 +37,16 @@ const Appointment = () => {
   // -----Transfered month and year from calendar---------//
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  // ---------Translations-------------//
+  const t = useTranslations("schedule");
+
   // ------Get doctors from the data base-----------//
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const response = await fetch("/api/doctors");
         if (!response.ok) {
-          throw new Error("Помилка при завантаженні лікарів");
+          throw new Error(t("Error doctor"));
         }
         const data = await response.json();
         setDoctors(data);
@@ -106,7 +111,7 @@ const Appointment = () => {
         </Snackbar>
         <div className="flex w-full h-auto pb-2 justify-center items-center">
           <h1 className="text-[1.5rem] font-semibold text-center text-[#44444460]">
-            Графік прийому
+            {t("Reception schedule")}
           </h1>
         </div>
         <div className="flex flex-col lg:flex-row h-full w-full justify-center items-center lg:items-start ">
@@ -147,7 +152,7 @@ const Appointment = () => {
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
                   <Image
                     src={doctor?.photo || "/image-placeholder.png"}
-                    alt="Фото лікаря"
+                    alt="Doctor photo"
                     width={50}
                     height={50}
                     className="flex object-cover"
@@ -157,17 +162,17 @@ const Appointment = () => {
               <div className="flex p-3">
                 <FormControl sx={{ minWidth: "10rem" }}>
                   <InputLabel id="select-label">
-                    {selectedDoctor ? "Лікар" : "Оберіть лікаря"}
+                    {selectedDoctor ? t("Doctor") : t("Choose a doctor")}
                   </InputLabel>
                   <Select
                     labelId="select-label"
-                    label={selectedDoctor ? "Лікар" : "Оберіть лікаря"}
+                    label={selectedDoctor ? t("Doctor") : t("Choose a doctor")}
                     name="service"
                     value={selectedDoctor}
                     onChange={handleDoctorChange}
                   >
                     {doctors.length === 0 ? (
-                      <MenuItem disabled>Лікарі не знайдені</MenuItem>
+                      <MenuItem disabled>{t("No doctors found")}</MenuItem>
                     ) : (
                       doctors.map((doctor) => (
                         <MenuItem key={doctor.id} value={doctor.id}>

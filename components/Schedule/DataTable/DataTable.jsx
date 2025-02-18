@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./ScheduleDT.module.css";
-
+// --------------Import MUI components-----------------//
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
 import Skeleton from "@mui/material/Skeleton";
@@ -18,7 +19,11 @@ const DataTable = ({
   const [deletingRows, setDeletingRows] = useState({});
   const [switchDisplayPastDate, setSwitchDisplayPastDate] = useState(true);
 
-  const monthName = onCurrentDate.toLocaleString("uk-UA", { month: "long" });
+  // ---------Translations-------------//
+  const t = useTranslations("schedule__DataTable");
+  const local = t("language");
+
+  const monthName = onCurrentDate.toLocaleString(local, { month: "long" });
   // Selection of slots
   const toggleSlotSelection = (slot) => {
     setSelectedSlots((prevSelected) => {
@@ -49,7 +54,7 @@ const DataTable = ({
 
       const data = await response.json();
       if (response.ok) {
-        onAlert("success", "Слоти успішно видалено");
+        onAlert("success", t("successAlertDel"));
         setSelectedSlots((prevSelected) =>
           prevSelected.filter((slot) => !slotIds.includes(slot.id))
         );
@@ -72,16 +77,16 @@ const DataTable = ({
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("uk-UA");
+    return date.toLocaleDateString(local);
   };
 
   return (
     <div className={styles.table_container}>
       <div className={styles.switchDisplayPastDate}>
-        <p>Фільтр дат</p>
+        <p>{t("Date filter")}</p>
         <Switch
-          title="Фільтр дат"
-          checked={switchDisplayPastDate}
+          title={t("Date filter")}
+          checked={!switchDisplayPastDate}
           onClick={() => setSwitchDisplayPastDate((prev) => !prev)}
           inputProps={{ "aria-label": "controlled" }}
           size="small"
@@ -90,8 +95,8 @@ const DataTable = ({
       <table className={styles.table}>
         <thead className={styles.thead}>
           <tr>
-            <th className={styles.date_header}>Дата</th>
-            <th className={styles.time_header}>Час</th>
+            <th className={styles.date_header}>{t("Date")}</th>
+            <th className={styles.time_header}>{t("Time")}</th>
           </tr>
         </thead>
         <tbody className={styles.tbody}>
@@ -151,7 +156,7 @@ const DataTable = ({
                         </div>
                         <div className={styles.button_container}>
                           <button
-                            title="Видалити"
+                            title={t("delete")}
                             className={styles.delete_button}
                             onClick={() => handleDeleteSlots(date)}
                             disabled={
@@ -186,7 +191,9 @@ const DataTable = ({
                       colSpan={2}
                       className={`${styles.td} ${styles.noDataMessage}`}
                     >
-                      {`Записи для обраного лікаря станом на ${monthName} місяць відсутні.`}
+                      {`${t(
+                        "There are no records for the selected doctor as of"
+                      )} ${monthName} ${t("missing")}`}
                     </td>
                   </tr>
                 )
@@ -197,7 +204,7 @@ const DataTable = ({
                 colSpan={2}
                 className={`${styles.td} ${styles.noDataMessage}`}
               >
-                {`Оберіть лікаря, для відображення розкладу.`}
+                {t("Display schedule")}
               </td>
             </tr>
           )}

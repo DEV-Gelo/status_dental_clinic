@@ -160,25 +160,6 @@
   padding: 1rem;
 }
 
-/* Custom scrollbar */
-.table :global(::-webkit-scrollbar) {
-  width: 8px;
-}
-
-.table :global(::-webkit-scrollbar-track) {
-  background: #f3f4f6;
-  border-radius: 10px;
-}
-
-.table :global(::-webkit-scrollbar-thumb) {
-  background: #5ba3bb50;
-  border-radius: 10px;
-}
-
-.table :global(::-webkit-scrollbar-thumb:hover) {
-  background: #5ba3bb80;
-}
-
 @media screen and (max-width: 1024px) {
   .table_container {
     height: 600px;

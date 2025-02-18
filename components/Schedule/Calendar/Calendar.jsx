@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./Calendar.module.css";
 import {
   MdOutlineArrowBackIosNew,
@@ -20,7 +21,11 @@ export default function Calendar({
   const [errorMessage, setErrorMessage] = useState(""); // Error message
   const [slots, setSlots] = useState([]); // Store slots for the doctor
 
-  // Load slots for the selected doctor
+  // ---------Translations-------------//
+  const t = useTranslations("schedule__calendar");
+  const local = t("language");
+
+  // ---------- Load slots for the selected doctor------------//
   useEffect(() => {
     if (selectedDoctor) {
       setSelectedDates(resetSelectedDates);
@@ -109,7 +114,7 @@ export default function Calendar({
     return day > 0 && day <= daysInMonth ? day : "";
   });
 
-  const monthName = currentDate.toLocaleString("uk-UA", { month: "long" });
+  const monthName = currentDate.toLocaleString(local, { month: "long" });
   const capitalizedMonthName = monthName[0].toUpperCase() + monthName.slice(1);
 
   const today = new Date();
@@ -124,13 +129,12 @@ export default function Calendar({
       return;
     }
     if (!selectedDoctor) {
-      // If the doctor is not selected, we do not allow the selection of the date
-      // setErrorMessage("Будь ласка, оберіть лікаря!");
-      onAlert("warning", "Будь ласка, оберіть лікаря!");
+      // If the doctor is not selected, do not allow the selection of the date
+      onAlert("warning", t("notSelectedDoctor"));
       return; // Stop further processing
     }
 
-    // ---------------------------------------------------//
+    // -------------Select dates---------------//
     if (
       day &&
       (new Date(year, month, day) > today ||
@@ -173,14 +177,22 @@ export default function Calendar({
           <MdOutlineArrowBackIosNew />
         </button>
         <h2>
-          {capitalizedMonthName} {year}р.
+          {capitalizedMonthName} {year}
         </h2>
         <button onClick={nextMonth}>
           <MdOutlineArrowForwardIos />
         </button>
       </div>
       <div className={styles.grid}>
-        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((day) => (
+        {[
+          t("Mon"),
+          t("Tue"),
+          t("Wed"),
+          t("Thu"),
+          t("Fri"),
+          t("Sat"),
+          t("Sun"),
+        ].map((day) => (
           <div key={day} className={styles.dayName}>
             {day}
           </div>

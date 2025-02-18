@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import useSWR, { mutate } from "swr";
+import { useTranslations } from "next-intl";
 // --------------Import MUI components-----------------//
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,13 +24,13 @@ import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // Function for receiving category data
 const fetchData = async () => {
   const response = await fetch("/api/admin_setting/category");
-  if (!response.ok) throw new Error("Помилка при отриманні даних");
+  if (!response.ok) throw new Error("An error occurred while receiving data");
   return response.json();
 };
 // Function for receiving pricing data
 const fetchPricingData = async () => {
   const response = await fetch("/api/admin_setting/pricing");
-  if (!response.ok) throw new Error("Помилка при отриманні даних");
+  if (!response.ok) throw new Error("An error occurred while receiving data");
   return response.json();
 };
 
@@ -51,6 +52,9 @@ const Pricing = ({ onAlert }) => {
   const [loading, setLoading] = useState(false);
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // ---------------Translations-----------------//
+  const t = useTranslations("settings__Pricing");
 
   // ------- Calling function for receiving data from server------------//
   const { data, error } = useSWR("/api/admin_setting/category", fetchData);
@@ -101,7 +105,7 @@ const Pricing = ({ onAlert }) => {
   //--- The function of sending the form to the server ---//
   const handleSubmit = async () => {
     if (categoryInput.trim().length === 0) {
-      onAlert("warning", "Будь ласка, введіть назву послуги");
+      onAlert("warning", t("NameService_alert"));
       return;
     }
     try {
@@ -115,13 +119,13 @@ const Pricing = ({ onAlert }) => {
       });
 
       if (!response.ok)
-        throw new Error(result.message || "Помилка при відправці даних");
+        throw new Error(result.message || t("Error sending data"));
 
       const result = await response.json();
 
       setCategoryInput("");
       mutate("/api/admin_setting/category");
-      onAlert("success", "Запис успішно виконано");
+      onAlert("success", t("SuccessAlert"));
       setIsOpenCategory(false);
     } catch (error) {
       console.error(error);
@@ -133,7 +137,7 @@ const Pricing = ({ onAlert }) => {
   // ----Delete category function ---------//
   async function deleteCategory(id) {
     if (!id || id <= 0) {
-      onAlert("warning", "Відсутні реквізити видалення");
+      onAlert("warning", t("Missing deletion details"));
       return;
     }
     setIsDeleting(true);
@@ -146,14 +150,14 @@ const Pricing = ({ onAlert }) => {
 
       if (!response.ok) {
         const errorResult = await response.json();
-        throw new Error(errorResult.error || "Помилка видалення");
+        throw new Error(errorResult.error || t("DeleteError"));
       }
       mutate("/api/admin_setting/category");
-      onAlert("success", "Запис успішно видалено!");
+      onAlert("success", t("SuccessAlertDel"));
       setIsOpenDelete(false);
     } catch (error) {
-      console.error("Помилка видалення:", error);
-      onAlert("error", "Сталася помилка при спробі видалення.");
+      console.error(t("DeleteError"), error);
+      onAlert("error", t("ErrorAlertDel"));
     } finally {
       setIsDeleting(false);
     }
@@ -162,7 +166,7 @@ const Pricing = ({ onAlert }) => {
   //-------- Category editing function---------------//
   const handleEditSubmit = async (id) => {
     if (categoryName.trim().length === 0) {
-      onAlert("warning", "Будь ласка, введіть назву категорії");
+      onAlert("warning", t("NameOfCategoryAlert"));
       return;
     }
     try {
@@ -174,25 +178,25 @@ const Pricing = ({ onAlert }) => {
         body: JSON.stringify({ name: categoryName }),
       });
 
-      if (!response.ok) throw new Error("Помилка при оновленні");
+      if (!response.ok) throw new Error(t("Update error"));
 
       mutate("/api/admin_setting/category");
-      onAlert("success", "Категорію успішно оновлено!");
+      onAlert("success", t("SuccessUpdateCategoryAlert"));
       setIsOpenEdit(false);
     } catch (error) {
       console.error(error);
-      onAlert("error", "Помилка редагування");
+      onAlert("error", t("EditError"));
     }
   };
 
   //--- The function of sending the form to the server ---//
   const handlePriceSubmit = async (categoryId) => {
     if (service.trim().length === 0) {
-      onAlert("warning", "Будь ласка, введіть назву послуги");
+      onAlert("warning", t("Please enter the service name"));
       return;
     }
     if (!price.trim() || isNaN(price)) {
-      onAlert("warning", "Будь ласка, введіть вартість");
+      onAlert("warning", t("Please enter the price"));
       return;
     }
     try {
@@ -208,16 +212,16 @@ const Pricing = ({ onAlert }) => {
       const result = await response.json();
 
       if (!response.ok)
-        throw new Error(result.message || "Помилка при відправці даних");
+        throw new Error(result.message || t("Error sending data"));
 
       setService("");
       setPrice("");
       mutate("/api/admin_setting/pricing");
-      onAlert("success", "Запис успішно виконано");
+      onAlert("success", t("SuccessAlert"));
       setIsOpen(false);
     } catch (error) {
       console.error(error);
-      onAlert("error", error.message || "Сталася помилка. Спробуйте ще раз");
+      onAlert("error", error.message || t("An error occurred"));
     } finally {
       setLoadingPrice(false);
     }
@@ -226,7 +230,7 @@ const Pricing = ({ onAlert }) => {
   // ----Delete and Edite Price function ---------//
   const handlePriceAction = async (action, id, data = {}) => {
     if (!id || id <= 0) {
-      onAlert("warning", "Відсутні реквізити для операції");
+      onAlert("warning", t("Missing details for the operation"));
       return;
     }
 
@@ -235,26 +239,26 @@ const Pricing = ({ onAlert }) => {
     if (action === "delete") {
       method = "DELETE";
       body = JSON.stringify({ id });
-      successMessage = "Запис успішно видалено!";
-      errorMessage = "Помилка видалення";
+      successMessage = t("SuccessAlertDel");
+      errorMessage = t("Deletion error");
       mutatePath = "/api/admin_setting/pricing";
     } else if (action === "edit") {
       if (!data.name || data.name.trim().length === 0) {
-        onAlert("warning", "Будь ласка, введіть назву категорії");
+        onAlert("warning", t("NameOfCategoryAlert"));
         return;
       }
       if (!data.price || data.price.trim().length === 0) {
-        onAlert("warning", "Будь ласка, введіть вартість");
+        onAlert("warning", t("Please enter the price"));
         return;
       }
 
       method = "PUT";
       body = JSON.stringify(data);
-      successMessage = "Категорію успішно оновлено!";
-      errorMessage = "Помилка редагування";
+      successMessage = t("SuccessUpdateCategoryAlert");
+      errorMessage = t("EditError");
       mutatePath = "/api/admin_setting/pricing";
     } else {
-      console.error("Невідомий тип операції:", action);
+      console.error(t("Unknown operation type"), action);
       return;
     }
 
@@ -295,7 +299,7 @@ const Pricing = ({ onAlert }) => {
   return (
     <div className="flex relative w-full h-full items-center justify-center flex-wrap overflow-auto">
       <span
-        title="Додати категорію"
+        title={t("AddCategory")}
         onClick={() => closeCategoryWindow()}
         className="fixed top-[4rem] left-[0.8rem] sm:top-[2rem] sm:left-[10rem]"
       >
@@ -314,8 +318,7 @@ const Pricing = ({ onAlert }) => {
             className="flex justify-center items-center"
             severity="warning"
           >
-            <h6>Помилка завантаження даних</h6>
-            <p>Перевірте з'єднання</p>
+            <h6>{t("Error loading data")}</h6>
           </Alert>
         </div>
       )}
@@ -329,7 +332,7 @@ const Pricing = ({ onAlert }) => {
               aria-label="close"
               onClick={() => closeCategoryWindow()}
               className="text-[#44444495]"
-              title="Закрити"
+              title={t("close")}
             >
               <CloseIcon />
             </IconButton>
@@ -339,7 +342,7 @@ const Pricing = ({ onAlert }) => {
             value={categoryInput}
             onChange={(e) => setCategoryInput(e.target.value)}
             helperText=" "
-            label="Назва категорії"
+            label={t("Name of the category")}
             name="categoryInput"
             sx={{
               width: "100%",
@@ -365,7 +368,7 @@ const Pricing = ({ onAlert }) => {
                 variant="contained"
                 size="large"
               >
-                Записати
+                {t("save")}
               </LoadingButton>
             </ThemeProvider>
           </div>
@@ -410,7 +413,7 @@ const Pricing = ({ onAlert }) => {
                       aria-label="close"
                       onClick={() => handleEditSubmit(category.id)}
                       className="text-[#444444]"
-                      title="Зберегти"
+                      title={t("Save")}
                     >
                       <CiSaveUp2 />
                     </IconButton>
@@ -428,7 +431,7 @@ const Pricing = ({ onAlert }) => {
               <nav className="flex flex-[15%] h-auto justify-end items-center">
                 {selectedCategory === index && (
                   <>
-                    <span title="Редагувати">
+                    <span title={t("Edit")}>
                       <EditIcon
                         onClick={() => {
                           setIsOpenEdit(true),
@@ -445,7 +448,7 @@ const Pricing = ({ onAlert }) => {
                         }}
                       />
                     </span>
-                    <span title="Видалити">
+                    <span title={t("Delete")}>
                       <DeleteIcon
                         onClick={() => {
                           setSelectedCategory(index), setIsOpenDelete(true);
@@ -518,8 +521,8 @@ const Pricing = ({ onAlert }) => {
                                   categoryId: category.id,
                                 })
                               }
-                              className="text-[#444444]"
-                              title="Зберегти"
+                              className="text-[#fff]"
+                              title={t("Save")}
                             >
                               <CiSaveUp2 />
                             </IconButton>
@@ -534,11 +537,11 @@ const Pricing = ({ onAlert }) => {
                         </p>
                       </div>
                       <div className="flex w-full justify-end items-center ml-3">
-                        <p>
-                          {pricing.price} <span>грн.</span>{" "}
+                        <p className="flex items-center flex-nowrap">
+                          {pricing.price}&nbsp;<span>{t("Currency")}</span>
                         </p>
                         <span
-                          title="Редагувати"
+                          title={t("Edit")}
                           className="flex w-10 justify-center items-center ml-2 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
                         >
                           {selectedRow === pricing.id && (
@@ -553,7 +556,7 @@ const Pricing = ({ onAlert }) => {
                           )}
                         </span>
                         <span
-                          title="Видалити"
+                          title={t("Delete")}
                           className="flex w-10 justify-center items-center ml-1 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
                         >
                           {selectedRow === pricing.id && (
@@ -581,7 +584,7 @@ const Pricing = ({ onAlert }) => {
                       aria-label="close"
                       onClick={() => closeAddWindow()}
                       className="text-[#44444495]"
-                      title="Закрити"
+                      title={t("close")}
                     >
                       <CloseIcon />
                     </IconButton>
@@ -591,7 +594,7 @@ const Pricing = ({ onAlert }) => {
                     value={service}
                     onChange={(e) => setService(e.target.value)}
                     helperText=" "
-                    label="Назва послуги"
+                    label={t("Name of the service")}
                     name="service"
                     sx={{
                       width: "100%",
@@ -617,7 +620,7 @@ const Pricing = ({ onAlert }) => {
                       setPrice(e.target.value.replace(/\D/g, ""))
                     }
                     helperText=" "
-                    label="Вартість"
+                    label={t("Cost")}
                     name="price"
                     type="number"
                     sx={{
@@ -650,7 +653,7 @@ const Pricing = ({ onAlert }) => {
                         variant="contained"
                         size="large"
                       >
-                        Записати
+                        {t("save")}
                       </LoadingButton>
                     </ThemeProvider>
                   </div>
@@ -663,9 +666,9 @@ const Pricing = ({ onAlert }) => {
                   <div className="flex mb-5">
                     <WarningAmberIcon sx={{ color: "#ffa726" }} />
                     <h6 className="w-full text-[0.8rem] sm:text-[1rem] text-center ml-1 sm:ml-3">
-                      Ви дійсно бажаєте видалити категорію{" "}
-                      <strong>{category.name.toLowerCase()}</strong> та увесь її
-                      вміст?
+                      {t("delete the category")}{" "}
+                      <strong>{category.name.toLowerCase()}</strong>{" "}
+                      {t("and all content")}
                     </h6>
                   </div>
                   <div>
@@ -681,7 +684,7 @@ const Pricing = ({ onAlert }) => {
                       size="small"
                       onClick={() => deleteCategory(category.id)}
                     >
-                      {!isDeleting ? "ТАК" : "ВИДАЛЕННЯ..."}
+                      {!isDeleting ? t("Yes") : t("Deleting")}
                     </LoadingButton>
                     <LoadingButton
                       sx={{
@@ -693,14 +696,14 @@ const Pricing = ({ onAlert }) => {
                       size="small"
                       onClick={() => setIsOpenDelete(false)}
                     >
-                      Ні
+                      t("No")
                     </LoadingButton>
                   </div>
                 </div>
               )}
             </div>
             <span
-              title="Додати послугу"
+              title={t("AddService_title")}
               onClick={() => {
                 setIsOpen(true), setSelectedCategory(index);
               }}

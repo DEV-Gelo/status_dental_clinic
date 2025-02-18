@@ -17,7 +17,7 @@ export async function GET() {
     });
     return new Response(JSON.stringify(doctors), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Помилка сервера" }), {
+    return new Response(JSON.stringify({ error: "Server error" }), {
       status: 500,
     });
   }

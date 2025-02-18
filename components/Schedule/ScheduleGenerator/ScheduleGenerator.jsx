@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
+import { useTranslations } from "next-intl";
+// --------------Import MUI components-----------------//
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -17,6 +18,9 @@ const ScheduleGenerator = ({
   onResetSelectedDates,
   onAlert,
 }) => {
+  // ---------Translations-------------//
+  const t = useTranslations("ScheduleGenerator");
+
   // Schedule generation
   const formattedSchedule = dates
     .map((date) => {
@@ -39,7 +43,7 @@ const ScheduleGenerator = ({
 
   const saveSchedule = async () => {
     if (dates.length <= 0) {
-      onAlert("warning", "Оберіть будь ласка дату");
+      onAlert("warning", t("Please choose a date"));
       return;
     }
 
@@ -58,15 +62,15 @@ const ScheduleGenerator = ({
 
       if (!response.ok) {
         const error = await response.json();
-        alert(`Помилка: ${error.error}`);
+        onAlert("error", `${t("error")}: ${error.error}`);
         return;
       }
 
-      onAlert("success", "Розклад успішно збережено!");
+      onAlert("success", t("successAlert"));
 
       onResetSelectedDates();
     } catch (err) {
-      alert(`Помилка з'єднання: ${err.message}`);
+      onAlert("error", `${t("Connection error")}: ${err.message}`);
     } finally {
       setIsSaving(false);
     }
@@ -74,7 +78,7 @@ const ScheduleGenerator = ({
 
   async function deleteSchedule(dates, doctorId) {
     if (dates.length <= 0) {
-      onAlert("warning", "Оберіть будь ласка дату");
+      onAlert("warning", t("Please choose a date"));
       return;
     }
     setIsDeleting(true);
@@ -93,13 +97,13 @@ const ScheduleGenerator = ({
       if (response.ok) {
         onResetSelectedDates();
         setIsDeleting(false);
-        onAlert("success", "Запис успішно видалено!");
+        onAlert("success", t("successAlertDel"));
       } else {
-        window.alert("Помилка: " + result.error);
+        onAlert("error", t("error") + result.error);
       }
     } catch (error) {
       console.error("Error calling DELETE endpoint:", error);
-      window.alert("Сталася помилка при спробі видалення.");
+      onAlert("error", t("errorAlertDel"));
     }
   }
 
@@ -116,7 +120,7 @@ const ScheduleGenerator = ({
           variant="contained"
           size="large"
         >
-          Записати
+          {t("save")}
         </LoadingButton>
         <LoadingButton
           sx={{ m: 1 }}
@@ -128,7 +132,7 @@ const ScheduleGenerator = ({
           variant="contained"
           size="large"
         >
-          Видалити
+          {t("delete")}
         </LoadingButton>
       </ThemeProvider>
     </div>

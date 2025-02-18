@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import useSWR, { mutate } from "swr";
+import { useTranslations } from "next-intl";
 // --------------Import MUI components-----------------//
 import DeleteIcon from "@mui/icons-material/Delete";
 import Fab from "@mui/material/Fab";
@@ -17,13 +18,6 @@ import { ThemeProvider } from "@mui/material/styles";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
-// Function for receiving data
-const fetchData = async () => {
-  const response = await fetch("/api/admin_setting/service");
-  if (!response.ok) throw new Error("Помилка при отриманні даних");
-  return response.json();
-};
-
 const Services = ({ onAlert }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,10 +26,20 @@ const Services = ({ onAlert }) => {
   const [isDeleting, setIsDeleting] = useState(null);
   const containerRef = useRef(null);
 
+  // ---------------Translations-----------------//
+  const t = useTranslations("settings__Services");
+
+  // Function for receiving data
+  const fetchData = async () => {
+    const response = await fetch("/api/admin_setting/service");
+    if (!response.ok) throw new Error(t("fetchError"));
+    return response.json();
+  };
+
   //--- The function of sending the form to the server ---//
   const handleSubmit = async () => {
     if (inputValue.trim().length === 0) {
-      onAlert("warning", "Будь ласка, введіть назву послуги");
+      onAlert("warning", t("NameService_alert"));
       return;
     }
     try {
@@ -49,13 +53,13 @@ const Services = ({ onAlert }) => {
       });
 
       if (!response.ok)
-        throw new Error(result.message || "Помилка при відправці даних");
+        throw new Error(result.message || t("Error sending data"));
 
       const result = await response.json();
 
       setInputValue("");
       mutate("/api/admin_setting/service");
-      onAlert("success", "Запис успішно виконано");
+      onAlert("success", t("SuccessAlert"));
       setIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -93,7 +97,7 @@ const Services = ({ onAlert }) => {
   // ----Delete service function ---------//
   async function deleteService(id) {
     if (!id || id <= 0) {
-      onAlert("warning", "Будь ласка, оберіть рядок");
+      onAlert("warning", t("RowAlert"));
       return;
     }
     setIsDeleting(id);
@@ -106,13 +110,13 @@ const Services = ({ onAlert }) => {
 
       if (!response.ok) {
         const errorResult = await response.json();
-        throw new Error(errorResult.error || "Помилка видалення");
+        throw new Error(errorResult.error || t("DeleteError"));
       }
       mutate("/api/admin_setting/service");
-      onAlert("success", "Запис успішно видалено!");
+      onAlert("success", t("SuccessAlertDel"));
     } catch (error) {
-      console.error("Помилка видалення:", error);
-      onAlert("error", "Сталася помилка при спробі видалення.");
+      console.error(t("DeleteError"), error);
+      onAlert("error", t("ErrorAlertDel"));
     } finally {
       setIsDeleting(null);
     }
@@ -132,10 +136,10 @@ const Services = ({ onAlert }) => {
     <div className="flex w-full h-full justify-center items-center py-5">
       <div
         ref={containerRef}
-        className="flex flex-col relative w-full sm:w-[30rem] h-[38rem] justify-start items-start bg-[#f5f5f5] rounded-md overflow-hidden"
+        className="flex flex-col relative w-full sm:w-[30rem] max-h-[35rem] min-h-[20rem] justify-start items-start bg-[#f5f5f5] rounded-md overflow-hidden"
       >
         <h1 className="w-full h-[4rem] text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold p-4 bg-[#5ba3bb]">
-          Послуги
+          {t("Services")}
         </h1>
         {error && (
           <div className="flex absolute top-0 left-0 justify-center items-center w-full h-full">
@@ -143,8 +147,7 @@ const Services = ({ onAlert }) => {
               className="flex justify-center items-center"
               severity="warning"
             >
-              <h6>Помилка завантаження даних</h6>
-              <p>Перевірте з'єднання</p>
+              <h6>{t("Error loading data")}</h6>
             </Alert>
           </div>
         )}
@@ -181,7 +184,7 @@ const Services = ({ onAlert }) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 helperText=" "
-                label="Назва послуги"
+                label={t("Name of the service")}
                 name="serviceInput"
                 sx={{
                   width: "100%",
@@ -207,7 +210,7 @@ const Services = ({ onAlert }) => {
                     variant="contained"
                     size="large"
                   >
-                    Записати
+                    {t("save")}
                   </LoadingButton>
                 </ThemeProvider>
               </div>
@@ -233,7 +236,10 @@ const Services = ({ onAlert }) => {
                     <span className="mr-2">{index + 1}.</span>
                     {service.name}
                   </p>
-                  <span className="flex w-10 justify-center items-center ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer">
+                  <span
+                    title={t("DelService_title")}
+                    className="flex w-10 justify-center items-center ml-5 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
+                  >
                     {selectedRow === index && isDeleting !== service.id ? (
                       <DeleteIcon
                         onClick={(e) => {
@@ -256,8 +262,9 @@ const Services = ({ onAlert }) => {
           )}
         </div>
         <span
+          title={t("AddService_title")}
           onClick={() => setIsOpen(true)}
-          className="sticky bottom-2 right-2 ml-auto mt-auto"
+          className="sticky bottom-0 p-1 right-2 ml-auto mt-auto"
         >
           <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">
             <AddIcon />

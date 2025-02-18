@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useTranslations } from "next-intl";
+// --------------Import MUI components-----------------//
 import Slider from "@mui/material/Slider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -11,7 +13,7 @@ function formatTime(value, selectedValue) {
   const minutes = (value * selectedValue) % 60;
   return `${hours}:${minutes.toString().padStart(2, "0")}`;
 }
-// ----------------------------------------------------------------//
+
 // ------Function generation an array of the selected time---------//
 const generateTimeArray = (start, end, interval) => {
   const times = [];
@@ -30,6 +32,10 @@ const generateTimeArray = (start, end, interval) => {
 const SliderTime = ({ onTimeSelect, selectedDates }) => {
   const [timeRange, setTimeRange] = useState([0, 28]);
   const [selectedValue, setSelectedValue] = useState(30);
+
+  // ---------Translations-------------//
+  const t = useTranslations("schedule__SliderTime");
+
   // ------Generate an array of the selected time---------//
   const timeArray = useMemo(() => {
     return generateTimeArray(
@@ -70,9 +76,9 @@ const SliderTime = ({ onTimeSelect, selectedDates }) => {
   // -----------------------------------------------------------//
   return (
     <>
-      <div className="flex flex-col w-full m-2">
-        <div className="flex flex-col justify-center items-center mb-5">
-          <h6>Інтервал прийому</h6>
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col justify-center items-center mb-8">
+          <h6>{t("Reception interval")}</h6>
           <RadioGroup
             row
             aria-labelledby="demo-controlled-radio-buttons-group"
@@ -80,9 +86,21 @@ const SliderTime = ({ onTimeSelect, selectedDates }) => {
             value={selectedValue}
             onChange={handleChangeRadioButton}
           >
-            <FormControlLabel value="30" control={<Radio />} label="30 хв" />
-            <FormControlLabel value="45" control={<Radio />} label="45 хв" />
-            <FormControlLabel value="60" control={<Radio />} label="1 год" />
+            <FormControlLabel
+              value="30"
+              control={<Radio />}
+              label={t("30 min")}
+            />
+            <FormControlLabel
+              value="45"
+              control={<Radio />}
+              label={t("45 min")}
+            />
+            <FormControlLabel
+              value="60"
+              control={<Radio />}
+              label={t("1 hour")}
+            />
           </RadioGroup>
         </div>
         <Slider
@@ -95,7 +113,7 @@ const SliderTime = ({ onTimeSelect, selectedDates }) => {
           max={Math.floor(14 * (60 / selectedValue))}
         />
         <div>
-          Обраний час:{" "}
+          {t("Selected time")}{" "}
           {`${formatTime(timeRange[0], selectedValue)} - ${formatTime(
             timeRange[1],
             selectedValue

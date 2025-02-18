@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
+// ---------------------MUI components------------------------//
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
-// ---------------------MUI components------------------------//
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
 import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import IconButton from "@mui/material/IconButton";
 import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
-// ---------------App components----------------------------//
+// ---------------Iternal components----------------------------//
 import Services from "@/components/admin_settings/Services";
 import Pricing from "@/components/admin_settings/Pricing";
 import Contacts from "@/components/admin_settings/Contacts";
@@ -24,15 +24,18 @@ const Settings = () => {
     message: "",
   });
 
+  // ---------------Translations-----------------//
+  const t = useTranslations("settings");
+
   const menu = [
-    { icon: <MedicalServicesIcon />, text: "Послуги", id: "services" },
-    { icon: <PriceChangeIcon />, text: "Прайс", id: "pricing" },
-    { icon: <ContactEmergencyIcon />, text: "Контакти", id: "contacts" },
+    { icon: <MedicalServicesIcon />, text: t("Services"), id: "services" },
+    { icon: <PriceChangeIcon />, text: t("Price"), id: "pricing" },
+    { icon: <ContactEmergencyIcon />, text: t("Contacts"), id: "contacts" },
   ];
   const titles = {
-    services: "послуг",
-    pricing: "прайсу",
-    contacts: "контактів",
+    services: t("Services_title"),
+    pricing: t("Price_title"),
+    contacts: t("Contacts_title"),
   };
 
   // -----------Alert windows--------------------------//
@@ -67,7 +70,7 @@ const Settings = () => {
         </Snackbar>
         <aside
           className={`flex flex-col h-full justify-start items-center bg-[#cccccc40] rounded-r-lg transition-all duration-500 ${
-            isOpenAside ? "w-[10rem]" : "w-[4rem]"
+            isOpenAside ? "w-[10rem]" : "w-[3rem] sm:w-[4rem]"
           }`}
         >
           <div className="flex w-full h-auto justify-end items-center p-2">
@@ -108,10 +111,10 @@ const Settings = () => {
         </aside>
 
         {activeIndex !== null && (
-          <div className="flex flex-col w-full h-full p-4">
+          <div className="flex flex-col w-full h-full py-4 px-1 sm:px-4">
             <header className="flex w-full h-auto justify-center items-center">
               <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-5 sm:mb-3">
-                Налаштування{" "}
+                {t("Settings")}{" "}
                 {activeIndex >= 0 ? titles[menu[activeIndex]?.id] || "" : ""}
               </h1>
             </header>
