@@ -15,13 +15,13 @@ export async function POST(req) {
     });
 
     return NextResponse.json(
-      { message: "Дані збережено", contact: contact },
+      { message: "Data saved", contact: contact },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Помилка збереження:", error);
+    console.error("Save error:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
@@ -33,9 +33,9 @@ export async function GET() {
     const contact = await prisma.contact.findMany();
     return NextResponse.json(contact, { status: 200 });
   } catch (error) {
-    console.error("Помилка отримання даних:", error);
+    console.error("Error getting data:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

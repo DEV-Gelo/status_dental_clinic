@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { mutate } from "swr";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import styles from "./AppointmentStyle.module.css";
 import Link from "next/link";
 // --------------Import MUI--------------------------//
@@ -15,7 +17,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
@@ -29,6 +30,7 @@ const Appointment = () => {
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [serviceData, setServiceData] = useState([]);
+  const [contact, setContact] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
     firstName: "",
@@ -48,6 +50,12 @@ const Appointment = () => {
     severity: "success",
     message: "",
   });
+
+  // -------Translations----------//
+  const t = useTranslations("appointment");
+  const local = t("language");
+  const pathname = usePathname();
+
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
     setAppointmentData((prev) => ({
@@ -58,7 +66,7 @@ const Appointment = () => {
 
   // -----------Formating selected date for modal window-------------------//
   const date = new Date(appointmentData.selectedDate);
-  const formattedDate = date.toLocaleDateString("uk-UA", {
+  const formattedDate = date.toLocaleDateString(local, {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -107,33 +115,33 @@ const Appointment = () => {
 
     const validateForm = () => {
       if (!selectedDate) {
-        showAlert("warning", "Будь ласка, оберіть дату для запису.");
+        showAlert("warning", t("Date_alert"));
         return false;
       }
 
       if (doctorsAvailability?.error) {
-        showAlert("warning", "Будь ласка, оберіть іншу дату для запису.");
+        showAlert("warning", t("Date_doctor_alert"));
         return false;
       }
 
       if (!appointmentData.time) {
-        showAlert("warning", "Будь ласка, оберіть час для запису.");
+        showAlert("warning", t("Time_alert"));
         return false;
       }
       if (!appointmentData.firstName) {
-        showAlert("warning", "Будь ласка, введіть ім'я");
+        showAlert("warning", t("FirstName_alert"));
         return false;
       }
       if (!appointmentData.lastName) {
-        showAlert("warning", "Будь ласка, введіть прізвище");
+        showAlert("warning", t("LastName_alert"));
         return false;
       }
       if (!appointmentData.phone) {
-        showAlert("warning", "Будь ласка, введіть телефон");
+        showAlert("warning", t("Phone_alert"));
         return false;
       }
       if (!appointmentData.email) {
-        showAlert("warning", "Будь ласка, введіть електронну пошту");
+        showAlert("warning", t("Email_alert"));
         return false;
       }
 
@@ -174,17 +182,17 @@ const Appointment = () => {
         const data = await response.json();
         setLoading(false);
         mutate("/api/data_appointment");
-        showAlert("success", "Запис успішно створено!");
+        showAlert("success", t("Success_entry_alert"));
         setIsSuccess(true);
       } else {
         const data = await response.json();
         showAlert(
           "error",
-          "Сталася помилка: " + (data.error || "Невідома помилка")
+          t("An error occurred") + (data.error || t("Unknown error"))
         );
       }
     } catch (err) {
-      showAlert("error", "Сталася непередбачувана помилка.");
+      showAlert("error", t("Error_alert"));
     }
   };
 
@@ -222,15 +230,32 @@ const Appointment = () => {
     try {
       const response = await fetch("/api/admin_setting/service");
       if (!response.ok)
-        throw new Error(result.message || "Помилка при отриманні даних");
+        throw new Error(
+          result.message || t("An error occurred while receiving data")
+        );
       const data = await response.json();
       setServiceData(data);
     } catch (error) {
       console.error(error);
     }
   };
+  // --------Get data contacts from server------//
+  const fetchDataContact = async () => {
+    try {
+      const response = await fetch("/api/admin_setting/contact");
+      if (!response.ok)
+        throw new Error(
+          result.message || t("An error occurred while receiving data")
+        );
+      const data = await response.json();
+      setContact(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     fetchData();
+    fetchDataContact();
   }, []);
 
   return (
@@ -239,29 +264,29 @@ const Appointment = () => {
         <div className={styles.modal_window_info}>
           <div className={styles.modal_container}>
             <div className={styles.modal_form}>
-              <h2>ЗАПИС ВИКОНАНО УСПІШНО</h2>
+              <h2>{t("REGISTRATION SUCCESSFUL")}</h2>
               <address>
-                Чекаємо Вас за адресою:{" "}
-                <span>
-                  м.Київ вул. Васильківська, 20, стоматологічна клініка DentaPro
-                </span>
+                <p>{t("We are waiting for you at the address")}</p>
+                <p>
+                  {` ${contact[0].city}, ${contact[0].street}, ${contact[0].house}, ${contact[0].office}`}
+                </p>
+                <p>{`${t("dental clinic")} DentaPro`}</p>
               </address>
               <p>
-                <span>ПІБ:</span>
-                {appointmentData.firstName} {appointmentData.lastName}{" "}
+                <span>{t("fullName")}</span>
+                {appointmentData.lastName} {appointmentData.firstName}{" "}
                 {appointmentData.patronymic}
               </p>
               <p>
-                <span>Дата:</span>
+                <span>{t("Date")}</span>
                 {formattedDate}
               </p>
               <p>
-                <span>Час:</span>
+                <span>{t("Time")}</span>
                 {appointmentData.time}
               </p>
               <p>
-                <span>Лікар:</span>
-                {appointmentData.doctorName}
+                <span>{t("Doctor")}</span> {appointmentData.doctorName}
               </p>
             </div>
             <ThemeProvider theme={theme}>
@@ -272,7 +297,7 @@ const Appointment = () => {
                   variant="contained"
                   size="large"
                 >
-                  НА ГОЛОВНУ
+                  {t("TO THE MAIN")}
                 </LoadingButton>
               </Link>
             </ThemeProvider>
@@ -280,7 +305,7 @@ const Appointment = () => {
         </div>
       )}
       <div className={styles.appointment_form}>
-        <h1 className={styles.title}>ЗАПИС НА ПРИЙОМ</h1>
+        <h1 className={styles.title}>{t("Creating an record")}</h1>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -307,12 +332,12 @@ const Appointment = () => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Оберіть доступну дату</h3>
+                    <h3>{t("Choose an available date")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>1</span>
-                    <h3>Оберіть доступну дату</h3>
+                    <h3>{t("Choose an available date")}</h3>
                   </>
                 )}
               </div>
@@ -332,20 +357,22 @@ const Appointment = () => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Заповніть форму</h3>
+                    <h3>{t("Fill out the form")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>3</span>
-                    <h3>Заповніть форму</h3>
+                    <h3>{t("Fill out the form")}</h3>
                   </>
                 )}
               </div>
               <FormControl id="target" fullWidth sx={{ my: 3 }}>
-                <InputLabel id="select-label">Вид послуги</InputLabel>
+                <InputLabel id="select-label">
+                  {t("Type of service")}
+                </InputLabel>
                 <Select
                   labelId="select-label"
-                  label="Вид послуги"
+                  label={t("Type of service")}
                   name="service"
                   value={appointmentData.service}
                   onChange={handleInputChange}
@@ -361,7 +388,7 @@ const Appointment = () => {
                 id="firstname"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Ім'я"
+                label={t("FirstName")}
                 name="firstName"
                 value={appointmentData.firstName}
                 onChange={handleInputChange}
@@ -375,26 +402,28 @@ const Appointment = () => {
                   },
                 }}
                 helperText=" "
-                label="Прізвище"
+                label={t("LastName")}
                 name="lastName"
                 value={appointmentData.lastName}
                 onChange={handleInputChange}
               />
-              <TextField
-                id="patronymic"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label="По батькові"
-                name="patronymic"
-                value={appointmentData.patronymic}
-                onChange={handleInputChange}
-              />
+              {pathname.split("/")[1] === "uk" && (
+                <TextField
+                  id="patronymic"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label="По батькові"
+                  name="patronymic"
+                  value={appointmentData.patronymic}
+                  onChange={handleInputChange}
+                />
+              )}
               <TextField
                 id="phone"
                 sx={{ width: "100%" }}
                 helperText=" "
-                label="Номер телефону"
-                placeholder="097 000 00 00"
+                label={t("Phone number")}
+                placeholder={t("placeholder")}
                 name="phone"
                 value={appointmentData.phone}
                 onChange={handleInputChange}
@@ -403,7 +432,9 @@ const Appointment = () => {
                     inputMode: "numeric",
                     maxLength: 10,
                     startAdornment: (
-                      <InputAdornment position="start">+38</InputAdornment>
+                      <InputAdornment position="start">
+                        {t("prefix")}
+                      </InputAdornment>
                     ),
                   },
                 }}
@@ -411,17 +442,21 @@ const Appointment = () => {
               <TextField
                 id="email"
                 sx={{ width: "100%" }}
-                label="Електронна пошта"
+                label={t("Email")}
                 name="email"
                 value={appointmentData.email}
                 onChange={handleInputChange}
                 error={emailError}
-                helperText={emailError ? "Некоректний формат email" : " "}
+                helperText={emailError ? t("emailError") : " "}
               />
             </div>
           </div>
           <div className={styles.AvailableDoctors_wrapper}>
-            <div className={styles.AvailableDoctors_container}>
+            <div
+              className={`${styles.AvailableDoctors_container} ${
+                pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1008px]"
+              }`}
+            >
               <div className={styles.title_task}>
                 {appointmentData.time ? (
                   <>
@@ -430,12 +465,12 @@ const Appointment = () => {
                         sx={{ width: "100%", height: "100%", color: "green" }}
                       />
                     </span>
-                    <h3>Оберіть годину</h3>
+                    <h3>{t("Choose an hour")}</h3>
                   </>
                 ) : (
                   <>
                     <span className={styles.title_task_number}>2</span>
-                    <h3>Оберіть годину</h3>
+                    <h3>{t("Choose an hour")}</h3>
                   </>
                 )}
               </div>
@@ -459,7 +494,7 @@ const Appointment = () => {
               variant="contained"
               size="large"
             >
-              Записати
+              {t("Save")}
             </LoadingButton>
             <Link href="/">
               <LoadingButton
@@ -468,7 +503,7 @@ const Appointment = () => {
                 variant="contained"
                 size="large"
               >
-                Відміна
+                {t("Cancel")}
               </LoadingButton>
             </Link>
           </ThemeProvider>

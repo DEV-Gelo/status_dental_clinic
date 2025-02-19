@@ -24,7 +24,6 @@ export async function POST(req) {
       !lastName ||
       !phone ||
       !email ||
-      !service ||
       !date ||
       !time ||
       !doctorId ||

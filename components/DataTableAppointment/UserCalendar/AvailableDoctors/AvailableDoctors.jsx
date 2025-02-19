@@ -94,7 +94,9 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                   className="flex flex-col xl:flex-row xl:items-start w-full h-auto justify-center items-center mb-5 border-[1px] border-[#d3d3d3] rounded-md"
                 >
                   <div className="flex min-w-[200px] w-auto h-full flex-col items-center justify-center text-center p-2">
-                    <h3 className="font-semibold ">{doctor.specialization}</h3>
+                    <h3 className="font-semibold ">
+                      {doctor.specialization || t("defaultSpecialization")}
+                    </h3>
                     <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
                       <Image
                         src={doctor.photo}

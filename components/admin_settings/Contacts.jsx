@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import useSWR, { mutate } from "swr";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 // --------------Import MUI components-----------------//
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
@@ -31,14 +26,14 @@ const MapComponent = dynamic(() => import("@/components/Map/CustomMap"), {
 // Function for receiving contacts data
 const fetchData = async () => {
   const response = await fetch("/api/admin_setting/contact");
-  if (!response.ok) throw new Error("Помилка при отриманні даних");
+  if (!response.ok) throw new Error("An error occurred while receiving data");
   return response.json();
 };
 
 const Contacts = ({ onAlert }) => {
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [position, setPosition] = useState([50.3938821, 30.4930841]);
+  const [position, setPosition] = useState([51.5287398, -0.2664034]);
   const [contactData, setContactData] = useState({
     country: "",
     city: "",
@@ -55,6 +50,10 @@ const Contacts = ({ onAlert }) => {
     z: null,
   });
 
+  // ---------Translations------------//
+  const t = useTranslations("settings__Contacts");
+  const pathname = usePathname();
+
   // ------- Calling function for receiving data from server------------//
   const { data, error } = useSWR("/api/admin_setting/contact", fetchData);
 
@@ -69,7 +68,7 @@ const Contacts = ({ onAlert }) => {
     if (data && data[0].x && data[0].y) {
       setPosition([data[0].x, data[0].y]);
     } else {
-      setPosition([50.3938821, 30.4930841]); // Default fallback coordinates
+      setPosition([51.5287398, -0.2664034]); // Default fallback coordinates
     }
   }, [data]);
 
@@ -86,14 +85,14 @@ const Contacts = ({ onAlert }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`Помилка: ${response.statusText}`);
+        throw new Error(`Error: ${response.statusText}`);
       }
 
       const result = await response.json();
       mutate("/api/admin_setting/contact");
-      onAlert("success", "Дані успішно збережені");
+      onAlert("success", t("SuccessAlert"));
     } catch (error) {
-      console.error("Помилка при відправці даних:", error);
+      console.error(t("Error sending data"), error);
     } finally {
       setLoading(false);
     }
@@ -144,8 +143,7 @@ const Contacts = ({ onAlert }) => {
             className="flex justify-center items-center"
             severity="warning"
           >
-            <h6>Помилка завантаження даних</h6>
-            <p>Перевірте з'єднання</p>
+            <h6>{t("Error loading data")}</h6>
           </Alert>
         </div>
       )}
@@ -160,7 +158,7 @@ const Contacts = ({ onAlert }) => {
             <address className="flex flex-col w-full h-auto lg:w-[35rem] sm:h-[38rem] border-[1px] rounded-md sm:overflow-auto mr-4 my-10 sm:my-0 p-3">
               <TextField
                 id="country"
-                label="Країна"
+                label={t("Country")}
                 name="country"
                 value={contactData.country}
                 onChange={(e) =>
@@ -179,7 +177,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="city"
-                label="Місто"
+                label={t("City")}
                 name="city"
                 value={contactData.city}
                 onChange={(e) =>
@@ -196,28 +194,30 @@ const Contacts = ({ onAlert }) => {
                   },
                 }}
               />
-              <TextField
-                id="district"
-                label="Район"
-                name="district"
-                value={contactData.district}
-                onChange={(e) =>
-                  setContactData({ ...contactData, district: e.target.value })
-                }
-                sx={{
-                  width: "100%",
-                  my: 1,
-                  "& .MuiInputBase-input": {
-                    fontSize: "18px",
-                    "@media (max-width: 600px)": {
-                      fontSize: "14px",
+              {pathname.split("/")[1] === "uk" && (
+                <TextField
+                  id="district"
+                  label={t("Area")}
+                  name="district"
+                  value={contactData.district}
+                  onChange={(e) =>
+                    setContactData({ ...contactData, district: e.target.value })
+                  }
+                  sx={{
+                    width: "100%",
+                    my: 1,
+                    "& .MuiInputBase-input": {
+                      fontSize: "18px",
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
                     },
-                  },
-                }}
-              />
+                  }}
+                />
+              )}
               <TextField
                 id="region"
-                label="Область"
+                label={t("Region")}
                 name="region"
                 value={contactData.region}
                 onChange={(e) =>
@@ -236,7 +236,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="street"
-                label="Вулиця"
+                label={t("Street")}
                 name="street"
                 value={contactData.street}
                 onChange={(e) =>
@@ -255,7 +255,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="house"
-                label="Будинок №"
+                label={t("House")}
                 name="house"
                 value={contactData.house}
                 onChange={(e) =>
@@ -274,7 +274,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="office"
-                label="Офіс №"
+                label={t("Office")}
                 name="office"
                 value={contactData.office}
                 onChange={(e) =>
@@ -293,7 +293,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="zipCode"
-                label="Індекс"
+                label={t("zipCode")}
                 name="zipCode"
                 type="number"
                 value={contactData.zipcode}
@@ -317,7 +317,7 @@ const Contacts = ({ onAlert }) => {
               />
               <TextField
                 id="email"
-                label="E-пошта"
+                label={t("email")}
                 name="email"
                 error={emailError}
                 value={contactData.email}
@@ -337,7 +337,7 @@ const Contacts = ({ onAlert }) => {
                 <div className="flex items-center my-2 relative" key={index}>
                   <TextField
                     id={`Phone${index + 1}`}
-                    label={`Телефон №${index + 1}`}
+                    label={`${t("Phone")} ${index + 1}`}
                     name={`Phone${index + 1}`}
                     type="text"
                     value={phone}
@@ -349,7 +349,9 @@ const Contacts = ({ onAlert }) => {
                     slotProps={{
                       input: {
                         startAdornment: (
-                          <InputAdornment position="start">+38</InputAdornment>
+                          <InputAdornment position="start">
+                            {t("prefix")}
+                          </InputAdornment>
                         ),
                       },
                     }}
@@ -395,7 +397,7 @@ const Contacts = ({ onAlert }) => {
               <div className="flex h-auto w-full justify-center mb-3">
                 <div className="flex flex-wrap justify-center items-center max-w-[38rem] h-auto bg-[#f5f5f5] px-4 rounded-md">
                   <h6 className="font-semibold text-[0.8rem] sm:text-[1.2rem] text-[#a7adaf] mx-2">
-                    Координати:
+                    {t("Coordinates")}
                   </h6>
                   <div className="Flex w-[8rem] h-auto m-1">
                     <TextField
@@ -462,7 +464,7 @@ const Contacts = ({ onAlert }) => {
               <MapComponent position={position} />
             </div>
           </div>
-          <div className="flex w-full justify-center items-center mt-10">
+          <div className="flex w-full justify-center items-center">
             <ThemeProvider theme={theme}>
               <LoadingButton
                 sx={{ m: 1 }}
@@ -474,7 +476,7 @@ const Contacts = ({ onAlert }) => {
                 variant="contained"
                 size="large"
               >
-                Зберегти
+                {t("save")}
               </LoadingButton>
             </ThemeProvider>
           </div>
