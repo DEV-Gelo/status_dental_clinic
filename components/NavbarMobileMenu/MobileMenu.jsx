@@ -1,15 +1,22 @@
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
+// -----------Iternal components----------//
 import { MenuToggle } from "./MenuToggle";
 import { section_variants } from "@/utils/variants";
 import { li_variants } from "@/utils/variants";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+// -----------Import MUI components--------------//
+import Button from "@mui/material/Button";
 
 export default function MobileMenu({ links }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
+
+  // -------Translations---------//
+  const t = useTranslations("Navbar");
 
   const handleClickOutside = (event) => {
     // Checking if the user clicked outside of the menu and button
@@ -45,7 +52,7 @@ export default function MobileMenu({ links }) {
   function Section({ children }) {
     return (
       <motion.section
-        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-[50%] h-[100vh] bg-[#ccdde4]"
+        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-[100%] sm:w-[55%] h-[100vh] bg-[#ccdde4]"
         initial="closed"
         animate="open"
         exit="closed"
@@ -84,14 +91,13 @@ export default function MobileMenu({ links }) {
                 </motion.li>
               );
             })}
-            <motion.button
-              whileTap={{ scale: 0.8 }}
-              transition={{ duration: 0.5 }}
-              type="button"
-              className="font-bold text-[16px] text-white blue px-[2rem] py-[1rem] text-nowrap "
+            <Button
+              size="large"
+              variant="contained"
+              className="text-nowrap blue rounded-none"
             >
-              ЗАПИС НА ПРИЙОМ
-            </motion.button>
+              {t("appointment")}
+            </Button>
           </Section>
         )}
       </AnimatePresence>

@@ -1,10 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { motion, useScroll, useVelocity, useCycle } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import Image from "next/image";
 import MobileMenu from "../NavbarMobileMenu/MobileMenu";
+// -----------Import MUI components--------------//
+import Button from "@mui/material/Button";
 
 const Navbar = () => {
   // Scroll-away Navbar ----------------------------------------//
@@ -44,16 +47,18 @@ const Navbar = () => {
     [isScrollingBack, isAtTop]
   );
 
-  // Scroll-away Navbar ----------------------------------------//
-
+  // -----------Translations--------------//
+  const t = useTranslations("Navbar");
+  // -----------Get the path--------------//
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
 
   const links = [
-    { href: `/${locale}`, label: "ГОЛОВНА" },
-    { href: `/${locale}/about`, label: "ПРО НАС" },
-    { href: `/${locale}/service`, label: "ПОСЛУГИ" },
-    { href: `/${locale}/contacts`, label: "КОНТАКТИ" },
+    { href: `/${locale}`, label: t("main") },
+    { href: `/${locale}/about`, label: t("about") },
+    { href: `/${locale}/service`, label: t("service") },
+    { href: `/${locale}/price`, label: t("price") },
+    { href: `/${locale}/contacts`, label: t("contact") },
   ];
 
   return (
@@ -62,19 +67,19 @@ const Navbar = () => {
         animate={{ y: isInView ? 0 : -slideDistance }}
         transition={{ duration: 0.2, delay: 0.25, ease: "easeInOut" }}
         style={{ height: slideDistance }}
-        className="flex w-full justify-between items-center py-[1.5rem] nav-gradient fixed top-0 right-0"
+        className="flex w-full justify-between items-center z-50 py-[1.5rem] px-[1rem] sm:px-[4rem] bg-[#fff] xl:bg-transparent absolute top-0 right-0"
       >
-        <div className="flex justify-start items-center px-[2rem] sm:px-[4rem] mr-[2rem]">
-          <Image src="/Tooth.png" alt="Логотип зуба" width={50} height={50} />
+        <div className="flex justify-start items-center mr-[2rem]">
+          <Image src="/Tooth.png" alt="logo" width={50} height={50} />
           <Link href="/" className="font-bold text-[20px]">
             Denta<span className="text-[#5ba3bb]">Pro</span>
           </Link>
         </div>
-        <div className="hidden lg:flex w-full h-full justify-center items-center font-bold text-[16px] gap-[8%]">
+        <div className="hidden lg:flex w-full h-full justify-center items-center font-bold text-[16px] gap-[5%]">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
               <span
-                className={`mx-[0rem] text-nowrap inline-block transition ease-in-out duration-150 hover:scale-[1.05] hover:text-[#5ba3bb] ${
+                className={`mx-[0rem] text-nowrap inline-block transition ease-in-out hover:scale-[1.04] hover:text-[#5ba3bb] ${
                   pathname === link.href ? "text-[#5ba3bb]" : "text-black"
                 }`}
               >
@@ -87,16 +92,15 @@ const Navbar = () => {
 
         <Link
           href={`/${locale}/appointment`}
-          className="hidden lg:flex justify-end items-center pr-[2rem] ml-[2rem]"
+          className="hidden lg:flex justify-end items-center ml-[2rem]"
         >
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            type="button"
-            className="font-bold text-[16px] text-white blue px-[2rem] py-[1rem] text-nowrap "
+          <Button
+            size="large"
+            variant="contained"
+            className="text-nowrap blue rounded-none"
           >
-            ЗАПИС НА ПРИЙОМ
-          </motion.button>
+            {t("appointment")}
+          </Button>
         </Link>
       </motion.nav>
     </>

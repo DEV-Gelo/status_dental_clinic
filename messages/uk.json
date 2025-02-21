@@ -388,5 +388,13 @@
     "scheduleTitle": "Графіки",
     "appointmentTitle": "Записи",
     "settingTitle": "Налаштування"
+  },
+  "Navbar": {
+    "main": "ГОЛОВНА",
+    "about": "ПРО НАС",
+    "service": "ПОСЛУГИ",
+    "price": "ЦІНИ",
+    "contact": "КОНТАКТИ",
+    "appointment": "ЗАПИС НА ПРИЙОМ"
   }
 }

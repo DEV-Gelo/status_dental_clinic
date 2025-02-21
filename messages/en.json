@@ -386,5 +386,13 @@
     "scheduleTitle": "Schedules",
     "appointmentTitle": "Appointments",
     "settingTitle": "Settings"
+  },
+  "Navbar": {
+    "main": "HOME",
+    "about": "ABOUT US",
+    "service": "SERVICES",
+    "price": "PRICES",
+    "contact": "CONTACTS",
+    "appointment": "BOOK AN APPOINTMENT"
   }
 }
