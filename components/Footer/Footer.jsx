@@ -1,0 +1,148 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+// -----Import React icons---------//
+import {
+  FaFacebookF,
+  FaInstagramSquare,
+  FaYoutube,
+  FaTwitter,
+} from "react-icons/fa";
+import { AiOutlineMail } from "react-icons/ai";
+import { LiaPhoneSolid } from "react-icons/lia";
+
+const Footer = () => {
+  const [contactData, setContactData] = useState([]);
+  // ----- Get local--------//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
+  const patientInformation = [
+    { title: "About Us", link: `/${locale}/about` },
+    { title: "History", link: "#" },
+    { title: "Before / Afters", link: "#" },
+    { title: "Testimonials", link: "#" },
+    { title: "Contact Us", link: `/${locale}/contacts` },
+  ];
+  const services = [
+    { title: "Preventive Care", link: "#" },
+    { title: "Implant Dentistry", link: "#" },
+    { title: "Cosmetic Dentistry", link: "#" },
+    { title: "Clear Braces", link: "#" },
+    { title: "Dental Emergency", link: "#" },
+  ];
+  const legal = [
+    { title: "Privacy Policy", link: "#" },
+    { title: "Terms & Conditions", link: "#" },
+    { title: "Insurance", link: "#" },
+  ];
+  // ------------Social network icons--------------//
+  const socialIcons = [
+    { id: 1, icon: <FaFacebookF />, link: "https://facebook.com" },
+    { id: 2, icon: <FaInstagramSquare />, link: "https://instagram.com" },
+    { id: 3, icon: <FaYoutube />, link: "https://youtube.com" },
+    { id: 4, icon: <FaTwitter />, link: "https://twitter.com" },
+  ];
+  //   -------- Fetch contact data ---------------//
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/admin_setting/contact");
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "An error occurred while receiving data"
+          );
+        }
+        const data = await response.json();
+        setContactData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <div className="flex flex-wrap w-full min-h-[25rem] p-[4rem] justify-between bg-[#000]">
+      <div className=" flex flex-col w-auto h-auto p-2">
+        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+          Patient Information
+        </h6>
+        <ul>
+          {patientInformation.map((item, index) => (
+            <Link key={index} href={item.link}>
+              <li className="text-[#A7ADAF] my-1">{item.title}</li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+      <div className=" flex flex-col w-auto h-auto p-2">
+        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+          Services
+        </h6>
+        <ul>
+          {services.map((item, index) => (
+            <Link key={index} href={item.link}>
+              <li className="text-[#A7ADAF] my-1">{item.title}</li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+      <div className=" flex flex-col w-auto h-auto p-2">
+        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">Legal</h6>
+        <ul>
+          {legal.map((item, index) => (
+            <Link key={index} href={item.link}>
+              <li className="text-[#A7ADAF] my-1">{item.title}</li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+      <div className=" flex flex-col w-auto h-auto p-2">
+        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+          Contact us
+        </h6>
+        {contactData.length > 0 && (
+          <ul>
+            <li className="text-[#A7ADAF] my-2 ">{contactData[0].country}</li>
+            <li className="text-[#A7ADAF] my-2 ">
+              {contactData[0].city} {contactData[0].zipcode}
+            </li>
+            <li className="text-[#A7ADAF] my-2 ">
+              {contactData[0].street} {contactData[0].house}{" "}
+              {contactData[0].office}
+            </li>
+            <li className="text-[#A7ADAF] my-2 ">{contactData[0].email}</li>
+            <li className="flex flex-col text-[#A7ADAF] my-2 ">
+              {contactData[0]?.phoneNumbers?.map((number, index) => (
+                <span key={index} className="flex items-center">
+                  <LiaPhoneSolid /> &nbsp; {number}
+                </span>
+              ))}
+            </li>
+          </ul>
+        )}
+      </div>
+      <div className=" flex flex-col w-auto h-auto p-2">
+        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+          Stay connected
+        </h6>
+        <ul className="flex justify-between gap-10">
+          {socialIcons.map((item) => (
+            <Link key={item.id} href={item.link}>
+              <li className="text-[#A7ADAF] my-2 ">{item.icon}</li>
+            </Link>
+          ))}
+        </ul>
+        <div className="flex justify-end">
+          <p className="text-[#A7ADAF] text-[0.8rem] my-1">
+            Copyright © 2023 DentaPro.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;

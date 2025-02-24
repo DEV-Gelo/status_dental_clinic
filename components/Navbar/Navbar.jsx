@@ -67,7 +67,7 @@ const Navbar = () => {
         animate={{ y: isInView ? 0 : -slideDistance }}
         transition={{ duration: 0.2, delay: 0.25, ease: "easeInOut" }}
         style={{ height: slideDistance }}
-        className="flex w-full justify-between items-center z-50 py-[1.5rem] px-[1rem] sm:px-[4rem] bg-[#fff] xl:bg-transparent absolute top-0 right-0"
+        className="flex fixed top-0 right-0 w-full min-h-[5rem] justify-between items-center z-50 py-[1.5rem] px-[1rem] sm:px-[4rem] nav-gradient"
       >
         <div className="flex justify-start items-center mr-[2rem]">
           <Image src="/Tooth.png" alt="logo" width={50} height={50} />

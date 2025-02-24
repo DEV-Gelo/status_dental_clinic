@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         secondary: "playfairDisplay",
       },
+      screens: {
+        xs: "480px",
+      },
     },
   },
   plugins: [],

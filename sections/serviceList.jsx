@@ -3,25 +3,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GoArrowRight } from "react-icons/go";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export const ShortServicesList = () => {
+  const t = useTranslations("Home_page");
   const pathname = usePathname();
   const local = pathname.split("/")[1];
 
   const services = [
     {
       id: 1,
-      name: "Preventive Care",
+      name: t("Service.Preventive Care"),
       link: `/${local}/service`,
     },
     {
       id: 2,
-      name: "Restorative Care",
+      name: t("Service.Restorative Care"),
       link: `/${local}/service`,
     },
     {
       id: 3,
-      name: "Orthodontic Care",
+      name: t("Service.Orthodontic Care"),
       link: `/${local}/service`,
     },
   ];
@@ -43,7 +45,7 @@ export const ShortServicesList = () => {
             href={item.link}
             className="flex items-center text-[0.6rem] sm:text-[0.8rem] text-nowrap text-[#A7ADAF] tracking-widest"
           >
-            Learn More{" "}
+            {t("Service.Learn More")}
             <span className="ml-2">
               <GoArrowRight />
             </span>
@@ -54,13 +56,14 @@ export const ShortServicesList = () => {
   );
 };
 export const ServicesList = () => {
+  const t = useTranslations("Home_page");
   const pathname = usePathname();
   const local = pathname.split("/")[1];
 
   const services = [
     {
       id: 1,
-      name: "Preventive Care",
+      name: t("Service.Preventive Care"),
       link: `/${local}/service`,
       icon: "/Preventive.svg",
       description:
@@ -68,7 +71,7 @@ export const ServicesList = () => {
     },
     {
       id: 2,
-      name: "Restorative Care",
+      name: t("Service.Restorative Care"),
       link: `/${local}/service`,
       icon: "/Restorative.svg",
       description:
@@ -76,7 +79,7 @@ export const ServicesList = () => {
     },
     {
       id: 3,
-      name: "Orthodontic Care",
+      name: t("Service.Orthodontic Care"),
       link: `/${local}/service`,
       icon: "/Orthodontic.svg",
       description:
@@ -84,7 +87,7 @@ export const ServicesList = () => {
     },
     {
       id: 4,
-      name: "Oral Surgery",
+      name: t("Service.Oral Surgery"),
       link: `/${local}/service`,
       icon: "/Oral.svg",
       description:
@@ -92,7 +95,7 @@ export const ServicesList = () => {
     },
     {
       id: 5,
-      name: "Cosmetic Dentistry",
+      name: t("Service.Cosmetic Dentistry"),
       link: `/${local}/service`,
       icon: "/Cosmetic.svg",
       description:
@@ -100,7 +103,7 @@ export const ServicesList = () => {
     },
     {
       id: 6,
-      name: "Dental Implants",
+      name: t("Service.Dental Implants"),
       link: `/${local}/service`,
       icon: "/Implants.svg",
       description:

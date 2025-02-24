@@ -52,7 +52,7 @@ export default function MobileMenu({ links }) {
   function Section({ children }) {
     return (
       <motion.section
-        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-[100%] sm:w-[55%] h-[100vh] bg-[#ccdde4]"
+        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-full sm:w-[55vh] h-[100vh] bg-[#ccdde4]"
         initial="closed"
         animate="open"
         exit="closed"
@@ -87,7 +87,9 @@ export default function MobileMenu({ links }) {
                   className="font-bold text-[24px] text-center m-[2rem]"
                   custom={index}
                 >
-                  <Link href={link.href}>{link.label}</Link>
+                  <Link onClick={() => setIsOpen(false)} href={link.href}>
+                    {link.label}
+                  </Link>
                 </motion.li>
               );
             })}

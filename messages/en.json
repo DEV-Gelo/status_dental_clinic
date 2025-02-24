@@ -394,5 +394,27 @@
     "price": "PRICES",
     "contact": "CONTACTS",
     "appointment": "BOOK AN APPOINTMENT"
+  },
+  "Home_page": {
+    "mainTitle": {
+      "treatYourself": "Treat yourself with beautiful,",
+      "white": "white",
+      "smile": "smile"
+    },
+    "Service": {
+      "Preventive Care": "Preventive Care",
+      "Restorative Care": "Restorative Care",
+      "Orthodontic Care": "Orthodontic Care",
+      "Oral Surgery": "Oral Surgery",
+      "Cosmetic Dentistry": "Cosmetic Dentistry",
+      "Dental Implants": "Dental Implants",
+      "Learn More": "Learn More"
+    },
+    "ExpertDental": {
+      "title": "Expert dental care for the whole family.",
+      "descriptions": "Regular checkups, cleanings, and dental exams are essential for maintaining good oral health. We offer a full range of preventive care services, including fluoride treatments, dental sealants, and oral cancer screenings. Our new patient information page provides helpful information about what to expect during your first visit and what to bring with you.",
+      "buttonName": "READ ABOUT THE TEAM",
+      "Learn More": "LEARN MORE"
+    }
   }
 }
