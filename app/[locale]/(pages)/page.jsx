@@ -4,62 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { ServicesList, ShortServicesList } from "@/sections/serviceList";
 import { useTranslations } from "next-intl";
+import SocialAside from "@/components/SocialAside/SocialAside";
 
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
 // -----Import React icons---------//
-import {
-  FaFacebookF,
-  FaInstagramSquare,
-  FaYoutube,
-  FaTwitter,
-} from "react-icons/fa";
 import { BiSolidQuoteAltLeft } from "react-icons/bi";
 
-// ------------Social network icons--------------//
-const socialIcons = [
-  { id: 1, icon: <FaFacebookF />, link: "https://facebook.com" },
-  { id: 2, icon: <FaInstagramSquare />, link: "https://instagram.com" },
-  { id: 3, icon: <FaYoutube />, link: "https://youtube.com" },
-  { id: 4, icon: <FaTwitter />, link: "https://twitter.com" },
-];
-
 const Home = () => {
+  // -----Translations--------//
   const t = useTranslations("Home_page");
+
   return (
     <div className="flex flex-col w-full h-full overflow-x-hidden">
-      {/* ------------Social container----------- */}
-      <aside className="hidden sm:flex flex-col w-[4rem] h-full fixed top-0 right-0">
-        <div className="flex flex-[60.9%] flex-col justify-center items-center bg-[#ccdde4]">
-          {socialIcons.map((item) => (
-            <Link className="m-4" href={item.link} key={item.id}>
-              {item.icon}
-            </Link>
-          ))}
-        </div>
-        <div className="flex flex-[39.1%] justify-center items-center">
-          <div className="flex flex-col w-full h-[60%] justify-center items-center">
-            <Link href="#Up">
-              <Image
-                src="/Arrow Up.svg"
-                alt="Arrow Up"
-                width={8}
-                height={30}
-                className="m-3"
-              />
-            </Link>
-            <Link href="#Down">
-              <Image
-                src="/Arrow Down.svg"
-                alt="Arrow Down"
-                width={8}
-                height={30}
-                className="m-3"
-              />
-            </Link>
-          </div>
-        </div>
-      </aside>
+      {/* ------------Social component----------- */}
+      <SocialAside />
+
       {/*-------- Treat yourself sections -----------*/}
       <div
         id="Up"
@@ -98,7 +58,7 @@ const Home = () => {
         </div>
         <div className="flex relative w-full xl:w-[55%] flex-col h-full">
           <div className="hidden xl:flex w-full h-[5rem] bg-[#ccdde4]" />
-          <div className="hidden sm:flex absolute top-[4.8rem] left-0 w-[8.9rem] h-[8.9rem] bg-[#ccdde4]" />
+          <div className="hidden sm:flex absolute top-[4.5rem] left-0 w-[8.9rem] h-[8.9rem] bg-[#ccdde4]" />
           <div className="hidden sm:flex absolute bottom-0 right-0 w-[8.9rem] h-[8.9rem] bg-[#ccdde470]" />
           <div className="hidden sm:flex absolute bottom-0 right-[17.8rem] w-[8.9rem] h-[8.9rem] bg-[#ccdde470]" />
           <div className="hidden sm:flex absolute bottom-[8.9rem] right-[8.9rem] w-[8.9rem] h-[8.9rem] bg-[#ccdde470]" />
@@ -114,17 +74,21 @@ const Home = () => {
         </div>
       </div>
       {/* ----------Expert dental section----------- */}
-      <div className="flex flex-col sm:flex-row items-center relative w-full h-auto sm:h-[47.5rem] my-[2rem] lg:my-[4rem] xl:my-[8rem] px-[2rem] sm:px-[4rem]">
-        <div className="hidden sm:flex absolute top-[25%] md:top-[10%] lg:top-[-10%] left-[-4rem] z-0 w-[40%] h-[35%] md:h-[60%] lg:h-[90%] bg-[#CCDDE4]" />
-        <div className="flex w-full sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
-          <Image
-            src="/Expert dental.jpg"
-            alt="Expert dental"
-            width={700}
-            height={700}
-          />
+      <div className="flex flex-col sm:flex-row items-center w-full h-auto sm:h-[47.5rem] my-[2rem] lg:my-[4rem] xl:my-[8rem] pr-[2rem] sm:pr-[4rem] py-[4rem]">
+        <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
+          <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
+            <Image
+              src="/Expert dental.jpg"
+              alt="Expert dental"
+              width={700}
+              height={700}
+              className="z-30"
+            />
+            <div className="flex absolute bottom-0 right-0 z-0 w-[4rem] h-full bg-[#fff]"></div>
+            <div className="flex absolute bottom-0 left-0 z-0 w-full h-[4rem] bg-[#fff]"></div>
+          </div>
         </div>
-        <div className="flex flex-col justify-center items-center w-full sm:w-[40%] order-1 sm:order-2">
+        <div className="flex flex-col justify-center items-center w-full sm:w-[40%] pl-10 sm:pl-0 order-1 sm:order-2">
           <h2 className="font-bold text-[2rem] md:text-[2.5rem] xl:text-[3rem]">
             {t("ExpertDental.title")}
           </h2>
@@ -153,13 +117,13 @@ const Home = () => {
             variant="contained"
             className="text-nowrap blue text-[0.8rem] rounded-none mr-5"
           >
-            READ ABOUT THE TEAM
+            {t("ExpertDental.buttonName")}
           </Button>
           <Link
             href="#"
             className="font-semibold text-[#5ba3bb] text-[0.8rem] text-nowrap underline underline-offset-4 decoration-2 ml-5"
           >
-            LEARN MORE
+            {t("ExpertDental.Learn More")}
           </Link>
         </div>
       </div>
@@ -167,7 +131,7 @@ const Home = () => {
       <div className="flex flex-col lg:flex-row w-full h-auto bg-[#ccdde470] px-[4rem] py-[2rem] sm:py-[6rem]">
         <div className="flex w-full lg:w-[30%] h-auto justify-center pr-10 py-[2rem]">
           <h2 className="font-bold text-[2rem] md:text-[2.5rem] xl:text-[3rem]">
-            Everything you need in one place.
+            {t("Service.ServiceTitle")}
           </h2>
         </div>
         <div className="flex justify-center w-full lg:w-[70%] h-full flex-wrap">
@@ -189,12 +153,10 @@ const Home = () => {
         </div>
         <div className="flex flex-col justify-center items-center w-full sm:w-[65%] lg:pl-[4rem] xl:pl-[8rem] order-1 lg:order-2">
           <h2 className="font-bold text-[2rem] md:text-[2.5rem] xl:text-[3rem]">
-            Professionals you can trust. Period.
+            {t("Professionals.title")}
           </h2>
           <p className="text-[#A7ADAF] my-[3rem]">
-            Dr. Giovanni is prominent dental specialist, who knows how to treat
-            every problem. 10+ years of experience translates into bespoke
-            treatment of every pacient.
+            {t("Professionals.descriptions")}
           </p>
           <div className="hidden lg:flex lg:flex-row sm:flex-col w-full h-auto items-center p-2">
             <Button
@@ -202,7 +164,7 @@ const Home = () => {
               variant="contained"
               className="text-nowrap blue rounded-none mb-5 mr-0 lg:mr-5"
             >
-              READ MORE ABOUT DR. GIOVANNI
+              {t("Professionals.buttonName")}
             </Button>
           </div>
         </div>
@@ -212,7 +174,7 @@ const Home = () => {
         <div className="flex items-end w-[60%] h-full pt-[8rem]">
           <div className="flex w-auto h-full items-end justify-start">
             <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
-              @lisamaria.99
+              {t("Review.wName")}
             </p>
           </div>
           <div className="flex mr-[6rem]">
@@ -225,12 +187,12 @@ const Home = () => {
           </div>
         </div>
         <div className="flex relative flex-col items-end w-[50%] h-full">
-          <div className="absolute top-[6rem] left-[-6rem] md:left-[-4rem]">
+          <div className="absolute top-0 left-[-14rem]">
             <h2 className="font-bold text-[2rem] lg:text-[2.5rem] xl:text-[3rem]">
-              Be featured.
+              {t("Review.Be featured")}
             </h2>
             <h2 className="font-bold text-[2rem] lg:text-[2.5rem] xl:text-[3rem] text-[#5BA3BB]">
-              #happysmile
+              {t("Review.happysmile")}
             </h2>
           </div>
           <div className="flex w-[80%] mr-5">
@@ -242,7 +204,7 @@ const Home = () => {
             />
             <div className="flex w-auto h-full items-start justify-end">
               <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
-                @marcopolono
+                {t("Review.mName")}
               </p>
             </div>
           </div>
@@ -251,8 +213,7 @@ const Home = () => {
               <BiSolidQuoteAltLeft />
             </span>
             <p className="font-secondary italic text-[2rem] xl:text-[2rem] text-[#5ba3bb] mr-2">
-              Dr. Giovanni is a genius! Treatment went well and now my smile
-              shines! Thank YOU!
+              {t("Review.feedback")}
             </p>
           </div>
         </div>
@@ -262,7 +223,7 @@ const Home = () => {
         <div className="flex items-end w-full h-full">
           <div className="flex w-auto h-full items-end justify-start">
             <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
-              @lisamaria.99
+              {t("Review.wName")}
             </p>
           </div>
           <div className="flex mr-[1rem]">
@@ -278,16 +239,17 @@ const Home = () => {
               <BiSolidQuoteAltLeft />
             </span>
             <p className="font-secondary italic tetx-[1rem] xs:text-[1.5rem] text-[#5ba3bb]">
-              Dr. Giovanni is a genius! Treatment went well and now my smile
-              shines! Thank YOU!
+              {t("Review.feedback")}
             </p>
           </div>
         </div>
         <div className="flex flex-col items-end w-full h-full">
           <div className="">
-            <h2 className="font-bold text-[2rem] ">Be featured.</h2>
+            <h2 className="font-bold text-[2rem] ">
+              {t("Review.Be featured")}
+            </h2>
             <h2 className="font-bold text-[2rem]  text-[#5BA3BB]">
-              #happysmile
+              {t("Review.happysmile")}
             </h2>
           </div>
           <div className="flex w-[80%]">
@@ -299,7 +261,7 @@ const Home = () => {
             />
             <div className="flex w-auto h-full items-start justify-end">
               <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
-                @marcopolono
+                {t("Review.mName")}
               </p>
             </div>
           </div>

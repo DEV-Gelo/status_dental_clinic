@@ -55,7 +55,7 @@ export const ShortServicesList = () => {
     </>
   );
 };
-export const ServicesList = () => {
+export const ServicesList = ({ showDescription = true, centering = false }) => {
   const t = useTranslations("Home_page");
   const pathname = usePathname();
   const local = pathname.split("/")[1];
@@ -66,48 +66,42 @@ export const ServicesList = () => {
       name: t("Service.Preventive Care"),
       link: `/${local}/service`,
       icon: "/Preventive.svg",
-      description:
-        "Regular check-ups and fluoride treatments to prevent tooth decay and gum disease.",
+      description: t("Service.PreventiveDescription"),
     },
     {
       id: 2,
       name: t("Service.Restorative Care"),
       link: `/${local}/service`,
       icon: "/Restorative.svg",
-      description:
-        "Fillings, crowns, bridges, and dentures to restore damaged or missing teeth.",
+      description: t("Service.RestorativeDescription"),
     },
     {
       id: 3,
       name: t("Service.Orthodontic Care"),
       link: `/${local}/service`,
       icon: "/Orthodontic.svg",
-      description:
-        "Braces and clear aligners to straighten teeth and correct bite issues.",
+      description: t("Service.OrthodonticDescription"),
     },
     {
       id: 4,
       name: t("Service.Oral Surgery"),
       link: `/${local}/service`,
       icon: "/Oral.svg",
-      description:
-        "Extractions, wisdom teeth removal, and other surgical procedures.",
+      description: t("Service.OralDescription"),
     },
     {
       id: 5,
       name: t("Service.Cosmetic Dentistry"),
       link: `/${local}/service`,
       icon: "/Cosmetic.svg",
-      description:
-        "Teeth whitening, veneers, and other procedures to improve the appearance of teeth.",
+      description: t("Service.CosmeticDescription"),
     },
     {
       id: 6,
       name: t("Service.Dental Implants"),
       link: `/${local}/service`,
       icon: "/Implants.svg",
-      description:
-        "Dental implants are a popular and effective way to replace missing teeth.",
+      description: t("Service.DentalDescription"),
     },
   ];
 
@@ -116,17 +110,21 @@ export const ServicesList = () => {
       {services.map((item) => (
         <div
           key={item.id}
-          className="flex flex-col w-[15rem] h-[11rem] items-start m-[1.5rem]"
+          className={`flex flex-col w-[15rem] h-auto m-[1.5rem] ${
+            centering ? "items-center" : "items-start"
+          }`}
         >
           <span>
             <Image src={item.icon} alt="Preventive" width={50} height={50} />
           </span>
-          <h6 className="text-[1rem] sm:text-[1.2rem] font-semibold tracking-wide mb-3">
+          <h6 className="text-nowrap text-[1rem] sm:text-[1.2rem] font-semibold tracking-wide mb-3">
             {item.name}
           </h6>
-          <p className="text-[0.8rem] sm:text-[1rem] text-[#A7ADAF] leading-loose">
-            {item.description}
-          </p>
+          {showDescription && (
+            <p className="text-[0.8rem] sm:text-[1rem] text-[#A7ADAF] leading-loose">
+              {item.description}
+            </p>
+          )}
         </div>
       ))}
     </>

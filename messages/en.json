@@ -395,26 +395,120 @@
     "contact": "CONTACTS",
     "appointment": "BOOK AN APPOINTMENT"
   },
+  "Footer": {
+    "PatientInfo": {
+      "title": "Patient Information",
+      "AboutUs": "About Us",
+      "History": "History",
+      "B/A": "Before / After",
+      "Testimonials": "Testimonials",
+      "Contact": "Contact Us"
+    },
+    "Services": {
+      "title": "Services",
+      "PreventiveCare": "Preventive Care",
+      "ImplantDentistry": "Implant Dentistry",
+      "CosmeticDentistry": "Cosmetic Dentistry",
+      "ClearBraces": "Clear Braces",
+      "DentalEmergency": "Dental Emergency"
+    },
+    "Legal": {
+      "title": "Legal",
+      "PrivacyPolicy": "Privacy Policy",
+      "Terms": "Terms & Conditions",
+      "Insurance": "Insurance"
+    },
+    "ContactTitle": "Contact Us",
+    "StayConnected": "Stay Connected"
+  },
   "Home_page": {
     "mainTitle": {
-      "treatYourself": "Treat yourself with beautiful,",
+      "treatYourself": "Treat yourself to a beautiful,",
       "white": "white",
       "smile": "smile"
     },
     "Service": {
+      "ServiceTitle": "Everything you need in one place.",
       "Preventive Care": "Preventive Care",
+      "PreventiveDescription": "Regular check-ups and fluoride treatments to prevent tooth decay and gum disease.",
       "Restorative Care": "Restorative Care",
+      "RestorativeDescription": "Fillings, crowns, bridges, and dentures to restore damaged or missing teeth.",
       "Orthodontic Care": "Orthodontic Care",
+      "OrthodonticDescription": "Braces and clear aligners to straighten teeth and correct bite issues.",
       "Oral Surgery": "Oral Surgery",
+      "OralDescription": "Extractions, wisdom teeth removal, and other surgical procedures.",
       "Cosmetic Dentistry": "Cosmetic Dentistry",
+      "CosmeticDescription": "Teeth whitening, veneers, and other procedures to improve the appearance of teeth.",
       "Dental Implants": "Dental Implants",
+      "DentalDescription": "Dental implants are a popular and effective way to replace missing teeth.",
       "Learn More": "Learn More"
     },
     "ExpertDental": {
       "title": "Expert dental care for the whole family.",
-      "descriptions": "Regular checkups, cleanings, and dental exams are essential for maintaining good oral health. We offer a full range of preventive care services, including fluoride treatments, dental sealants, and oral cancer screenings. Our new patient information page provides helpful information about what to expect during your first visit and what to bring with you.",
+      "descriptions": "Regular checkups, cleanings, and dental exams are essential for maintaining good oral health. We offer a full range of preventive care services, including fluoride treatments, dental sealants, and oral cancer screenings. Our new patient information page provides helpful details about what to expect during your first visit and what to bring with you.",
       "buttonName": "READ ABOUT THE TEAM",
       "Learn More": "LEARN MORE"
+    },
+    "Professionals": {
+      "title": "Professionals you can trust. Period.",
+      "descriptions": "Dr. Giovanni is a prominent dental specialist who knows how to treat every problem. 10+ years of experience translate into bespoke treatment for every patient.",
+      "buttonName": "READ MORE ABOUT DR. GIOVANNI"
+    },
+    "Review": {
+      "Be featured": "Be featured.",
+      "happysmile": "#happysmile",
+      "feedback": "Dr. Giovanni is a genius! The treatment went well, and now my smile shines! Thank YOU!",
+      "mName": "@marcopolono",
+      "wName": "@anna.maria"
+    }
+  },
+  "About_page": {
+    "ModernClinic": {
+      "title": "Modern Dental Clinic",
+      "description": "Our clinic is a place where every patient receives high-quality treatment in a comfortable environment. We combine modern technologies with a personalized approach to each client."
+    },
+    "Staff": {
+      "title": "Experienced Staff",
+      "description": "Our team consists of qualified dentists with years of experience. They continuously improve their skills, participate in international conferences, and master the latest treatment techniques."
+    },
+    "Euip": {
+      "title": "State-of-the-Art Equipment",
+      "description": "We use only the latest dental equipment from leading global manufacturers. This allows us to provide treatment quickly, painlessly, and effectively."
+    },
+    "Service": {
+      "title": "Services",
+      "description": "We offer a wide range of dental services, from preventive check-ups to complex surgical procedures. You can receive cavity treatment, professional cleaning, dental implants, prosthetics, and much more with us."
+    },
+    "Comfort": {
+      "title": "Comfort and Care",
+      "description": "We prioritize the comfort of our patients. Our clinic has a cozy atmosphere, and our friendly staff is always ready to assist and support you at every stage of your treatment."
+    }
+  },
+  "Service_page": {
+    "title": "Our Services",
+    "PreventiveCare": {
+      "title": "Preventive Dentistry",
+      "description": "Preventive care helps maintain the health of teeth and gums, preventing cavities and oral diseases. Regular dental check-ups, professional cleanings, fluoride treatments, and fissure sealants strengthen enamel and reduce the risk of future problems. Additionally, we provide guidance on proper brushing techniques and help choose the best oral hygiene products."
+    },
+    "RestorativeCare": {
+      "title": "Restorative Dentistry",
+      "description": "This service includes the treatment and restoration of damaged teeth, restoring their health, aesthetics, and functionality. Restorative methods include cavity fillings, crowns, bridges, and dentures. For more severe damage or tooth loss, advanced solutions such as inlays, onlays, or dental implants may be used."
+    },
+    "OrthodonticCare": {
+      "title": "Orthodontic Treatment",
+      "description": "Orthodontic treatment focuses on correcting teeth alignment and bite issues, not only creating a beautiful smile but also improving chewing function. Various methods are used, including traditional metal braces, aesthetic ceramic braces, clear aligners, and other orthodontic appliances. Treatment helps prevent uneven tooth wear, joint problems, and gum diseases."
+    },
+    "OralSurgery": {
+      "title": "Oral Surgery",
+      "description": "Oral surgery covers a wide range of procedures designed to address complex dental issues. Common procedures include tooth extractions (including wisdom teeth), abscess treatment, bone grafting, and dental implant placement. Additionally, gum corrections for periodontal diseases may be performed. Surgical interventions are carried out with modern anesthesia techniques, ensuring comfort and a painless experience for the patient."
+    },
+    "CosmeticDentistry": {
+      "title": "Cosmetic Dentistry",
+      "description": "Cosmetic dentistry focuses on enhancing the appearance of teeth, giving them the ideal shape, color, and size. Popular procedures include professional teeth whitening, veneers, and lumineers, as well as composite restorations. These methods effectively conceal enamel defects, cracks, and irregularities, creating a harmonious and attractive smile."
+    },
+    "DentalImplants": {
+      "title": "Dental Implants",
+      "description": "Dental implants are the most advanced and long-lasting solution for replacing missing teeth. The procedure involves placing a titanium implant into the jawbone, providing a secure foundation for a future crown. This approach fully restores dental functionality without affecting neighboring teeth, unlike traditional bridges. Implants help maintain a natural-looking smile and prevent bone loss in the area of the missing tooth."
     }
   }
 }
