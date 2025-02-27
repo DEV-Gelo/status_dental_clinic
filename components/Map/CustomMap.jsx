@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import { useTranslations } from "next-intl";
 // ----------Map configuration-----------------------//
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const CustomMap = ({ position }) => {
+  // -----Translation----------//
+  const t = useTranslations("CustomMap");
   // -----Marker icon----------//
   const customIcon = new L.Icon({
     iconUrl: "/marker-icon.png",
@@ -36,7 +39,7 @@ const CustomMap = ({ position }) => {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker position={position} icon={customIcon}>
-        <Popup>Тут знаходиться наша клініка!</Popup>
+        <Popup>{t("Popup")}</Popup>
       </Marker>
     </MapContainer>
   );

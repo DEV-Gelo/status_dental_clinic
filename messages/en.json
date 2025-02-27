@@ -510,5 +510,17 @@
       "title": "Dental Implants",
       "description": "Dental implants are the most advanced and long-lasting solution for replacing missing teeth. The procedure involves placing a titanium implant into the jawbone, providing a secure foundation for a future crown. This approach fully restores dental functionality without affecting neighboring teeth, unlike traditional bridges. Implants help maintain a natural-looking smile and prevent bone loss in the area of the missing tooth."
     }
+  },
+  "Price_page": {
+    "title": "Prices for services",
+    "currence": "usd",
+    "loading": "Loading...",
+    "Error loading data": "Error loading data"
+  },
+  "CustomMap": {
+    "Popup": "Here is our clinic!"
+  },
+  "Contact_page": {
+    "title": "Our contacts"
   }
 }

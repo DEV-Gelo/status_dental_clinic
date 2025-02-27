@@ -8,6 +8,9 @@ import Image from "next/image";
 import MobileMenu from "../NavbarMobileMenu/MobileMenu";
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
+import { ThemeProvider } from "@mui/material/styles";
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 const Navbar = () => {
   // Scroll-away Navbar ----------------------------------------//
@@ -94,13 +97,16 @@ const Navbar = () => {
           href={`/${locale}/appointment`}
           className="hidden lg:flex justify-end items-center ml-[2rem]"
         >
-          <Button
-            size="large"
-            variant="contained"
-            className="text-nowrap blue rounded-none"
-          >
-            {t("appointment")}
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              size="large"
+              color="appointment"
+              variant="contained"
+              sx={{ whiteSpace: "nowrap", borderRadius: 0 }}
+            >
+              {t("appointment")}
+            </Button>
+          </ThemeProvider>
         </Link>
       </motion.nav>
     </>

@@ -10,5 +10,9 @@ export const theme = createTheme({
       main: "#444",
       contrastText: "#fff",
     },
+    appointment: {
+      main: "#5ba3bb",
+      contrastText: "#fff",
+    },
   },
 });
