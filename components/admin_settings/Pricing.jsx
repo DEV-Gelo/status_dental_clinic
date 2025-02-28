@@ -696,7 +696,7 @@ const Pricing = ({ onAlert }) => {
                       size="small"
                       onClick={() => setIsOpenDelete(false)}
                     >
-                      t("No")
+                      {t("No")}
                     </LoadingButton>
                   </div>
                 </div>

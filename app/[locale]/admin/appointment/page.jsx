@@ -55,7 +55,7 @@ const Appointment = () => {
       }
     };
     fetchDoctors();
-  }, []);
+  }, [t]);
 
   const doctor = doctors.find(
     (doctor) => doctor.id === parseInt(selectedDoctor)

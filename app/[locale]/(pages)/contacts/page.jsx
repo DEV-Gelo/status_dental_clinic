@@ -13,7 +13,7 @@ const MapComponent = dynamic(() => import("@/components/Map/CustomMap"), {
 import { AiOutlineMail } from "react-icons/ai";
 import { LiaPhoneSolid } from "react-icons/lia";
 
-const contactPage = () => {
+const ContactPage = () => {
   const [contactData, setContactData] = useState([]);
   const [position, setPosition] = useState([]);
 
@@ -116,4 +116,4 @@ const contactPage = () => {
   );
 };
 
-export default contactPage;
+export default ContactPage;

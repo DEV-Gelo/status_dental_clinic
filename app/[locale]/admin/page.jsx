@@ -64,7 +64,7 @@ const Admin = () => {
       }
     };
     fetchDoctors();
-  }, []);
+  }, [t]);
 
   // ---Cancellation of line selection with a key Esc and delete with key Delete---//
   useEffect(() => {

@@ -4,7 +4,7 @@ import { ServicesList } from "@/sections/serviceList";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const servicePage = () => {
+const ServicePage = () => {
   // --------Translations---------//
   const t = useTranslations("Service_page");
 
@@ -180,4 +180,4 @@ const servicePage = () => {
   );
 };
 
-export default servicePage;
+export default ServicePage;

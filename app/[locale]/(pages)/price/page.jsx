@@ -20,7 +20,7 @@ const fetchPricingData = async () => {
   return response.json();
 };
 
-const pricePage = () => {
+const PricePage = () => {
   // ------- Calling function for receiving data from server------------//
   const { data, error } = useSWR("/api/admin_setting/category", fetchData);
   const { data: dataPricing, error: errorPricing } = useSWR(
@@ -92,4 +92,4 @@ const pricePage = () => {
   );
 };
 
-export default pricePage;
+export default PricePage;

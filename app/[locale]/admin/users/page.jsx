@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import styles from "./UsersStyle.module.css";
 // -------Import React components------------------//
@@ -323,7 +324,14 @@ const Users = () => {
                 >
                   <td className={styles.id_td}>{index + 1}</td>
                   <td className={styles.photo_td}>
-                    {user.photo && <img src={user.photo} alt="User photo" />}
+                    {user.photo && (
+                      <Image
+                        src={user.photo}
+                        alt="User photo"
+                        width={50}
+                        height={50}
+                      />
+                    )}
                   </td>
                   <td>
                     {user.lastName} {user.firstName} {user.patronymic}
