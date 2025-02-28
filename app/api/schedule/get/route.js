@@ -16,7 +16,7 @@ export async function GET(request) {
     const slots = await prisma.slot.findMany({
       where: {
         schedule: {
-          doctorId: Number(doctorId), // Фільтруємо за doctorId, який знаходиться в Schedule
+          doctorId: Number(doctorId), // Filter by doctorId, which is in the Schedule
         },
       },
       include: { schedule: true },

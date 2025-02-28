@@ -6,9 +6,9 @@ export async function GET() {
     const category = await prisma.category.findMany();
     return NextResponse.json(category, { status: 200 });
   } catch (error) {
-    console.error("Помилка:", error);
+    console.error("Error:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
@@ -20,7 +20,7 @@ export async function POST(req) {
 
     if (!name) {
       return NextResponse.json(
-        { message: "Назва не може бути порожньою" },
+        { message: "The name cannot be empty" },
         { status: 400 }
       );
     }
@@ -30,13 +30,13 @@ export async function POST(req) {
     });
 
     return NextResponse.json(
-      { message: "Дані збережено", category: newCategory },
+      { message: "Data saved", category: newCategory },
       { status: 201 }
     );
   } catch (error) {
     console.error("Помилка:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

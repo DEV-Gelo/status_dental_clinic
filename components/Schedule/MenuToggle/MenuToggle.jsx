@@ -14,7 +14,7 @@ const Path = (props) => (
 export const MenuToggle = ({ toggle }) => (
   <button onClick={toggle} className="">
     <svg width="23" height="23" viewBox="0 0 23 23">
-      {/* Верхня лінія */}
+      {/* Top line */}
       <Path
         variants={{
           closed: { d: "M 2 2.5 L 20 2.5" },
@@ -26,7 +26,7 @@ export const MenuToggle = ({ toggle }) => (
         transition={{ duration: 0.3 }}
       />
 
-      {/* Середня лінія */}
+      {/* Middle line */}
       <Path
         d="M 2 9.423 L 20 9.423"
         variants={{
@@ -39,7 +39,7 @@ export const MenuToggle = ({ toggle }) => (
         transition={{ duration: 0.1 }}
       />
 
-      {/* Нижня лінія */}
+      {/* The bottom line */}
       <Path
         variants={{
           closed: { d: "M 2 16.346 L 20 16.346" },

@@ -6,7 +6,7 @@ export async function POST(req) {
 
     if (!parsedBody || !parsedBody.password) {
       return NextResponse.json(
-        { success: false, message: "Будь ласка введіть пароль" },
+        { success: false, message: "Please enter a password" },
         { status: 400 }
       );
     }
@@ -26,7 +26,7 @@ export async function POST(req) {
       return response;
     } else {
       return NextResponse.json(
-        { success: false, message: "Невірний пароль" },
+        { success: false, message: "Invalid password" },
         { status: 401 }
       );
     }

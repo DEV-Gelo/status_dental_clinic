@@ -16,15 +16,15 @@ export async function PUT(req) {
       doctor,
     } = data;
 
-    // Отримання попереднього запису
+    // Obtaining a previous record
     const existingAppointment = await prisma.appointment.findUnique({
       where: { id: Number(id) },
-      include: { slot: true }, // Отримуємо пов'язаний слот
+      include: { slot: true }, // Get the associated slot
     });
 
-    // Починаємо транзакцію для кількох операцій
+    // Transaction for several operations
     const updatedAppointment = await prisma.$transaction(async (tx) => {
-      // Оновлюємо попередній слот на isBooked: false, якщо він існує
+      // Update the previous slot to isBooked: false if it exists
       if (existingAppointment.slot) {
         await tx.slot.update({
           where: { id: existingAppointment.slot.id },
@@ -32,7 +32,7 @@ export async function PUT(req) {
         });
       }
 
-      // Знаходимо новий слот за часом і датою
+      // Find a new slot by time and date
       const newSlot = await tx.slot.findFirst({
         where: {
           time,
@@ -44,16 +44,16 @@ export async function PUT(req) {
       });
 
       if (!newSlot) {
-        throw new Error("Слот із вказаними параметрами не знайдено");
+        throw new Error("A slot with the specified parameters was not found");
       }
 
-      // Оновлюємо новий слот на isBooked: true
+      // Updating a new slot on isBooked: true
       await tx.slot.update({
         where: { id: newSlot.id },
         data: { isBooked: true },
       });
 
-      // Оновлюємо Appointment із прив'язкою до нового слота
+      // Update the Appointment with the binding to the new slot
       return tx.appointment.update({
         where: { id: Number(id) },
         data: {

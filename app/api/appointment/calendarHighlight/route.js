@@ -2,21 +2,21 @@ import prisma from "@/lib/prisma";
 
 export async function GET(req) {
   try {
-    // Отримання всіх дат із розкладом та слотами
+    // Get all dates with schedule and slots
     const schedules = await prisma.schedule.findMany({
       where: {
         slots: {
           some: {
-            isBooked: false, // Тільки доступні слоти
+            isBooked: false, // Only available slots
           },
         },
       },
       select: {
-        date: true, // Тільки поле дати
+        date: true, // Date field only
       },
     });
 
-    // Формуємо унікальний список дат
+    // Forming a unique list of dates
     const uniqueDates = [
       ...new Set(
         schedules.map((schedule) => {
@@ -28,7 +28,7 @@ export async function GET(req) {
     ];
     if (uniqueDates.length === 0) {
       return new Response(
-        JSON.stringify({ message: "Немає доступних записів." }),
+        JSON.stringify({ message: "No records available." }),
         { status: 200 }
       );
     }
@@ -39,7 +39,7 @@ export async function GET(req) {
   } catch (error) {
     console.error(error.message);
     return new Response(
-      JSON.stringify({ error: "Помилка при отриманні дат." }),
+      JSON.stringify({ error: "Error while receiving dates." }),
       { status: 500 }
     );
   }

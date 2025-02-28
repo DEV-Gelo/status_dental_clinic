@@ -12,7 +12,7 @@ export async function DELETE(req) {
       );
     }
 
-    // Отримуємо список scheduleId для переданих слотів
+    // Get the scheduleId list for the transferred slots
     const relatedSchedules = await prisma.slot.findMany({
       where: {
         id: { in: slotIds },
@@ -22,34 +22,34 @@ export async function DELETE(req) {
       },
     });
 
-    // Витягуємо унікальні scheduleId
+    // Extract the unique scheduleId
     const scheduleIds = [
       ...new Set(relatedSchedules.map((slot) => slot.scheduleId)),
     ];
 
-    // Використовуємо транзакцію для атомарних операцій
+    // Use a transaction for atomic operations
     const result = await prisma.$transaction(async (prisma) => {
-      // Видаляємо слоти
+      // Remove the slots
       const deletedSlots = await prisma.slot.deleteMany({
         where: {
           id: { in: slotIds },
         },
       });
 
-      // Перевіряємо, чи залишилися слоти для кожного scheduleId
+      // Check whether there are slots left for each scheduleId
       for (const scheduleId of scheduleIds) {
         const remainingSlots = await prisma.slot.count({
           where: { scheduleId },
         });
 
-        // Якщо залишилося 0 слотів, видаляємо записи з таблиць Appointment та Schedule
+        // If there are 0 slots left, delete entries from the Appointment and Schedule tables
         if (remainingSlots === 0) {
-          // Видаляємо всі Appointment, пов'язані з цим Schedule
+          // Delete all Appointments related to this Schedule
           await prisma.appointment.deleteMany({
             where: { scheduleId },
           });
 
-          // Видаляємо сам Schedule
+          // Delete the Schedule
           await prisma.schedule.delete({
             where: { id: scheduleId },
           });

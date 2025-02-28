@@ -16,29 +16,29 @@ export async function POST(req) {
     }
 
     for (const dateString of dates) {
-      // Перетворюємо передану дату з рядка в об'єкт дати
+      // Convert the transferred date from a string into a date object
       const dateParts = dateString.split("T")[0].split("-");
       const year = parseInt(dateParts[0], 10);
-      const month = parseInt(dateParts[1], 10) - 1; // Місяці в JavaScript індексуються з 0
+      const month = parseInt(dateParts[1], 10) - 1; // Months in JavaScript are indexed from 0
       const day = parseInt(dateParts[2], 10);
 
-      // Створюємо нову дату з урахуванням коректного зсуву
-      const adjustedDate = new Date(Date.UTC(year, month, day + 1)); // Додаємо 1 день до дати
+      // Create a new date taking into account the correct shift
+      const adjustedDate = new Date(Date.UTC(year, month, day + 1)); // Add 1 day to the date
 
-      // Перевірка коректності дати
+      // Checking the correctness of the date
       if (isNaN(adjustedDate.getTime())) {
         console.error("Invalid adjusted date");
         continue;
       }
 
-      // Оновлюємо логіку роботи з adjustedDate замість date
+      //Update the logic of working with adjustedDate instead of date
       const existingSchedule = await prisma.schedule.findFirst({
         where: { date: adjustedDate, doctorId },
       });
 
       let schedule;
       if (!existingSchedule) {
-        // Якщо розкладу немає, створюємо його
+        // If there is no schedule, create it
         schedule = await prisma.schedule.create({
           data: {
             date: adjustedDate,
@@ -49,12 +49,12 @@ export async function POST(req) {
         schedule = existingSchedule;
       }
 
-      // Видаляємо старі слоти, що були пов'язані з цією датою
+      // Delete the old slots that were associated with this date
       await prisma.slot.deleteMany({
         where: { scheduleId: schedule.id },
       });
 
-      // Формуємо слоти
+      // Form slots
       const uniqueSlots = Array.from(
         new Set(slots.map((slot) => slot.time))
       ).map((time) => ({
@@ -63,7 +63,7 @@ export async function POST(req) {
         scheduleId: schedule.id,
       }));
 
-      // Додаємо слоти
+      // Add slots
       await prisma.slot.createMany({
         data: uniqueSlots,
       });

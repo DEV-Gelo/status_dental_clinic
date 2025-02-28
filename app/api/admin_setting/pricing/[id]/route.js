@@ -8,21 +8,18 @@ export async function PUT(req, context) {
     const { name, price, categoryId } = await req.json();
 
     if (!id || !Number.isInteger(Number(id))) {
-      return NextResponse.json({ error: "Некоректний ID" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
     if (!name || name.trim().length === 0) {
       return NextResponse.json(
-        { error: "Назва послуги не може бути порожньою" },
+        { error: "The service name cannot be empty" },
         { status: 400 }
       );
     }
 
     if (!price || !Number.isInteger(Number(price))) {
-      return NextResponse.json(
-        { error: "Некоректне значення" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid value" }, { status: 400 });
     }
 
     const updatedPricing = await prisma.pricing.update({
@@ -32,8 +29,8 @@ export async function PUT(req, context) {
 
     return NextResponse.json(updatedPricing, { status: 200 });
   } catch (error) {
-    console.error("Помилка API:", error);
-    return NextResponse.json({ error: "Помилка сервера" }, { status: 500 });
+    console.error("Error API:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -42,7 +39,7 @@ export async function DELETE(req, context) {
 
   try {
     if (!id || !Number.isInteger(Number(id))) {
-      return NextResponse.json({ error: "Некоректний ID" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
     // Check if the price exists before deleting
@@ -51,20 +48,17 @@ export async function DELETE(req, context) {
     });
 
     if (!existingPrice) {
-      return NextResponse.json(
-        { error: "Запис не знайдений" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Record not found" }, { status: 404 });
     }
 
     await prisma.pricing.delete({ where: { id: Number(id) } });
 
     return NextResponse.json(
-      { message: "Запис успішно видалено" },
+      { message: "Record deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Помилка API:", error);
-    return NextResponse.json({ error: "Помилка сервера" }, { status: 500 });
+    console.error("Error API:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -8,7 +8,7 @@ export async function GET() {
   } catch (error) {
     console.error("Помилка:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
@@ -20,7 +20,7 @@ export async function POST(req) {
 
     if (!name) {
       return NextResponse.json(
-        { message: "Назва не може бути порожньою" },
+        { message: "The name cannot be empty" },
         { status: 400 }
       );
     }
@@ -30,13 +30,13 @@ export async function POST(req) {
     });
 
     return NextResponse.json(
-      { message: "Дані збережено", service: newService },
+      { message: "Data saved", service: newService },
       { status: 201 }
     );
   } catch (error) {
     console.error("Помилка:", error);
     return NextResponse.json(
-      { message: "Внутрішня помилка сервера" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

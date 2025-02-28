@@ -6,7 +6,7 @@ export async function GET(req) {
     const date = searchParams.get("date");
 
     if (!date) {
-      return new Response(JSON.stringify({ error: "Дата не знайдена." }), {
+      return new Response(JSON.stringify({ error: "Date not found." }), {
         status: 400,
       });
     }
@@ -49,12 +49,14 @@ export async function GET(req) {
 
     if (doctors.length === 0) {
       return new Response(
-        JSON.stringify({ error: "Немає доступних лікарів на цю дату." }),
+        JSON.stringify({
+          error: "There are no doctors available on this date.",
+        }),
         { status: 200 }
       );
     }
 
-    // Формування відповіді
+    // Formation of the answer
     const doctorsWithTimes = doctors
       .map((doctor) => ({
         doctorId: doctor.id,
@@ -69,13 +71,13 @@ export async function GET(req) {
           }))
         ),
       }))
-      .filter((doctor) => doctor.availableTimes.length > 0); // Фільтруємо лікарів без доступних слотів
+      .filter((doctor) => doctor.availableTimes.length > 0); // Filter doctors without available slots
 
     return new Response(JSON.stringify(doctorsWithTimes), { status: 200 });
   } catch (error) {
     console.error(error.message);
     return new Response(
-      JSON.stringify({ error: "Помилка при отриманні розкладу." }),
+      JSON.stringify({ error: "There was an error getting the schedule." }),
       { status: 500 }
     );
   }

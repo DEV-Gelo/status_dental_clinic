@@ -29,7 +29,7 @@ export async function POST(req) {
     if (existingUser) {
       if (existingUser.email === email) {
         return new Response(
-          JSON.stringify({ message: "Дана Е-пошта вже існує" }),
+          JSON.stringify({ message: "This email already exists" }),
           {
             status: 400,
             headers: { "Content-Type": "application/json" },
@@ -38,7 +38,7 @@ export async function POST(req) {
       }
       if (existingUser.phone === phone) {
         return new Response(
-          JSON.stringify({ message: "Даний номер телефону вже існує" }),
+          JSON.stringify({ message: "This phone number already exists" }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }

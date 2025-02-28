@@ -8,14 +8,14 @@ export async function PUT(req, { params }) {
 
     if (!id || isNaN(Number(id))) {
       return NextResponse.json(
-        { error: "Некоректний ID категорії" },
+        { error: "Invalid category ID" },
         { status: 400 }
       );
     }
 
     if (!name || name.trim().length === 0) {
       return NextResponse.json(
-        { error: "Назва категорії не може бути порожньою" },
+        { error: "Category name cannot be empty" },
         { status: 400 }
       );
     }
@@ -27,8 +27,8 @@ export async function PUT(req, { params }) {
 
     return NextResponse.json(updatedCategory, { status: 200 });
   } catch (error) {
-    console.error("Помилка API:", error);
-    return NextResponse.json({ error: "Помилка сервера" }, { status: 500 });
+    console.error("Error API:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -37,7 +37,7 @@ export async function DELETE(req, { params }) {
   try {
     if (!id || isNaN(Number(id))) {
       return NextResponse.json(
-        { error: "Некоректний ID категорії" },
+        { error: "Invalid category ID" },
         { status: 400 }
       );
     }
@@ -45,11 +45,11 @@ export async function DELETE(req, { params }) {
     await prisma.category.delete({ where: { id: Number(id) } });
 
     return NextResponse.json(
-      { message: "Категорію видалено" },
+      { message: "The category has been deleted" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Помилка API:", error);
-    return NextResponse.json({ error: "Помилка сервера" }, { status: 500 });
+    console.error("Error API:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -1,13 +1,13 @@
 import prisma from "@/lib/prisma";
 
 export async function DELETE(req, { params }) {
-  const { id } = params; // Отримуємо ID користувача з URL
+  const { id } = params; // Get the user ID from the URL
 
   try {
-    const today = new Date(); // Поточна дата
-    today.setHours(0, 0, 0, 0); // Обнуляємо час для порівняння тільки по даті
+    const today = new Date(); // Current date
+    today.setHours(0, 0, 0, 0); // Reset the time for comparison only by date
 
-    // Перевірити, чи користувач є лікарем
+    // Check if the user is a doctor
     const user = await prisma.user.findUnique({
       where: { id: Number(id) },
       select: { role: true },
@@ -20,16 +20,16 @@ export async function DELETE(req, { params }) {
     }
 
     if (user.role === "doctor") {
-      // Перевірити майбутні графіки лікаря зі слотами isBooked: true
+      // Check future doctor schedules with slots isBooked: true
       const hasFutureBookedSchedules = await prisma.schedule.findFirst({
         where: {
           doctorId: Number(id),
           date: {
-            gte: today, // Тільки сьогоднішні та майбутні дати
+            gte: today, // Only today and future dates
           },
           slots: {
             some: {
-              isBooked: true, // Слоти, які заброньовані
+              isBooked: true, // Slots that are booked
             },
           },
         },
@@ -45,19 +45,19 @@ export async function DELETE(req, { params }) {
       }
     }
 
-    // Знайти всі записи користувача
+    // Find all user records
     const userAppointments = await prisma.appointment.findMany({
       where: {
         userId: Number(id),
       },
       select: {
-        slotId: true, // Отримуємо ID слота, пов'язаного з записом
+        slotId: true, // Get the ID of the slot associated with the recording
       },
     });
 
-    // Оновити слоти, встановивши isBooked: false
+    // Update slots by setting isBooked: false
     const slotUpdates = userAppointments
-      .filter((appointment) => appointment.slotId) // Перевіряємо, чи slotId не null
+      .filter((appointment) => appointment.slotId) // Check whether slotId is not null
       .map((appointment) =>
         prisma.slot.update({
           where: { id: appointment.slotId },
@@ -65,10 +65,10 @@ export async function DELETE(req, { params }) {
         })
       );
 
-    // Виконати всі оновлення слотів паралельно
+    // Perform all slot updates in parallel
     await Promise.all(slotUpdates);
 
-    // Видалити користувача
+    // Delete user
     const deletedUser = await prisma.user.delete({
       where: {
         id: Number(id),

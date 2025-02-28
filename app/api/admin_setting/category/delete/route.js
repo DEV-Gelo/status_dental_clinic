@@ -10,7 +10,7 @@ export async function DELETE(req) {
 
     if (!id || typeof id !== "number") {
       return NextResponse.json(
-        { error: "Некоректний ID для видалення" },
+        { error: "Invalid ID to delete" },
         { status: 400 }
       );
     }
@@ -21,10 +21,7 @@ export async function DELETE(req) {
     });
 
     if (!existingCategory) {
-      return NextResponse.json(
-        { error: "Сервіс не знайдено" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
     // Delete record
@@ -33,13 +30,13 @@ export async function DELETE(req) {
     });
 
     return NextResponse.json(
-      { message: "Сервіс успішно видалено" },
+      { message: "The service has been successfully removed" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Помилка при видаленні сервісу:", error);
+    console.error("Error deleting the service:", error);
     return NextResponse.json(
-      { error: "Внутрішня помилка сервера" },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }

@@ -30,7 +30,7 @@ export async function POST(req) {
       !scheduleId ||
       !slotId
     ) {
-      return new Response(JSON.stringify({ error: "Заповніть усі поля" }), {
+      return new Response(JSON.stringify({ error: "Fill in all fields" }), {
         status: 400,
       });
     }
@@ -42,7 +42,9 @@ export async function POST(req) {
 
     if (existingSlot.isBooked) {
       return new Response(
-        JSON.stringify({ error: "Цей слот вже зайнятий. Оновіть сторінку." }),
+        JSON.stringify({
+          error: "This slot is already taken. Refresh the page.",
+        }),
         { status: 400 }
       );
     }
@@ -99,15 +101,15 @@ export async function POST(req) {
 
     return new Response(
       JSON.stringify({
-        message: "Запис успішно створено!",
+        message: "Record successfully created!",
         appointment: newAppointment,
       }),
       { status: 201 }
     );
   } catch (error) {
-    console.error("Помилка при створенні запису:", error.message);
+    console.error("Error creating record:", error.message);
     return new Response(
-      JSON.stringify({ error: "Сталася помилка при створенні запису" }),
+      JSON.stringify({ error: "An error occurred while creating the record" }),
       { status: 500 }
     );
   }
