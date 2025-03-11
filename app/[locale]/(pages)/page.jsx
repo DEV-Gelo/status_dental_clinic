@@ -5,6 +5,9 @@ import Link from "next/link";
 import { ServicesList, ShortServicesList } from "@/sections/serviceList";
 import { useTranslations } from "next-intl";
 import SocialAside from "@/components/SocialAside/SocialAside";
+import { ThemeProvider } from "@mui/material/styles";
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
@@ -96,13 +99,16 @@ const Home = () => {
             {t("ExpertDental.descriptions")}
           </p>
           <div className="hidden sm:flex lg:flex-row sm:flex-col w-full h-auto items-center p-2">
-            <Button
-              size="large"
-              variant="contained"
-              className="text-nowrap blue rounded-none mb-5 mr-0 lg:mr-5"
-            >
-              {t("ExpertDental.buttonName")}
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button
+                size="large"
+                variant="contained"
+                color="appointment"
+                className="text-nowrap rounded-none mb-5 mr-0 lg:mr-5"
+              >
+                {t("ExpertDental.buttonName")}
+              </Button>
+            </ThemeProvider>
             <Link
               href="#"
               className="font-semibold text-[#5ba3bb] text-nowrap underline underline-offset-8 decoration-4 ml-0 lg:ml-5 mb-5"
@@ -112,13 +118,16 @@ const Home = () => {
           </div>
         </div>
         <div className="flex sm:hidden w-full h-auto justify-center items-center order-3 my-5">
-          <Button
-            size="large"
-            variant="contained"
-            className="text-nowrap blue text-[0.8rem] rounded-none mr-5"
-          >
-            {t("ExpertDental.buttonName")}
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              size="large"
+              variant="contained"
+              color="appointment"
+              className="text-nowrap text-[0.8rem] rounded-none mr-5"
+            >
+              {t("ExpertDental.buttonName")}
+            </Button>
+          </ThemeProvider>
           <Link
             href="#"
             className="font-semibold text-[#5ba3bb] text-[0.8rem] text-nowrap underline underline-offset-4 decoration-2 ml-5"
@@ -159,13 +168,16 @@ const Home = () => {
             {t("Professionals.descriptions")}
           </p>
           <div className="hidden lg:flex lg:flex-row sm:flex-col w-full h-auto items-center p-2">
-            <Button
-              size="large"
-              variant="contained"
-              className="text-nowrap blue rounded-none mb-5 mr-0 lg:mr-5"
-            >
-              {t("Professionals.buttonName")}
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button
+                size="large"
+                variant="contained"
+                color="appointment"
+                className="text-nowrap rounded-none mb-5 mr-0 lg:mr-5"
+              >
+                {t("Professionals.buttonName")}
+              </Button>
+            </ThemeProvider>
           </div>
         </div>
       </div>
