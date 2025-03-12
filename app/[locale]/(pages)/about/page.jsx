@@ -18,7 +18,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Dental Clinic.jpg"
+              src="/Dental_Clinic.jpg"
               alt="Dental Clinic"
               width={700}
               height={700}

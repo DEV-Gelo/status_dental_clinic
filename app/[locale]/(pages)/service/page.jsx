@@ -30,7 +30,7 @@ const ServicePage = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Preventive Care.jpg"
+              src="/Preventive_Care.jpg"
               alt="Preventive Care"
               width={700}
               height={700}
@@ -55,7 +55,7 @@ const ServicePage = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4.5rem] ml-0 sm:ml-[4rem] xl:ml-[8rem] z-10 order-2">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pr-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Restorative Care.jpg"
+              src="/Restorative_Care.jpg"
               alt="Restorative Care"
               width={700}
               height={700}
@@ -105,7 +105,7 @@ const ServicePage = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4.5rem] ml-0 sm:ml-[4rem] xl:ml-[8rem] z-10 order-2">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pr-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Oral Surgery.jpg"
+              src="/Oral_Surgery.jpg"
               alt="Oral Surgery"
               width={700}
               height={700}
@@ -130,7 +130,7 @@ const ServicePage = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Cosmetic Dentistry.jpg"
+              src="/Cosmetic_Dentistry.jpg"
               alt="Cosmetic Dentistry"
               width={700}
               height={700}
@@ -154,7 +154,7 @@ const ServicePage = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4.5rem] ml-0 sm:ml-[4rem] xl:ml-[8rem] z-10 order-2">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pr-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Dental Implants.jpg"
+              src="/Dental_Implants.jpg"
               alt="Dental Implants"
               width={700}
               height={700}
