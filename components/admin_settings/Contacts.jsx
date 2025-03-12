@@ -56,13 +56,13 @@ const Contacts = ({ onAlert }) => {
 
   // ------- Calling function for receiving data from server------------//
   const { data, error } = useSWR("/api/admin_setting/contact", fetchData);
-
   // -----------Save the data from the database---------------------//
   useEffect(() => {
     if (data) {
-      setContactData(data[0]);
+      setContactData(data[0] ?? {});
     }
   }, [data]);
+
   // ------------Saving coordinates in a state------------------//
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0 && data[0]?.x && data[0]?.y) {
@@ -333,7 +333,7 @@ const Contacts = ({ onAlert }) => {
                   },
                 }}
               />
-              {contactData.phoneNumbers.map((phone, index) => (
+              {contactData.phoneNumbers?.map((phone, index) => (
                 <div className="flex items-center my-2 relative" key={index}>
                   <TextField
                     id={`Phone${index + 1}`}
