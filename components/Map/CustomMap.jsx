@@ -29,7 +29,6 @@ const CustomMap = ({ position }) => {
       }
     }
   }, [position]); // Update the map when the position changes
-
   return (
     <MapContainer
       center={position}
