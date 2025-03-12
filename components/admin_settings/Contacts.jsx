@@ -49,6 +49,7 @@ const Contacts = ({ onAlert }) => {
     y: null,
     z: null,
   });
+  console.log("contactData :", contactData.country);
 
   // ---------Translations------------//
   const t = useTranslations("settings__Contacts");
@@ -62,7 +63,6 @@ const Contacts = ({ onAlert }) => {
       setContactData(data[0] ?? {});
     }
   }, [data]);
-
   // ------------Saving coordinates in a state------------------//
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0 && data[0]?.x && data[0]?.y) {
@@ -100,13 +100,19 @@ const Contacts = ({ onAlert }) => {
 
   // ---------Add phone number into contactData-----------//
   const handlePhoneChange = (e, index) => {
-    const updatedPhones = [...contactData.phoneNumbers];
+    // Make sure contactData.phoneNumbers is an array
+    const updatedPhones = Array.isArray(contactData.phoneNumbers)
+      ? [...contactData.phoneNumbers]
+      : [];
+
     updatedPhones[index] = e.target.value;
+
     setContactData({
       ...contactData,
-      phoneNumbers: updatedPhones,
+      phoneNumbers: updatedPhones, // Updating the phone array
     });
   };
+
   // ------------Add empty field input-------------//
   const addPhoneNumberField = () => {
     setContactData({
@@ -333,18 +339,64 @@ const Contacts = ({ onAlert }) => {
                   },
                 }}
               />
-              {contactData.phoneNumbers?.map((phone, index) => (
-                <div className="flex items-center my-2 relative" key={index}>
+              {Array.isArray(contactData.phoneNumbers) &&
+              contactData.phoneNumbers.length > 0 ? (
+                contactData.phoneNumbers.map((phone, index) => (
+                  <div className="flex items-center my-2 relative" key={index}>
+                    <TextField
+                      id={`Phone${index + 1}`}
+                      label={`${t("Phone")} ${index + 1}`}
+                      name={`Phone${index + 1}`}
+                      type="text"
+                      value={phone}
+                      inputProps={{ maxLength: 10 }}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
+                        handlePhoneChange({ target: { value } }, index); // Transfer the cleared value
+                      }}
+                      slotProps={{
+                        input: {
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              {t("prefix")}
+                            </InputAdornment>
+                          ),
+                        },
+                      }}
+                      sx={{
+                        width: "100%",
+                        "& .MuiInputBase-input": {
+                          fontSize: "18px",
+                          "@media (max-width: 600px)": {
+                            fontSize: "14px",
+                          },
+                        },
+                      }}
+                    />
+                    {contactData.phoneNumbers[index].length <= 0 &&
+                      contactData.phoneNumbers.length > 1 &&
+                      index > 0 && (
+                        <span
+                          className="absolute top-0 right-0 text-red-500"
+                          onClick={() => removePhoneNumber(index)}
+                        >
+                          <IoClose />
+                        </span>
+                      )}
+                  </div>
+                ))
+              ) : (
+                <div className="flex items-center my-2 relative">
                   <TextField
-                    id={`Phone${index + 1}`}
-                    label={`${t("Phone")} ${index + 1}`}
-                    name={`Phone${index + 1}`}
+                    id="Phone1"
+                    label={t("Phone")}
+                    name="Phone1"
                     type="text"
-                    value={phone ?? ""}
+                    value=""
                     inputProps={{ maxLength: 10 }}
                     onChange={(e) => {
                       const value = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
-                      handlePhoneChange({ target: { value } }, index); // Transfer the cleared value
+                      handlePhoneChange({ target: { value } }, 0); // Transfer the cleared value
                     }}
                     slotProps={{
                       input: {
@@ -365,18 +417,9 @@ const Contacts = ({ onAlert }) => {
                       },
                     }}
                   />
-                  {contactData.phoneNumbers[index].length <= 0 &&
-                    contactData.phoneNumbers.length > 1 &&
-                    index > 0 && (
-                      <span
-                        className="absolute top-0 right-0 text-red-500"
-                        onClick={() => removePhoneNumber(index)}
-                      >
-                        <IoClose />
-                      </span>
-                    )}
                 </div>
-              ))}
+              )}
+
               <Button
                 onClick={() => addPhoneNumberField()}
                 sx={{

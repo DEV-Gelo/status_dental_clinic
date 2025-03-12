@@ -6,7 +6,7 @@ export async function GET() {
     const services = await prisma.services.findMany();
     return NextResponse.json(services, { status: 200 });
   } catch (error) {
-    console.error("Помилка:", error);
+    console.error("Error:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

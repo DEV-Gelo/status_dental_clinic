@@ -30,10 +30,10 @@ export async function POST(req) {
 // GET contact request
 export async function GET() {
   try {
-    const contact = await prisma.contact.findFirst();
-    if (!contact) {
-      return NextResponse.json({ message: "No data found" }, { status: 404 });
-    }
+    const contact = await prisma.contact.findMany();
+    // if (!contact) {
+    //   return NextResponse.json({ message: "No data found" }, { status: 404 });
+    // }
     return NextResponse.json(contact, { status: 200 });
   } catch (error) {
     console.error("Error getting data:", error);
