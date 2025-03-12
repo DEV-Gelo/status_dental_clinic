@@ -137,7 +137,7 @@ const Contacts = ({ onAlert }) => {
 
   return (
     <>
-      {/* {error && (
+      {error && (
         <div className="flex justify-center items-center w-full h-full">
           <Alert
             className="flex justify-center items-center"
@@ -146,7 +146,7 @@ const Contacts = ({ onAlert }) => {
             <h6>{t("Error loading data")}</h6>
           </Alert>
         </div>
-      )} */}
+      )}
       {!data && !error && (
         <div className="flex w-full h-full justify-center items-center">
           <CircularProgress size="3rem" />
