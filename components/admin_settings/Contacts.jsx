@@ -65,7 +65,7 @@ const Contacts = ({ onAlert }) => {
   }, [data]);
   // ------------Saving coordinates in a state------------------//
   useEffect(() => {
-    if (data && data[0].x && data[0].y) {
+    if (Array.isArray(data) && data.length > 0 && data[0]?.x && data[0]?.y) {
       setPosition([data[0].x, data[0].y]);
     } else {
       setPosition([51.5287398, -0.2664034]); // Default fallback coordinates
