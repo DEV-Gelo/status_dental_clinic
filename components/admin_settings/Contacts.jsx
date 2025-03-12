@@ -160,7 +160,7 @@ const Contacts = ({ onAlert }) => {
                 id="country"
                 label={t("Country")}
                 name="country"
-                value={contactData.country || ""}
+                value={contactData.country ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, country: e.target.value })
                 }
@@ -179,7 +179,7 @@ const Contacts = ({ onAlert }) => {
                 id="city"
                 label={t("City")}
                 name="city"
-                value={contactData.city || ""}
+                value={contactData.city ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, city: e.target.value })
                 }
@@ -199,7 +199,7 @@ const Contacts = ({ onAlert }) => {
                   id="district"
                   label={t("Area")}
                   name="district"
-                  value={contactData.district || ""}
+                  value={contactData.district ?? ""}
                   onChange={(e) =>
                     setContactData({ ...contactData, district: e.target.value })
                   }
@@ -219,7 +219,7 @@ const Contacts = ({ onAlert }) => {
                 id="region"
                 label={t("Region")}
                 name="region"
-                value={contactData.region || ""}
+                value={contactData.region ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, region: e.target.value })
                 }
@@ -238,7 +238,7 @@ const Contacts = ({ onAlert }) => {
                 id="street"
                 label={t("Street")}
                 name="street"
-                value={contactData.street || ""}
+                value={contactData.street ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, street: e.target.value })
                 }
@@ -257,7 +257,7 @@ const Contacts = ({ onAlert }) => {
                 id="house"
                 label={t("House")}
                 name="house"
-                value={contactData.house || ""}
+                value={contactData.house ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, house: e.target.value })
                 }
@@ -276,7 +276,7 @@ const Contacts = ({ onAlert }) => {
                 id="office"
                 label={t("Office")}
                 name="office"
-                value={contactData.office || ""}
+                value={contactData.office ?? ""}
                 onChange={(e) =>
                   setContactData({ ...contactData, office: e.target.value })
                 }
@@ -296,7 +296,7 @@ const Contacts = ({ onAlert }) => {
                 label={t("zipCode")}
                 name="zipCode"
                 type="number"
-                value={contactData.zipcode || ""}
+                value={contactData.zipcode ?? ""}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "").slice(0, 5);
                   setContactData({
@@ -320,7 +320,7 @@ const Contacts = ({ onAlert }) => {
                 label={t("email")}
                 name="email"
                 error={emailError}
-                value={contactData.email || ""}
+                value={contactData.email ?? ""}
                 onChange={(e) => handleInputEmail(e)}
                 sx={{
                   width: "100%",
@@ -340,7 +340,7 @@ const Contacts = ({ onAlert }) => {
                     label={`${t("Phone")} ${index + 1}`}
                     name={`Phone${index + 1}`}
                     type="text"
-                    value={phone || ""}
+                    value={phone ?? ""}
                     inputProps={{ maxLength: 10 }}
                     onChange={(e) => {
                       const value = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
