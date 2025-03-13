@@ -20,7 +20,7 @@ export async function POST(req) {
       // Add a cookie to the header
       response.headers.set(
         "Set-Cookie",
-        `auth=true; HttpOnly; Path=/admin; Max-Age=3600`
+        `auth=true; HttpOnly; Path=/; Max-Age=3600`
       );
 
       return response;
