@@ -8,13 +8,13 @@
 }
 
 .title {
-  width: 100%;
+  width: auto;
   text-align: center;
   font-weight: 600;
   font-size: 1.5rem;
   color: #a7adaf;
 
-  margin-bottom: 0.5rem;
+  margin: 0 3rem 0.5rem 0;
 }
 
 .error_loading {

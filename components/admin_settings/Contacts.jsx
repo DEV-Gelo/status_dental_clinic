@@ -49,7 +49,6 @@ const Contacts = ({ onAlert }) => {
     y: null,
     z: null,
   });
-  console.log("contactData :", contactData.country);
 
   // ---------Translations------------//
   const t = useTranslations("settings__Contacts");
@@ -510,7 +509,7 @@ const Contacts = ({ onAlert }) => {
           <div className="flex w-full justify-center items-center">
             <ThemeProvider theme={theme}>
               <LoadingButton
-                sx={{ m: 1 }}
+                sx={{ my: 4, mx: 1 }}
                 color="save"
                 onClick={() => handleSubmit()}
                 loading={loading}
