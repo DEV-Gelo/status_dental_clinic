@@ -83,7 +83,10 @@ export default function UserCalendar({ onDateSelect }) {
   // -------Check if the day is highlighted---------------//
   const isHighlighted = (day) => {
     const formattedDate = formatDate(day);
-    return highlightedDates.includes(formattedDate);
+    return (
+      Array.isArray(highlightedDates) &&
+      highlightedDates.includes(formattedDate)
+    );
   };
 
   // -----------Select a day in the calendar-----------//
