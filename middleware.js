@@ -4,7 +4,7 @@ import createMiddleware from "next-intl/middleware";
 // Configure next-intl
 const intlMiddleware = createMiddleware({
   locales: ["en", "uk"], // Supported languages
-  defaultLocale: "en", // Default locale
+  defaultLocale: "uk", // Default locale
 });
 
 // Main middleware
@@ -30,9 +30,9 @@ export function middleware(request) {
           // If the language is in the supported list, use it, otherwise, use the default language
           locale = supportedLocales.includes(preferredLocale)
             ? preferredLocale
-            : "en";
+            : "uk";
         } else {
-          locale = "en"; // If header is not present, use 'en' by default
+          locale = "uk"; // If header is not present, use 'en' by default
         }
       }
 
