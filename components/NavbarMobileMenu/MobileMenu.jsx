@@ -8,6 +8,9 @@ import { section_variants } from "@/utils/variants";
 import { li_variants } from "@/utils/variants";
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
+import { ThemeProvider } from "@mui/material/styles";
+// ----------Stylisation buttons MUI-----------------//
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 export default function MobileMenu({ links }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,13 +96,16 @@ export default function MobileMenu({ links }) {
                 </motion.li>
               );
             })}
-            <Button
-              size="large"
-              variant="contained"
-              className="text-nowrap blue rounded-none"
-            >
-              {t("appointment")}
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button
+                size="large"
+                variant="contained"
+                color="appointment"
+                className="text-nowrap rounded-none"
+              >
+                {t("appointment")}
+              </Button>
+            </ThemeProvider>
           </Section>
         )}
       </AnimatePresence>
