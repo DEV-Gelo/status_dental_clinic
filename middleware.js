@@ -9,49 +9,49 @@ const intlMiddleware = createMiddleware({
 
 // Main middleware
 export function middleware(request) {
-  // Authorization logic for /admin
+  const urlPathname = request.nextUrl.pathname;
 
-  if (/^\/(en|uk)\/admin/.test(request.nextUrl.pathname)) {
-    const cookie = request.cookies.get("auth"); // Check the cookie
+  // Checking if the URL already contains a supported locale
+  let locale = urlPathname.split("/")[1];
 
-    if (!cookie) {
-      // Get the locale from the URL, if there is one
-      let locale = request.nextUrl.pathname.split("/")[1]; // Checking the second element
+  if (!["en", "uk"].includes(locale)) {
+    // Get the accept-language header
+    const acceptLanguage = request.headers.get("accept-language");
 
-      // If the locale is not specified in the URL, we try to get it from the Accept-Language header
-      if (!locale) {
-        const acceptLanguage = request.headers.get("accept-language");
-
-        if (acceptLanguage) {
-          // List of languages ​​supported by the application
-          const supportedLocales = ["en", "uk"];
-          const preferredLocale = acceptLanguage.split(",")[0].toLowerCase(); // Get the first language in the list
-
-          // If the language is in the supported list, use it, otherwise, use the default language
-          locale = supportedLocales.includes(preferredLocale)
-            ? preferredLocale
-            : "uk";
-        } else {
-          locale = "uk"; // If header is not present, use 'en' by default
-        }
+    if (acceptLanguage) {
+      const preferredLocale = acceptLanguage.split(",")[0].split("-")[0]; // take the first priority option
+      if (["en", "uk"].includes(preferredLocale)) {
+        locale = preferredLocale;
+      } else {
+        locale = "uk"; // If no matches, default locale
       }
+    } else {
+      locale = "uk"; // If the accept-language is missing, also the default locale
+    }
 
-      // Redirect to the /login page, taking into account the locale
+    // Redirect to a specific locale
+    return NextResponse.redirect(
+      new URL(`/${locale}${urlPathname}`, request.url)
+    );
+  }
+
+  // If this is an administrator page, check authorization
+  if (/^\/(en|uk)\/admin/.test(urlPathname)) {
+    const cookie = request.cookies.get("auth"); // Checking the authorization cookie
+    if (!cookie) {
       return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
     }
   }
 
   // Execute middleware for i18n
-  const response = intlMiddleware(request);
-
-  return response; // Return the processed response
+  return intlMiddleware(request);
 }
 
 // Setup matcher for middleware operation on the corresponding routes
 export const config = {
   matcher: [
-    "/", // Root page (automatically redirects to /en)
+    "/", // Root page (automatically redirects to /uk or /en)
     "/(en|uk)/:path*", // All pages with locales
-    "/admin/:path*", // All admin pages
+    "/admin/:path*", // Admin pages without explicit locale
   ],
 };
