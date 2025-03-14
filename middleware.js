@@ -14,12 +14,9 @@ export function middleware(request) {
   if (/^\/(en|uk)\/admin/.test(request.nextUrl.pathname)) {
     const cookie = request.cookies.get("auth"); // Check the cookie
 
-    console.log("NextUrl.pathname :", request.nextUrl.pathname); // Логуємо куку для перевірки
-    console.log("Cookie value: ", cookie); // Логуємо куку для перевірки
-
     if (!cookie) {
       // Get the locale from the URL, if there is one
-      let locale = request.nextUrl.pathname.split("/")[1]; // Перевіряємо другий елемент
+      let locale = request.nextUrl.pathname.split("/")[1]; // Checking the second element
 
       // If the locale is not specified in the URL, we try to get it from the Accept-Language header
       if (!locale) {
@@ -43,39 +40,6 @@ export function middleware(request) {
       return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
     }
   }
-
-  // if (request.nextUrl.pathname.startsWith("/admin")) {
-  //   const cookie = request.cookies.get("auth"); // Check the cookie
-
-  //   console.log("NextUrl.pathname :", request.nextUrl.pathname); // Логуємо куку для перевірки
-  //   console.log("Cookie value: ", cookie); // Логуємо куку для перевірки
-
-  //   if (!cookie) {
-  //     // Get the locale from the URL, if there is one
-  //     let locale = request.nextUrl.pathname.split("/")[1]; // Перевіряємо другий елемент
-
-  //     // If the locale is not specified in the URL, we try to get it from the Accept-Language header
-  //     if (!locale) {
-  //       const acceptLanguage = request.headers.get("accept-language");
-
-  //       if (acceptLanguage) {
-  //         // List of languages ​​supported by the application
-  //         const supportedLocales = ["en", "uk"];
-  //         const preferredLocale = acceptLanguage.split(",")[0].toLowerCase(); // Get the first language in the list
-
-  //         // If the language is in the supported list, use it, otherwise, use the default language
-  //         locale = supportedLocales.includes(preferredLocale)
-  //           ? preferredLocale
-  //           : "en";
-  //       } else {
-  //         locale = "en"; // If header is not present, use 'en' by default
-  //       }
-  //     }
-
-  //     // Redirect to the /login page, taking into account the locale
-  //     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
-  //   }
-  // }
 
   // Execute middleware for i18n
   const response = intlMiddleware(request);
