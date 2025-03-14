@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -39,7 +39,9 @@ model Slot {
   scheduleId   Int       
 
   appointment  Appointment? @relation("SlotAppointments", fields: [appointmentId], references: [id], onDelete: Cascade)
-  appointmentId Int?  @unique
+  appointmentId Int?  
+
+  @@unique([appointmentId]) // Використання унікального індексу замість @unique
 }
 
 model Schedule {
@@ -125,4 +127,3 @@ model Contact {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
-
