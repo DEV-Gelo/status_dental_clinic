@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const formData = await req.formData();
@@ -28,19 +29,27 @@ export async function POST(req) {
 
     if (existingUser) {
       if (existingUser.email === email) {
-        return new Response(
-          JSON.stringify({ message: "This email already exists" }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          }
+        return NextResponse.json(
+          { message: "This email already exists" },
+          { status: 400 }
         );
+        // return new Response(
+        //   JSON.stringify({ message: "This email already exists" }),
+        //   {
+        //     status: 400,
+        //     headers: { "Content-Type": "application/json" },
+        //   }
+        // );
       }
       if (existingUser.phone === phone) {
-        return new Response(
-          JSON.stringify({ message: "This phone number already exists" }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+        return NextResponse.json(
+          { message: "This phone number already exists" },
+          { status: 400 }
         );
+        // return new Response(
+        //   JSON.stringify({ message: "This phone number already exists" }),
+        //   { status: 400, headers: { "Content-Type": "application/json" } }
+        // );
       }
     }
 
@@ -58,21 +67,16 @@ export async function POST(req) {
       },
     });
 
-    return new Response(JSON.stringify(user), {
-      status: 201,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    });
+    return NextResponse.json(user, { status: 201 });
   } catch (error) {
     console.error(error);
 
-    return new Response("Error creating user", { status: 500 });
+    // return new Response("Error creating user", { status: 500 });
+    return NextResponse.json(
+      { message: "Error creating user" },
+      { status: 500 }
+    );
   } finally {
-    await prisma.$disconnect();
+    // await prisma.$disconnect();
   }
 }
