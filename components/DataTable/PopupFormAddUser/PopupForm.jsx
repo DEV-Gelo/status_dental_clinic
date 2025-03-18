@@ -80,83 +80,136 @@ const PopupForm = ({ onClose, onAlert, role }) => {
   const handleSubmit = async () => {
     // --------Validation form-----------//
     const validateForm = () => {
-      if (!firstName) return onAlert("warning", t("validation.firstName"));
-      if (!lastName) return onAlert("warning", t("validation.lastName"));
-      if (!phone) return onAlert("warning", t("validation.phone"));
-      if (!email) return onAlert("warning", t("validation.email"));
-      if (!role) return onAlert("warning", t("validation.role"));
-      return true; // Validation passed
+      if (!firstName) {
+        onAlert("warning", t("validation.firstName"));
+        return false;
+      }
+      if (!lastName) {
+        onAlert("warning", t("validation.lastName"));
+        return false;
+      }
+      if (!phone) {
+        onAlert("warning", t("validation.phone"));
+        return false;
+      }
+      if (!email) {
+        onAlert("warning", t("validation.email"));
+        return false;
+      }
+
+      if (!role) {
+        onAlert("warning", t("validation.role"));
+        return false;
+      }
+
+      return true; // All checks passed
     };
 
-    if (!validateForm()) return; // Stop execution if validation fails
+    // Using the function
+    if (!validateForm()) {
+      return; // Stop the execution if the check is not passed
+    }
 
-    setLoading(true);
+    const formData = new FormData();
 
-    try {
-      let photoUrl = "/image-placeholder.png"; // Default avatar
+    // Add data text
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("patronymic", patronymic);
+    formData.append("specialization", specialization);
+    formData.append("phone", phone);
+    formData.append("email", email);
+    formData.append("role", role);
 
+    const defaultAvatar = "/image-placeholder.png"; // Default Avatar for user in the table
+
+    let photoUrl = defaultAvatar;
+
+    if (file) {
+      // -----Check file validity---------//
       if (file) {
         const allowedTypes = ["image/jpeg", "image/png"];
         const maxFileSize = 2 * 1024 * 1024; // 2MB
 
-        if (!allowedTypes.includes(file.type))
-          return onAlert("warning", t("validation.invalidType"));
-        if (file.size > maxFileSize)
-          return onAlert("warning", t("validation.sizeExceeded"));
+        if (!allowedTypes.includes(file.type)) {
+          onAlert("warning", t("validation.invalidType"));
+          return;
+        }
 
-        // Upload file
+        if (file.size > maxFileSize) {
+          onAlert("warning", t("validation.sizeExceeded"));
+          return;
+        }
+      }
+      try {
+        setLoading(true);
+        // Downloading a file via a separate route
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
 
-        const uploadResponse = await fetch("/api/upload", {
-          method: "POST",
-          body: uploadFormData,
-        });
-
-        if (!uploadResponse.ok) throw new Error("File upload failed");
+        const uploadResponse = await fetch(
+          "/api/upload",
+          { cache: "no-store" },
+          {
+            method: "POST",
+            body: uploadFormData,
+          }
+        );
 
         const uploadResult = await uploadResponse.json();
-        if (uploadResult.status !== "success")
-          throw new Error("File upload error");
 
-        photoUrl = `/uploads/${file.name}`;
+        if (uploadResponse.ok && uploadResult.status === "success") {
+          photoUrl = `/uploads/${file.name}`;
+        } else {
+          console.error("Failed to upload file");
+          return;
+        }
+      } catch (error) {
+        console.error("File upload error:", error);
+        onAlert("error", t("validation.uploadError"));
+        return;
       }
+    }
 
-      // Send user data
-      const response = await fetch("/api/users/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          patronymic,
-          specialization,
-          phone,
-          email,
-          role,
-          photo: photoUrl,
-        }),
-      });
+    // Add the path
+    if (photoUrl) {
+      formData.append("photo", photoUrl);
+    }
 
-      if (!response.ok) {
+    try {
+      setLoading(true);
+      // Send data user
+      const response = await fetch(
+        "/api/users/create",
+        { cache: "no-store" },
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        mutate("/api/users", null, { revalidate: true });
+        setLoading(false);
+
+        // Clear form
+        setFirstName("");
+        setLastName("");
+        setPatronymic("");
+        setPhone("");
+        setEmail("");
+        setSpecialization("");
+        closeForm();
+        onAlert("success", t("validation.createSuccess"));
+      } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Error creating user");
+        console.error(errorData.message);
+        onAlert("warning", errorData.message);
       }
-
-      // Force cache refresh after creation
-      await mutate("/api/users", null, { revalidate: true });
-
-      // Clear form
-      setFirstName("");
-      setLastName("");
-      setPatronymic("");
-      setPhone("");
-      setEmail("");
-      setSpecialization("");
-      closeForm();
-      onAlert("success", t("validation.createSuccess"));
     } catch (error) {
-      console.error(error);
+      console.error("An error occurred:", error);
       onAlert("error", t("validation.createError"));
     } finally {
       setLoading(false);
