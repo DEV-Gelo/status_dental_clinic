@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 // -----------Iternal components----------//
 import { MenuToggle } from "./MenuToggle";
 import { section_variants } from "@/utils/variants";
@@ -20,6 +21,9 @@ export default function MobileMenu({ links }) {
 
   // -------Translations---------//
   const t = useTranslations("Navbar");
+  // -----------Get the path--------------//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   const handleClickOutside = (event) => {
     // Checking if the user clicked outside of the menu and button
@@ -96,16 +100,19 @@ export default function MobileMenu({ links }) {
                 </motion.li>
               );
             })}
-            <ThemeProvider theme={theme}>
-              <Button
-                size="large"
-                variant="contained"
-                color="appointment"
-                className="text-nowrap rounded-none"
-              >
-                {t("appointment")}
-              </Button>
-            </ThemeProvider>
+
+            <Link href={`/${locale}/appointment`}>
+              <ThemeProvider theme={theme}>
+                <Button
+                  size="large"
+                  color="appointment"
+                  variant="contained"
+                  sx={{ whiteSpace: "nowrap", borderRadius: 0 }}
+                >
+                  {t("appointment")}
+                </Button>
+              </ThemeProvider>
+            </Link>
           </Section>
         )}
       </AnimatePresence>
