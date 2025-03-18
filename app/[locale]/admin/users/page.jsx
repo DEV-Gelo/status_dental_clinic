@@ -108,7 +108,7 @@ const Users = () => {
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     );
-
+  console.log("filteredUsers :", filteredUsers);
   // --------Open popup window------------------------//
   const handlePopup_form = () => {
     setIsOpen(true);
