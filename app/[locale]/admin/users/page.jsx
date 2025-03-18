@@ -30,7 +30,6 @@ import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdi
 import FormAddAppointment from "@/components/DataTable/FormAddAppointment/FormAddAppointment";
 
 const Users = () => {
-  const [data, setData] = useState([{}]);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
   const [isOpenAddAppointment, setIsOpenAddAppointment] = useState(false);
@@ -44,7 +43,7 @@ const Users = () => {
     severity: "success",
     message: "",
   });
-  console.log("Data :", data);
+
   // -------Translations----------//
   const t = useTranslations("users");
 
@@ -68,21 +67,15 @@ const Users = () => {
   }, [selectedUserId]);
 
   // -------------Get Data--------------------------//
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // setLoadingData(true);
-        const response = await fetch(`/api/users`);
-        const data = await response.json();
-        setData(data);
-        // setLoadingData(false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
 
-    fetchUserData();
-  }, []);
+  const fetchData = async () => {
+    const response = await fetch("/api/users");
+    if (!response.ok) throw new Error(t("Error loading data"));
+    return response.json();
+  };
+
+  const { data, error } = useSWR("/api/users", fetchData);
+  console.log("Data :", data);
   // const fetchUsers = async () => {
   //   const response = await fetch("/api/users", { cache: "no-store" });
   //   if (!response.ok) {
@@ -100,20 +93,20 @@ const Users = () => {
   // // Forced update feature
   // const refetchUsers = () => mutate("/api/users");
 
-  // if (error)
-  //   return (
-  //     <div className={styles.error_loading}>
-  //       <Alert className={styles.alert_loading} severity="warning">
-  //         <h6>{t("Error loading data")}</h6>
-  //       </Alert>
-  //     </div>
-  //   );
-  // if (!data)
-  //   return (
-  //     <div className={styles.loading_data}>
-  //       <CircularProgress size="3rem" />
-  //     </div>
-  //   );
+  if (error)
+    return (
+      <div className={styles.error_loading}>
+        <Alert className={styles.alert_loading} severity="warning">
+          <h6>{t("Error loading data")}</h6>
+        </Alert>
+      </div>
+    );
+  if (!data)
+    return (
+      <div className={styles.loading_data}>
+        <CircularProgress size="3rem" />
+      </div>
+    );
 
   // ----------Filtration users for role-------------//
 
