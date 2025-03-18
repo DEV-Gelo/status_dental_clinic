@@ -147,14 +147,10 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
 
-        const uploadResponse = await fetch(
-          "/api/upload",
-          { cache: "no-store" },
-          {
-            method: "POST",
-            body: uploadFormData,
-          }
-        );
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
 
         const uploadResult = await uploadResponse.json();
 
@@ -179,19 +175,14 @@ const PopupForm = ({ onClose, onAlert, role }) => {
     try {
       setLoading(true);
       // Send data user
-      const response = await fetch(
-        "/api/users/create",
-        { cache: "no-store" },
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: formData,
-        }
-      );
+      const response = await fetch("/api/users/create", {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         const result = await response.json();
-        mutate("/api/users", null, { revalidate: true });
+        mutate("/api/users");
         setLoading(false);
 
         // Clear form

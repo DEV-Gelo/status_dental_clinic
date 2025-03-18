@@ -82,7 +82,7 @@ const Users = () => {
   });
 
   // Forced update feature
-  mutate("/api/users");
+  const refetchUsers = () => mutate("/api/users");
 
   if (error)
     return (
