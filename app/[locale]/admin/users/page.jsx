@@ -76,22 +76,6 @@ const Users = () => {
 
   const { data, error } = useSWR("/api/users", fetchData);
   console.log("Data :", data);
-  // const fetchUsers = async () => {
-  //   const response = await fetch("/api/users", { cache: "no-store" });
-  //   if (!response.ok) {
-  //     throw new Error("Failed to fetch users");
-  //   }
-  //   return response.json();
-  // };
-
-  // const { data, error } = useSWR("/api/users", fetchUsers, {
-  //   revalidateOnFocus: false, // Do not update on focus
-  //   revalidateIfStale: false, // Do not update if data is old
-  //   revalidateOnReconnect: false, // Do not update on reconnect
-  // });
-
-  // // Forced update feature
-  // const refetchUsers = () => mutate("/api/users");
 
   if (error)
     return (

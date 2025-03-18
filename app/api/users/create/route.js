@@ -33,23 +33,12 @@ export async function POST(req) {
           { message: "This email already exists" },
           { status: 400 }
         );
-        // return new Response(
-        //   JSON.stringify({ message: "This email already exists" }),
-        //   {
-        //     status: 400,
-        //     headers: { "Content-Type": "application/json" },
-        //   }
-        // );
       }
       if (existingUser.phone === phone) {
         return NextResponse.json(
           { message: "This phone number already exists" },
           { status: 400 }
         );
-        // return new Response(
-        //   JSON.stringify({ message: "This phone number already exists" }),
-        //   { status: 400, headers: { "Content-Type": "application/json" } }
-        // );
       }
     }
 
@@ -67,11 +56,16 @@ export async function POST(req) {
       },
     });
 
-    return NextResponse.json(user, { status: 201 });
+    const response = NextResponse.json(user, { status: 201 });
+    response.headers.set(
+      "Cache-Control",
+      "no-store, max-age=0, must-revalidate"
+    );
+
+    return response;
   } catch (error) {
     console.error(error);
 
-    // return new Response("Error creating user", { status: 500 });
     return NextResponse.json(
       { message: "Error creating user" },
       { status: 500 }

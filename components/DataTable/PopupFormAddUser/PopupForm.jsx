@@ -182,7 +182,10 @@ const PopupForm = ({ onClose, onAlert, role }) => {
 
       if (response.ok) {
         const result = await response.json();
-        mutate("/api/users");
+        mutate("/api/users", undefined, {
+          revalidate: true,
+        }).then(() => console.log("Mutate completed"));
+
         setLoading(false);
 
         // Clear form
