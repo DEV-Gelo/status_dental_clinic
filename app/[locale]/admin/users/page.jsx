@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import styles from "./UsersStyle.module.css";
@@ -68,14 +68,21 @@ const Users = () => {
 
   // -------------Get Data--------------------------//
   const fetchUsers = async () => {
-    const response = await fetch("/api/users");
+    const response = await fetch("/api/users", { cache: "no-store" });
     if (!response.ok) {
       throw new Error("Failed to fetch users");
     }
     return response.json();
   };
 
-  const { data, error } = useSWR("/api/users", fetchUsers);
+  const { data, error } = useSWR("/api/users", fetchUsers, {
+    revalidateOnFocus: false, // Do not update on focus
+    revalidateIfStale: false, // Do not update if data is old
+    revalidateOnReconnect: false, // Do not update on reconnect
+  });
+
+  // Forced update feature
+  const refetchUsers = () => mutate("/api/users");
 
   if (error)
     return (
