@@ -69,7 +69,7 @@ const Users = () => {
   // -------------Get Data--------------------------//
 
   const fetchData = async () => {
-    const response = await fetch("/api/users");
+    const response = await fetch("/api/users", { cache: "no-store" });
     if (!response.ok) throw new Error(t("Error loading data"));
     return response.json();
   };
