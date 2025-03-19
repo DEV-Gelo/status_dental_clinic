@@ -19,7 +19,5 @@ export async function GET() {
       { message: "Internal server error" },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect(); // Розриває з'єднання і вимагає нові дані
   }
 }
