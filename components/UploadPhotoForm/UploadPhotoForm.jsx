@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 // --------------Import MUI--------------------------//
 import Button from "@mui/material/Button";
@@ -8,21 +7,38 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export default function UploadPhotoForm({ handleFileChange }) {
   const fileInput = useRef(null);
+  const [uploading, setUploading] = useState(false); // Стейт для завантаження
+  const [photoUrl, setPhotoUrl] = useState(""); // Стейт для збереження URL фото
 
   // -------Translations----------//
   const t = useTranslations("UploadPhotoForm");
 
   async function uploadFile(evt) {
     evt.preventDefault();
+    setUploading(true); // Починаємо завантаження
 
     const formData = new FormData();
     formData.append("file", fileInput.current?.files?.[0]);
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const result = await response.json();
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setPhotoUrl(result.url); // Зберігаємо URL завантаженого фото
+        alert("Фото успішно завантажено!"); // Можна показати повідомлення
+      } else {
+        alert("Щось пішло не так, спробуйте ще раз");
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+      alert("Сталася помилка під час завантаження");
+    } finally {
+      setUploading(false); // Завершуємо завантаження
+    }
   }
 
   return (
@@ -33,6 +49,7 @@ export default function UploadPhotoForm({ handleFileChange }) {
         variant="contained"
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
+        disabled={uploading} // Забороняємо повторно завантажувати до завершення попереднього
       >
         {t("DOWNLOAD")}
         <input
@@ -48,6 +65,13 @@ export default function UploadPhotoForm({ handleFileChange }) {
           }}
         />
       </Button>
+
+      {photoUrl && (
+        <div className="mt-4">
+          <h4>Завантажене фото:</h4>
+          <img src={photoUrl} alt="Uploaded" style={{ width: "200px" }} />
+        </div>
+      )}
     </form>
   );
 }
