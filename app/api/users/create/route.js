@@ -57,10 +57,6 @@ export async function POST(req) {
     });
 
     const response = NextResponse.json(user, { status: 201 });
-    response.headers.set(
-      "Cache-Control",
-      "no-store, max-age=0, must-revalidate"
-    );
 
     return response;
   } catch (error) {
@@ -70,7 +66,5 @@ export async function POST(req) {
       { message: "Error creating user" },
       { status: 500 }
     );
-  } finally {
-    // await prisma.$disconnect();
   }
 }

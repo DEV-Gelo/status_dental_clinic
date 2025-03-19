@@ -69,13 +69,12 @@ const Users = () => {
   // -------------Get Data--------------------------//
 
   const fetchData = async () => {
-    const response = await fetch("/api/users", { cache: "no-store" });
+    const response = await fetch("/api/users");
     if (!response.ok) throw new Error(t("Error loading data"));
     return response.json();
   };
 
   const { data, error } = useSWR("/api/users", fetchData);
-  console.log("Data :", data);
 
   if (error)
     return (
@@ -108,7 +107,6 @@ const Users = () => {
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     );
-  console.log("filteredUsers :", filteredUsers);
   // --------Open popup window------------------------//
   const handlePopup_form = () => {
     setIsOpen(true);
