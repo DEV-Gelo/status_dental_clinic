@@ -64,7 +64,7 @@ export async function PUT(req) {
 
     // Trim part of the URL to get only the path to the file in the bucket
     const fileOldPath = fileUrl
-      .replace(/^blob:\/\//, "blob:http:/") // Replace both http:// and https:// correctly
+      .replace(/^blob:\/\//, "blob:https:/") // Replace both http:// and https:// correctly with a single slash after "https:"
       .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
       ?.replace(/^\/+/, ""); // Remove extra slashes at the beginning
 
