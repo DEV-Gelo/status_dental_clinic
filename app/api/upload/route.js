@@ -67,7 +67,7 @@ export async function PUT(req) {
       .replace("blob:https://", "blob:https:/") // Remove the extra "/"
       .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
       ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
-    console.log("File Path :", fileOldPath);
+
     // Delete previous file
     const { dataDelete, deleteError } = await supabase.storage
       .from("uploads")
@@ -95,7 +95,6 @@ export async function PUT(req) {
         { status: 500 }
       );
     }
-
     // Return a successful response from the file URL
     return NextResponse.json({
       status: "success",
