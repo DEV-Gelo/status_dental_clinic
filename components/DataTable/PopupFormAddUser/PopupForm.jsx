@@ -203,12 +203,12 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         console.error("Error creating user:", errorData);
         // Check if there is an error in the localization file
         if (errorMessage === "This email already exists") {
-          errorMessage = t("validation.email_exists");
+          onAlert("warning", t("validation.email_exists"));
         } else if (errorMessage === "This phone number already exists") {
-          errorMessage = t("validation.phone_exists");
+          onAlert("warning", t("validation.phone_exists"));
         } else {
           // If no error is found, use a general message
-          errorMessage = t("validation.createError");
+          onAlert("warning", t("validation.createError"));
         }
       }
     } catch (error) {
