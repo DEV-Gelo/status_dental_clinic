@@ -67,7 +67,7 @@ export async function PUT(req) {
       .replace("blob:http://", "blob:http:/") // Remove the extra "/"
       .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
       ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
-
+    console.log("File Path :", fileOldPath);
     // Delete previous file
     const { dataDelete, deleteError } = await supabase.storage
       .from("uploads")
