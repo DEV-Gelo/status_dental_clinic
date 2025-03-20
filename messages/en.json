@@ -163,7 +163,9 @@
       "sizeExceeded": "The file size cannot exceed 2MB",
       "uploadError": "Failed to upload file",
       "createSuccess": "Record created successfully",
-      "createError": "An error occurred. Please try again."
+      "createError": "An error occurred. Please try again.",
+      "email_exists": "This email already exists",
+      "phone_exists": "This phone number already exists"
     },
     "title": "Create user",
     "firstName": "First Name",

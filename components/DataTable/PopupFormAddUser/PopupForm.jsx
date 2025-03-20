@@ -199,8 +199,17 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         onAlert("success", t("validation.createSuccess"));
       } else {
         const errorData = await response.json();
+        let errorMessage = errorData.message;
         console.error("Error creating user:", errorData);
-        onAlert("warning", errorData.message || t("validation.createError"));
+        // Check if there is an error in the localization file
+        if (errorMessage === "This email already exists") {
+          errorMessage = t("validation.email_exists");
+        } else if (errorMessage === "This phone number already exists") {
+          errorMessage = t("validation.phone_exists");
+        } else {
+          // If no error is found, use a general message
+          errorMessage = t("validation.createError");
+        }
       }
     } catch (error) {
       console.error("An error occurred:", error);
