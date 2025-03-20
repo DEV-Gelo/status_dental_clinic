@@ -153,26 +153,35 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
     let photoUrl = image;
 
     if (file) {
-      // -----Check file validity---------//
-      if (file) {
-        const allowedTypes = ["image/jpeg", "image/png"];
-        const maxFileSize = 2 * 1024 * 1024; // 2MB
+      // -----Checking the file---------//
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const maxFileSize = 2 * 1024 * 1024; // 2MB
 
-        if (!allowedTypes.includes(file.type)) {
-          onAlert("warning", t("validation.invalidType"));
-          return;
-        }
-
-        if (file.size > maxFileSize) {
-          onAlert("warning", t("validation.sizeExceeded"));
-          return;
-        }
+      if (!allowedTypes.includes(file.type)) {
+        onAlert("warning", t("validation.invalidType"));
+        return;
       }
+
+      if (file.size > maxFileSize) {
+        onAlert("warning", t("validation.sizeExceeded"));
+        return;
+      }
+
       try {
         setLoading(true);
-        // Downloading a file via a separate route
+
+        // Form the path to the file (use the old path, if available)
+        const filePath = image
+          ? image.replace(
+              `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/`,
+              ""
+            )
+          : `${Date.now()}-${file.name}`;
+
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
+        uploadFormData.append("filePath", filePath); // Pass the file path
+        uploadFormData.append("userId", userId);
 
         const uploadResponse = await fetch("/api/upload", {
           method: "PUT",
@@ -182,9 +191,11 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         const uploadResult = await uploadResponse.json();
 
         if (uploadResponse.ok && uploadResult.status === "success") {
-          photoUrl = `/uploads/${file.name}`;
+          // Forming the correct URL for Supabase Storage
+          photoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/${filePath}`;
         } else {
           console.error("Failed to upload file");
+          onAlert("error", t("validation.uploadError"));
           return;
         }
       } catch (error) {
@@ -194,7 +205,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       }
     }
 
-    // Add the path
+    // Add the path to the photo in formData
     if (photoUrl) {
       formData.append("photo", photoUrl);
     }

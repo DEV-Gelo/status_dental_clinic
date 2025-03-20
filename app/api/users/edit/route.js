@@ -15,6 +15,9 @@ export async function PUT(req) {
       photo,
     } = data;
 
+    // Checking and assigning null to the photo if it doesn't exist
+    const photoUrl = photo ? photo : null;
+
     const updatedUser = await prisma.user.update({
       where: { id: Number(id) },
       data: {
@@ -24,7 +27,7 @@ export async function PUT(req) {
         phone,
         email,
         specialization,
-        photo,
+        photo: photoUrl,
       },
     });
 

@@ -121,29 +121,29 @@ const PopupForm = ({ onClose, onAlert, role }) => {
     formData.append("email", email);
     formData.append("role", role);
 
-    const defaultAvatar = "/image-placeholder.png"; // Default Avatar for user in the table
+    const defaultAvatar = "/image-placeholder.png"; // Default avatar
 
     let photoUrl = defaultAvatar;
 
     if (file) {
-      // -----Check file validity---------//
-      if (file) {
-        const allowedTypes = ["image/jpeg", "image/png"];
-        const maxFileSize = 2 * 1024 * 1024; // 2MB
+      // -----Checking the file---------//
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const maxFileSize = 2 * 1024 * 1024; // 2MB
 
-        if (!allowedTypes.includes(file.type)) {
-          onAlert("warning", t("validation.invalidType"));
-          return;
-        }
-
-        if (file.size > maxFileSize) {
-          onAlert("warning", t("validation.sizeExceeded"));
-          return;
-        }
+      if (!allowedTypes.includes(file.type)) {
+        onAlert("warning", t("validation.invalidType"));
+        return;
       }
+
+      if (file.size > maxFileSize) {
+        onAlert("warning", t("validation.sizeExceeded"));
+        return;
+      }
+
       try {
         setLoading(true);
-        // Downloading a file via a separate route
+
+        // Form data for loading
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
 
@@ -155,23 +155,25 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         const uploadResult = await uploadResponse.json();
 
         if (uploadResponse.ok && uploadResult.status === "success") {
-          photoUrl = `/uploads/${file.name}`;
+          // Forming the correct URL to the file in Supabase
+          photoUrl = uploadResult.fileUrl;
         } else {
           console.error("Failed to upload file");
+          onAlert("error", t("validation.uploadError"));
           return;
         }
       } catch (error) {
+        setLoading(false);
         console.error("File upload error:", error);
         onAlert("error", t("validation.uploadError"));
         return;
       }
     }
 
-    // Add the path
+    // Add the path to the photo in formData
     if (photoUrl) {
       formData.append("photo", photoUrl);
     }
-
     try {
       setLoading(true);
       // Send data user
@@ -197,8 +199,8 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         onAlert("success", t("validation.createSuccess"));
       } else {
         const errorData = await response.json();
-        console.error(errorData.message);
-        onAlert("warning", errorData.message);
+        console.error("Error creating user:", errorData);
+        onAlert("warning", errorData.message || t("validation.createError"));
       }
     } catch (error) {
       console.error("An error occurred:", error);

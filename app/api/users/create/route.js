@@ -13,14 +13,14 @@ export async function POST(req) {
     specialization,
     phone,
     email,
-    photo, // photo тепер буде містити URL
+    photo,
   } = data;
 
-  // Якщо фото було завантажене, використовуємо URL
+  // Checking and assigning null to the photo if it doesn't exist
   const photoUrl = photo ? photo : null;
 
   try {
-    // Перевіряємо, чи існує користувач з таким email або phone
+    // Checking the presence of an email or phone number in the database
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ email }, { phone }],
@@ -42,7 +42,7 @@ export async function POST(req) {
       }
     }
 
-    // Створюємо нового користувача
+    // Create a new user
     const user = await prisma.user.create({
       data: {
         lastName,
@@ -52,7 +52,7 @@ export async function POST(req) {
         specialization,
         phone,
         email,
-        photo: photoUrl, // Зберігаємо URL фото
+        photo: photoUrl,
       },
     });
 

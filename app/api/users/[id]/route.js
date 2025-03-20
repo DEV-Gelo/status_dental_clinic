@@ -1,7 +1,33 @@
 import prisma from "@/lib/prisma";
+import { supabase } from "@/lib/supabase";
 
 export async function DELETE(req, { params }) {
   const { id } = params; // Get the user ID from the URL
+
+  // --- Delete photo from storage ----//
+  // Getting the path to the photo from the database
+  const user = await prisma.user.findUnique({
+    where: { id: Number(id) },
+    select: { photo: true }, // Get only photo field
+  });
+  const fileUrl = user.photo;
+
+  // Trim part of the URL to get only the path to the file in the bucket
+  const filePath = fileUrl
+    .replace("blob:http://", "blob:http:/") // Remove the extra "/"
+    .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
+    ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
+
+  // Delete previous file
+  const { dataDelete, deleteError } = await supabase.storage
+    .from("uploads")
+    .remove([filePath]);
+
+  if (deleteError) {
+    console.error("Error deleting old file:", deleteError.message);
+  } else {
+    console.log("Old file deleted successfully!");
+  }
 
   try {
     const today = new Date(); // Current date
