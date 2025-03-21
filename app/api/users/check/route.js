@@ -6,14 +6,6 @@ export async function POST(req) {
     // Get email and phone from the request body
     const { email, phone } = await req.json();
 
-    // // Перевіряємо, чи передані необхідні дані
-    // if (!email && !phone) {
-    //   return NextResponse.json(
-    //     { message: "Email or phone is required" },
-    //     { status: 400 }
-    //   );
-    // }
-
     // Сheck if there is a user with such an email or phone number
     const existingUser = await prisma.user.findFirst({
       where: {

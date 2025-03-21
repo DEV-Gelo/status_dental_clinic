@@ -110,7 +110,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
     try {
       setLoading(true);
 
-      // **1. Перевіряємо, чи є вже користувач з таким email або phone**
+      // **1. Check if there is already a user with this email or phone number**
       const checkResponse = await fetch("/api/users/check", {
         method: "POST",
         body: JSON.stringify({ email, phone }),
@@ -120,6 +120,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
       const checkResult = await checkResponse.json();
 
       if (!checkResponse.ok) {
+        console.log(checkResult.message);
         if (checkResult.message === "This email already exists") {
           onAlert("warning", t("validation.email_exists"));
         } else if (checkResult.message === "This phone number already exists") {
@@ -131,7 +132,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         return;
       }
 
-      // **2. Завантажуємо фото (тільки якщо email і phone унікальні)**
+      // **2. Upload photo (only if email and phone unique)**
       let photoUrl = "/image-placeholder.png"; // Default avatar
 
       if (file) {
@@ -169,7 +170,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         }
       }
 
-      // **3. Створюємо користувача**
+      // **3. Create user**
       const formData = new FormData();
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
@@ -188,7 +189,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
       if (response.ok) {
         mutate("/api/users");
         setLoading(false);
-        // Очистити форму
+        // Clear form
         setFirstName("");
         setLastName("");
         setPatronymic("");
