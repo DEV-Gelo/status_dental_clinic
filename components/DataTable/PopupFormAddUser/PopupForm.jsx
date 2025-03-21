@@ -96,54 +96,60 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         onAlert("warning", t("validation.email"));
         return false;
       }
-
       if (!role) {
         onAlert("warning", t("validation.role"));
         return false;
       }
-
-      return true; // All checks passed
+      return true;
     };
 
-    // Using the function
     if (!validateForm()) {
-      return; // Stop the execution if the check is not passed
+      return;
     }
 
-    const formData = new FormData();
+    try {
+      setLoading(true);
 
-    // Add data text
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("patronymic", patronymic);
-    formData.append("specialization", specialization);
-    formData.append("phone", phone);
-    formData.append("email", email);
-    formData.append("role", role);
+      // **1. Перевіряємо, чи є вже користувач з таким email або phone**
+      const checkResponse = await fetch("/api/users/check", {
+        method: "POST",
+        body: JSON.stringify({ email, phone }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    const defaultAvatar = "/image-placeholder.png"; // Default avatar
+      const checkResult = await checkResponse.json();
 
-    let photoUrl = defaultAvatar;
-
-    if (file) {
-      // -----Checking the file---------//
-      const allowedTypes = ["image/jpeg", "image/png"];
-      const maxFileSize = 2 * 1024 * 1024; // 2MB
-
-      if (!allowedTypes.includes(file.type)) {
-        onAlert("warning", t("validation.invalidType"));
+      if (!checkResponse.ok) {
+        if (checkResult.message === "This email already exists") {
+          onAlert("warning", t("validation.email_exists"));
+        } else if (checkResult.message === "This phone number already exists") {
+          onAlert("warning", t("validation.phone_exists"));
+        } else {
+          onAlert("warning", t("validation.createError"));
+        }
+        setLoading(false);
         return;
       }
 
-      if (file.size > maxFileSize) {
-        onAlert("warning", t("validation.sizeExceeded"));
-        return;
-      }
+      // **2. Завантажуємо фото (тільки якщо email і phone унікальні)**
+      let photoUrl = "/image-placeholder.png"; // Default avatar
 
-      try {
-        setLoading(true);
+      if (file) {
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxFileSize = 2 * 1024 * 1024; // 2MB
 
-        // Form data for loading
+        if (!allowedTypes.includes(file.type)) {
+          onAlert("warning", t("validation.invalidType"));
+          setLoading(false);
+          return;
+        }
+
+        if (file.size > maxFileSize) {
+          onAlert("warning", t("validation.sizeExceeded"));
+          setLoading(false);
+          return;
+        }
+
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
 
@@ -155,40 +161,34 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         const uploadResult = await uploadResponse.json();
 
         if (uploadResponse.ok && uploadResult.status === "success") {
-          // Forming the correct URL to the file in Supabase
           photoUrl = uploadResult.fileUrl;
         } else {
-          console.error("Failed to upload file");
           onAlert("error", t("validation.uploadError"));
+          setLoading(false);
           return;
         }
-      } catch (error) {
-        setLoading(false);
-        console.error("File upload error:", error);
-        onAlert("error", t("validation.uploadError"));
-        return;
       }
-    }
 
-    // Add the path to the photo in formData
-    if (photoUrl) {
+      // **3. Створюємо користувача**
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("patronymic", patronymic);
+      formData.append("specialization", specialization);
+      formData.append("phone", phone);
+      formData.append("email", email);
+      formData.append("role", role);
       formData.append("photo", photoUrl);
-    }
-    try {
-      setLoading(true);
-      // Send data user
+
       const response = await fetch("/api/users/create", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
-        const result = await response.json();
         mutate("/api/users");
-
         setLoading(false);
-
-        // Clear form
+        // Очистити форму
         setFirstName("");
         setLastName("");
         setPatronymic("");
@@ -199,15 +199,11 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         onAlert("success", t("validation.createSuccess"));
       } else {
         const errorData = await response.json();
-        let errorMessage = errorData.message;
-        console.error("Error creating user:", errorData);
-        // Check if there is an error in the localization file
-        if (errorMessage === "This email already exists") {
+        if (errorData.message === "This email already exists") {
           onAlert("warning", t("validation.email_exists"));
-        } else if (errorMessage === "This phone number already exists") {
+        } else if (errorData.message === "This phone number already exists") {
           onAlert("warning", t("validation.phone_exists"));
         } else {
-          // If no error is found, use a general message
           onAlert("warning", t("validation.createError"));
         }
       }
