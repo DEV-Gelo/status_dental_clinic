@@ -21,12 +21,15 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
   const [image, setImage] = useState(null);
+  const [initialImage, setInitialImage] = useState(null);
   const [file, setFile] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [patronymic, setPatronymic] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [initialPhone, setInitialPhone] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [switchDisplayPhoto, setSwitchDisplayPhoto] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -50,9 +53,12 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         setLastName(data.lastName || "");
         setPatronymic(data.patronymic || "");
         setPhone(data.phone || "");
+        setInitialPhone(data.phone || "");
         setEmail(data.email || "");
+        setInitialEmail(data.email || "");
         setSpecialization(data.specialization || "");
         setImage(data.photo || "/image-placeholder.png");
+        setInitialImage(data.photo || "/image-placeholder.png");
         setSwitchDisplayPhoto(data.photo !== "/image-placeholder.png");
         setLoadingData(false);
       } catch (error) {
@@ -137,21 +143,18 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
     try {
       setLoading(true);
 
-      // Отримуємо початкові значення email та phone
-      const initialEmail = email || "";
-      const initialPhone = phone || "";
-
-      // Перевіряємо, чи змінився email або phone
+      // Check if email or phone has changed
       if (email !== initialEmail || phone !== initialPhone) {
         const checkResponse = await fetch("/api/users/check", {
           method: "POST",
-          body: JSON.stringify({ email, phone, userId }), // Передаємо userId
+          body: JSON.stringify({ email, phone, userId }),
           headers: { "Content-Type": "application/json" },
         });
 
         const checkResult = await checkResponse.json();
 
         if (!checkResponse.ok) {
+          console.log("Error message :", checkResult.message);
           if (checkResult.message === "This email already exists") {
             onAlert("warning", t("validation.email_exists"));
           } else if (
@@ -166,7 +169,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         }
       }
 
-      // Якщо все добре, формуємо FormData
+      // Forming FormData
       const formData = new FormData();
       formData.append("id", userId);
       formData.append("firstName", firstName);
@@ -177,6 +180,15 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       formData.append("specialization", specialization);
 
       let photoUrl = image;
+      console.log("initialImage :", initialImage);
+      console.log("Image :", image);
+      if (image && image.includes("image-placeholder.png")) {
+        await fetch("/api/users/edit/delete_photo", {
+          method: "POST",
+          body: JSON.stringify({ photoUrl: initialImage }),
+          headers: { "Content-Type": "application/json" },
+        });
+      }
 
       if (file) {
         const allowedTypes = ["image/jpeg", "image/png"];
@@ -223,7 +235,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         formData.append("photo", photoUrl);
       }
 
-      // Відправляємо оновлені дані користувача
+      // Sending updated user data
       const response = await fetch("/api/users/edit", {
         method: "PUT",
         body: formData,
