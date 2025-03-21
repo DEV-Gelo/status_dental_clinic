@@ -3,32 +3,26 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    // Get email and phone from the request body
-    const { email, phone } = await req.json();
+    const { email, phone, userId } = await req.json();
 
-    // Сheck if there is a user with such an email or phone number
+    // Checking if there is a user with the same email or phone, but not the same userId
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ email }, { phone }],
+        NOT: { id: userId }, // Exclude the current user
       },
     });
 
     if (existingUser) {
-      if (existingUser.email === email) {
-        return NextResponse.json(
-          { message: "This email already exists" },
-          { status: 400 }
-        );
-      }
-      if (existingUser.phone === phone) {
-        return NextResponse.json(
-          { message: "This phone number already exists" },
-          { status: 400 }
-        );
-      }
+      const message =
+        existingUser.email === email
+          ? "This email already exists"
+          : "This phone number already exists";
+
+      return NextResponse.json({ message }, { status: 400 });
     }
 
-    // If the user is not found, we return a successful response.
+    // If no conflict, return success message
     return NextResponse.json({ message: "OK" }, { status: 200 });
   } catch (error) {
     console.error("Error checking user:", error);

@@ -20,27 +20,27 @@ export async function POST(req) {
   const photoUrl = photo ? photo : null;
 
   try {
-    // Checking the presence of an email or phone number in the database
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        OR: [{ email }, { phone }],
-      },
-    });
+    // // Checking the presence of an email or phone number in the database
+    // const existingUser = await prisma.user.findFirst({
+    //   where: {
+    //     OR: [{ email }, { phone }],
+    //   },
+    // });
 
-    if (existingUser) {
-      if (existingUser.email === email) {
-        return NextResponse.json(
-          { message: "This email already exists" },
-          { status: 400 }
-        );
-      }
-      if (existingUser.phone === phone) {
-        return NextResponse.json(
-          { message: "This phone number already exists" },
-          { status: 400 }
-        );
-      }
-    }
+    // if (existingUser) {
+    //   if (existingUser.email === email) {
+    //     return NextResponse.json(
+    //       { message: "This email already exists" },
+    //       { status: 400 }
+    //     );
+    //   }
+    //   if (existingUser.phone === phone) {
+    //     return NextResponse.json(
+    //       { message: "This phone number already exists" },
+    //       { status: 400 }
+    //     );
+    //   }
+    // }
 
     // Create a new user
     const user = await prisma.user.create({

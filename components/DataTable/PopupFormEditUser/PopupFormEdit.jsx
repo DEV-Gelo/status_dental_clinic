@@ -112,7 +112,6 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
 
   // The function of sending the form to the server ---
   const handleSubmit = async () => {
-    // --------Validation form-----------//
     const validateForm = () => {
       if (!firstName) {
         onAlert("warning", t("validation.firstName"));
@@ -130,47 +129,69 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         onAlert("warning", t("validation.email"));
         return false;
       }
-
-      return true; // All checks passed
+      return true;
     };
 
-    // Using the function
-    if (!validateForm()) {
-      return; // Stop the execution if the check is not passed
-    }
+    if (!validateForm()) return;
 
-    const formData = new FormData();
+    try {
+      setLoading(true);
 
-    // Add data text
-    formData.append("id", userId);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("patronymic", patronymic);
-    formData.append("phone", phone);
-    formData.append("email", email);
-    formData.append("specialization", specialization);
+      // Отримуємо початкові значення email та phone
+      const initialEmail = email || "";
+      const initialPhone = phone || "";
 
-    let photoUrl = image;
+      // Перевіряємо, чи змінився email або phone
+      if (email !== initialEmail || phone !== initialPhone) {
+        const checkResponse = await fetch("/api/users/check", {
+          method: "POST",
+          body: JSON.stringify({ email, phone, userId }), // Передаємо userId
+          headers: { "Content-Type": "application/json" },
+        });
 
-    if (file) {
-      // -----Checking the file---------//
-      const allowedTypes = ["image/jpeg", "image/png"];
-      const maxFileSize = 2 * 1024 * 1024; // 2MB
+        const checkResult = await checkResponse.json();
 
-      if (!allowedTypes.includes(file.type)) {
-        onAlert("warning", t("validation.invalidType"));
-        return;
+        if (!checkResponse.ok) {
+          if (checkResult.message === "This email already exists") {
+            onAlert("warning", t("validation.email_exists"));
+          } else if (
+            checkResult.message === "This phone number already exists"
+          ) {
+            onAlert("warning", t("validation.phone_exists"));
+          } else {
+            onAlert("warning", t("validation.editError"));
+          }
+          setLoading(false);
+          return;
+        }
       }
 
-      if (file.size > maxFileSize) {
-        onAlert("warning", t("validation.sizeExceeded"));
-        return;
-      }
+      // Якщо все добре, формуємо FormData
+      const formData = new FormData();
+      formData.append("id", userId);
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("patronymic", patronymic);
+      formData.append("phone", phone);
+      formData.append("email", email);
+      formData.append("specialization", specialization);
 
-      try {
-        setLoading(true);
+      let photoUrl = image;
 
-        // Form the path to the file (use the old path, if available)
+      if (file) {
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxFileSize = 2 * 1024 * 1024;
+
+        if (!allowedTypes.includes(file.type)) {
+          onAlert("warning", t("validation.invalidType"));
+          return;
+        }
+
+        if (file.size > maxFileSize) {
+          onAlert("warning", t("validation.sizeExceeded"));
+          return;
+        }
+
         const filePath = image
           ? image.replace(
               `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/`,
@@ -180,7 +201,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
 
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
-        uploadFormData.append("filePath", filePath); // Pass the file path
+        uploadFormData.append("filePath", filePath);
         uploadFormData.append("userId", userId);
 
         const uploadResponse = await fetch("/api/upload", {
@@ -191,57 +212,35 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         const uploadResult = await uploadResponse.json();
 
         if (uploadResponse.ok && uploadResult.status === "success") {
-          // Forming the correct URL for Supabase Storage
           photoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/${filePath}`;
         } else {
-          console.error("Failed to upload file");
           onAlert("error", t("validation.uploadError"));
           return;
         }
-      } catch (error) {
-        console.error("File upload error:", error);
-        onAlert("error", t("validation.uploadError"));
-        return;
       }
-    }
 
-    // Add the path to the photo in formData
-    if (photoUrl) {
-      formData.append("photo", photoUrl);
-    }
+      if (photoUrl) {
+        formData.append("photo", photoUrl);
+      }
 
-    try {
-      setLoading(true);
-      // Send data user
+      // Відправляємо оновлені дані користувача
       const response = await fetch("/api/users/edit", {
         method: "PUT",
         body: formData,
       });
 
       if (response.ok) {
-        const result = await response.json();
         mutate("/api/users");
-        setLoading(false);
         onClose();
         onAlert("success", t("validation.editSuccess"));
       } else {
         const errorData = await response.json();
-        let errorMessage = errorData.message;
-        console.error("Error creating user:", errorData);
-        setLoading(false);
-        // Check if there is an error in the localization file
-        if (errorMessage === "This email already exists") {
-          onAlert("warning", t("validation.email_exists"));
-        } else if (errorMessage === "This phone number already exists") {
-          onAlert("warning", t("validation.phone_exists"));
-        } else {
-          // If no error is found, use a general message
-          onAlert("warning", t("validation.editError"));
-        }
+        console.log("Error message :", errorData);
       }
     } catch (error) {
       console.error("Error updating user:", error);
       onAlert("error", t("validation.editError"));
+    } finally {
       setLoading(false);
     }
   };
