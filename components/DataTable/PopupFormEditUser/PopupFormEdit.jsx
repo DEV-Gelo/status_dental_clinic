@@ -225,11 +225,24 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         onClose();
         onAlert("success", t("validation.editSuccess"));
       } else {
-        console.error("Failed to update user");
+        const errorData = await response.json();
+        let errorMessage = errorData.message;
+        console.error("Error creating user:", errorData);
+        setLoading(false);
+        // Check if there is an error in the localization file
+        if (errorMessage === "This email already exists") {
+          onAlert("warning", t("validation.email_exists"));
+        } else if (errorMessage === "This phone number already exists") {
+          onAlert("warning", t("validation.phone_exists"));
+        } else {
+          // If no error is found, use a general message
+          onAlert("warning", t("validation.editError"));
+        }
       }
     } catch (error) {
       console.error("Error updating user:", error);
       onAlert("error", t("validation.editError"));
+      setLoading(false);
     }
   };
 

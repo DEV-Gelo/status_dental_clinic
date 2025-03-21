@@ -121,6 +121,51 @@ const PopupForm = ({ onClose, onAlert, role }) => {
     formData.append("email", email);
     formData.append("role", role);
 
+    try {
+      setLoading(true);
+      // Send data user
+      const response = await fetch("/api/users/create", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        mutate("/api/users");
+
+        setLoading(false);
+
+        // Clear form
+        setFirstName("");
+        setLastName("");
+        setPatronymic("");
+        setPhone("");
+        setEmail("");
+        setSpecialization("");
+        closeForm();
+        onAlert("success", t("validation.createSuccess"));
+      } else {
+        const errorData = await response.json();
+        let errorMessage = errorData.message;
+        console.error("Error creating user:", errorData);
+        setLoading(false);
+        // Check if there is an error in the localization file
+        if (errorMessage === "This email already exists") {
+          onAlert("warning", t("validation.email_exists"));
+        } else if (errorMessage === "This phone number already exists") {
+          onAlert("warning", t("validation.phone_exists"));
+        } else {
+          // If no error is found, use a general message
+          onAlert("warning", t("validation.createError"));
+        }
+        return;
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      onAlert("error", t("validation.createError"));
+      setLoading(false);
+    }
+
     const defaultAvatar = "/image-placeholder.png"; // Default avatar
 
     let photoUrl = defaultAvatar;
@@ -157,6 +202,10 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         if (uploadResponse.ok && uploadResult.status === "success") {
           // Forming the correct URL to the file in Supabase
           photoUrl = uploadResult.fileUrl;
+          // Add the path to the photo in formData
+          if (photoUrl) {
+            formData.append("photo", photoUrl);
+          }
         } else {
           console.error("Failed to upload file");
           onAlert("error", t("validation.uploadError"));
@@ -166,56 +215,9 @@ const PopupForm = ({ onClose, onAlert, role }) => {
         setLoading(false);
         console.error("File upload error:", error);
         onAlert("error", t("validation.uploadError"));
-        return;
-      }
-    }
-
-    // Add the path to the photo in formData
-    if (photoUrl) {
-      formData.append("photo", photoUrl);
-    }
-    try {
-      setLoading(true);
-      // Send data user
-      const response = await fetch("/api/users/create", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        mutate("/api/users");
-
+      } finally {
         setLoading(false);
-
-        // Clear form
-        setFirstName("");
-        setLastName("");
-        setPatronymic("");
-        setPhone("");
-        setEmail("");
-        setSpecialization("");
-        closeForm();
-        onAlert("success", t("validation.createSuccess"));
-      } else {
-        const errorData = await response.json();
-        let errorMessage = errorData.message;
-        console.error("Error creating user:", errorData);
-        // Check if there is an error in the localization file
-        if (errorMessage === "This email already exists") {
-          onAlert("warning", t("validation.email_exists"));
-        } else if (errorMessage === "This phone number already exists") {
-          onAlert("warning", t("validation.phone_exists"));
-        } else {
-          // If no error is found, use a general message
-          onAlert("warning", t("validation.createError"));
-        }
       }
-    } catch (error) {
-      console.error("An error occurred:", error);
-      onAlert("error", t("validation.createError"));
-    } finally {
-      setLoading(false);
     }
   };
 

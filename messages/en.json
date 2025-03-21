@@ -193,7 +193,9 @@
       "sizeExceeded": "The file size cannot exceed 2MB",
       "uploadError": "Failed to upload file",
       "editSuccess": "Record edited successfully",
-      "editError": "An error occurred. Please try again."
+      "editError": "An error occurred. Please try again.",
+      "email_exists": "This email already exists",
+      "phone_exists": "This phone number already exists"
     },
     "title": "Edit user",
     "firstName": "First Name",

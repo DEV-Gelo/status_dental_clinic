@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function PUT(req) {
   try {
@@ -15,11 +16,35 @@ export async function PUT(req) {
       photo,
     } = data;
 
-    // Checking and assigning null to the photo if it doesn't exist
-    const photoUrl = photo ? photo : null;
+    const userId = Number(id);
+    const photoUrl = photo || null;
 
+    // Looking for a user with the same email or phone number, but **with a different id**
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { phone }],
+        NOT: { id: userId },
+      },
+    });
+
+    if (existingUser) {
+      if (existingUser.email === email) {
+        return new NextResponse(
+          JSON.stringify({ message: "This email already exists" }),
+          { status: 400 }
+        );
+      }
+      if (existingUser.phone === phone) {
+        return new NextResponse(
+          JSON.stringify({ message: "This phone number already exists" }),
+          { status: 400 }
+        );
+      }
+    }
+
+    // User update
     const updatedUser = await prisma.user.update({
-      where: { id: Number(id) },
+      where: { id: userId },
       data: {
         firstName,
         lastName,
@@ -31,11 +56,12 @@ export async function PUT(req) {
       },
     });
 
-    return new Response(JSON.stringify(updatedUser), { status: 200 });
+    return new NextResponse(JSON.stringify(updatedUser), { status: 200 });
   } catch (error) {
     console.error("Failed to update user:", error);
-    return new Response(JSON.stringify({ error: "Failed to update user" }), {
-      status: 500,
-    });
+    return new NextResponse(
+      JSON.stringify({ error: "Failed to update user" }),
+      { status: 500 }
+    );
   }
 }
