@@ -14,7 +14,7 @@ export async function DELETE(req, { params }) {
 
   // Trim part of the URL to get only the path to the file in the bucket
   const filePath = fileUrl
-    .replace("blob:http://", "blob:http:/") // Remove the extra "/"
+    .replace("blob:https://", "blob:https:/") // Remove the extra "/"
     .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
     ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
 

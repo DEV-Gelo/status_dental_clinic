@@ -180,8 +180,6 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       formData.append("specialization", specialization);
 
       let photoUrl = image;
-      console.log("initialImage :", initialImage);
-      console.log("Image :", image);
       if (image && image.includes("image-placeholder.png")) {
         await fetch("/api/users/edit/delete_photo", {
           method: "POST",

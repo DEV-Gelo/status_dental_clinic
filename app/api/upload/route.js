@@ -54,8 +54,6 @@ export async function PUT(req) {
     if (!file || !filePath) {
       throw new Error("File and filePath are required");
     }
-    console.log("formData :", formData);
-    console.log("filePath :", filePath);
     // Getting the path to the old photo from the database
     const user = await prisma.user.findUnique({
       where: { id: Number(userId) },
@@ -68,7 +66,6 @@ export async function PUT(req) {
       .replace("blob:https://", "blob:https:/") // Remove the extra "/"
       .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
       ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
-    console.log("fileOldPath :", fileOldPath);
     // Delete previous file
     const { dataDelete, deleteError } = await supabase.storage
       .from("uploads")
