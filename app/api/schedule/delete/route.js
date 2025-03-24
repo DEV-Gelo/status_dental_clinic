@@ -12,6 +12,7 @@ export async function DELETE(req) {
       );
     }
 
+    console.log("dates :", dates);
     let totalDeletedCount = 0;
 
     for (const dateString of dates) {
