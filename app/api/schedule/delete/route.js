@@ -17,16 +17,22 @@ export async function DELETE(req) {
 
     for (const dateString of dates) {
       const parsedDate = new Date(dateString);
-      parsedDate.setUTCHours(0, 0, 0, 0);
+      const adjustedDate = new Date(
+        Date.UTC(
+          parsedDate.getUTCFullYear(),
+          parsedDate.getUTCMonth(),
+          parsedDate.getUTCDate() + 2
+        )
+      );
 
       if (isNaN(parsedDate.getTime())) {
         continue; // Skip incorrect dates
       }
 
       // Move the date forward
-      const adjustedDate = new Date(parsedDate);
-      adjustedDate.setUTCDate(parsedDate.getUTCDate() + 2);
-      adjustedDate.setUTCHours(0, 0, 0, 0);
+      // const adjustedDate = new Date(parsedDate);
+      // adjustedDate.setUTCDate(parsedDate.getUTCDate() + 2);
+      // adjustedDate.setUTCHours(0, 0, 0, 0);
 
       const schedulesToDelete = await prisma.schedule.findMany({
         where: {
