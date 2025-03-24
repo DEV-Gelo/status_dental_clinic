@@ -17,23 +17,17 @@ export async function POST(req) {
 
     for (const dateString of dates) {
       // Convert the transferred date from a string into a date object
-      const dateParts = dateString.split("T")[0].split("-");
-      const year = parseInt(dateParts[0], 10);
-      const month = parseInt(dateParts[1], 10) - 1; // Months in JavaScript are indexed from 0
-      const day = parseInt(dateParts[2], 10);
-
-      // Create a new date taking into account the correct shift
-      const adjustedDate = new Date(Date.UTC(year, month, day + 1)); // Add 1 day to the date
+      const parsedDate = new Date(dateString);
 
       // Checking the correctness of the date
-      if (isNaN(adjustedDate.getTime())) {
+      if (isNaN(parsedDate.getTime())) {
         console.error("Invalid adjusted date");
         continue;
       }
 
       //Update the logic of working with adjustedDate instead of date
       const existingSchedule = await prisma.schedule.findFirst({
-        where: { date: adjustedDate, doctorId },
+        where: { date: parsedDate, doctorId },
       });
 
       let schedule;
@@ -41,7 +35,7 @@ export async function POST(req) {
         // If there is no schedule, create it
         schedule = await prisma.schedule.create({
           data: {
-            date: adjustedDate,
+            date: parsedDate,
             doctorId,
           },
         });
