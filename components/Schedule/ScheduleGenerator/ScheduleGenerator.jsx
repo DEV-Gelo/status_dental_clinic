@@ -21,8 +21,6 @@ const ScheduleGenerator = ({
   // ---------Translations-------------//
   const t = useTranslations("ScheduleGenerator");
 
-  // console.log("Props dates", dates);
-
   // Schedule generation
   const formattedSchedule = dates
     .map((date) => {
@@ -39,8 +37,6 @@ const ScheduleGenerator = ({
       });
     })
     .flat();
-
-  // console.log("formattedSchedule", formattedSchedule);
 
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -102,6 +98,7 @@ const ScheduleGenerator = ({
         onResetSelectedDates();
         setIsDeleting(false);
         onAlert("success", t("successAlertDel"));
+
         console.log("Deleting dates :", dates);
       } else {
         onAlert("error", t("error") + result.error);

@@ -38,6 +38,8 @@ export async function DELETE(req) {
         select: { id: true },
       });
 
+      console.log("Dates for deleting :", adjustedDate.toISOString());
+
       if (schedulesToDelete.length > 0) {
         const scheduleIdsToDelete = schedulesToDelete.map(
           (schedule) => schedule.id
