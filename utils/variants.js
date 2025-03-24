@@ -24,14 +24,14 @@ export const schedule_menu_variant = {
 };
 export const popup_form_variants = {
   open: {
-    y: 0,
+    height: "auto", // Автоматична висота при відкритті
     opacity: 1,
-    transition: { duration: 0.9, delay: 0.2, ease: [0.17, 0.55, 0.55, 1] },
+    transition: { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] },
   },
   closed: {
-    y: "-100%",
+    height: 0, // Закритий стан - висота 0
     opacity: 0,
-    transition: { duration: 0.9, delay: 0.2, ease: [0.17, 0.55, 0.55, 1] },
+    transition: { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] },
   },
 };
 

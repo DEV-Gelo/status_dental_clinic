@@ -98,8 +98,6 @@ const ScheduleGenerator = ({
         onResetSelectedDates();
         setIsDeleting(false);
         onAlert("success", t("successAlertDel"));
-
-        console.log("Deleting dates :", dates);
       } else {
         onAlert("error", t("error") + result.error);
       }

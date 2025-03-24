@@ -12,7 +12,6 @@ export async function DELETE(req) {
       );
     }
 
-    console.log("dates :", dates);
     let totalDeletedCount = 0;
 
     for (const dateString of dates) {
@@ -22,15 +21,6 @@ export async function DELETE(req) {
         continue; // Skip incorrect dates
       }
 
-      // // Move the date forward
-      // const adjustedDate = new Date(
-      //   parsedDate.getUTCFullYear(),
-      //   parsedDate.getUTCMonth(),
-      //   parsedDate.getUTCDate()
-      // );
-
-      // adjustedDate.setUTCHours(0, 0, 0, 0);
-
       const schedulesToDelete = await prisma.schedule.findMany({
         where: {
           date: parsedDate,
@@ -38,8 +28,6 @@ export async function DELETE(req) {
         },
         select: { id: true },
       });
-
-      console.log("Dates for deleting :", parsedDate);
 
       if (schedulesToDelete.length > 0) {
         const scheduleIdsToDelete = schedulesToDelete.map(

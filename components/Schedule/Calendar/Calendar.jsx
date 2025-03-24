@@ -152,8 +152,6 @@ export default function Calendar({
         updatedDates = [...selectedDates, newSelectedDate]; // Add date if not selected
       }
 
-      console.log("updatedDates :", updatedDates);
-
       if (JSON.stringify(updatedDates) !== JSON.stringify(selectedDates)) {
         setSelectedDates(updatedDates); // Update selected dates state
         onDateSelect(updatedDates); // Pass selected dates to parent component
