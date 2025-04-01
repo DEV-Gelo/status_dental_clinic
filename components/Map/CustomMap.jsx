@@ -23,9 +23,9 @@ const CustomMap = ({ position }) => {
     if (mapRef.current) {
       // Checking if the map is accessible before updating it
       const mapInstance = mapRef.current;
-      if (mapInstance && mapInstance.flyTo) {
+      if (mapInstance && mapInstance.setView) {
         // Smoothly move the map to new coordinates
-        mapInstance.flyTo(position, 15); // 15 is the zoom level
+        mapInstance.setView(position, 15); // 15 is the zoom level
       }
     }
   }, [position]); // Update the map when the position changes

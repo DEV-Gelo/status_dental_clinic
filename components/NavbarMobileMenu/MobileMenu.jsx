@@ -77,9 +77,8 @@ export default function MobileMenu({ links }) {
       animate={isOpen ? "open" : "closed"}
       className="flex lg:hidden justify-end w-full absolute top-[2rem] right-0"
     >
-      <div ref={toggleButtonRef}>
-        <MenuToggle toggle={handleMenu} />
-      </div>
+      <MenuToggle ref={toggleButtonRef} toggle={handleMenu} />
+
       <AnimatePresence>
         {isOpen && (
           <Section>

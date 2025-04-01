@@ -115,7 +115,13 @@ export const ServicesList = ({ showDescription = true, centering = false }) => {
             centering ? "items-center" : "items-start"
           }`}
         >
-          <Image src={item.icon} alt={item.name} width={50} height={50} />
+          <Image
+            src={item.icon}
+            alt=""
+            aria-hidden="true"
+            width={50}
+            height={50}
+          />
 
           <h3 className="text-nowrap text-[1rem] sm:text-[1.2rem] font-semibold tracking-wide mb-3">
             {item.name}

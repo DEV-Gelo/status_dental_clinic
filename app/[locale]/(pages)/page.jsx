@@ -31,7 +31,7 @@ const Home = () => {
         <div className="flex h-full w-full xl:w-[45%] flex-col ">
           <div className="flex w-full h-[5rem] bg-[#fff]"></div>
           <div className="flex relative flex-col w-full h-full justify-start items-start">
-            <h1 className="w-full sm:w-[26rem] absolute top-0 sm:top-10 left-5 text-center sm:text-left text-[2.5rem] sm:text-[4rem] font-bold pr-[2.5rem] sm:pr-0">
+            <h1 className="w-full sm:w-[26rem] absolute top-0 sm:top-10 left-5 text-center sm:text-left text-[2rem] sm:text-[4rem] font-bold pr-[2.5rem] sm:pr-0 mt-5 sm:mt-0">
               {t("mainTitle.treatYourself")}{" "}
               <span className="text-[#5ba3bb]">{t("mainTitle.white")}</span>{" "}
               {t("mainTitle.smile")}
@@ -40,7 +40,7 @@ const Home = () => {
               <div className="flex w-[8.9rem] h-[8.9rem] bg-[#fff]" />
               <div className="hidden sm:flex w-[8.9rem] h-[8.9rem] bg-[#5ba3bb]" />
             </div>
-            <div className="flex w-full h-auto justify-end items-center">
+            <div className="hidden sm:flex w-full h-auto justify-end items-center">
               <div className="flex w-[8.9rem] h-[8.9rem] bg-[#fff]" />
               <div className="hidden sm:flex w-[8.9rem] h-[8.9rem] bg-[#ccdde4]" />
               <div className="hidden sm:flex w-[8.9rem] h-[8.9rem] bg-[#5ba3bb]" />
@@ -69,8 +69,8 @@ const Home = () => {
             <Image
               src="/MainImage.webp"
               alt="Smile"
-              width={1000}
-              height={1000}
+              width={400}
+              height={400}
               className="object-cover w-full h-full"
             />
           </div>
