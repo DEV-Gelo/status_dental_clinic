@@ -95,7 +95,7 @@ const Home = () => {
           <h2 className="font-bold text-[2rem] md:text-[2.5rem] xl:text-[3rem]">
             {t("ExpertDental.title")}
           </h2>
-          <p className="text-[#A7ADAF] my-[3rem]">
+          <p className="text-[#666] my-[3rem]">
             {t("ExpertDental.descriptions")}
           </p>
           <div className="hidden sm:flex lg:flex-row sm:flex-col w-full h-auto items-center p-2">
@@ -164,7 +164,7 @@ const Home = () => {
           <h2 className="font-bold text-[2rem] md:text-[2.5rem] xl:text-[3rem]">
             {t("Professionals.title")}
           </h2>
-          <p className="text-[#A7ADAF] my-[3rem]">
+          <p className="text-[#666] my-[3rem]">
             {t("Professionals.descriptions")}
           </p>
           <div className="hidden lg:flex lg:flex-row sm:flex-col w-full h-auto items-center p-2">

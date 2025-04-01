@@ -12,7 +12,7 @@ export const theme = createTheme({
     },
     appointment: {
       main: "#5ba3bb",
-      contrastText: "#fff",
+      contrastText: "#000",
     },
   },
 });

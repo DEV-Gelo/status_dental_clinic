@@ -78,7 +78,7 @@ const Navbar = () => {
             Denta<span className="text-[#5ba3bb]">Pro</span>
           </Link>
         </div>
-        <div className="hidden lg:flex w-full h-full justify-center items-center font-bold text-[16px] gap-[5%]">
+        <div className="hidden lg:flex w-full h-full justify-center items-center font-semibold text-[16px] gap-[5%]">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
               <span
@@ -102,7 +102,7 @@ const Navbar = () => {
               size="large"
               color="appointment"
               variant="contained"
-              sx={{ whiteSpace: "nowrap", borderRadius: 0 }}
+              sx={{ whiteSpace: "nowrap", borderRadius: 0, fontWeight: "bold" }}
             >
               {t("appointment")}
             </Button>

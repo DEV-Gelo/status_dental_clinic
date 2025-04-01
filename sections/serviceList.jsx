@@ -29,30 +29,30 @@ export const ShortServicesList = () => {
   ];
 
   return (
-    <>
+    <ul className="flex w-full justify-between">
       {services.slice(0, 3).map((item) => (
-        <div
+        <li
           key={item.id}
           className="flex flex-col h-[9rem] w-auto justify-center mx-2"
         >
           <span className="text-[1rem] sm:text-[1.2rem] font-bold text-[#5BA3BB]">
             {`0${item.id}.`}
           </span>
-          <h6 className="text-[0.8rem] sm:text-[1rem] font-semibold tracking-wide mb-3">
+          <h3 className="text-[0.8rem] sm:text-[1rem] font-semibold tracking-wide mb-3">
             {item.name}
-          </h6>
+          </h3>
           <Link
             href={item.link}
-            className="flex items-center text-[0.6rem] sm:text-[0.8rem] text-nowrap text-[#A7ADAF] tracking-widest"
+            className="flex items-center text-[0.6rem] sm:text-[0.8rem] text-nowrap text-[#666] tracking-widest"
           >
             {t("Service.Learn More")}
             <span className="ml-2">
               <GoArrowRight />
             </span>
           </Link>
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 };
 export const ServicesList = ({ showDescription = true, centering = false }) => {
@@ -106,27 +106,26 @@ export const ServicesList = ({ showDescription = true, centering = false }) => {
   ];
 
   return (
-    <>
+    <ul className="flex flex-wrap">
       {services.map((item) => (
-        <div
+        <li
           key={item.id}
           className={`flex flex-col w-[15rem] h-auto m-[1.5rem] ${
             centering ? "items-center" : "items-start"
           }`}
         >
-          <span>
-            <Image src={item.icon} alt="Preventive" width={50} height={50} />
-          </span>
-          <h6 className="text-nowrap text-[1rem] sm:text-[1.2rem] font-semibold tracking-wide mb-3">
+          <Image src={item.icon} alt={item.name} width={50} height={50} />
+
+          <h3 className="text-nowrap text-[1rem] sm:text-[1.2rem] font-semibold tracking-wide mb-3">
             {item.name}
-          </h6>
+          </h3>
           {showDescription && (
-            <p className="text-[0.8rem] sm:text-[1rem] text-[#A7ADAF] leading-loose">
+            <p className="text-[0.8rem] sm:text-[1rem] text-[#666] leading-loose">
               {item.description}
             </p>
           )}
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 };

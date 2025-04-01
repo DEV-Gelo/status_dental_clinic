@@ -70,45 +70,51 @@ const Footer = () => {
   return (
     <div className="flex flex-wrap w-full min-h-[25rem] p-[4rem] justify-between bg-[#000]">
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("PatientInfo.title")}
-        </h6>
+        </h4>
         <ul>
           {patientInformation.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <li className="text-[#A7ADAF] my-1">{item.title}</li>
-            </Link>
+            <li className="text-[#A7ADAF] my-1">
+              <Link key={index} href={item.link}>
+                {item.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("Services.title")}
-        </h6>
+        </h4>
         <ul>
           {services.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <li className="text-[#A7ADAF] my-1">{item.title}</li>
-            </Link>
+            <li className="text-[#A7ADAF] my-1">
+              <Link key={index} href={item.link}>
+                {item.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("Legal.title")}
-        </h6>
+        </h4>
         <ul>
           {legal.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <li className="text-[#A7ADAF] my-1">{item.title}</li>
-            </Link>
+            <li className="text-[#A7ADAF] my-1">
+              <Link key={index} href={item.link}>
+                {item.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("ContactTitle")}
-        </h6>
+        </h4>
         {contactData.length > 0 && (
           <ul>
             <li className="text-[#A7ADAF] my-2 ">{contactData[0].country}</li>
@@ -133,14 +139,16 @@ const Footer = () => {
         )}
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h6 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("StayConnected")}
-        </h6>
+        </h4>
         <ul className="flex justify-between gap-10">
           {socialIcons.map((item) => (
-            <Link key={item.id} href={item.link}>
-              <li className="text-[#A7ADAF] my-2 ">{item.icon}</li>
-            </Link>
+            <li className="text-[#A7ADAF] my-2 ">
+              <Link key={item.id} href={item.link}>
+                {item.icon}
+              </Link>
+            </li>
           ))}
         </ul>
         <div className="flex justify-end">
