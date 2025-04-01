@@ -70,9 +70,9 @@ const Footer = () => {
   return (
     <div className="flex flex-wrap w-full min-h-[25rem] p-[4rem] justify-between bg-[#000]">
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h3 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("PatientInfo.title")}
-        </h4>
+        </h3>
         <ul>
           {patientInformation.map((item, index) => (
             <li key={index} className="text-[#A7ADAF] my-1">
@@ -82,9 +82,9 @@ const Footer = () => {
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h3 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("Services.title")}
-        </h4>
+        </h3>
         <ul>
           {services.map((item, index) => (
             <li key={index} className="text-[#A7ADAF] my-1">
@@ -94,9 +94,9 @@ const Footer = () => {
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h3 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("Legal.title")}
-        </h4>
+        </h3>
         <ul>
           {legal.map((item, index) => (
             <li key={index} className="text-[#A7ADAF] my-1">
@@ -106,9 +106,9 @@ const Footer = () => {
         </ul>
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h3 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("ContactTitle")}
-        </h4>
+        </h3>
         {contactData.length > 0 && (
           <ul>
             <li className="text-[#A7ADAF] my-2 ">{contactData[0].country}</li>
@@ -133,13 +133,18 @@ const Footer = () => {
         )}
       </div>
       <div className=" flex flex-col w-auto h-auto p-2 m-2">
-        <h4 className="font-semibold text-[1.2rem] text-[#fff] my-2">
+        <h3 className="font-semibold text-[1.2rem] text-[#fff] my-2">
           {t("StayConnected")}
-        </h4>
+        </h3>
         <ul className="flex justify-between gap-10">
           {socialIcons.map((item) => (
             <li key={item.id} className="text-[#A7ADAF] my-2 ">
-              <Link href={item.link}>{item.icon}</Link>
+              <Link
+                href={item.link}
+                aria-label={item.link.split(".")[0].split("/")[2]}
+              >
+                {item.icon}
+              </Link>
             </li>
           ))}
         </ul>

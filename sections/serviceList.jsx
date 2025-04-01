@@ -43,6 +43,7 @@ export const ShortServicesList = () => {
           </h3>
           <Link
             href={item.link}
+            aria-label={`Learn more about ${item.name} service`}
             className="flex items-center text-[0.6rem] sm:text-[0.8rem] text-nowrap text-[#666] tracking-widest"
           >
             {t("Service.Learn More")}

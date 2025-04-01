@@ -21,7 +21,12 @@ const SocialAside = () => {
     <aside className="hidden sm:flex flex-col w-[4rem] h-full fixed top-0 right-0">
       <div className="flex flex-[60.9%] flex-col justify-center items-center bg-[#ccdde4]">
         {socialIcons.map((item) => (
-          <Link className="m-4" href={item.link} key={item.id}>
+          <Link
+            className="m-4"
+            href={item.link}
+            key={item.id}
+            aria-label={item.link.split(".")[0].split("/")[2]}
+          >
             {item.icon}
           </Link>
         ))}
