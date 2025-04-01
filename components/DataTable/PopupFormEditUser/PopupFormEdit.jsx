@@ -57,9 +57,9 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         setEmail(data.email || "");
         setInitialEmail(data.email || "");
         setSpecialization(data.specialization || "");
-        setImage(data.photo || "/image-placeholder.png");
-        setInitialImage(data.photo || "/image-placeholder.png");
-        setSwitchDisplayPhoto(data.photo !== "/image-placeholder.png");
+        setImage(data.photo || "/image-placeholder.svg");
+        setInitialImage(data.photo || "/image-placeholder.svg");
+        setSwitchDisplayPhoto(data.photo !== "/image-placeholder.svg");
         setLoadingData(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -76,7 +76,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       const newState = !prev;
 
       if (!newState) {
-        setImage("/image-placeholder.png");
+        setImage("/image-placeholder.svg");
         setFile(null);
       }
 
@@ -180,7 +180,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       formData.append("specialization", specialization);
 
       let photoUrl = image;
-      if (image && image.includes("image-placeholder.png")) {
+      if (image && image.includes("image-placeholder.svg")) {
         await fetch("/api/users/edit/delete_photo", {
           method: "POST",
           body: JSON.stringify({ photoUrl: initialImage }),

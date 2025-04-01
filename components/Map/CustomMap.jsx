@@ -11,7 +11,7 @@ const CustomMap = ({ position }) => {
   const t = useTranslations("CustomMap");
   // -----Marker icon----------//
   const customIcon = new L.Icon({
-    iconUrl: "/marker-icon.png",
+    iconUrl: "/marker-icon.svg",
     iconSize: [25, 41],
     iconAnchor: [12, 41], // Anchor point
     popupAnchor: [1, -34], // Popup position

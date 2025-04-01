@@ -24,12 +24,12 @@ export const schedule_menu_variant = {
 };
 export const popup_form_variants = {
   open: {
-    height: "auto", // Автоматична висота при відкритті
+    height: "auto",
     opacity: 1,
     transition: { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] },
   },
   closed: {
-    height: 0, // Закритий стан - висота 0
+    height: 0,
     opacity: 0,
     transition: { duration: 0.5, ease: [0.17, 0.55, 0.55, 1] },
   },

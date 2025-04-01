@@ -67,7 +67,7 @@ const Home = () => {
           <div className="hidden sm:flex absolute bottom-[8.9rem] right-[8.9rem] w-[8.9rem] h-[8.9rem] bg-[#ccdde470]" />
           <div className="flex w-full h-full">
             <Image
-              src="/MainImage.jpg"
+              src="/MainImage.webp"
               alt="Smile"
               width={1000}
               height={1000}
@@ -81,7 +81,7 @@ const Home = () => {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Expert_dental.jpg"
+              src="/Expert_dental.webp"
               alt="Expert dental"
               width={700}
               height={700}
@@ -153,7 +153,7 @@ const Home = () => {
           <div className="hidden lg:flex absolute top-[-8rem] left-[2rem] w-[87%] h-full lg:h-[90%] xl:h-full border-[1px] border-[#5BA3BB]" />
           <div className="flex lg:absolute top-[-10rem] left-0 w-full h-full pr-0 sm:pr-[4rem] lg:pb-[4rem] xl:pb-0">
             <Image
-              src="/Professionals.jpg"
+              src="/Professionals.webp"
               alt="Professionals"
               width={500}
               height={500}
@@ -191,7 +191,7 @@ const Home = () => {
           </div>
           <div className="flex mr-[6rem]">
             <Image
-              src="/AnnaMarie.jpg"
+              src="/AnnaMarie.webp"
               alt="AnnaMarie"
               width={500}
               height={500}
@@ -209,7 +209,7 @@ const Home = () => {
           </div>
           <div className="flex w-[80%] mr-5">
             <Image
-              src="/MarcoPolono.jpg"
+              src="/MarcoPolono.webp"
               alt="MarcoPolono"
               width={500}
               height={500}
@@ -240,7 +240,7 @@ const Home = () => {
           </div>
           <div className="flex mr-[1rem]">
             <Image
-              src="/AnnaMarie.jpg"
+              src="/AnnaMarie.webp"
               alt="AnnaMarie"
               width={500}
               height={500}
@@ -266,7 +266,7 @@ const Home = () => {
           </div>
           <div className="flex w-[80%]">
             <Image
-              src="/MarcoPolono.jpg"
+              src="/MarcoPolono.webp"
               alt="MarcoPolono"
               width={500}
               height={500}

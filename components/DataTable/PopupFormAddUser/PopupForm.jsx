@@ -133,7 +133,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
       }
 
       // **2. Upload photo (only if email and phone unique)**
-      let photoUrl = "/image-placeholder.png"; // Default avatar
+      let photoUrl = "/image-placeholder.svg"; // Default avatar
 
       if (file) {
         const allowedTypes = ["image/jpeg", "image/png"];

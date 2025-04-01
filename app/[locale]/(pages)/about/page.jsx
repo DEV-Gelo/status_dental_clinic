@@ -18,7 +18,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Dental_Clinic.jpg"
+              src="/Dental_Clinic.webp"
               alt="Dental Clinic"
               width={700}
               height={700}
@@ -43,7 +43,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4.5rem] ml-0 sm:ml-[4rem] xl:ml-[8rem] z-10 order-2">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pr-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Team.jpg"
+              src="/Team.webp"
               alt="Team"
               width={700}
               height={700}
@@ -66,7 +66,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Equipment.jpg"
+              src="/Equipment.webp"
               alt="Equipment"
               width={700}
               height={700}
@@ -89,7 +89,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4.5rem] ml-0 sm:ml-[4rem] xl:ml-[8rem] z-10 order-2">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pr-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Service.jpg"
+              src="/Service.webp"
               alt="Service"
               width={700}
               height={700}
@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="flex w-full h-full justify-center items-center sm:w-[40%] mr-0 sm:mr-[4rem] xl:mr-[8rem] z-10 order-2 sm:order-1">
           <div className="flex flex-col relative w-auto h-auto pt-[4rem] pl-[4rem] bg-[#ccdde4]">
             <Image
-              src="/Comfort.jpg"
+              src="/Comfort.webp"
               alt="Comfort"
               width={700}
               height={700}

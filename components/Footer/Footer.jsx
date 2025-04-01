@@ -13,6 +13,14 @@ import {
 import { AiOutlineMail } from "react-icons/ai";
 import { LiaPhoneSolid } from "react-icons/lia";
 
+export async function getContactData() {
+  const response = await fetch("/api/admin_setting/contact", {
+    cache: "force-cache",
+  });
+  if (!response.ok) throw new Error("Failed to fetch contact data");
+  return response.json();
+}
+
 const Footer = () => {
   const [contactData, setContactData] = useState([]);
   // ----- Get local--------//
@@ -49,22 +57,7 @@ const Footer = () => {
   ];
   //   -------- Fetch contact data ---------------//
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/admin_setting/contact");
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || "An error occurred while receiving data"
-          );
-        }
-        const data = await response.json();
-        setContactData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
+    getContactData().then(setContactData).catch(console.error);
   }, []);
 
   return (
