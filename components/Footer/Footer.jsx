@@ -75,10 +75,8 @@ const Footer = () => {
         </h4>
         <ul>
           {patientInformation.map((item, index) => (
-            <li className="text-[#A7ADAF] my-1">
-              <Link key={index} href={item.link}>
-                {item.title}
-              </Link>
+            <li key={index} className="text-[#A7ADAF] my-1">
+              <Link href={item.link}>{item.title}</Link>
             </li>
           ))}
         </ul>
@@ -89,10 +87,8 @@ const Footer = () => {
         </h4>
         <ul>
           {services.map((item, index) => (
-            <li className="text-[#A7ADAF] my-1">
-              <Link key={index} href={item.link}>
-                {item.title}
-              </Link>
+            <li key={index} className="text-[#A7ADAF] my-1">
+              <Link href={item.link}>{item.title}</Link>
             </li>
           ))}
         </ul>
@@ -103,10 +99,8 @@ const Footer = () => {
         </h4>
         <ul>
           {legal.map((item, index) => (
-            <li className="text-[#A7ADAF] my-1">
-              <Link key={index} href={item.link}>
-                {item.title}
-              </Link>
+            <li key={index} className="text-[#A7ADAF] my-1">
+              <Link href={item.link}>{item.title}</Link>
             </li>
           ))}
         </ul>
@@ -144,10 +138,8 @@ const Footer = () => {
         </h4>
         <ul className="flex justify-between gap-10">
           {socialIcons.map((item) => (
-            <li className="text-[#A7ADAF] my-2 ">
-              <Link key={item.id} href={item.link}>
-                {item.icon}
-              </Link>
+            <li key={item.id} className="text-[#A7ADAF] my-2 ">
+              <Link href={item.link}>{item.icon}</Link>
             </li>
           ))}
         </ul>
