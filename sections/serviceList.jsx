@@ -38,9 +38,9 @@ export const ShortServicesList = () => {
           <span className="text-[1rem] sm:text-[1.2rem] font-bold text-[#5BA3BB]">
             {`0${item.id}.`}
           </span>
-          <h3 className="text-[0.8rem] sm:text-[1rem] font-semibold tracking-wide mb-3">
+          <h2 className="text-[0.8rem] sm:text-[1rem] font-semibold tracking-wide mb-3">
             {item.name}
-          </h3>
+          </h2>
           <Link
             href={item.link}
             aria-label={`Learn more about ${item.name} service`}

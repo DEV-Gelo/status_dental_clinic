@@ -69,8 +69,8 @@ const Home = () => {
             <Image
               src="/MainImage.webp"
               alt="Smile"
-              width={400}
-              height={400}
+              width={500}
+              height={300}
               className="object-cover w-full h-full"
             />
           </div>
@@ -193,7 +193,7 @@ const Home = () => {
             <Image
               src="/AnnaMarie.webp"
               alt="AnnaMarie"
-              width={500}
+              width={300}
               height={500}
             />
           </div>
@@ -211,7 +211,7 @@ const Home = () => {
             <Image
               src="/MarcoPolono.webp"
               alt="MarcoPolono"
-              width={500}
+              width={300}
               height={500}
             />
             <div className="flex w-auto h-full items-start justify-end">
