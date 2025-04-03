@@ -1,7 +1,15 @@
-// ----Uploading a file to the storage in supabase----//
+// ----Uploading a file to the storage in backblaze----//
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { supabase } from "@/lib/supabase";
+import AWS from "aws-sdk";
+import crypto from "crypto";
+
+// Конфігурація AWS S3 (Backblaze B2)
+const s3 = new AWS.S3({
+  endpoint: process.env.BACKBLAZE_ENDPOINT, // Наприклад: https://s3.us-west-001.backblazeb2.com
+  accessKeyId: process.env.BACKBLAZE_KEY_ID,
+  secretAccessKey: process.env.BACKBLAZE_APPLICATION_KEY,
+  signatureVersion: "v4",
+});
 
 export async function POST(req) {
   try {
@@ -12,94 +20,93 @@ export async function POST(req) {
       throw new Error("No file uploaded");
     }
 
-    // Generating a unique name for a file
-    const fileName = `${Date.now()}-${file.name}`;
+    // Генеруємо унікальне ім'я файлу
+    const fileName = `${Date.now()}-${crypto.randomUUID()}-${file.name}`;
 
-    // Uploading a file to Supabase
-    const { data, error } = await supabase.storage
-      .from("uploads") // Name of bucket
-      .upload(fileName, file, {
-        cacheControl: "3600", // Set caching
-        upsert: true, // If a file with that name already exists, overwrite it.
-      });
+    // Читаємо файл у буфер
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    // If there is an error during download
-    if (error) {
-      console.error("Supabase upload error:", error.message);
-      return NextResponse.json(
-        { status: "fail", error: error.message },
-        { status: 500 }
-      );
-    }
+    // Завантажуємо у Backblaze B2
+    const params = {
+      Bucket: process.env.BACKBLAZE_BUCKET_NAME,
+      Key: fileName,
+      Body: fileBuffer,
+      ContentType: file.type,
+      ACL: "public-read",
+    };
 
-    // Return a successful response from the file URL
-    return NextResponse.json({
-      status: "success",
-      fileUrl: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/${fileName}`,
-    });
+    await s3.upload(params).promise();
+
+    const fileUrl = `${process.env.BACKBLAZE_ENDPOINT}/${process.env.BACKBLAZE_BUCKET_NAME}/${fileName}`;
+
+    return NextResponse.json({ status: "success", fileUrl });
   } catch (error) {
-    console.error("Error in file upload:", error.message);
+    console.error("Error uploading file:", error.message);
     return NextResponse.json(
       { status: "fail", error: error.message },
       { status: 500 }
     );
   }
 }
+
+// ----------Method PUT--------------//
+
 export async function PUT(req) {
   try {
     const formData = await req.formData();
     const file = formData.get("file");
-    const filePath = formData.get("filePath"); // Path to an existing file
-    const userId = formData.get("userId"); // id of the user whose photo is being updated
-    if (!file || !filePath) {
-      throw new Error("File and filePath are required");
+    const userId = formData.get("userId");
+
+    if (!file || !userId) {
+      throw new Error("File and userId are required");
     }
-    // Getting the path to the old photo from the database
+
+    // Отримуємо поточний URL фото з бази
     const user = await prisma.user.findUnique({
       where: { id: Number(userId) },
-      select: { photo: true }, // Get only photo field
+      select: { photo: true },
     });
-    const fileUrl = user.photo;
 
-    // Trim part of the URL to get only the path to the file in the bucket
-    const fileOldPath = fileUrl
-      .replace("blob:https://", "blob:https:/") // Remove the extra "/"
-      .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
-      ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
-    // Delete previous file
-    const { dataDelete, deleteError } = await supabase.storage
-      .from("uploads")
-      .remove([fileOldPath]);
+    if (!user) throw new Error("User not found");
 
-    if (deleteError) {
-      console.error("Error deleting old file:", deleteError.message);
-    } else {
-      console.log("Old file deleted successfully!");
+    // Видаляємо старий файл (якщо є)
+    if (user.photo) {
+      const oldFileKey = user.photo.split("/").pop();
+      await s3
+        .deleteObject({
+          Bucket: process.env.BACKBLAZE_BUCKET_NAME,
+          Key: oldFileKey,
+        })
+        .promise();
     }
 
-    // Upload the file, allowing overwriting
-    const { data, error } = await supabase.storage
-      .from("uploads") // Name of bucket
-      .upload(filePath, file, {
-        cacheControl: "3600", // Set caching
-        upsert: true, // If a file with that name already exists, overwrite it.
-      });
+    // Генеруємо унікальне ім'я нового файлу
+    const fileName = `${Date.now()}-${crypto.randomUUID()}-${file.name}`;
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    // If there is an error during download
-    if (error) {
-      console.error("Supabase upload error:", error.message);
-      return NextResponse.json(
-        { status: "fail", error: error.message },
-        { status: 500 }
-      );
-    }
-    // Return a successful response from the file URL
-    return NextResponse.json({
-      status: "success",
-      fileUrl: `${process.env.SUPABASE_URL}/storage/v1/object/public/uploads/${filePath}`,
+    // Завантажуємо новий файл
+    await s3
+      .upload({
+        Bucket: process.env.BACKBLAZE_BUCKET_NAME,
+        Key: fileName,
+        Body: fileBuffer,
+        ContentType: file.type,
+        ACL: "public-read",
+      })
+      .promise();
+
+    // Новий URL
+    const fileUrl = `${process.env.BACKBLAZE_ENDPOINT}/${process.env.BACKBLAZE_BUCKET_NAME}/${fileName}`;
+
+    // Оновлюємо запис у базі
+    await prisma.user.update({
+      where: { id: Number(userId) },
+      data: { photo: fileUrl },
     });
+
+    return NextResponse.json({ status: "success", fileUrl });
   } catch (error) {
-    console.error("Error in file upload:", error.message);
+    console.error("Error updating file:", error.message);
     return NextResponse.json(
       { status: "fail", error: error.message },
       { status: 500 }
