@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
 import "./globals.css";
-
+// ---------Fonts-----------//
 const kollektif = localFont({
   src: "../fonts/Kollektif.woff2",
   variable: "--font-kollektif",
@@ -23,8 +23,8 @@ export const metadata = {
   openGraph: {
     title: "DentaPro",
     description:
-      "Стоматологічна клініка DentaPro пропонує широкий спектр стоматологічних послуг для дорослих і дітей. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
-    url: "https://denta-pro.com/",
+      "Стоматологічна клініка DentaPro пропонує широкий спектр стоматологічних послуг для дорослих та дітей. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
+    url: "https://dentalpro-gzla.vercel.app/",
     siteName: "DentaPro",
     locale: "uk-UA",
     type: "website",
@@ -42,7 +42,7 @@ export const metadata = {
 export default async function RootLayout({ children, params }) {
   const { locale } = params;
 
-  // Перевірка, чи є локаль в списку доступних
+  // Checking if a locale is in the list of available ones
   if (!routing.locales.includes(locale)) {
     notFound();
   }
