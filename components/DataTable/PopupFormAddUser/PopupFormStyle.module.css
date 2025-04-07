@@ -55,7 +55,7 @@
   width: 100px;
   height: 100px;
   overflow: hidden;
-  background-image: url("/image-placeholder.png");
+  background-image: url("/image-placeholder.svg");
   background-size: cover;
   background-position: center;
 }

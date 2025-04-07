@@ -1,14 +1,18 @@
-// ----Uploading a file to the storage in backblaze----//
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
-import AWS from "aws-sdk";
 import crypto from "crypto";
 
-// Конфігурація AWS S3 (Backblaze B2)
-const s3 = new AWS.S3({
-  endpoint: process.env.BACKBLAZE_ENDPOINT, // Наприклад: https://s3.us-west-001.backblazeb2.com
-  accessKeyId: process.env.BACKBLAZE_KEY_ID,
-  secretAccessKey: process.env.BACKBLAZE_APPLICATION_KEY,
-  signatureVersion: "v4",
+const s3 = new S3Client({
+  endpoint: process.env.WASABI_ENDPOINT, // Wasabi endpoint
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.WASABI_ACCESS_KEY,
+    secretAccessKey: process.env.WASABI_SECRET_KEY,
+  },
 });
 
 export async function POST(req) {
@@ -20,26 +24,31 @@ export async function POST(req) {
       throw new Error("No file uploaded");
     }
 
-    // Генеруємо унікальне ім'я файлу
     const fileName = `${Date.now()}-${crypto.randomUUID()}-${file.name}`;
-
-    // Читаємо файл у буфер
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Завантажуємо у Backblaze B2
-    const params = {
-      Bucket: process.env.BACKBLAZE_BUCKET_NAME,
+    const uploadParams = {
+      Bucket: process.env.WASABI_BUCKET_NAME,
       Key: fileName,
       Body: fileBuffer,
       ContentType: file.type,
-      ACL: "public-read",
     };
 
-    await s3.upload(params).promise();
+    try {
+      const response = await s3.send(new PutObjectCommand(uploadParams));
 
-    const fileUrl = `${process.env.BACKBLAZE_ENDPOINT}/${process.env.BACKBLAZE_BUCKET_NAME}/${fileName}`;
+      // Тепер генеруємо правильний URL для файлу
+      const fileUrl = `https://s3.us-east-1.wasabisys.com/${process.env.WASABI_BUCKET_NAME}/${fileName}`;
+      console.log("Generated file URL:", fileUrl);
 
-    return NextResponse.json({ status: "success", fileUrl });
+      return NextResponse.json({ status: "success", fileUrl });
+    } catch (error) {
+      console.error("Upload error:", error);
+      return NextResponse.json(
+        { status: "fail", error: error.message },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error("Error uploading file:", error.message);
     return NextResponse.json(
@@ -49,7 +58,7 @@ export async function POST(req) {
   }
 }
 
-// ----------Method PUT--------------//
+// 🔹 UPDATE FILE (PUT)
 
 export async function PUT(req) {
   try {
@@ -71,13 +80,12 @@ export async function PUT(req) {
 
     // Видаляємо старий файл (якщо є)
     if (user.photo) {
-      const oldFileKey = user.photo.split("/").pop();
-      await s3
-        .deleteObject({
-          Bucket: process.env.BACKBLAZE_BUCKET_NAME,
-          Key: oldFileKey,
-        })
-        .promise();
+      const oldFileKey = user.photo.split("/").pop(); // Беремо назву файлу
+      const deleteParams = {
+        Bucket: process.env.WASABI_BUCKET_NAME,
+        Key: oldFileKey,
+      };
+      await s3.send(new DeleteObjectCommand(deleteParams)); // Видалення старого файлу
     }
 
     // Генеруємо унікальне ім'я нового файлу
@@ -85,18 +93,18 @@ export async function PUT(req) {
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
     // Завантажуємо новий файл
-    await s3
-      .upload({
-        Bucket: process.env.BACKBLAZE_BUCKET_NAME,
-        Key: fileName,
-        Body: fileBuffer,
-        ContentType: file.type,
-        ACL: "public-read",
-      })
-      .promise();
+    const uploadParams = {
+      Bucket: process.env.WASABI_BUCKET_NAME,
+      Key: fileName,
+      Body: fileBuffer,
+      ContentType: file.type,
+      ACL: "public-read", // Можна прибрати, якщо не потрібно
+    };
+    const uploadCommand = new PutObjectCommand(uploadParams);
+    await s3.send(uploadCommand);
 
-    // Новий URL
-    const fileUrl = `${process.env.BACKBLAZE_ENDPOINT}/${process.env.BACKBLAZE_BUCKET_NAME}/${fileName}`;
+    // Формуємо правильний URL для доступу до файлу
+    const fileUrl = `https://s3.wasabisys.com/${process.env.WASABI_BUCKET_NAME}/${fileName}`;
 
     // Оновлюємо запис у базі
     await prisma.user.update({

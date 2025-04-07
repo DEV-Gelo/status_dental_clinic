@@ -28,6 +28,7 @@ import DeleteUserForm from "@/components/DataTable/DeleteUserForm/DeleteUserForm
 import PopupForm from "@/components/DataTable/PopupFormAddUser/PopupForm";
 import PopupFormEdit from "@/components/DataTable/PopupFormEditUser/PopupFormEdit";
 import FormAddAppointment from "@/components/DataTable/FormAddAppointment/FormAddAppointment";
+import AccessPhoto from "@/components/DataTable/AccessPhoto/AccessPhoto";
 
 const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -322,14 +323,7 @@ const Users = () => {
                 >
                   <td className={styles.id_td}>{index + 1}</td>
                   <td className={styles.photo_td}>
-                    {user.photo && (
-                      <Image
-                        src={user.photo}
-                        alt="User photo"
-                        width={50}
-                        height={50}
-                      />
-                    )}
+                    <AccessPhoto fileKey={user.photo} />
                   </td>
                   <td>
                     {user.lastName} {user.firstName} {user.patronymic}

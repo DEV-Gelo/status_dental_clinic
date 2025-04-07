@@ -6,10 +6,21 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "naajexduhqhlzvoabekd.supabase.co", // Domen Supabase
-        pathname: "/storage/v1/object/public/uploads/**", // Allowed path
+        hostname: "s3.wasabisys.com",
+        pathname: "/dentapro/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dentapro.s3.us-east-1.wasabisys.com",
+        pathname: "/**",
       },
     ],
+  },
+  env: {
+    WASABI_BUCKET_NAME: process.env.WASABI_BUCKET_NAME,
+    WASABI_ENDPOINT: process.env.WASABI_ENDPOINT,
+    WASABI_ACCESS_KEY: process.env.WASABI_ACCESS_KEY,
+    WASABI_SECRET_KEY: process.env.WASABI_SECRET_KEY,
   },
 };
 

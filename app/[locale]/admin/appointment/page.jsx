@@ -7,6 +7,7 @@ import Calendar from "@/components/Schedule/Calendar/Calendar";
 import SliderTime from "@/components/Schedule/SliderTime/SliderTime";
 import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleGenerator";
 import DataTable from "@/components/Schedule/DataTable/DataTable";
+import AccessPhoto from "@/components/DataTable/AccessPhoto/AccessPhoto";
 // --------------Import MUI components-----------------//
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
@@ -150,13 +151,14 @@ const Appointment = () => {
             <div className="flex justify-center items-center bg-[#5ba3bb] rounded-t-lg p-[0.3rem]">
               <div className="flex ">
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
-                  <Image
-                    src={doctor?.photo || "/image-placeholder.png"}
+                  <AccessPhoto fileKey={doctor?.photo} />
+                  {/* <Image
+                    src={doctor?.photo || "/image-placeholder.svg"}
                     alt="Doctor photo"
                     width={50}
                     height={50}
                     className="flex object-cover"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="flex p-3">
