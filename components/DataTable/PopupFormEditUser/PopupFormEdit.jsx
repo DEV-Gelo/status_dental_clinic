@@ -179,14 +179,14 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       formData.append("email", email);
       formData.append("specialization", specialization);
 
-      let photoUrl = image;
-      if (image && image.includes("image-placeholder.svg")) {
-        await fetch("/api/users/edit/delete_photo", {
-          method: "POST",
-          body: JSON.stringify({ photoUrl: initialImage }),
-          headers: { "Content-Type": "application/json" },
-        });
-      }
+      // let photoUrl = image;
+      // if (image && image.includes("image-placeholder.svg")) {
+      //   await fetch("/api/users/edit/delete_photo", {
+      //     method: "POST",
+      //     body: JSON.stringify({ photoUrl: initialImage }),
+      //     headers: { "Content-Type": "application/json" },
+      //   });
+      // }
 
       if (file) {
         const allowedTypes = ["image/jpeg", "image/png"];
