@@ -5,6 +5,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import prisma from "@/lib/prisma";
 
 const s3 = new S3Client({
   endpoint: process.env.WASABI_ENDPOINT, // Wasabi endpoint
@@ -37,9 +38,8 @@ export async function POST(req) {
     try {
       const response = await s3.send(new PutObjectCommand(uploadParams));
 
-      // Тепер генеруємо правильний URL для файлу
+      // Generate the correct URL for the file
       const fileUrl = `https://s3.us-east-1.wasabisys.com/${process.env.WASABI_BUCKET_NAME}/${fileName}`;
-      console.log("Generated file URL:", fileUrl);
 
       return NextResponse.json({ status: "success", fileUrl });
     } catch (error) {
@@ -70,7 +70,7 @@ export async function PUT(req) {
       throw new Error("File and userId are required");
     }
 
-    // Отримуємо поточний URL фото з бази
+    // Get old URL
     const user = await prisma.user.findUnique({
       where: { id: Number(userId) },
       select: { photo: true },
@@ -78,35 +78,44 @@ export async function PUT(req) {
 
     if (!user) throw new Error("User not found");
 
-    // Видаляємо старий файл (якщо є)
-    if (user.photo) {
-      const oldFileKey = user.photo.split("/").pop(); // Беремо назву файлу
-      const deleteParams = {
-        Bucket: process.env.WASABI_BUCKET_NAME,
-        Key: oldFileKey,
-      };
-      await s3.send(new DeleteObjectCommand(deleteParams)); // Видалення старого файлу
+    const isPlaceholder = user.photo === "/image-placeholder.svg";
+
+    // If the photo is not a placeholder, delete it from Wasabi
+    if (user.photo && !isPlaceholder) {
+      const oldFileKey = user.photo.split("/").pop();
+
+      if (oldFileKey) {
+        const deleteParams = {
+          Bucket: process.env.WASABI_BUCKET_NAME,
+          Key: oldFileKey,
+        };
+
+        try {
+          await s3.send(new DeleteObjectCommand(deleteParams));
+        } catch (deleteError) {
+          console.warn("Failed to delete old file:", deleteError.message);
+        }
+      }
     }
 
-    // Генеруємо унікальне ім'я нового файлу
+    // Generating a new name
     const fileName = `${Date.now()}-${crypto.randomUUID()}-${file.name}`;
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Завантажуємо новий файл
+    // Uploading a new photo
     const uploadParams = {
       Bucket: process.env.WASABI_BUCKET_NAME,
       Key: fileName,
       Body: fileBuffer,
       ContentType: file.type,
-      ACL: "public-read", // Можна прибрати, якщо не потрібно
     };
-    const uploadCommand = new PutObjectCommand(uploadParams);
-    await s3.send(uploadCommand);
 
-    // Формуємо правильний URL для доступу до файлу
-    const fileUrl = `https://s3.wasabisys.com/${process.env.WASABI_BUCKET_NAME}/${fileName}`;
+    await s3.send(new PutObjectCommand(uploadParams));
 
-    // Оновлюємо запис у базі
+    // Forming a URL to a new photo
+    const fileUrl = `https://s3.us-east-1.wasabisys.com/${process.env.WASABI_BUCKET_NAME}/${fileName}`;
+
+    // Оновлюємо в базі
     await prisma.user.update({
       where: { id: Number(userId) },
       data: { photo: fileUrl },

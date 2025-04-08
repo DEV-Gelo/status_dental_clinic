@@ -16,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
+import AccessPhoto from "../AccessPhoto/AccessPhoto";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -41,33 +42,37 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
   const pathname = usePathname();
 
   // --------Get data from users-------------//
-  useEffect(() => {
-    if (!userId) return;
+  useEffect(
+    () => {
+      if (!userId) return;
 
-    const fetchUserData = async () => {
-      try {
-        setLoadingData(true);
-        const response = await fetch(`/api/users/edit/${userId}`);
-        const data = await response.json();
-        setFirstName(data.firstName || "");
-        setLastName(data.lastName || "");
-        setPatronymic(data.patronymic || "");
-        setPhone(data.phone || "");
-        setInitialPhone(data.phone || "");
-        setEmail(data.email || "");
-        setInitialEmail(data.email || "");
-        setSpecialization(data.specialization || "");
-        setImage(data.photo || "/image-placeholder.svg");
-        setInitialImage(data.photo || "/image-placeholder.svg");
-        setSwitchDisplayPhoto(data.photo !== "/image-placeholder.svg");
-        setLoadingData(false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+      const fetchUserData = async () => {
+        try {
+          setLoadingData(true);
+          const response = await fetch(`/api/users/edit/${userId}`);
+          const data = await response.json();
+          setFirstName(data.firstName || "");
+          setLastName(data.lastName || "");
+          setPatronymic(data.patronymic || "");
+          setPhone(data.phone || "");
+          setInitialPhone(data.phone || "");
+          setEmail(data.email || "");
+          setInitialEmail(data.email || "");
+          setSpecialization(data.specialization || "");
+          setImage(data.photo || "/image-placeholder.svg");
+          setInitialImage(data.photo || "/image-placeholder.svg");
+          setSwitchDisplayPhoto(data.photo !== "/image-placeholder.svg");
+          setLoadingData(false);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
 
-    fetchUserData();
-  }, [userId]);
+      fetchUserData();
+    },
+    [userId],
+    [image]
+  );
 
   // ---------Switch mode with photo or without-------------//
 
@@ -179,14 +184,14 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
       formData.append("email", email);
       formData.append("specialization", specialization);
 
-      // let photoUrl = image;
-      // if (image && image.includes("image-placeholder.svg")) {
-      //   await fetch("/api/users/edit/delete_photo", {
-      //     method: "POST",
-      //     body: JSON.stringify({ photoUrl: initialImage }),
-      //     headers: { "Content-Type": "application/json" },
-      //   });
-      // }
+      let photoUrl = image;
+      if (image && image.includes("image-placeholder.svg")) {
+        await fetch("/api/users/edit/delete_photo", {
+          method: "POST",
+          body: JSON.stringify({ photoUrl: initialImage }),
+          headers: { "Content-Type": "application/json" },
+        });
+      }
 
       if (file) {
         const allowedTypes = ["image/jpeg", "image/png"];
@@ -202,12 +207,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
           return;
         }
 
-        const filePath = image
-          ? image.replace(
-              `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/`,
-              ""
-            )
-          : `${Date.now()}-${file.name}`;
+        const filePath = `${Date.now()}-${file.name}`;
 
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
@@ -222,7 +222,8 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
         const uploadResult = await uploadResponse.json();
 
         if (uploadResponse.ok && uploadResult.status === "success") {
-          photoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/uploads/${filePath}`;
+          // Forming a URL for a file in Wasabi
+          photoUrl = uploadResult.fileUrl;
         } else {
           onAlert("error", t("validation.uploadError"));
           return;
@@ -274,7 +275,13 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
             >
               <div className={styles.photo_field}>
                 <div className={styles.displaying_file}>
-                  {image && <img src={image} alt="Uploaded" />}
+                  {image?.startsWith("blob:") ? (
+                    // Якщо локальний blob — просто img
+                    <img src={image} alt="Uploaded" />
+                  ) : image ? (
+                    // Якщо це fileKey з Wasabi — використовуємо AccessPhoto
+                    <AccessPhoto fileKey={image} />
+                  ) : null}
                 </div>
 
                 <UploadPhotoForm handleFileChange={handleFileChange} />

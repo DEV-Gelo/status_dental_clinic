@@ -13,21 +13,24 @@ const s3 = new S3Client({
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   let fileKey = searchParams.get("key");
-  // Якщо fileKey містить домен, ми просто видаляємо його
-  const baseUrl = "https://s3.us-east-1.wasabisys.com/dentapro/";
+
+  const baseUrl = "https://dentapro.s3.us-east-1.wasabisys.com/";
+
+  // If fileKey contains a domain, remove it
   if (fileKey && fileKey.startsWith(baseUrl)) {
-    fileKey = fileKey.slice(baseUrl.length); // Видаляємо домен
+    fileKey = fileKey.replace(baseUrl, ""); // Видаляємо домен
   }
+
+  // Check if fileKey exists and remove extra slashes
   if (fileKey.startsWith("/")) {
     fileKey = fileKey.slice(1);
   }
 
-  console.log("FileKey :", fileKey);
   if (!fileKey) {
     return new Response("Missing key", { status: 400 });
   }
 
-  // Декодуємо fileKey, щоб забезпечити правильне кодування
+  // Decode the fileKey to ensure correct encoding
   fileKey = decodeURIComponent(fileKey);
 
   const command = new GetObjectCommand({
@@ -37,6 +40,7 @@ export async function GET(req) {
 
   try {
     const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 * 5 }); // 5 хвилин
+
     return Response.json({ url: signedUrl });
   } catch (error) {
     console.error("Error generating signed URL:", error);
