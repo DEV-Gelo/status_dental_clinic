@@ -22,14 +22,22 @@ const DeleteUserForm = ({
   const handleDelete = async () => {
     setLoading(true);
     try {
-      // Making a request to the API to delete a user
-      await axios.delete(`/api/users/${userId}`);
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "An unexpected error occurred");
+      }
+
       mutate("/api/users");
       onAlert("success", t("Record deleted successfully"));
       onClearUserId();
       onClose();
     } catch (error) {
-      onAlert("error", t("It is not possible to delete"));
+      onAlert("error", t(error.message));
     } finally {
       setLoading(false);
       onClose();

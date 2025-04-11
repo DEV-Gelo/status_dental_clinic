@@ -148,7 +148,7 @@
   },
   "users_delete_window": {
     "Record deleted successfully": "Запис видалено успішно",
-    "It is not possible to delete": "Неможливо видалити лікаря, який має майбутні записи пацієнтів",
+    "Cannot delete doctor with future booked schedules": "Неможливо видалити лікаря з активними записами",
     "You really want to delete": "Ви дійсно бажаєте видалити",
     "Yes": "ТАК",
     "No": "НІ",

@@ -146,7 +146,7 @@
   },
   "users_delete_window": {
     "Record deleted successfully": "Record deleted successfully",
-    "It is not possible to delete": "It is not possible to delete a doctor who has upcoming patient appointments",
+    "Cannot delete doctor with future booked schedules": "Impossible to delete a doctor with active appointments",
     "You really want to delete": "Do you really want to delete",
     "Yes": "YES",
     "No": "NO",

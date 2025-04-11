@@ -70,15 +70,17 @@ export async function DELETE(req, { params }) {
     await Promise.all(slotUpdates);
 
     // --- Delete user photo from storage ----//
-    const fileUrl = user.photo;
-    const fileKey = fileUrl.split("/").pop(); // Get the filename part from the URL
+    if (user.photo) {
+      const fileUrl = user.photo;
+      const fileKey = fileUrl.split("/").pop(); // Get the filename part from the URL
 
-    if (fileKey) {
-      const deleteParams = {
-        Bucket: process.env.WASABI_BUCKET_NAME,
-        Key: fileKey,
-      };
-      await s3.send(new DeleteObjectCommand(deleteParams));
+      if (fileKey) {
+        const deleteParams = {
+          Bucket: process.env.WASABI_BUCKET_NAME,
+          Key: fileKey,
+        };
+        await s3.send(new DeleteObjectCommand(deleteParams));
+      }
     }
 
     // --- Delete the user record ----//
