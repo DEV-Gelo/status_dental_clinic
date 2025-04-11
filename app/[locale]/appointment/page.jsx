@@ -29,7 +29,7 @@ const Appointment = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [serviceData, setServiceData] = useState([]);
+  // const [serviceData, setServiceData] = useState([]);
   const [contact, setContact] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
@@ -226,19 +226,19 @@ const Appointment = () => {
   }, [appointmentData.time]);
 
   // --------Get data service from server------//
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/admin_setting/service");
-      if (!response.ok)
-        throw new Error(
-          result.message || t("An error occurred while receiving data")
-        );
-      const data = await response.json();
-      setServiceData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch("/api/admin_setting/service");
+  //     if (!response.ok)
+  //       throw new Error(
+  //         result.message || t("An error occurred while receiving data")
+  //       );
+  //     const data = await response.json();
+  //     setServiceData(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   // --------Get data contacts from server------//
   const fetchDataContact = async () => {
     try {
@@ -254,7 +254,7 @@ const Appointment = () => {
     }
   };
   useEffect(() => {
-    fetchData();
+    // fetchData();
     fetchDataContact();
   }, []);
 
@@ -268,7 +268,15 @@ const Appointment = () => {
               <address>
                 <p>{t("We are waiting for you at the address")}</p>
                 <p>
-                  {` ${contact[0].city}, ${contact[0].street}, ${contact[0].house}, ${contact[0].office}`}
+                  {contact[0] && [
+                    contact[0].city && contact[0].city,
+                    ", ",
+                    contact[0].street && contact[0].street,
+                    " ",
+                    contact[0].house && contact[0].house,
+                    ", ",
+                    contact[0].office && contact[0].office,
+                  ]}
                 </p>
                 <p>{`${t("dental clinic")} DentaPro`}</p>
               </address>
@@ -366,7 +374,7 @@ const Appointment = () => {
                   </>
                 )}
               </div>
-              <FormControl id="target" fullWidth sx={{ my: 3 }}>
+              {/* <FormControl id="target" fullWidth sx={{ my: 3 }}>
                 <InputLabel id="select-label">
                   {t("Type of service")}
                 </InputLabel>
@@ -383,16 +391,8 @@ const Appointment = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </FormControl>
-              <TextField
-                id="firstname"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label={t("FirstName")}
-                name="firstName"
-                value={appointmentData.firstName}
-                onChange={handleInputChange}
-              />
+              </FormControl> */}
+
               <TextField
                 id="lastname"
                 sx={{
@@ -405,6 +405,15 @@ const Appointment = () => {
                 label={t("LastName")}
                 name="lastName"
                 value={appointmentData.lastName}
+                onChange={handleInputChange}
+              />
+              <TextField
+                id="firstname"
+                sx={{ width: "100%" }}
+                helperText=" "
+                label={t("FirstName")}
+                name="firstName"
+                value={appointmentData.firstName}
                 onChange={handleInputChange}
               />
               {pathname.split("/")[1] === "uk" && (
@@ -454,7 +463,7 @@ const Appointment = () => {
           <div className={styles.AvailableDoctors_wrapper}>
             <div
               className={`${styles.AvailableDoctors_container} ${
-                pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1008px]"
+                pathname.split("/")[1] === "uk" ? "h-[1016px]" : "h-[938px]"
               }`}
             >
               <div className={styles.title_task}>

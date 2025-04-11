@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
+import AccessPhoto from "@/components/DataTable/AccessPhoto/AccessPhoto";
 import CircularProgress from "@mui/material/CircularProgress";
 
 // Data download function
@@ -98,41 +99,54 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                       {doctor.specialization || t("defaultSpecialization")}
                     </h3>
                     <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
-                      <Image
+                      <AccessPhoto fileKey={doctor.photo} />
+                      {/* <Image
                         src={doctor.photo}
                         alt={doctor.doctorName}
                         width={100}
                         height={100}
                         className="object-cover"
-                      />
+                      /> */}
                     </div>
                     <p className="font-medium text-lg">{doctor.doctorName}</p>
                   </div>
                   <div className="flex flex-col w-full h-full justify-center items-center m-2">
                     <h3 className="font-semibold ">{t("Available hours")}:</h3>
                     <ul className="flex flex-wrap justify-center items-center">
-                      {doctor.availableTimes.map((slot, index) => (
-                        <li
-                          key={index}
-                          onClick={() =>
-                            handleSlotClick(
-                              doctor.doctorName,
-                              doctor.doctorId,
-                              slot.time,
-                              slot.scheduleId,
-                              slot.slotId
-                            )
+                      {doctor.availableTimes
+                        .sort((a, b) => {
+                          // Comparing time in the format "HH:mm"
+                          const timeA = a.time.split(":").map(Number);
+                          const timeB = b.time.split(":").map(Number);
+
+                          // Comparing hours and minutes
+                          if (timeA[0] === timeB[0]) {
+                            return timeA[1] - timeB[1]; // If the hours are the same, compare the minutes.
                           }
-                          className={`${
-                            selectedSlot?.doctorId === doctor.doctorId &&
-                            selectedSlot?.time === slot.time
-                              ? "bg-blue-700 text-white"
-                              : " bg-green-200 text-black"
-                          } flex w-14 text-center justify-center items-center px-2 py-1 rounded-lg m-2 cursor-pointer`}
-                        >
-                          {slot.time}
-                        </li>
-                      ))}
+                          return timeA[0] - timeB[0]; // Сompare hours
+                        })
+                        .map((slot, index) => (
+                          <li
+                            key={index}
+                            onClick={() =>
+                              handleSlotClick(
+                                doctor.doctorName,
+                                doctor.doctorId,
+                                slot.time,
+                                slot.scheduleId,
+                                slot.slotId
+                              )
+                            }
+                            className={`${
+                              selectedSlot?.doctorId === doctor.doctorId &&
+                              selectedSlot?.time === slot.time
+                                ? "bg-blue-700 text-white"
+                                : " bg-green-200 text-black"
+                            } flex w-14 text-center justify-center items-center px-2 py-1 rounded-lg m-2 cursor-pointer`}
+                          >
+                            {slot.time}
+                          </li>
+                        ))}
                     </ul>
                   </div>
                 </div>

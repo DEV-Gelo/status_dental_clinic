@@ -19,6 +19,8 @@ import InputLabel from "@mui/material/InputLabel";
 const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [saving, setSaving] = useState(false);
   // ----Transferring the status from the calendar to ScheduleGenerator---//
   const [selectedDates, setSelectedDates] = useState([]);
   const [resSelectedDates, setResSelectedDates] = useState([]);
@@ -26,7 +28,7 @@ const Appointment = () => {
   const [selectedTimes, setSelectedTimes] = useState([]);
   //-------State loading schedule---------//
   const [isLoadingSchedule, setIsLoadingSchedule] = useState(null);
-
+  const [clearCheckbox, setClearCheckbox] = useState(null);
   // ----Transferring the array selected dates from Calendar---//
   const [daySchedules, setDaySchedules] = useState([]);
   // --------State alert windows configuration---------------//
@@ -75,6 +77,14 @@ const Appointment = () => {
     setSelectedDates([]);
     setSelectedTimes([]);
   };
+  const resetCheckbox = () => {
+    setClearCheckbox(Date.now());
+  };
+  // -----------Action from ScheduleGenerator-----------//
+  const sdAction = (value) => {
+    setDeleting(value);
+    setSaving(value);
+  };
 
   // -----------Alert windows--------------------------//
   const showAlert = (severity, message) => {
@@ -116,13 +126,17 @@ const Appointment = () => {
           </h1>
         </div>
         <div className="flex flex-col lg:flex-row h-full w-full justify-center items-center lg:items-start ">
-          <div className="flex flex-col md:flex-row lg:flex-col w-full lg:w-auto h-full justify-between items-start bg-[#f5f5f5] rounded-lg p-2 lg:p-0 my-10 lg:my-0">
+          <div className="flex relative flex-col md:flex-row lg:flex-col w-full lg:w-auto h-full justify-between items-start bg-[#f5f5f5] rounded-lg p-2 lg:p-0 my-10 lg:my-0">
+            {deleting && (
+              <div className="flex absolute top-0 left-0 w-full h-full z-30 rounded-lg bg-[#66666650] animate-pulse" />
+            )}
             <div className="flex w-full h-full justify-center items-start">
               <Calendar
                 onDateSelect={setSelectedDates}
                 selectedDoctor={selectedDoctor}
                 onDaySchedule={handleDaySchedule}
                 resetSelectedDates={resSelectedDates}
+                clearCheckbox={clearCheckbox}
                 onAlert={showAlert}
                 onTransferableDate={transferableDate}
                 isLoadingSchedule={setIsLoadingSchedule}
@@ -141,6 +155,9 @@ const Appointment = () => {
                   times={selectedTimes}
                   doctorId={selectedDoctor}
                   onResetSelectedDates={resetSelectedDates}
+                  onClearCheckbox={resetCheckbox}
+                  onDeleting={sdAction}
+                  onSaving={sdAction}
                   onAlert={showAlert}
                 />
               </div>

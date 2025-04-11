@@ -229,6 +229,8 @@
     "Choose a doctor": "Choose a doctor",
     "No doctors found": "No doctors found",
     "notSelectedDoctor": "Please select a doctor!",
+    "choose_month": "Month selection is not possible with selected dates. Please deselect dates.",
+    "all_dates": "Select All",
     "Mon": "Mon",
     "Tue": "Tue",
     "Wed": "Wed",

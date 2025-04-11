@@ -102,13 +102,13 @@ const DataTable = ({
         <tbody className={styles.tbody}>
           {/* ----Display skeleton when loading the schedule----- */}
           {isLoadingSchedule ? (
-            Array.from({ length: 4 }).map((_, index) => (
+            Array.from({ length: 8 }).map((_, index) => (
               <tr key={index} className={styles.tr_body}>
                 <td className={`${styles.td} ${styles.date_body}`}>
-                  <Skeleton variant="rounded" width="100%" height={120} />
+                  <Skeleton variant="rounded" width="100%" height={60} />
                 </td>
                 <td className={`${styles.td} ${styles.time_body}`}>
-                  <Skeleton variant="rounded" width="100%" height={120} />
+                  <Skeleton variant="rounded" width="100%" height={60} />
                 </td>
               </tr>
             ))

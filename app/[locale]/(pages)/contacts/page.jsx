@@ -75,24 +75,24 @@ const ContactPage = () => {
             ) : (
               // <div className="flex w-10 h-10 bg-red-400"></div>
               <div className="flex flex-col mx-auto my-auto font-semibold text-[1rem] sm:text-[1.2rem] text-[#fff] text-nowrap">
-                <p className="m-1 ml-8">{contactData[0]?.country}</p>
-                <p className="m-1 ml-8">{contactData[0]?.region}</p>
-                <p className="m-1 ml-8">{contactData[0]?.district}</p>
+                <p className="m-1 ml-8">{contactData[0]?.country || ""}</p>
+                <p className="m-1 ml-8">{contactData[0]?.region || ""}</p>
+                <p className="m-1 ml-8">{contactData[0]?.district || ""}</p>
                 <p className="m-1 ml-8">
-                  {contactData[0]?.city} {contactData[0]?.zipcode}
+                  {contactData[0]?.city || ""} {contactData[0]?.zipcode || ""}
                 </p>
                 <p className="text-wrap m-1 ml-8">
-                  {contactData[0]?.street} {contactData[0]?.house}{" "}
-                  {contactData[0]?.office}
+                  {contactData[0]?.street || ""} {contactData[0]?.house || ""}{" "}
+                  {contactData[0]?.office || ""}
                 </p>
-                {contactData[0]?.phoneNumbers.map((number, index) => (
+                {contactData[0]?.phoneNumbers?.map((number, index) => (
                   <p key={index} className="flex items-center m-1">
                     <span>
                       <LiaPhoneSolid />
                     </span>
                     &nbsp; {number}
                   </p>
-                ))}
+                )) || ""}
                 <p className="flex items-center m-1">
                   <span>
                     <AiOutlineMail />

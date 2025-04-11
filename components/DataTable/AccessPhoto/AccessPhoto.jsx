@@ -36,8 +36,8 @@ export default function AccessPhoto({ fileKey }) {
     <Image
       src={imageSrc || "/image-placeholder.svg"}
       alt="User photo"
-      width={50}
-      height={50}
+      width={100}
+      height={100}
       className="rounded-full object-cover"
     />
   );

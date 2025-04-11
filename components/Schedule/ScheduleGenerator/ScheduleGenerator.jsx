@@ -16,11 +16,13 @@ const ScheduleGenerator = ({
   times,
   doctorId,
   onResetSelectedDates,
+  onClearCheckbox,
   onAlert,
+  onSaving,
+  onDeleting,
 }) => {
   // ---------Translations-------------//
   const t = useTranslations("ScheduleGenerator");
-
   // Schedule generation
   const formattedSchedule = dates
     .map((date) => {
@@ -48,6 +50,7 @@ const ScheduleGenerator = ({
     }
 
     setIsSaving(true);
+    onSaving(true);
 
     try {
       const response = await fetch("/api/schedule", {
@@ -69,10 +72,12 @@ const ScheduleGenerator = ({
       onAlert("success", t("successAlert"));
 
       onResetSelectedDates();
+      onClearCheckbox();
     } catch (err) {
       onAlert("error", `${t("Connection error")}: ${err.message}`);
     } finally {
       setIsSaving(false);
+      onSaving(false);
     }
   };
 
@@ -82,6 +87,7 @@ const ScheduleGenerator = ({
       return;
     }
     setIsDeleting(true);
+    onDeleting(true);
     try {
       const response = await fetch("/api/schedule/delete", {
         method: "DELETE",
@@ -96,6 +102,7 @@ const ScheduleGenerator = ({
 
       if (response.ok) {
         onResetSelectedDates();
+        onClearCheckbox();
         setIsDeleting(false);
         onAlert("success", t("successAlertDel"));
       } else {
@@ -106,6 +113,7 @@ const ScheduleGenerator = ({
       onAlert("error", t("errorAlertDel"));
     } finally {
       setIsDeleting(false);
+      onDeleting(false);
     }
   }
 
@@ -121,6 +129,7 @@ const ScheduleGenerator = ({
           startIcon={<SaveIcon />}
           variant="contained"
           size="large"
+          disabled={isDeleting}
         >
           {t("save")}
         </LoadingButton>
@@ -133,6 +142,7 @@ const ScheduleGenerator = ({
           startIcon={<DeleteForeverIcon className="text-red-300" />}
           variant="contained"
           size="large"
+          disabled={isSaving}
         >
           {t("delete")}
         </LoadingButton>

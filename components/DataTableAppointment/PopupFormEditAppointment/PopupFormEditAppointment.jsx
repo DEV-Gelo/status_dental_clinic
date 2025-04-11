@@ -31,7 +31,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [service, setService] = useState("");
-  const [serviceData, setServiceData] = useState([]);
+  // const [serviceData, setServiceData] = useState([]);
   const [doctor, setDoctor] = useState({
     doctorName: "",
     doctorId: null,
@@ -226,22 +226,22 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
   }, [appointmentData.time]);
 
   // --------Get data service from server------//
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/admin_setting/service");
-      if (!response.ok)
-        throw new Error(
-          result.message || t("An error occurred while receiving data")
-        );
-      const data = await response.json();
-      setServiceData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch("/api/admin_setting/service");
+  //     if (!response.ok)
+  //       throw new Error(
+  //         result.message || t("An error occurred while receiving data")
+  //       );
+  //     const data = await response.json();
+  //     setServiceData(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <>
@@ -308,7 +308,7 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                       </>
                     )}
                   </div>
-                  <FormControl id="target" fullWidth sx={{ my: 3 }}>
+                  {/* <FormControl id="target" fullWidth sx={{ my: 3 }}>
                     <InputLabel id="select-label">
                       {t("Type of service")}
                     </InputLabel>
@@ -325,16 +325,8 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                         </MenuItem>
                       ))}
                     </Select>
-                  </FormControl>
-                  <TextField
-                    id="firstname"
-                    sx={{ width: "100%" }}
-                    helperText=" "
-                    label={t("FirstName")}
-                    name="firstName"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
+                  </FormControl> */}
+
                   <TextField
                     id="lastname"
                     sx={{
@@ -345,6 +337,15 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                     name="lastName"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                  />
+                  <TextField
+                    id="firstname"
+                    sx={{ width: "100%" }}
+                    helperText=" "
+                    label={t("FirstName")}
+                    name="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                   {pathname.split("/")[1] === "uk" && (
                     <TextField
@@ -417,8 +418,8 @@ const PopupFormEditAppointment = ({ userId, onClose, onAlert }) => {
                 <div
                   className={`${styles.AvailableDoctors_container} ${
                     pathname.split("/")[1] === "uk"
-                      ? "h-[1245px]"
-                      : "h-[1165px]"
+                      ? "h-[1175px]"
+                      : "h-[1095px]"
                   }`}
                 >
                   <div className={styles.title_task}>

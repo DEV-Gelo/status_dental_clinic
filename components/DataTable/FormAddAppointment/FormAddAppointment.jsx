@@ -26,7 +26,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
   const [loadingData, setLoadingData] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [serviceData, setServiceData] = useState([]);
+  // const [serviceData, setServiceData] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -70,20 +70,20 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
   }, [userId]);
 
   // --------Get data from service------//
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/admin_setting/service");
-      if (!response.ok)
-        throw new Error(result.message || t("Error retrieving data"));
-      const data = await response.json();
-      setServiceData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch("/api/admin_setting/service");
+  //     if (!response.ok)
+  //       throw new Error(result.message || t("Error retrieving data"));
+  //     const data = await response.json();
+  //     setServiceData(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
     setAppointmentData((prev) => ({
@@ -296,7 +296,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
                     </>
                   )}
                 </div>
-                <FormControl id="target" fullWidth sx={{ my: 3 }}>
+                {/* <FormControl id="target" fullWidth sx={{ my: 3 }}>
                   <InputLabel id="select-label">
                     {t("Type of service")}
                   </InputLabel>
@@ -313,16 +313,8 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
                       </MenuItem>
                     ))}
                   </Select>
-                </FormControl>
-                <TextField
-                  id="firstname"
-                  sx={{ width: "100%" }}
-                  helperText=" "
-                  label={t("FirstName")}
-                  name="firstName"
-                  value={firstName}
-                  onChange={handleInputChange}
-                />
+                </FormControl> */}
+
                 <TextField
                   id="lastname"
                   sx={{
@@ -335,6 +327,15 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
                   label={t("LastName")}
                   name="lastName"
                   value={lastName}
+                  onChange={handleInputChange}
+                />
+                <TextField
+                  id="firstname"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label={t("FirstName")}
+                  name="firstName"
+                  value={firstName}
                   onChange={handleInputChange}
                 />
                 {pathname.split("/")[1] === "uk" && (
@@ -384,7 +385,7 @@ const FormAddAppointment = ({ onClose, onAlert, userId }) => {
             <div className={styles.AvailableDoctors_wrapper}>
               <div
                 className={`${styles.AvailableDoctors_container} ${
-                  pathname.split("/")[1] === "uk" ? "h-[1086px]" : "h-[1008px]"
+                  pathname.split("/")[1] === "uk" ? "h-[1016px]" : "h-[938px]"
                 }`}
               >
                 <div className={styles.title_task}>

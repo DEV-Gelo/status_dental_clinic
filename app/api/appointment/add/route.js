@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma"; // Connecting to prisma to work with the database
+import { sendTelegramMessage } from "@/lib/telegram";
 
 export async function POST(req) {
   try {
@@ -49,7 +50,45 @@ export async function POST(req) {
       );
     }
 
-    // Create an object for recording
+    // Find existing user by email
+    let existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    // If no user found by email, search by phone
+    if (!existingUser) {
+      existingUser = await prisma.user.findUnique({
+        where: { phone },
+      });
+    }
+
+    // If user is found, update the phone if needed
+    if (existingUser) {
+      // Update user if phone is different
+      if (existingUser.phone !== phone) {
+        existingUser = await prisma.user.update({
+          where: { id: existingUser.id },
+          data: {
+            phone, // Update phone number
+          },
+        });
+      }
+    } else {
+      // If no user exists, create a new one
+      existingUser = await prisma.user.create({
+        data: {
+          firstName,
+          lastName,
+          patronymic: patronymic || "",
+          phone,
+          email,
+          role: "patient",
+          photo: null,
+        },
+      });
+    }
+
+    // Create an appointment record
     const appointmentData = {
       firstName,
       lastName,
@@ -71,19 +110,8 @@ export async function POST(req) {
         },
       },
       user: {
-        connectOrCreate: {
-          where: {
-            email: email,
-          },
-          create: {
-            firstName,
-            lastName,
-            email,
-            phone,
-            patronymic: patronymic || "",
-            role: "patient",
-            photo: "/image-placeholder.png",
-          },
+        connect: {
+          id: existingUser.id, // Link the appointment to the existing or newly created user
         },
       },
     };
@@ -99,10 +127,31 @@ export async function POST(req) {
       }),
     ]);
 
+    // Formatting date for Telegram message
+    const formattedDate = new Date(date).toLocaleDateString("uk-UA", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+    // Forming telegram message
+    const message = `
+<b>🔔 Новий запис на прийом!</b>
+<b>Пацієнт:</b> ${lastName} ${firstName} ${patronymic || ""}
+<b>📞 Телефон:</b> ${phone}
+<b>📧 Email:</b> ${email}
+<b>📅 Дата:</b> ${formattedDate}
+<b>🕒 Час:</b> ${time}
+`;
+
+    // Send message to Telegram
+    await sendTelegramMessage(message);
+
     return new Response(
       JSON.stringify({
-        message: "Record successfully created!",
+        message: "Record and user successfully created or updated!",
         appointment: newAppointment,
+        user: existingUser,
       }),
       { status: 201 }
     );

@@ -2,10 +2,14 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import styles from "./Calendar.module.css";
+// ---Import React components----//
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
+//---Import MUI components---//
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function Calendar({
   onDateSelect,
@@ -15,16 +19,16 @@ export default function Calendar({
   onTransferableDate,
   onAlert,
   isLoadingSchedule,
+  clearCheckbox,
 }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDates, setSelectedDates] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [slots, setSlots] = useState([]);
-
+  const [isSelectedCheckbox, setIsSelectedCheckbox] = useState(false);
   // ---------Translations-------------//
   const t = useTranslations("schedule__calendar");
   const local = t("language");
-
   // ---------- Load slots for the selected doctor------------//
   useEffect(() => {
     if (selectedDoctor) {
@@ -81,6 +85,11 @@ export default function Calendar({
 
   const getMonthDays = (year, month) => new Date(year, month + 1, 0).getDate();
 
+  // ------Clear checkbox------//
+  useEffect(() => {
+    setIsSelectedCheckbox(false);
+  }, [clearCheckbox]);
+
   // ------Set Monday as the first day of the week-----//
   const getStartDayOfMonth = (year, month) => {
     const day = new Date(year, month, 1).getDay();
@@ -89,6 +98,10 @@ export default function Calendar({
 
   // ------------Switch month to prev------------//
   const prevMonth = () => {
+    if (selectedDates.length > 0) {
+      onAlert("warning", t("choose_month"));
+      return;
+    }
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
     );
@@ -97,6 +110,10 @@ export default function Calendar({
 
   // ------------Switch month to next------------//
   const nextMonth = () => {
+    if (selectedDates.length > 0) {
+      onAlert("warning", t("choose_month"));
+      return;
+    }
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
     );
@@ -120,6 +137,33 @@ export default function Calendar({
   const todayDay = today.getDate();
   const todayMonth = today.getMonth();
   const todayYear = today.getFullYear();
+
+  // -----------Check if dates are in the past-----------//
+  const isPastDateFn = (day) => {
+    return (
+      day &&
+      new Date(year, month, day) < new Date(todayYear, todayMonth, todayDay)
+    );
+  };
+
+  // ---------Select checkbox---------//
+  const handleCheckbox = () => {
+    setIsSelectedCheckbox((prev) => !prev);
+  };
+  // ---Select all days---//
+  useEffect(() => {
+    if (!selectedDoctor) return;
+
+    if (isSelectedCheckbox) {
+      const allDates = daysArray
+        .filter((day) => day && !isPastDateFn(day))
+        .map((day) => new Date(Date.UTC(year, month, day)).toISOString());
+      setSelectedDates(allDates);
+      onDateSelect(allDates);
+    } else {
+      setSelectedDates([]);
+    }
+  }, [isSelectedCheckbox]);
 
   // -----------Select a day in the calendar-----------//
   const handleDayClick = (day) => {
@@ -162,13 +206,27 @@ export default function Calendar({
   return (
     <div className={styles.calendar}>
       <div className={styles.header}>
-        <button onClick={prevMonth}>
+        <button
+          onClick={prevMonth}
+          className={
+            Array.isArray(selectedDates) && selectedDates.length > 0
+              ? styles.switch_month_button
+              : ""
+          }
+        >
           <MdOutlineArrowBackIosNew />
         </button>
         <h2>
           {capitalizedMonthName} {year}
         </h2>
-        <button onClick={nextMonth}>
+        <button
+          onClick={nextMonth}
+          className={
+            Array.isArray(selectedDates) && selectedDates.length > 0
+              ? styles.switch_month_button
+              : ""
+          }
+        >
           <MdOutlineArrowForwardIos />
         </button>
       </div>
@@ -187,10 +245,7 @@ export default function Calendar({
           </div>
         ))}
         {daysArray.map((day, i) => {
-          const isPastDate =
-            day &&
-            new Date(year, month, day) <
-              new Date(todayYear, todayMonth, todayDay);
+          const isPastDate = isPastDateFn(day);
           const isToday =
             day === todayDay &&
             month === todayMonth &&
@@ -232,6 +287,26 @@ export default function Calendar({
         })}
       </div>
       {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+      {Array.isArray(selectedDates) && selectedDates.length > 0 && (
+        <div className={styles.checkbox}>
+          <FormControlLabel
+            label={t("all_dates")}
+            control={
+              <Checkbox
+                checked={isSelectedCheckbox}
+                onChange={handleCheckbox}
+              />
+            }
+            labelPlacement="start"
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontSize: "0.8rem",
+                fontWeight: "500",
+              },
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

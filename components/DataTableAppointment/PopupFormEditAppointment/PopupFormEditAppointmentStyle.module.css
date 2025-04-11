@@ -90,6 +90,8 @@
   align-items: center;
   font-weight: 600;
   font-size: 1.2rem;
+
+  margin: 0.5rem 0;
 }
 .title_task h3 {
   color: #444;
