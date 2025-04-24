@@ -275,13 +275,7 @@ const PopupFormEdit = ({ userId, onClose, onAlert, role }) => {
             >
               <div className={styles.photo_field}>
                 <div className={styles.displaying_file}>
-                  {image?.startsWith("blob:") ? (
-                    // Якщо локальний blob — просто img
-                    <img src={image} alt="Uploaded" />
-                  ) : image ? (
-                    // Якщо це fileKey з Wasabi — використовуємо AccessPhoto
-                    <AccessPhoto fileKey={image} />
-                  ) : null}
+                  {image && <img src={image} alt="Uploaded" />}
                 </div>
 
                 <UploadPhotoForm handleFileChange={handleFileChange} />

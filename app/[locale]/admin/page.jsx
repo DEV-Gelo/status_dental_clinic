@@ -395,7 +395,7 @@ const Admin = () => {
                   <td>{user.phone || "No phone available"}</td>
                   <td>{formatDate(user.date)}</td>
                   <td>{user.time}</td>
-                  <td>{user.service}</td>
+                  <td>{user.service || t("consultation")}</td>
                   <td>
                     {`${user.doctor.lastName} ${user.doctor.firstName}
                     ${user.doctor.patronymic}`}

@@ -1,25 +1,42 @@
-import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
-
-const s3 = new S3Client({
-  endpoint: process.env.WASABI_ENDPOINT, // Wasabi endpoint
-  region: "us-east-1",
-  credentials: {
-    accessKeyId: process.env.WASABI_ACCESS_KEY,
-    secretAccessKey: process.env.WASABI_SECRET_KEY,
-  },
-});
+import { supabase } from "@/lib/supabase";
 
 export async function DELETE(req, { params }) {
   const { id } = params; // Get the user ID from the URL
 
+  // --- Delete photo from storage ----//
+  // Getting the path to the photo from the database
+  const user = await prisma.user.findUnique({
+    where: { id: Number(id) },
+    select: { photo: true }, // Get only photo field
+  });
+  const fileUrl = user.photo;
+
+  // Trim part of the URL to get only the path to the file in the bucket
+  const filePath = fileUrl
+    .replace("blob:https://", "blob:https:/") // Remove the extra "/"
+    .split("supabase.co/storage/v1/object/public/uploads")[1] // Extract the part after "uploads/"
+    ?.replace(/^\/+/, ""); //Remove extra slashes at the beginning
+
+  // Delete previous file
+  const { dataDelete, deleteError } = await supabase.storage
+    .from("uploads")
+    .remove([filePath]);
+
+  if (deleteError) {
+    console.error("Error deleting old file:", deleteError.message);
+  } else {
+    console.log("Old file deleted successfully!");
+  }
+
   try {
-    // --- Delete photo from storage ----//
-    // Getting the path to the photo from the database
+    const today = new Date(); // Current date
+    today.setHours(0, 0, 0, 0); // Reset the time for comparison only by date
+
+    // Check if the user is a doctor
     const user = await prisma.user.findUnique({
       where: { id: Number(id) },
-      select: { photo: true, role: true },
+      select: { role: true },
     });
 
     if (!user) {
@@ -28,16 +45,19 @@ export async function DELETE(req, { params }) {
       });
     }
 
-    // --- Check if the user has future scheduled appointments (if doctor) ----//
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset the time for comparison only by date
-
     if (user.role === "doctor") {
+      // Check future doctor schedules with slots isBooked: true
       const hasFutureBookedSchedules = await prisma.schedule.findFirst({
         where: {
           doctorId: Number(id),
-          date: { gte: today }, // Only today and future dates
-          slots: { some: { isBooked: true } }, // Slots that are booked
+          date: {
+            gte: today, // Only today and future dates
+          },
+          slots: {
+            some: {
+              isBooked: true, // Slots that are booked
+            },
+          },
         },
       });
 
@@ -51,15 +71,19 @@ export async function DELETE(req, { params }) {
       }
     }
 
-    // --- Update appointments and slots before deleting ----//
+    // Find all user records
     const userAppointments = await prisma.appointment.findMany({
-      where: { userId: Number(id) },
-      select: { slotId: true },
+      where: {
+        userId: Number(id),
+      },
+      select: {
+        slotId: true, // Get the ID of the slot associated with the recording
+      },
     });
 
-    // Update slots to unbooked before deletion
+    // Update slots by setting isBooked: false
     const slotUpdates = userAppointments
-      .filter((appointment) => appointment.slotId)
+      .filter((appointment) => appointment.slotId) // Check whether slotId is not null
       .map((appointment) =>
         prisma.slot.update({
           where: { id: appointment.slotId },
@@ -67,33 +91,24 @@ export async function DELETE(req, { params }) {
         })
       );
 
+    // Perform all slot updates in parallel
     await Promise.all(slotUpdates);
 
-    // --- Delete user photo from storage ----//
-    if (user.photo) {
-      const fileUrl = user.photo;
-      const fileKey = fileUrl.split("/").pop(); // Get the filename part from the URL
-
-      if (fileKey) {
-        const deleteParams = {
-          Bucket: process.env.WASABI_BUCKET_NAME,
-          Key: fileKey,
-        };
-        await s3.send(new DeleteObjectCommand(deleteParams));
-      }
-    }
-
-    // --- Delete the user record ----//
+    // Delete user
     const deletedUser = await prisma.user.delete({
-      where: { id: Number(id) },
+      where: {
+        id: Number(id),
+      },
     });
 
-    return NextResponse.json(deletedUser, { status: 200 });
+    return new Response(JSON.stringify(deletedUser), { status: 200 });
   } catch (error) {
-    console.error("Error deleting user or updating slots:", error.message);
+    console.error(error);
     return new Response(
       JSON.stringify({ error: "Failed to delete user or update slots" }),
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }

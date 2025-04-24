@@ -261,37 +261,37 @@ const Appointment = () => {
   return (
     <>
       {isSuccess && (
-        <div className={styles.modal_window_info}>
+        <section
+          className={styles.modal_window_info}
+          aria-labelledby="registration-success"
+        >
           <div className={styles.modal_container}>
             <div className={styles.modal_form}>
-              <h2>{t("REGISTRATION SUCCESSFUL")}</h2>
-              <address>
+              <h2 id="registration-success">{t("REGISTRATION SUCCESSFUL")}</h2>
+              <div>
+                <p>{t("Administrator will contact")}</p>
                 <p>{t("We are waiting for you at the address")}</p>
                 <p>
-                  {contact[0] && [
-                    contact[0].city && contact[0].city,
-                    ", ",
-                    contact[0].street && contact[0].street,
-                    " ",
-                    contact[0].house && contact[0].house,
-                    ", ",
-                    contact[0].office && contact[0].office,
-                  ]}
+                  {[
+                    contact[0]?.city,
+                    contact[0]?.street,
+                    contact[0]?.house,
+                    contact[0]?.office,
+                  ]
+                    .filter(Boolean)
+                    .join(", ")}
                 </p>
                 <p>{`${t("dental clinic")} DentaPro`}</p>
-              </address>
+              </div>
               <p>
-                <span>{t("fullName")}</span>
-                {appointmentData.lastName} {appointmentData.firstName}{" "}
-                {appointmentData.patronymic}
+                <span>{t("fullName")}</span> {appointmentData.lastName}{" "}
+                {appointmentData.firstName} {appointmentData.patronymic}
               </p>
               <p>
-                <span>{t("Date")}</span>
-                {formattedDate}
+                <span>{t("Date")}</span> {formattedDate}
               </p>
               <p>
-                <span>{t("Time")}</span>
-                {appointmentData.time}
+                <span>{t("Time")}</span> {appointmentData.time}
               </p>
               <p>
                 <span>{t("Doctor")}</span> {appointmentData.doctorName}
@@ -310,8 +310,9 @@ const Appointment = () => {
               </Link>
             </ThemeProvider>
           </div>
-        </div>
+        </section>
       )}
+
       <div className={styles.appointment_form}>
         <h1 className={styles.title}>{t("Creating an record")}</h1>
         <Snackbar

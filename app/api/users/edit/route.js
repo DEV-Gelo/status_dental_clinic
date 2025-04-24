@@ -17,7 +17,7 @@ export async function PUT(req) {
     } = data;
 
     const userId = Number(id);
-    const photoUrl = photo || null;
+    const photoUrl = photo || "/image-placeholder.svg";
 
     // User update
     const updatedUser = await prisma.user.update({

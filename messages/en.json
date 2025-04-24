@@ -16,7 +16,8 @@
     "Delete_alert": "Please select the record you want to delete.",
     "Edit_alert": "Please select a user to edit.",
     "Error loading data": "Error loading data",
-    "Doctor error": "Error loading doctors"
+    "Doctor error": "Error loading doctors",
+    "consultation": "Consultation"
   },
   "admin__FilterDate": {
     "January": "January",
@@ -363,6 +364,7 @@
     "Error_alert": "An unexpected error occurred.",
     "An error occurred while receiving data": "An error occurred while retrieving data",
     "REGISTRATION SUCCESSFUL": "REGISTRATION SUCCESSFUL",
+    "Administrator will contact": "The administrator will contact you to confirm your registration.",
     "We are waiting for you at the address": "We are waiting for you at the address:",
     "dental clinic": "Dental clinic",
     "fullName": "Full Name:",
@@ -524,7 +526,12 @@
     "Error loading data": "Error loading data"
   },
   "CustomMap": {
-    "Popup": "Here is our clinic!"
+    "Popup": "Here is our clinic!",
+    "Route_button": "BUILD ROUTE",
+    "Error_loading": "Error loading map",
+    "loading": "Loading...",
+    "Error_location": "Failed to get your geolocation.",
+    "Geolocation is not supported": "Geolocation is not supported by your browser."
   },
   "Contact_page": {
     "title": "Our contacts"

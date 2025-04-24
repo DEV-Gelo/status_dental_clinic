@@ -16,7 +16,8 @@
     "Delete_alert": "Будь ласка, оберіть запис який бажаєте видалити.",
     "Edit_alert": "Будь ласка, оберіть користувача для редагування.",
     "Error loading data": "Помилка завантаження даних",
-    "Doctor error": "Помилка при завантаженні лікарів"
+    "Doctor error": "Помилка при завантаженні лікарів",
+    "consultation": "Консультація"
   },
   "admin__FilterDate": {
     "January": "Січень",
@@ -365,6 +366,7 @@
     "Error_alert": "Сталася непередбачувана помилка.",
     "An error occurred while receiving data": "Помилка при отриманні даних",
     "REGISTRATION SUCCESSFUL": "ЗАПИС ВИКОНАНО УСПІШНО",
+    "Administrator will contact": "Для підтвердження запису з вами зв'яжеться адміністратор.",
     "We are waiting for you at the address": "Чекаємо Вас за адресою:",
     "dental clinic": "Стоматологічна клініка",
     "fullName": "ПІБ:",
@@ -526,7 +528,12 @@
     "Error loading data": "Помилка завантаження даних"
   },
   "CustomMap": {
-    "Popup": "Тут знаходиться наша клініка!"
+    "Popup": "Тут знаходиться наша клініка!",
+    "Route_button": "ПОБУДУВАТИ МАРШРУТ",
+    "Error_loading": "Помилка завантаження мапи",
+    "loading": "Завантаження ...",
+    "Error_location": "Не вдалося отримати вашу геолокацію.",
+    "Geolocation is not supported": "Геолокація не підтримується вашим браузером."
   },
   "Contact_page": {
     "title": "Наші контакти"

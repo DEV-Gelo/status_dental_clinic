@@ -83,7 +83,7 @@ export async function POST(req) {
           phone,
           email,
           role: "patient",
-          photo: null,
+          photo: "/image-placeholder.svg",
         },
       });
     }

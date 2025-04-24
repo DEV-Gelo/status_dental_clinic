@@ -65,29 +65,24 @@
 }
 
 .modal_form h2 {
-  border-radius: 0.5rem;
-
   font-size: 1.5rem;
   font-weight: 600;
   color: #2e8b57;
+  text-align: center;
 
   padding: 2rem;
 }
 
 .modal_form {
   display: flex;
-  width: 30rem;
+  width: auto;
   flex-direction: column;
   background-color: #fff;
   border-radius: 0.5rem;
 
   padding: 1rem;
 }
-.modal_form address {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #444;
-}
+
 .modal_form p span {
   display: inline-block;
   width: 3rem;

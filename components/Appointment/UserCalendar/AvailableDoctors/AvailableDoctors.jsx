@@ -99,14 +99,13 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                       {doctor.specialization || t("defaultSpecialization")}
                     </h3>
                     <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
-                      <AccessPhoto fileKey={doctor.photo} />
-                      {/* <Image
+                      <Image
                         src={doctor.photo}
                         alt={doctor.doctorName}
                         width={100}
                         height={100}
                         className="object-cover"
-                      /> */}
+                      />
                     </div>
                     <p className="font-medium text-lg">{doctor.doctorName}</p>
                   </div>

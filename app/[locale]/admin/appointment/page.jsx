@@ -168,14 +168,13 @@ const Appointment = () => {
             <div className="flex justify-center items-center bg-[#5ba3bb] rounded-t-lg p-[0.3rem]">
               <div className="flex ">
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
-                  <AccessPhoto fileKey={doctor?.photo} />
-                  {/* <Image
+                  <Image
                     src={doctor?.photo || "/image-placeholder.svg"}
                     alt="Doctor photo"
                     width={50}
                     height={50}
                     className="flex object-cover"
-                  /> */}
+                  />
                 </div>
               </div>
               <div className="flex p-3">
