@@ -43,7 +43,7 @@ const Home = () => {
             <div className="flex relative flex-col w-full h-full justify-start items-start">
               <h1 className="w-full sm:w-[26rem] absolute top-0 sm:top-10 left-5 text-center sm:text-left text-[2rem] sm:text-[4rem] font-bold pr-[2.5rem] sm:pr-0 mt-5 sm:mt-0">
                 {t("mainTitle.treatYourself")}{" "}
-                <span className="text-[#5ba3bb]">{t("mainTitle.white")}</span>{" "}
+                <span className="text-red-400">{t("mainTitle.white")}</span>{" "}
                 {t("mainTitle.smile")}
               </h1>
               <div className="flex w-full h-auto justify-end items-center">
@@ -93,8 +93,8 @@ const Home = () => {
               <Image
                 src="/Expert_dental.webp"
                 alt="Expert dental"
-                width={400}
-                height={400}
+                width={700}
+                height={700}
                 className="z-30"
               />
               <div className="flex absolute bottom-0 right-0 z-0 w-[4rem] h-full bg-[#fff]"></div>
@@ -165,8 +165,8 @@ const Home = () => {
               <Image
                 src="/Professionals.webp"
                 alt="Professionals"
-                width={200}
-                height={400}
+                width={500}
+                height={500}
               />
             </div>
           </div>
@@ -203,8 +203,8 @@ const Home = () => {
               <Image
                 src="/AnnaMarie.webp"
                 alt="AnnaMarie"
-                width={200}
-                height={400}
+                width={300}
+                height={500}
               />
             </div>
           </div>
@@ -221,8 +221,8 @@ const Home = () => {
               <Image
                 src="/MarcoPolono.webp"
                 alt="MarcoPolono"
-                width={200}
-                height={400}
+                width={300}
+                height={500}
               />
               <div className="flex w-auto h-full items-start justify-end">
                 <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
@@ -252,8 +252,8 @@ const Home = () => {
               <Image
                 src="/AnnaMarie.webp"
                 alt="AnnaMarie"
-                width={100}
-                height={200}
+                width={500}
+                height={500}
               />
             </div>
             <div className="flex relative w-full h-full items-center pr-5">
@@ -278,8 +278,8 @@ const Home = () => {
               <Image
                 src="/MarcoPolono.webp"
                 alt="MarcoPolono"
-                width={100}
-                height={200}
+                width={500}
+                height={500}
               />
               <div className="flex w-auto h-full items-start justify-end">
                 <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
