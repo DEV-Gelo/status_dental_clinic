@@ -8,14 +8,18 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# 4. Копіюємо весь проєкт у контейнер
+# 4. Генерація Prisma клієнта
+RUN npx prisma generate
+
+# 5. Копіюємо весь проєкт у контейнер
 COPY . .
 
-# 5. Збираємо Next.js у продакшн
+# 6. Збираємо Next.js у продакшн
 RUN npm run build
 
-# 6. Відкриваємо порт
+# 7. Відкриваємо порт
 EXPOSE 3000
 
-# 7. Запуск
+# 8. Запуск
 CMD ["npm", "start"]
+
