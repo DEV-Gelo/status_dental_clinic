@@ -5,7 +5,8 @@ FROM node:18-alpine
 WORKDIR /app
 
 # 3. Копіюємо лише package.json і package-lock.json
-COPY package*.json ./
+COPY package.json ./package.json
+COPY package-lock.json ./package-lock.json
 
 # 4. Встановлюємо залежності
 RUN npm install
