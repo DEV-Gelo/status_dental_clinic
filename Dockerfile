@@ -4,22 +4,25 @@ FROM node:18-alpine
 # 2. Робоча директорія всередині контейнера
 WORKDIR /app
 
-# 3. Копіюємо package.json і встановлюємо залежності
+# 3. Копіюємо лише package.json і package-lock.json
 COPY package*.json ./
+
+# 4. Встановлюємо залежності
 RUN npm install
 
-# 4. Генерація Prisma клієнта
-RUN npx prisma generate
-
-# 5. Копіюємо весь проєкт у контейнер
+# 5. Копіюємо всі файли проєкту (включаючи prisma/schema.prisma)
 COPY . .
 
-# 6. Збираємо Next.js у продакшн
+# 6. Генеруємо Prisma клієнт
+RUN npx prisma generate
+
+# 7. Збираємо Next.js у продакшн
 RUN npm run build
 
-# 7. Відкриваємо порт
+# 8. Відкриваємо порт
 EXPOSE 3000
 
-# 8. Запуск
+# 9. Запуск
 CMD ["npm", "start"]
+
 
