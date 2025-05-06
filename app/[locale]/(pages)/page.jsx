@@ -93,8 +93,8 @@ const Home = () => {
               <Image
                 src="/Expert_dental.webp"
                 alt="Expert dental"
-                width={700}
-                height={700}
+                width={400}
+                height={400}
                 className="z-30"
               />
               <div className="flex absolute bottom-0 right-0 z-0 w-[4rem] h-full bg-[#fff]"></div>
@@ -165,8 +165,8 @@ const Home = () => {
               <Image
                 src="/Professionals.webp"
                 alt="Professionals"
-                width={500}
-                height={500}
+                width={200}
+                height={400}
               />
             </div>
           </div>
@@ -203,8 +203,8 @@ const Home = () => {
               <Image
                 src="/AnnaMarie.webp"
                 alt="AnnaMarie"
-                width={300}
-                height={500}
+                width={200}
+                height={400}
               />
             </div>
           </div>
@@ -221,8 +221,8 @@ const Home = () => {
               <Image
                 src="/MarcoPolono.webp"
                 alt="MarcoPolono"
-                width={300}
-                height={500}
+                width={200}
+                height={400}
               />
               <div className="flex w-auto h-full items-start justify-end">
                 <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
@@ -252,8 +252,8 @@ const Home = () => {
               <Image
                 src="/AnnaMarie.webp"
                 alt="AnnaMarie"
-                width={500}
-                height={500}
+                width={100}
+                height={200}
               />
             </div>
             <div className="flex relative w-full h-full items-center pr-5">
@@ -278,8 +278,8 @@ const Home = () => {
               <Image
                 src="/MarcoPolono.webp"
                 alt="MarcoPolono"
-                width={500}
-                height={500}
+                width={100}
+                height={200}
               />
               <div className="flex w-auto h-full items-start justify-end">
                 <p className="[writing-mode:vertical-lr]  [direction:ltr] font-medium">
