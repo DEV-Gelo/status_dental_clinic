@@ -43,7 +43,7 @@ const Home = () => {
             <div className="flex relative flex-col w-full h-full justify-start items-start">
               <h1 className="w-full sm:w-[26rem] absolute top-0 sm:top-10 left-5 text-center sm:text-left text-[2rem] sm:text-[4rem] font-bold pr-[2.5rem] sm:pr-0 mt-5 sm:mt-0">
                 {t("mainTitle.treatYourself")}{" "}
-                <span className="text-red-400">{t("mainTitle.white")}</span>{" "}
+                <span className="text-[#5ba3bb]">{t("mainTitle.white")}</span>{" "}
                 {t("mainTitle.smile")}
               </h1>
               <div className="flex w-full h-auto justify-end items-center">
