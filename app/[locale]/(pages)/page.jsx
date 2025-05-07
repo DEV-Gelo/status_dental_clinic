@@ -46,6 +46,7 @@ const Home = () => {
                 <span className="text-[#5ba3bb]">{t("mainTitle.white")}</span>{" "}
                 {t("mainTitle.smile")}
               </h1>
+              <h1>Working</h1>
               <div className="flex w-full h-auto justify-end items-center">
                 <div className="flex w-[8.9rem] h-[8.9rem] bg-[#fff]" />
                 <div className="hidden sm:flex w-[8.9rem] h-[8.9rem] bg-[#5ba3bb]" />
