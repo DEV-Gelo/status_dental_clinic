@@ -236,8 +236,8 @@ const Services = () => {
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start end">
               <div className="flex w-full h-auto justify-start my-2">
                 <Image
-                  src="/implants.svg"
-                  alt="implants"
+                  src="/Implant.svg"
+                  alt="implant"
                   width={50}
                   height={52}
                 />
