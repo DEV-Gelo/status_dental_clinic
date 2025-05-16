@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { popup_form_variants } from "@/utils/variants";
-import SocialAside from "@/components/SocialAside/SocialAside";
 // --------------Import MUI components-----------------//
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
@@ -42,9 +41,10 @@ const PricePage = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full min-h-[100vh] justify-center items-center py-[5rem] px-[1rem] sm:px-[2rem]">
-        {/* -------Social component--------- */}
-        <SocialAside />
+      <div className="flex w-full h-screen justify-center items-center text-[3rem] font-bold mt-[5rem]">
+        <h1>Дана сторінка знаходиться у розробці.</h1>
+      </div>
+      {/* <div className="flex flex-col w-full min-h-[100vh] justify-center items-center py-[5rem] px-[1rem] sm:px-[2rem]">
         <h1
           id="Up"
           className="font-bold text-[1.5rem] sm:text-[3rem] text-[#555] m-10"
@@ -122,7 +122,7 @@ const PricePage = () => {
               </div>
             ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

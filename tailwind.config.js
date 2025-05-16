@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        secondary: "playfairDisplay",
+        benzin: ["var(--font-benzin)"],
+        astron: ["var(--font-astron)"],
       },
       screens: {
         xs: "480px",

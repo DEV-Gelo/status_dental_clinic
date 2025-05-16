@@ -15,7 +15,7 @@ export const MenuToggle = ({ toggle }) => (
   <button
     aria-label="Menu"
     onClick={toggle}
-    className="absolute z-30 right-[50px] top-0"
+    className="absolute z-30 right-[3rem] top-[-0.5rem]"
   >
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path

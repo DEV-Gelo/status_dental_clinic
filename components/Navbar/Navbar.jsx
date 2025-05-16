@@ -60,6 +60,8 @@ const Navbar = () => {
     { href: `/${locale}`, label: t("main") },
     { href: `/${locale}/about`, label: t("about") },
     { href: `/${locale}/service`, label: t("service") },
+    { href: `/${locale}/doctors`, label: t("doctors") },
+    { href: `/${locale}/cases`, label: t("cases") },
     { href: `/${locale}/price`, label: t("price") },
     { href: `/${locale}/contacts`, label: t("contact") },
   ];
@@ -70,44 +72,57 @@ const Navbar = () => {
         animate={{ y: isInView ? 0 : -slideDistance }}
         transition={{ duration: 0.2, delay: 0.25, ease: "easeInOut" }}
         style={{ height: slideDistance }}
-        className="flex fixed top-0 right-0 w-full min-h-[5rem] justify-between items-center z-50 py-[1.5rem] px-[1rem] sm:px-[4rem] nav-gradient"
+        className="flex fixed top-0 right-0 w-full min-h-[5rem] justify-center items-center z-50 bg-[#fff] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]"
       >
-        <div className="flex justify-start items-center mr-[2rem]">
-          <Image src="/Tooth.png" alt="logo" width={50} height={50} />
-          <Link href="/" className="font-bold text-[20px]">
-            Denta<span className="text-[#5ba3bb]">Pro</span>
+        <div className="flex w-full h-full justify-start items-center border-b-2 border-[#006eff]">
+          <div className="flex w-[13rem] justify-start items-center pr-5 mr-6">
+            <Image src="/Tooth.png" alt="logo" width={34} height={50} />
+            <Link href="/" className="w-[10rem]">
+              <p className="w-auto text-[1.5rem] text-center leading-none font-astron font-bold blue-text">
+                STATUS
+              </p>
+              <p className="w-auto text-nowrap text-center leading-none text-[0.8rem]">
+                dental clinic
+              </p>
+            </Link>
+          </div>
+          <div className="hidden lg:flex w-full h-full justify-center items-center font-semibold text-[1rem] gap-[2%]">
+            {links.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <span
+                  className={`mx-[0rem] text-nowrap inline-block transition ease-in-out hover:scale-[1.04] hover:text-[#006eff] ${
+                    pathname === link.href ? "blue-text" : "text-black"
+                  }`}
+                >
+                  {link.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <MobileMenu links={links} />
+
+          <Link
+            // href={`/${locale}/appointment`}
+            href="#"
+            className="hidden lg:flex justify-end items-center ml-[2rem]"
+          >
+            <ThemeProvider theme={theme}>
+              <Button
+                size="large"
+                color="appointment"
+                variant="contained"
+                sx={{
+                  whiteSpace: "nowrap",
+                  borderRadius: 10,
+                  fontWeight: "semibold",
+                  fontFamily: "var(--font-montserrat)",
+                }}
+              >
+                {t("appointment")}
+              </Button>
+            </ThemeProvider>
           </Link>
         </div>
-        <div className="hidden lg:flex w-full h-full justify-center items-center font-semibold text-[16px] gap-[5%]">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <span
-                className={`mx-[0rem] text-nowrap inline-block transition ease-in-out hover:scale-[1.04] hover:text-[#5ba3bb] ${
-                  pathname === link.href ? "text-[#5ba3bb]" : "text-black"
-                }`}
-              >
-                {link.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-        <MobileMenu links={links} />
-
-        <Link
-          href={`/${locale}/appointment`}
-          className="hidden lg:flex justify-end items-center ml-[2rem]"
-        >
-          <ThemeProvider theme={theme}>
-            <Button
-              size="large"
-              color="appointment"
-              variant="contained"
-              sx={{ whiteSpace: "nowrap", borderRadius: 0, fontWeight: "bold" }}
-            >
-              {t("appointment")}
-            </Button>
-          </ThemeProvider>
-        </Link>
       </motion.nav>
     </>
   );

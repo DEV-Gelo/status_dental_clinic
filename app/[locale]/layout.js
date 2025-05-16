@@ -5,27 +5,62 @@ import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
 import "./globals.css";
 // ---------Fonts-----------//
-const kollektif = localFont({
-  src: "../fonts/Kollektif.woff2",
-  variable: "--font-kollektif",
-  weight: "100 900",
+const montserrat = localFont({
+  variable: "--font-montserrat",
+  src: [
+    {
+      path: "../fonts/Montserrat-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Montserrat-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Montserrat-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Montserrat-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
-const playfairDisplay = localFont({
-  src: "../fonts/PlayfairDisplay-Italic.woff2",
-  variable: "--font-display",
-  weight: "100 900",
+export const benzin = localFont({
+  src: [
+    {
+      path: "../fonts/Benzin-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-benzin",
+});
+export const astron = localFont({
+  src: [
+    {
+      path: "../fonts/Astron-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-astron",
 });
 
 export const metadata = {
-  title: "DentaPro",
+  title: "Status",
   description:
-    "Стоматологічна клініка DentaPro пропонує широкий спектр стоматологічних послуг для дорослих і дітей. Наша команда професіоналів забезпечує індивідуальний підхід до кожного пацієнта, використовуючи сучасні технології та безболісні методи лікування. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
+    "Стоматологічна клініка Status пропонує широкий спектр стоматологічних послуг для дорослих і дітей. Наша команда професіоналів забезпечує індивідуальний підхід до кожного пацієнта, використовуючи сучасні технології та безболісні методи лікування. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
   openGraph: {
-    title: "DentaPro",
+    title: "Status",
     description:
       "Стоматологічна клініка DentaPro пропонує широкий спектр стоматологічних послуг для дорослих та дітей. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
-    url: "https://dentalpro-gzla.vercel.app/",
-    siteName: "DentaPro",
+    url: "https://status-gzla.vercel.app/",
+    siteName: "Status",
     locale: "uk-UA",
     type: "website",
   },
@@ -52,11 +87,10 @@ export default async function RootLayout({ children, params }) {
   return (
     <html lang={locale}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${kollektif.variable} ${playfairDisplay.variable} antialiased`}
+        className={`${montserrat.variable} ${benzin.variable} ${astron.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           {children}

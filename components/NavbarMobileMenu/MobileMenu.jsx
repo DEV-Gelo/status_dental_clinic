@@ -59,7 +59,7 @@ export default function MobileMenu({ links }) {
   function Section({ children }) {
     return (
       <motion.section
-        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-full sm:w-[55vh] h-[100vh] bg-[#ccdde4]"
+        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-full sm:w-[55vh] h-[100vh] bg-[#fff] insetBlur"
         initial="closed"
         animate="open"
         exit="closed"
@@ -91,7 +91,7 @@ export default function MobileMenu({ links }) {
                   animate="open"
                   exit="closed"
                   variants={li_variants}
-                  className="font-bold text-[24px] text-center m-[2rem]"
+                  className="font-semibold text-[1.5rem] text-start m-[1rem] ml-[2.5rem]"
                   custom={index}
                 >
                   <Link onClick={() => setIsOpen(false)} href={link.href}>
@@ -107,7 +107,13 @@ export default function MobileMenu({ links }) {
                   size="large"
                   color="appointment"
                   variant="contained"
-                  sx={{ whiteSpace: "nowrap", borderRadius: 0 }}
+                  sx={{
+                    mt: 4,
+                    whiteSpace: "nowrap",
+                    borderRadius: 10,
+                    fontFamily: "var(--font-montserrat)",
+                    fontWeight: "semibold",
+                  }}
                 >
                   {t("appointment")}
                 </Button>

@@ -396,80 +396,161 @@
     "settingTitle": "Settings"
   },
   "Navbar": {
-    "main": "HOME",
-    "about": "ABOUT US",
-    "service": "SERVICES",
-    "price": "PRICES",
-    "contact": "CONTACTS",
+    "main": "Home",
+    "clinic": "Clinic",
+    "about": "About us",
+    "service": "Services",
+    "doctors": "Doctors",
+    "cases": "Our cases",
+    "price": "Prices",
+    "contact": "Contacts",
     "appointment": "BOOK AN APPOINTMENT"
   },
   "Footer": {
-    "PatientInfo": {
-      "title": "Patient Information",
-      "AboutUs": "About Us",
-      "History": "History",
-      "B/A": "Before / After",
-      "Testimonials": "Testimonials",
-      "Contact": "Contact Us"
-    },
-    "Services": {
-      "title": "Services",
-      "PreventiveCare": "Preventive Care",
-      "ImplantDentistry": "Implant Dentistry",
-      "CosmeticDentistry": "Cosmetic Dentistry",
-      "ClearBraces": "Clear Braces",
-      "DentalEmergency": "Dental Emergency"
+    "Resurce": {
+      "title": "Resources",
+      "About": "About Us",
+      "Service": "Services",
+      "Doctors": "Doctors",
+      "Cases": "Our Cases",
+      "Price": "Prices",
+      "Contact": "Contact"
     },
     "Legal": {
       "title": "Legal",
-      "PrivacyPolicy": "Privacy Policy",
-      "Terms": "Terms & Conditions",
-      "Insurance": "Insurance"
+      "Licenses": "Licenses",
+      "Contract": "Offer Agreement",
+      "Policy": "Privacy Policy",
+      "Agreement": "User Agreement"
     },
-    "ContactTitle": "Contact Us",
-    "StayConnected": "Stay Connected"
+    "Time": {
+      "title": "Reception hours",
+      "By appointment": "By appointment",
+      "Mon": "Mon-Fri",
+      "Sat": "Sat",
+      "Sun": "Sun"
+    },
+    "ContactTitle": "Contact us",
+    "StayConnected": "We are on social media",
+    "Slogan": "Modern technologies, personalized approach, and years of experience — all for your dental comfort."
   },
   "Home_page": {
-    "mainTitle": {
-      "treatYourself": "Treat yourself to a beautiful,",
-      "white": "white",
-      "smile": "smile"
-    },
-    "Service": {
-      "ServiceTitle": "Everything you need in one place.",
-      "Preventive Care": "Preventive Care",
-      "PreventiveDescription": "Regular check-ups and fluoride treatments to prevent tooth decay and gum disease.",
-      "Restorative Care": "Restorative Care",
-      "RestorativeDescription": "Fillings, crowns, bridges, and dentures to restore damaged or missing teeth.",
-      "Orthodontic Care": "Orthodontic Care",
-      "OrthodonticDescription": "Braces and clear aligners to straighten teeth and correct bite issues.",
-      "Oral Surgery": "Oral Surgery",
-      "OralDescription": "Extractions, wisdom teeth removal, and other surgical procedures.",
-      "Cosmetic Dentistry": "Cosmetic Dentistry",
-      "CosmeticDescription": "Teeth whitening, veneers, and other procedures to improve the appearance of teeth.",
-      "Dental Implants": "Dental Implants",
-      "DentalDescription": "Dental implants are a popular and effective way to replace missing teeth.",
-      "Learn More": "Learn More"
-    },
-    "ExpertDental": {
-      "title": "Expert dental care for the whole family.",
-      "descriptions": "Regular checkups, cleanings, and dental exams are essential for maintaining good oral health. We offer a full range of preventive care services, including fluoride treatments, dental sealants, and oral cancer screenings. Our new patient information page provides helpful details about what to expect during your first visit and what to bring with you.",
-      "buttonName": "READ ABOUT THE TEAM",
-      "Learn More": "LEARN MORE"
-    },
-    "Professionals": {
-      "title": "Professionals you can trust. Period.",
-      "descriptions": "Dr. Giovanni is a prominent dental specialist who knows how to treat every problem. 10+ years of experience translate into bespoke treatment for every patient.",
-      "buttonName": "READ MORE ABOUT DR. GIOVANNI"
-    },
-    "Review": {
-      "Be featured": "Be featured.",
-      "happysmile": "#happysmile",
-      "feedback": "Dr. Giovanni is a genius! The treatment went well, and now my smile shines! Thank YOU!",
-      "mName": "@marcopolono",
-      "wName": "@anna.maria"
+    "appointment": "BOOK AN APPOINTMENT",
+    "mainSection": {
+      "nameTitle": "High-Quality Dental Services",
+      "Title1": "WE CARE ABOUT YOUR",
+      "Title2": "HEALTHY",
+      "Title3": "SMILE",
+      "Description": "Afraid of dentists? Forget about that with Status Dental Clinic! We are a dental clinic where fear has no place — only comfort, care, and confidence in the result. We've created a space filled with calm, where treatment becomes a pleasant experience. It's a place where your fears are understood and your wishes are respected.",
+      "google1": "Google rating 5.0",
+      "google2": "based on 492 reviews"
     }
   },
+  "AdvantagesSection": {
+    "Title1": "Satisfied Patients",
+    "Title2": "Services Provided",
+    "Title3": "Years of Experience",
+    "Title4": "Doctors and Staff"
+  },
+
+  "ServiceSection": {
+    "nameTitle": "Services",
+    "Title1": "HIGH",
+    "Title2": "QUALITY",
+    "Title3": "SERVICES FOR YOU",
+    "Diagnostic": "Diagnostics",
+    "DiagnosticDescription": "Accurate diagnostics is the first step to a healthy smile. We use modern equipment to detect problems at an early stage.",
+    "Preventive": "Prevention",
+    "PreventiveDescription": "This is the foundation of dental health. Regular cleanings and check-ups help prevent serious dental diseases.",
+    "Orthopedics": "Prosthetics",
+    "OrthopedicsDescription": "We restore functionality and aesthetics to your smile with high-quality crowns, and veneers help create the perfect Hollywood smile.",
+    "Orthodontics": "Orthodontics",
+    "OrthodonticsDescription": "Straight teeth mean not only beauty, but also health. We will find the best bite correction solution for both children and adults.",
+    "Surgery": "Surgery",
+    "SurgeryDescription": "Painless, safe, professional. Tooth extraction, resection, and other surgical procedures are in reliable hands.",
+    "Implantation": "Implantation",
+    "ImplantationDescription": "We restore teeth permanently. Implants are a reliable alternative to natural teeth with a natural look and function.",
+    "More": "LEARN MORE"
+  },
+  "TeamSection": {
+    "nameTitle": "Doctors",
+    "Title1": "OUR FRIENDLY TEAM OF",
+    "Title2": "PROFESSIONALS",
+    "Description": "Dentists who give you perfect healthy smiles every day.",
+    "More": "LEARN MORE",
+    "Doctor": {
+      "Name1": "Oleksandr Oleksandrovych",
+      "Specialization1": "Dentist",
+      "Name2": "Volodymyr Volodymyrovych",
+      "Specialization2": "Prosthodontist",
+      "Name3": "Ivan Mykolayovych",
+      "Specialization3": "Therapist Dentist"
+    }
+  },
+
+  "CasesSection": {
+    "nameTitle": "Our Works",
+    "Title1": "NEW",
+    "Title2": "SMILES",
+    "Title3": "OF OUR PATIENTS",
+    "More": "MORE EXAMPLES",
+    "Description": "Each smile is the result of meticulous work, a personalized approach, and genuine care for the patient. We don’t just treat teeth — we restore confidence, comfort in communication, and the joy of seeing your reflection in the mirror. A beautiful smile begins right here, in our hands."
+  },
+
+  "Slider": {
+    "Before": "Before",
+    "After": "After"
+  },
+  "AboutSection": {
+    "nameTitle": "About Us",
+    "Title1": "PROFESSIONAL DOCTORS AND",
+    "Title2": "MODERN",
+    "Title3": "CLINIC",
+    "More": "LEARN MORE",
+    "Description": "We are a team of professionals who truly love what we do. Our clinic combines the latest technologies, modern equipment, and a compassionate approach to every patient. We continually improve our skills, pursue ongoing education, and implement global treatment standards."
+  },
+
+  "TestimonialsSection": {
+    "nameTitle": "Testimonials",
+    "Title1": "WHAT PATIENTS SAY ABOUT US",
+    "Card": {
+      "name1": "Oleksandr Borovyi",
+      "specialization1": "Sales Manager",
+      "description1": "Came in with acute pain — was seen the same day. Impressed by the doctor’s speed and professionalism. Modern equipment and friendly staff.",
+
+      "name2": "Anastasiia Shliakhetna",
+      "specialization2": "Beauty Salon Manager",
+      "description2": "Very satisfied with the service quality! The treatment was completely painless. I’ll definitely come back and recommend it to everyone!",
+
+      "name3": "Viktoriia Haletova",
+      "specialization3": "Designer",
+      "description3": "Had my teeth cleaned and whitened. The results exceeded my expectations! The doctor was very attentive. I really appreciate how the clinic cares about patient comfort."
+    }
+  },
+
+  "ContactSection": {
+    "nameTitle": "Contacts",
+    "Title1": "GET",
+    "Title2": "FREE",
+    "Title3": "PROFESSIONAL",
+    "Title4": "CONSULTATION",
+    "Time": {
+      "title": "Working Hours",
+      "By appointment": "By appointment",
+      "Mon": "MON–FRI",
+      "Sat": "SAT",
+      "Sun": "SUN"
+    },
+    "Appointment": {
+      "Title": "Online booking 24/7",
+      "Appointment": "BOOK AN APPOINTMENT"
+    },
+    "Address": {
+      "Title": "Address",
+      "Address": "Kyiv, Sofii Rusovoi St. 3, dental clinic “STATUS”"
+    }
+  },
+
   "About_page": {
     "ModernClinic": {
       "title": "Modern Dental Clinic",

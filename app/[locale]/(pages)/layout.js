@@ -3,11 +3,11 @@ import Footer from "@/components/Footer/Footer";
 
 const PagesLayout = ({ children }) => {
   return (
-    <main className="flex flex-col min-h-screen w-full">
+    <div className="flex flex-col min-h-screen w-full">
       <Navbar />
-      <div className="flex-grow">{children}</div>
+      <main className="flex-grow ">{children}</main>
       <Footer />
-    </main>
+    </div>
   );
 };
 

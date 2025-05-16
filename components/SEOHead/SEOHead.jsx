@@ -1,11 +1,6 @@
 import Head from "next/head";
 
-const SEOHead = ({
-  title = "Стоматологічна клініка DentaPro",
-  description = "Запишіться на прийом до досвідченого стоматолога у DentaPro.",
-  url = "https://dentapro.com",
-  image = "https://dentapro.com/images/preview.jpg",
-}) => {
+const SEOHead = ({ title, description, url, image }) => {
   return (
     <Head>
       <title>{title}</title>
