@@ -75,11 +75,11 @@ const Services = () => {
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Orthodontics")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image src="/surgery.svg" alt="surgery" width={50} height={52} />
+          <Image src="/Surgery.svg" alt="surgery" width={50} height={52} />
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Surgery")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image src="/implants.svg" alt="implants" width={50} height={52} />
+          <Image src="/Implant.svg" alt="implants" width={50} height={52} />
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Implantation")}</h3>
         </div>
         <Link
