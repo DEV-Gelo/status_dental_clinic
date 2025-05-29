@@ -224,7 +224,8 @@ const ServicePage = () => {
               <div className="flex relative w-full min-h-[25rem] rounded-lg overflow-hidden">
                 <Image
                   src={serviceIMG}
-                  alt="Diagnostic"
+                  alt={nameService}
+                  priority
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"

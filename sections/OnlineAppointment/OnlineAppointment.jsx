@@ -19,6 +19,7 @@ const OnlineAppointment = () => {
             <Image
               src="/OnlineAppointment.webp"
               alt="online appointment"
+              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"

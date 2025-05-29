@@ -58,55 +58,7 @@ export default function About() {
         "https://health-lifesci.schema.org/RestorativeDentistry",
         "https://health-lifesci.schema.org/DentalHygiene",
       ],
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "137",
-      },
-      review: [
-        {
-          "@type": "Review",
-          author: {
-            "@type": "Person",
-            name: "Шляхетна Анастасія",
-          },
-          datePublished: "2024-12-12",
-          reviewBody:
-            "Дуже задоволена якістю обслуговування! Лікування пройшло абсолютно безболісно. Обов'язково повернусь і рекомендую всім!",
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: "5",
-          },
-        },
-        {
-          "@type": "Review",
-          author: {
-            "@type": "Person",
-            name: "Боровий Олександр",
-          },
-          datePublished: "2025-05-20",
-          reviewBody:
-            "Звернувся з гострим болем — прийняли в той же день. Вразила швидкість і професіоналізм лікаря. Cучасне обладнання та приємний персонал.",
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: "5",
-          },
-        },
-        {
-          "@type": "Review",
-          author: {
-            "@type": "Person",
-            name: "Галетова Вікторія",
-          },
-          datePublished: "2023-08-10",
-          reviewBody:
-            "Робила чистку та відбілювання зубів. Результат перевершив очікування! Лікарка була дуже уважна. Приємно, що в клініці дбають про комфорт пацієнта.",
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: "5",
-          },
-        },
-      ],
+
       employee: [
         {
           "@type": "Person",

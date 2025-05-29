@@ -108,6 +108,7 @@ const Testimonials = () => {
                         <Image
                           src={testimonial.image}
                           alt={testimonial.name}
+                          lazy
                           width={92}
                           height={108}
                         />
