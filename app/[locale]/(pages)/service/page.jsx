@@ -9,14 +9,6 @@ export const metadata = {
     description:
       "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
     url: "https://dentalpro-gzla.vercel.app/service",
-    images: [
-      {
-        url: "https://dentalpro.com/images/home-preview.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Стоматологічна клініка Status",
-      },
-    ],
   },
 };
 
@@ -24,9 +16,9 @@ export default function Service() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    "@id": "https://example.com/services#webpage",
+    "@id": "hhttps://dentalpro-gzla.vercel.app/service#webpage",
     name: "Стоматологічні послуги",
-    url: "https://example.com/services",
+    url: "https://dentalpro-gzla.vercel.app/service",
     description:
       "Повний спектр стоматологічних послуг у клініці «Status»: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика та профілактика. Помірні ціни, безболісне лікування, індивідуальний підхід та професійне обладнання.",
     inLanguage: "uk",
@@ -138,18 +130,18 @@ export default function Service() {
     },
     mainEntity: {
       "@type": "DentalClinic",
-      "@id": "https://example.com/#dental-clinic",
+      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://example.com/banner.jpg",
+        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://example.com",
+      url: "https://dentalpro-gzla.vercel.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://example.com/logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.png",
       },
       address: {
         "@type": "PostalAddress",
@@ -198,7 +190,7 @@ export default function Service() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://example.com/appointment",
+          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

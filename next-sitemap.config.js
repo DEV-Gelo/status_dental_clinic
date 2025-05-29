@@ -1,7 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl:
-    process.env.SITE_URL || "https://dentalpro-production.up.railway.app",
+  siteUrl: process.env.SITE_URL || "https://status-gzla.vercel.app",
   generateRobotsTxt: true, // Generate robots.txt
   changefreq: "daily",
   priority: 0.7,
@@ -33,11 +32,9 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
+      `${process.env.SITE_URL || "https://status-gzla.vercel.app"}/sitemap.xml`,
       `${
-        process.env.SITE_URL || "https://dentalpro-production.up.railway.app"
-      }/sitemap.xml`,
-      `${
-        process.env.SITE_URL || "https://dentalpro-production.up.railway.app"
+        process.env.SITE_URL || "https://status-gzla.vercel.app"
       }/server-sitemap.xml`,
     ],
   },

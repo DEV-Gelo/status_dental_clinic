@@ -9,14 +9,6 @@ export const metadata = {
     description:
       "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
     url: "https://dentalpro-gzla.vercel.app/doctors",
-    images: [
-      {
-        url: "https://dentalpro.com/images/home-preview.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Стоматологічна клініка Status",
-      },
-    ],
   },
 };
 
@@ -24,9 +16,9 @@ export default function Doctors() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    "@id": "https://example.com/doctors#webpage",
+    "@id": "https://dentalpro-gzla.vercel.app/doctors#webpage",
     name: "Наша команда",
-    url: "https://example.com/doctors",
+    url: "https://dentalpro-gzla.vercel.app/doctors",
     description:
       "Команда лікарів стоматологічної клініки Status. Кваліфіковані стоматологи, імплантологи, ортодонти та гігієністи з багаторічним досвідом.",
     inLanguage: "uk",
@@ -77,18 +69,18 @@ export default function Doctors() {
     },
     mainEntity: {
       "@type": "DentalClinic",
-      "@id": "https://example.com/#dental-clinic",
+      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://example.com/banner.jpg",
+        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://example.com",
+      url: "hhttps://dentalpro-gzla.vercel.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://example.com/logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.png",
       },
       address: {
         "@type": "PostalAddress",
@@ -138,7 +130,7 @@ export default function Doctors() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://example.com/appointment",
+          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

@@ -74,7 +74,7 @@ export const metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-icon.png",
   },
-  metadataBase: new URL("https://status-gzla.vercel.app"),
+  metadataBase: new URL("https://dentalpro-gzla.vercel.app"),
   openGraph: {
     title: "Стоматологічна клініка Status",
     description:

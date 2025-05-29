@@ -7,7 +7,7 @@ import { BsCheck2Circle } from "react-icons/bs";
 import OnlineAppointment from "@/sections/OnlineAppointment/OnlineAppointment";
 import Services from "@/sections/Services/Services";
 
-const doctors = () => {
+const Doctors = () => {
   // --------Translations---------//
   const t = useTranslations("DoctorsPage");
 
@@ -130,4 +130,4 @@ const doctors = () => {
   );
 };
 
-export default doctors;
+export default Doctors;

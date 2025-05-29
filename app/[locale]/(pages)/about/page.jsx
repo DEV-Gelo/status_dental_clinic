@@ -9,14 +9,6 @@ export const metadata = {
     description:
       "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
     url: "https://dentalpro-gzla.vercel.app/about",
-    images: [
-      {
-        url: "https://dentalpro.com/images/home-preview.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Стоматологічна клініка Status",
-      },
-    ],
   },
 };
 
@@ -25,13 +17,13 @@ export default function About() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Про клініку «Status»",
-    url: "https://example.com/about",
+    url: "https://dentalpro-gzla.vercel.app/about",
     mainEntity: {
       "@type": "DentalClinic",
       name: "Стоматологічна клініка «Status»",
-      image: "https://example.com/banner.jpg",
-      url: "https://example.com",
-      logo: "https://example.com/logo.png",
+      image: "https://dentalpro-gzla.vercel.app/openGraph.jpg",
+      url: "https://dentalpro-gzla.vercel.app",
+      logo: "https://dentalpro-gzla.vercel.app/Logo.png",
       description:
         "Стоматологічна клініка «Status» у Києві (Дарницький район, Осокорки) — це поєднання сучасних технологій, досвідчених лікарів і турботи про кожного пацієнта. Ми надаємо повний спектр стоматологічних послуг: лікування зубів, імплантація, професійна гігієна, естетична стоматологія, ортодонтія та дитяча стоматологія. Дізнайтеся більше про нашу команду, прочитайте реальні відгуки пацієнтів та скористайтеся зручним онлайн-записом.",
       address: {
@@ -120,26 +112,26 @@ export default function About() {
           "@type": "Person",
           name: "Олександр Олександрович",
           jobTitle: "Лікар-стоматолог",
-          image: "https://example.com/images/oleksandr.jpg",
+          image: "https://dentalpro-gzla.vercel.app/Doc1.png",
         },
         {
           "@type": "Person",
           name: "Іван Миколайович",
           jobTitle: "Стоматолог-терапевт",
-          image: "https://example.com/images/oleksandr.jpg",
+          image: "https://dentalpro-gzla.vercel.app/Doc3.png",
         },
         {
           "@type": "Person",
           name: "Володимир Володимирович",
           jobTitle: "Стоматолог-ортопед",
-          image: "https://example.com/images/oleksandr.jpg",
+          image: "https://dentalpro-gzla.vercel.app/Doc2.png",
         },
       ],
       potentialAction: {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://example.com/appointment",
+          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

@@ -7,7 +7,7 @@ import Services from "@/sections/Services/Services";
 import OnlineAppointment from "@/sections/OnlineAppointment/OnlineAppointment";
 import Team from "@/sections/Team/Team";
 
-const cases = () => {
+const Cases = () => {
   // ------Translations--------//
   const t = useTranslations("CasesPage");
   return (
@@ -68,4 +68,4 @@ const cases = () => {
   );
 };
 
-export default cases;
+export default Cases;

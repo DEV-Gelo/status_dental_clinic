@@ -8,15 +8,7 @@ export const metadata = {
     title: "Наші роботи",
     description:
       "Переконайтеся в якості нашої роботи! На цій сторінці ви знайдете реальні приклади лікування, реставрації, встановлення імплантів та естетичних змін усмішок наших пацієнтів. Фото «до» та «після» демонструють професіоналізм лікарів клініки «Status» та сучасні підходи до стоматології.",
-    url: "https://dentalpro-gzla.vercel.app/about",
-    images: [
-      {
-        url: "https://dentalpro.com/images/home-preview.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Стоматологічна клініка Status",
-      },
-    ],
+    url: "https://dentalpro-gzla.vercel.app/cases",
   },
 };
 
@@ -24,9 +16,9 @@ export default function Cases() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    "@id": "https://example.com/cases#webpage",
+    "@id": "https://dentalpro-gzla.vercel.app/cases#webpage",
     name: "Наші роботи",
-    url: "https://example.com/cases",
+    url: "https://dentalpro-gzla.vercel.app/cases",
     description:
       "Приклади реальних клінічних випадків стоматологічної клініки Status: лікування, імплантація, естетична стоматологія та реставрації",
     inLanguage: "uk",
@@ -64,18 +56,18 @@ export default function Cases() {
     },
     mainEntity: {
       "@type": "DentalClinic",
-      "@id": "https://example.com/#dental-clinic",
+      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://example.com/banner.jpg",
+        url: "https://dentalpro-gzla.vercel.app/openGraph.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://example.com",
+      url: "https://dentalpro-gzla.vercel.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://example.com/logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.png",
       },
       address: {
         "@type": "PostalAddress",
@@ -126,7 +118,7 @@ export default function Cases() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://example.com/appointment",
+          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

@@ -239,24 +239,6 @@ const Appointment = () => {
   //     console.error(error);
   //   }
   // };
-  // --------Get data contacts from server------//
-  const fetchDataContact = async () => {
-    try {
-      const response = await fetch("/api/admin_setting/contact");
-      if (!response.ok)
-        throw new Error(
-          result.message || t("An error occurred while receiving data")
-        );
-      const data = await response.json();
-      setContact(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    // fetchData();
-    fetchDataContact();
-  }, []);
 
   return (
     <>
@@ -271,16 +253,6 @@ const Appointment = () => {
               <div>
                 <p>{t("Administrator will contact")}</p>
                 <p>{t("We are waiting for you at the address")}</p>
-                <p>
-                  {[
-                    contact[0]?.city,
-                    contact[0]?.street,
-                    contact[0]?.house,
-                    contact[0]?.office,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                </p>
                 <p>{`${t("dental clinic")} DentaPro`}</p>
               </div>
               <p>

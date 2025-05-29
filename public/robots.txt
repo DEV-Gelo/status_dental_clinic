@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /404
+Disallow: /500
+
+# Host
+Host: https://dentalpro-production.up.railway.app
+
+# Sitemaps
+Sitemap: https://dentalpro-production.up.railway.app/sitemap.xml
+Sitemap: https://dentalpro-production.up.railway.app/server-sitemap.xml
