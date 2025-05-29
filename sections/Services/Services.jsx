@@ -43,7 +43,6 @@ const Services = () => {
             <Image
               src="/diagnostic.svg"
               alt="diagnostic"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -56,7 +55,6 @@ const Services = () => {
             <Image
               src="/prevention.svg"
               alt="prevention"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -69,7 +67,6 @@ const Services = () => {
             <Image
               src="/orthopedics.svg"
               alt="orthopedics"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -82,7 +79,6 @@ const Services = () => {
             <Image
               src="/orthodontics.svg"
               alt="orthodontics"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -95,7 +91,6 @@ const Services = () => {
             <Image
               src="/Surgery.svg"
               alt="surgery"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -108,7 +103,6 @@ const Services = () => {
             <Image
               src="/Implant.svg"
               alt="implants"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -168,7 +162,6 @@ const Services = () => {
                   <Image
                     src="/diagnostic.svg"
                     alt="diagnostic"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
@@ -186,7 +179,6 @@ const Services = () => {
                   <Image
                     src="/prevention.svg"
                     alt="prevention"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
@@ -204,7 +196,6 @@ const Services = () => {
                   <Image
                     src="/orthopedics.svg"
                     alt="orthopedics"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
@@ -218,7 +209,6 @@ const Services = () => {
             <Image
               src="/ServiceTooth.png"
               alt="tooth"
-              lazy
               width={430}
               height={420}
               className="object-cover my-auto"
@@ -259,7 +249,6 @@ const Services = () => {
                   <Image
                     src="/orthodontics.svg"
                     alt="orthodontics"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
@@ -277,7 +266,6 @@ const Services = () => {
                   <Image
                     src="/Surgery.svg"
                     alt="surgery"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
@@ -295,7 +283,6 @@ const Services = () => {
                   <Image
                     src="/Implant.svg"
                     alt="implant"
-                    lazy
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"

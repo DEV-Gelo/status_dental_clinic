@@ -21,7 +21,6 @@ const About = () => {
             <Image
               src="/About1.webp"
               alt="equipments1"
-              lazy
               width={555}
               height={555}
             />
@@ -30,7 +29,6 @@ const About = () => {
             <Image
               src="/About2.webp"
               alt="equipments2"
-              lazy
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"

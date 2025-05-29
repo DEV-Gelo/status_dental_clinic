@@ -671,6 +671,19 @@
     }
   },
 
+  "CasesPage": {
+    "nameTitle": "Our Works",
+    "Title1": "NEW",
+    "Title2": "SMILES",
+    "Title3": "OF OUR PATIENTS",
+    "DescriptionTitle1": "Service Name",
+    "Description1": "Description of the procedure performed",
+    "DescriptionTitle2": "Service Name",
+    "Description2": "Description of the procedure performed",
+    "DescriptionTitle3": "Service Name",
+    "Description3": "Description of the procedure performed"
+  },
+
   "PricePage": {
     "nameTitle": "Prices",
     "Title1": "AFFORDABLE PRICES FOR",

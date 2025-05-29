@@ -23,7 +23,7 @@ export default function Contacts() {
       "Контактна інформація стоматологічної клініки «Status» у Києві: адреса, телефони, email, карта проїзду та форма запису онлайн.",
     inLanguage: "uk",
     mainEntity: {
-      "@type": "DentalClinic",
+      "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {

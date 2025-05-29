@@ -19,7 +19,7 @@ export default function About() {
     name: "Про клініку «Status»",
     url: "https://dentalpro-gzla.vercel.app/about",
     mainEntity: {
-      "@type": "DentalClinic",
+      "@type": "MedicalClinic",
       name: "Стоматологічна клініка «Status»",
       image: "https://dentalpro-gzla.vercel.app/openGraph.jpg",
       url: "https://dentalpro-gzla.vercel.app",

@@ -99,7 +99,7 @@ const Home = () => {
         <Link
           // href={`/${locale}/appointment`}
           href="#"
-          className="flex md:hidden justify-center items-center my-5 lg:my-10"
+          className="flex md:hidden justify-center items-center mx-auto my-5 lg:my-10"
         >
           <ThemeProvider theme={theme}>
             <Button

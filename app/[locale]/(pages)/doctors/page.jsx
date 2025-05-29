@@ -15,7 +15,7 @@ export const metadata = {
 export default function Doctors() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
+    "@type": "WebPage",
     "@id": "https://dentalpro-gzla.vercel.app/doctors#webpage",
     name: "Наша команда",
     url: "https://dentalpro-gzla.vercel.app/doctors",
@@ -68,7 +68,7 @@ export default function Doctors() {
       ],
     },
     mainEntity: {
-      "@type": "DentalClinic",
+      "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
