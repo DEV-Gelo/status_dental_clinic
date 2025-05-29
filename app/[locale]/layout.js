@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
+import homeStructuredData from "@/lib/structured-data/home";
 import "./globals.css";
 // ---------Fonts-----------//
 const montserrat = localFont({
@@ -52,26 +53,59 @@ export const astron = localFont({
 });
 
 export const metadata = {
-  title: "Status",
-  description:
-    "Стоматологічна клініка Status пропонує широкий спектр стоматологічних послуг для дорослих і дітей. Наша команда професіоналів забезпечує індивідуальний підхід до кожного пацієнта, використовуючи сучасні технології та безболісні методи лікування. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
-  openGraph: {
-    title: "Status",
-    description:
-      "Стоматологічна клініка DentaPro пропонує широкий спектр стоматологічних послуг для дорослих та дітей. Від профілактики до складних хірургічних втручань — ми дбаємо про вашу усмішку!",
-    url: "https://status-gzla.vercel.app/",
-    siteName: "Status",
-    locale: "uk-UA",
-    type: "website",
+  title: {
+    template: "%s | Стоматологічна клініка Status",
+    default: "Стоматологічна клініка Status",
   },
+  description:
+    "Стоматологічна клініка Status у Києві — сучасне, безболісне лікування зубів для дорослих та дітей. Індивідуальний підхід для вашої здорової посмішки.",
   keywords: [
     "стоматологічна клініка",
     "лікування зубів",
     "профілактика карієсу",
     "безболісна стоматологія",
     "сучасні стоматологічні технології",
+    "дитяча стоматологія",
+    "естетична стоматологія",
+    "Status стоматологія",
   ],
-  icons: "/favicon.ico",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
+  metadataBase: new URL("https://status-gzla.vercel.app"),
+  openGraph: {
+    title: "Стоматологічна клініка Status",
+    description:
+      "Відвідайте стоматологічну клініку Status — сучасний підхід, професійні лікарі, безболісне лікування та дбайливе ставлення до кожного пацієнта.",
+    url: "https://dentalpro-gzla.vercel.app",
+    siteName: "Status",
+    images: [
+      {
+        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Стоматологічна клініка Status",
+      },
+    ],
+    locale: "uk-UA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Стоматологічна клініка Status",
+    description:
+      "Індивідуальний підхід, сучасне обладнання, професійна команда стоматологів — довірте свою усмішку клініці Status.",
+    images: ["https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg"],
+  },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/uk",
+      "en-US": "https://dentalpro-gzla.vercel.app/en",
+    },
+  },
 };
 
 export default async function RootLayout({ children, params }) {
@@ -87,7 +121,12 @@ export default async function RootLayout({ children, params }) {
   return (
     <html lang={locale}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(homeStructuredData).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body
         className={`${montserrat.variable} ${benzin.variable} ${astron.variable} antialiased`}

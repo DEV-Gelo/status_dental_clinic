@@ -332,24 +332,7 @@
     "Deleting": "DELETING...",
     "AddService_title": "Create service"
   },
-  "settings__Contacts": {
-    "SuccessAlert": "Data saved successfully",
-    "Error sending data": "Error sending data",
-    "Error loading data": "Error loading data",
-    "Country": "Country",
-    "City": "City",
-    "Area": "Area",
-    "Region": "Region/State",
-    "Street": "Street",
-    "House": "Building Number",
-    "Office": "Office",
-    "zipCode": "Zip Code",
-    "email": "Email",
-    "Phone": "Phone",
-    "prefix": "+1",
-    "Coordinates": "Coordinates:",
-    "save": "Save"
-  },
+
   "appointment": {
     "Date_alert": "Please select a date for the appointment",
     "Date_doctor_alert": "Please select a different date for the appointment",
@@ -551,61 +534,153 @@
     }
   },
 
-  "About_page": {
-    "ModernClinic": {
-      "title": "Modern Dental Clinic",
-      "description": "Our clinic is a place where every patient receives high-quality treatment in a comfortable environment. We combine modern technologies with a personalized approach to each client."
-    },
-    "Staff": {
-      "title": "Experienced Staff",
-      "description": "Our team consists of qualified dentists with years of experience. They continuously improve their skills, participate in international conferences, and master the latest treatment techniques."
-    },
-    "Euip": {
-      "title": "State-of-the-Art Equipment",
-      "description": "We use only the latest dental equipment from leading global manufacturers. This allows us to provide treatment quickly, painlessly, and effectively."
-    },
-    "Service": {
-      "title": "Services",
-      "description": "We offer a wide range of dental services, from preventive check-ups to complex surgical procedures. You can receive cavity treatment, professional cleaning, dental implants, prosthetics, and much more with us."
-    },
-    "Comfort": {
-      "title": "Comfort and Care",
-      "description": "We prioritize the comfort of our patients. Our clinic has a cozy atmosphere, and our friendly staff is always ready to assist and support you at every stage of your treatment."
+  "AboutPage": {
+    "nameTitle": "About Us",
+    "Title1": "PROFESSIONAL STAFF AND",
+    "Title2": "MODERN",
+    "Title3": "CLINIC",
+    "DescriptionTitle1": "Modern and Comfortable Clinic",
+    "Description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "DescriptionTitle2": "State-of-the-Art Dental Equipment",
+    "Description2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "DescriptionTitle3": "Polite and Friendly Staff",
+    "Description3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  "OnlineAppointmentSection": {
+    "nameTitle": "Online Appointment",
+    "Title1": "CREATE A",
+    "Title2": "BEAUTIFUL",
+    "Title3": "SMILE WITH OUR PROFESSIONALS",
+    "appointment": "MAKE AN APPOINTMENT"
+  },
+
+  "ServicePage": {
+    "nameTitle": "Services",
+    "Title1": "HIGH",
+    "Title2": "QUALITY",
+    "Title3": "SERVICES FOR YOU",
+    "appointment": "MAKE AN APPOINTMENT",
+    "OurServices": "Our Services",
+    "StepTitle": "Three simple steps to book:",
+    "Step1": "Choose a date",
+    "Step2": "Choose a time",
+    "Step3": "Fill out the form",
+    "AdvantageTitle": "Our Advantages:",
+
+    "Services": {
+      "Name1": "Diagnostics",
+      "Description1": "Modern dentistry starts with accurate and timely diagnostics. It allows not only to detect existing problems with teeth or gums but also to prevent complications in the future. In our clinic, we pay special attention to the diagnostic stage, as the accuracy of diagnostics determines the effectiveness of subsequent treatment. Diagnostics in our clinic include both visual examination and the use of modern digital equipment: intraoral cameras, dental X-rays, orthopantomograms (panoramic images), and 3D tomography. These methods provide a complete picture of the oral cavity condition: teeth, bone tissue, gums, joints, and other structures. Even the smallest lesions — cracks, hidden carious cavities, early stages of periodontitis — are carefully detected. The diagnostic procedure takes minimal time and causes no discomfort to the patient. Our doctors work carefully, explaining each stage of the examination and the results. We strive for the patient to not only receive information but also understand its significance.",
+      "Advantages1": {
+        "Av1": "Accurate and fast diagnostics with modern equipment",
+        "Av2": "Consultation with a qualified dentist",
+        "Av3": "Individual treatment plan",
+        "Av4": "Painless examination methods"
+      },
+      "Name2": "Prevention",
+      "Description2": "Prevention is the foundation of a healthy smile and self-confidence. In our clinic, we emphasize the importance of regular oral care not only at home but also with a dentist. Preventive check-ups allow timely detection of potential problems — from dental plaque to early signs of caries or gum inflammation. We use modern methods of professional cleaning, tartar removal, polishing, and enamel remineralization. All procedures are performed gently and painlessly, considering each patient's individual needs. Prevention also includes consultations on proper tooth brushing, selection of hygiene products, and nutrition. Regular preventive visits not only save time and money in the future but also ensure long-term dental health. Our specialists will help you maintain the natural beauty of your smile for many years.",
+      "Advantages2": {
+        "Av1": "Timely detection of problems at early stages",
+        "Av2": "Painless and comfortable preventive procedures",
+        "Av3": "Professional teeth cleaning and tartar removal",
+        "Av4": "Individual oral care recommendations"
+      },
+      "Name3": "Prosthodontics",
+      "Description3": "Prosthodontics in dentistry is a set of measures aimed at restoring the function and aesthetics of the dental arch. In our clinic, we offer modern solutions for patients with tooth loss or damage that affect comfort and appearance. Using an individual approach, we select dentures, crowns, bridges, or implants that best meet the patient's needs. Our specialists work with modern materials that ensure durability, aesthetics, and a natural look. Procedures are comfortable and minimally invasive because we care about each patient's safety and peace of mind. Proper prosthodontic care allows you to regain a beautiful smile and maintain the health of teeth and gums for many years.",
+      "Advantages3": {
+        "Av1": "High-quality restoration of tooth function and chewing",
+        "Av2": "Individual selection of dentures and crowns",
+        "Av3": "Modern materials for durable results",
+        "Av4": "Comfortable and painless installation procedures"
+      },
+      "Name4": "Orthodontics",
+      "Description4": "Orthodontics is a specialized field of dentistry focused on correcting bite and straightening teeth. In our clinic, we use modern correction methods including braces systems, clear aligners, and other innovative technologies. A correct bite not only improves the aesthetics of your smile but also prevents many problems with teeth, gums, and jaws. Treatment is individualized and carefully planned, considering the patient’s age and specifics. Our orthodontists provide comfortable conditions, regularly monitor progress, and help achieve long-term results. The use of modern equipment and materials ensures safety, effectiveness, and aesthetics at all stages of treatment.",
+      "Advantages4": {
+        "Av1": "Individual selection of orthodontic systems",
+        "Av2": "Comfortable and painless treatment",
+        "Av3": "Modern bite correction methods",
+        "Av4": "Continuous monitoring and progress support"
+      },
+      "Name5": "Surgery",
+      "Description5": "Surgical treatment in dentistry is a complex of high-precision procedures aimed at resolving complicated issues with teeth, gums, and bone tissue. In our clinic, surgeries are performed using modern equipment and the latest techniques, ensuring minimal discomfort and quick recovery. We offer tooth extractions of any complexity, implantation, bone grafting, and periodontal disease treatment. All interventions are conducted by experienced specialists adhering to the highest standards of sterility and safety. Patients receive detailed consultations, support throughout treatment, and individual care. Our goal is to restore health and comfort in the shortest possible time.",
+      "Advantages5": {
+        "Av1": "Modern minimally invasive surgical methods",
+        "Av2": "Experienced dental surgeons",
+        "Av3": "Individual approach to each patient",
+        "Av4": "Safe procedures with comfortable treatment"
+      },
+      "Name6": "Implantology",
+      "Description6": "Dental implantation is a modern method for restoring lost teeth, allowing you to regain the natural appearance and functionality of your oral cavity. In our clinic, we use high-quality implants from leading manufacturers that guarantee durability and safety. The implantation procedure involves placing titanium posts into the jawbone, which serve as a reliable foundation for crowns or dentures. Our specialists carefully plan every treatment stage, using 3D diagnostics for precise implant positioning. This ensures patient comfort, minimal trauma, and fast recovery. Implantation restores not only the aesthetics of your smile but also chewing function, improving your quality of life.",
+      "Advantages6": {
+        "Av1": "High-quality implants from world-renowned brands",
+        "Av2": "Precise planning with 3D diagnostics",
+        "Av3": "Minimal discomfort and quick recovery",
+        "Av4": "Natural appearance and tooth functionality"
+      },
+      "Name7": "Gnathology",
+      "Description7": "Gnathology is a branch of dentistry focused on the study and treatment of disorders of the masticatory system function, including joints, muscles, and bite. In our clinic, the gnathological approach helps patients relieve jaw pain, headaches, teeth grinding (bruxism), and other symptoms affecting quality of life. Doctors use modern diagnostic methods including bite analysis, electromyography, and 3D visualization. Individual treatment plans include bite correction, manufacture of special splints to relax muscles, and rehabilitation of masticatory functions. This comprehensive approach helps preserve the health of teeth and joints and prevents complications.",
+      "Advantages7": {
+        "Av1": "Comprehensive diagnostics of the masticatory system",
+        "Av2": "Treatment of bruxism and teeth grinding",
+        "Av3": "Custom splints for muscle relaxation",
+        "Av4": "Pain relief and bite function restoration"
+      },
+      "Name8": "Professional Restoration",
+      "Description8": "Tooth restoration is a modern method of restoring the shape, color, and functionality of damaged teeth. In our clinic, we use advanced materials that closely resemble natural enamel in aesthetics and strength. Restoration quickly and painlessly eliminates the effects of caries, cracks, chips, or discoloration. Doctors apply direct and indirect restoration techniques, individually selecting the method for each patient. This allows teeth to regain a natural look and durability, giving the patient confidence in their smile. The procedure is painless, with minimal intervention in the tooth structure.",
+      "Advantages8": {
+        "Av1": "Restoration of the natural shape of teeth",
+        "Av2": "Use of high-quality materials",
+        "Av3": "Painless and quick procedures",
+        "Av4": "Long-lasting strength and aesthetics of the restoration"
+      },
+      "Name9": "Professional Hygiene",
+      "Description9": "Professional oral hygiene is a set of measures aimed at maintaining the health of teeth and gums. It includes the removal of dental plaque, tartar, and contaminants that cannot be eliminated by regular home cleaning. At our clinic, the procedure is performed using modern equipment and safe techniques, ensuring maximum comfort for the patient. Regular hygiene helps prevent the development of caries, periodontitis, and other diseases, improves breath freshness, and the overall condition of the oral cavity. Our specialists select an individual care program and provide recommendations for home care.",
+      "Advantages9": {
+        "Av1": "Effective removal of dental tartar",
+        "Av2": "Prevention of caries and periodontitis",
+        "Av3": "Improvement of breath freshness",
+        "Av4": "Individual care recommendations"
+      }
     }
   },
-  "Service_page": {
-    "title": "Our Services",
-    "PreventiveCare": {
-      "title": "Preventive Dentistry",
-      "description": "Preventive care helps maintain the health of teeth and gums, preventing cavities and oral diseases. Regular dental check-ups, professional cleanings, fluoride treatments, and fissure sealants strengthen enamel and reduce the risk of future problems. Additionally, we provide guidance on proper brushing techniques and help choose the best oral hygiene products."
+
+  "DoctorsPage": {
+    "nameTitle": "Doctors",
+    "Title1": "OUR FRIENDLY TEAM OF",
+    "Title2": "PROFESSIONALS",
+    "Description": "Dentists who give you perfect, healthy smiles every day.",
+    "Doctor1": {
+      "Position": "General Dentist",
+      "Name": "Oleksandr Oleksandrovych",
+      "Description": "An experienced general dentist with a personalized approach to each patient. He has over 15 years of practice in therapeutic and aesthetic dentistry. Works with both adults and children, focusing not only on the quality of treatment but also on patient comfort. Continuously improves his skills through courses and internships both in Ukraine and abroad.",
+      "qualities1": "Extremely gentle approach — the doctor knows how to work with patients who are afraid of dental visits. Even the youngest patients feel calm and safe.",
+      "qualities2": "Modern treatment methods — uses the latest technologies and materials to ensure effective and painless treatment."
     },
-    "RestorativeCare": {
-      "title": "Restorative Dentistry",
-      "description": "This service includes the treatment and restoration of damaged teeth, restoring their health, aesthetics, and functionality. Restorative methods include cavity fillings, crowns, bridges, and dentures. For more severe damage or tooth loss, advanced solutions such as inlays, onlays, or dental implants may be used."
+    "Doctor2": {
+      "Position": "Therapist Dentist",
+      "Name": "Ivan Mykolayovych",
+      "Description": "Specializes in therapeutic dental treatment — particularly caries, pulpitis, periodontitis, and the prevention of oral diseases. He has over 12 years of hands-on experience and continuously enhances his knowledge through specialized courses and conferences. His main principle is pain-free, stress-free treatment. He is great at explaining complex issues in simple terms and always aims to preserve the patient’s natural teeth for as long as possible.",
+      "qualities1": "Comprehensive approach to treatment — Ivan Mykolayovych always considers the overall condition of the oral cavity, not just individual symptoms.",
+      "qualities2": "Clear communication and guidance — explains each step of the treatment process so the patient feels confident and calm."
     },
-    "OrthodonticCare": {
-      "title": "Orthodontic Treatment",
-      "description": "Orthodontic treatment focuses on correcting teeth alignment and bite issues, not only creating a beautiful smile but also improving chewing function. Various methods are used, including traditional metal braces, aesthetic ceramic braces, clear aligners, and other orthodontic appliances. Treatment helps prevent uneven tooth wear, joint problems, and gum diseases."
-    },
-    "OralSurgery": {
-      "title": "Oral Surgery",
-      "description": "Oral surgery covers a wide range of procedures designed to address complex dental issues. Common procedures include tooth extractions (including wisdom teeth), abscess treatment, bone grafting, and dental implant placement. Additionally, gum corrections for periodontal diseases may be performed. Surgical interventions are carried out with modern anesthesia techniques, ensuring comfort and a painless experience for the patient."
-    },
-    "CosmeticDentistry": {
-      "title": "Cosmetic Dentistry",
-      "description": "Cosmetic dentistry focuses on enhancing the appearance of teeth, giving them the ideal shape, color, and size. Popular procedures include professional teeth whitening, veneers, and lumineers, as well as composite restorations. These methods effectively conceal enamel defects, cracks, and irregularities, creating a harmonious and attractive smile."
-    },
-    "DentalImplants": {
-      "title": "Dental Implants",
-      "description": "Dental implants are the most advanced and long-lasting solution for replacing missing teeth. The procedure involves placing a titanium implant into the jawbone, providing a secure foundation for a future crown. This approach fully restores dental functionality without affecting neighboring teeth, unlike traditional bridges. Implants help maintain a natural-looking smile and prevent bone loss in the area of the missing tooth."
+    "Doctor3": {
+      "Position": "Prosthodontist",
+      "Name": "Volodymyr Volodymyrovych",
+      "Description": "A specialist in prosthodontic dentistry with over 10 years of experience. His main focus is restoring dental function and aesthetics using crowns, bridges, inlays, and modern prostheses. He pays great attention to precision, which ensures patient comfort. Volodymyr Volodymyrovych combines classical prosthodontic knowledge with modern digital technologies, allowing for a natural appearance and perfect fit of dental constructions.",
+      "qualities1": "Maximum precision in work — thanks to digital scanning and a personalized approach, prosthetic constructions are long-lasting and comfortable.",
+      "qualities2": "Natural smile aesthetics — helps restore not only dental functionality but also patient confidence in their smile."
     }
   },
-  "Price_page": {
-    "title": "Prices for services",
-    "currence": "usd",
+
+  "PricePage": {
+    "nameTitle": "Prices",
+    "Title1": "AFFORDABLE PRICES FOR",
+    "Title2": "QUALITY",
+    "Title3": "SERVICES",
+    "currence": "UAH",
     "loading": "Loading...",
     "Error loading data": "Error loading data"
   },
+
   "CustomMap": {
     "Popup": "Here is our clinic!",
     "Route_button": "BUILD ROUTE",
@@ -614,6 +689,7 @@
     "Error_location": "Failed to get your geolocation.",
     "Geolocation is not supported": "Geolocation is not supported by your browser."
   },
+
   "Contact_page": {
     "title": "Our contacts"
   }

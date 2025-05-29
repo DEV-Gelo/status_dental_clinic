@@ -1,3 +1,7 @@
+// import { useMediaQuery } from "react-responsive";
+
+// const isMobile = useMediaQuery({ maxWidth: 639 });
+
 export const section_variants = {
   open: {
     x: 0,

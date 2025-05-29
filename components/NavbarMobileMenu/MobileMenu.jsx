@@ -59,7 +59,7 @@ export default function MobileMenu({ links }) {
   function Section({ children }) {
     return (
       <motion.section
-        className="flex flex-col justify-center items-center p-[4rem] absolute z-0 top-[-2rem] w-full sm:w-[55vh] h-[100vh] bg-[#fff] insetBlur"
+        className="flex flex-col justify-center items-center p-[4rem] fixed top-0 right-0 h-screen w-full sm:w-[55vw] bg-white/50 backdrop-blur-md"
         initial="closed"
         animate="open"
         exit="closed"

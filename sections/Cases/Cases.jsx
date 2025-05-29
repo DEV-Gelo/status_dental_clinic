@@ -17,7 +17,7 @@ const Cases = () => {
 
   return (
     <>
-      <section className="flex flex-col w-full h-auto py-[2rem] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
+      <section className="flex flex-col w-full h-auto py-[2rem] container-padding">
         <div className="flex flex-col lg:flex-row w-full h-full justify-center items-center lg:justify-start lg:items-start lg:mt-10">
           <div className="flex flex-col w-full sm:w-[80%] lg:w-1/2 h-full lg:mr-5">
             <p className="blue-text text-center lg:text-start">
@@ -32,7 +32,7 @@ const Cases = () => {
             </p>
           </div>
           <div className="flex w-full sm:w-[80%] lg:w-1/2 h-full rounded-md overflow-hidden lg:ml-5">
-            <Slider />
+            <Slider Before="/Before.jpg" After="/After.jpg" />
           </div>
         </div>
         <div className="flex w-full justify-center lg:justify-start items-start mt-10 lg:mt-0">

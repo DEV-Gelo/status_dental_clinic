@@ -2,7 +2,7 @@
 module.exports = {
   siteUrl:
     process.env.SITE_URL || "https://dentalpro-production.up.railway.app",
-  generateRobotsTxt: true, // Генерувати robots.txt
+  generateRobotsTxt: true, // Generate robots.txt
   changefreq: "daily",
   priority: 0.7,
   sitemapSize: 7000,

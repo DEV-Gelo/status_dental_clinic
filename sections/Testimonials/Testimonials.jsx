@@ -125,7 +125,8 @@ const Testimonials = () => {
                           ))}
                         </span>
                         <p className="text-center text-[0.8rem] relative">
-                          {testimonial.description} {/* SVG Quotes */}
+                          {testimonial.description}
+                          {/* SVG Quotes */}
                           <span className="blue-text absolute -top-2 -right-3">
                             <svg
                               width="23"

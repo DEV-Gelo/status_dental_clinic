@@ -46,6 +46,13 @@ body {
     @apply font-bold text-[1.75rem] leading-[2.25rem];
     font-family: var(--font-benzin), sans-serif;
   }
+  .title-text-xs {
+    @apply font-bold text-[1.5rem] leading-[2rem];
+    font-family: var(--font-benzin), sans-serif;
+  }
+  .container-padding {
+    @apply px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem];
+  }
 }
 
 .blue-text {

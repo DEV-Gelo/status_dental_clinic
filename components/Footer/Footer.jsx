@@ -26,26 +26,24 @@ export async function getContactData() {
 }
 
 const Footer = () => {
-  const [contactData, setContactData] = useState([]);
   // ----- Get local--------//
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
   // ------Translations-----//
   const t = useTranslations("Footer");
-
   const resurce = [
     { title: t("Resurce.About"), link: `/${locale}/about` },
     { title: t("Resurce.Service"), link: `/${locale}/service` },
-    { title: t("Resurce.Doctors"), link: "#" },
-    { title: t("Resurce.Cases"), link: "#" },
+    { title: t("Resurce.Doctors"), link: `/${locale}/doctors` },
+    { title: t("Resurce.Cases"), link: `/${locale}/cases` },
     { title: t("Resurce.Price"), link: `/${locale}/price` },
     { title: t("Resurce.Contact"), link: `/${locale}/contacts` },
   ];
   const legal = [
     { title: t("Legal.Licenses"), link: "#" },
     { title: t("Legal.Contract"), link: "#" },
-    { title: t("Legal.Policy"), link: "#" },
-    { title: t("Legal.Agreement"), link: "#" },
+    { title: t("Legal.Policy"), link: `/${locale}/polityka_konfidentsiynosti` },
+    { title: t("Legal.Agreement"), link: `/${locale}/ugoda_korystuvacha` },
   ];
   // ------------Social network icons--------------//
   const socialIcons = [
@@ -54,17 +52,21 @@ const Footer = () => {
     { id: 3, icon: <FaTiktok />, link: "https://tiktok.com" },
     { id: 4, icon: <FaXTwitter />, link: "https://twitter.com" },
   ];
-  //   -------- Fetch contact data ---------------//
-  useEffect(() => {
-    getContactData().then(setContactData).catch(console.error);
-  }, []);
 
   return (
     <footer className="flex relative flex-wrap w-full min-h-[25rem] p-[4rem] justify-between bg-[#000] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
       {/* ------Logo ------ */}
       <div className="flex flex-col w-[15.6rem] m-4 mt-3 pr-4">
         <div className="flex w-[14rem] justify-start items-center mt-1">
-          <Image src="/Tooth.png" alt="logo" width={44} height={60} />
+          <div className="flex relative w-[44px] h-[60px]">
+            <Image
+              src="/Tooth.png"
+              alt="logo"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain"
+            />
+          </div>
           <Link href="/" className="w-[10rem] ml-2">
             <p className="w-auto text-[1.75rem] text-center leading-none font-astron font-bold blue-text">
               STATUS

@@ -98,13 +98,15 @@ const Team = () => {
               {doctors.map((doctor) => (
                 <SwiperSlide key={doctor.id} className="pb-10">
                   <div className="flex relative sm:max-w-[20rem] h-full sm:h-full rounded-xl overflow-hidden mx-auto">
-                    <Image
-                      src={doctor.image}
-                      alt={doctor.name}
-                      width={320}
-                      height={350}
-                      className="object-cover"
-                    />
+                    <div className="flex relative w-[15rem] sm:w-[20rem] h-[20rem] sm:h-[25rem]">
+                      <Image
+                        src={doctor.image}
+                        alt={doctor.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    </div>
                     <div className="flex flex-col justify-center items-center w-full h-1/4 absolute bottom-0 left-0 bg-[#006eff] opacity-75 text-white p-2">
                       <p className="text-center">{doctor.name}</p>
                       <p className="text-center text-[0.8rem]">

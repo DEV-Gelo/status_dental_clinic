@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 // ----------Import React icons----------//
 import { RiArrowRightSFill, RiArrowLeftSFill } from "react-icons/ri";
 
-export const Slider = () => {
+export const Slider = ({ Before, After }) => {
   const [sliderPosition, setSliderPosition] = useState(49);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
@@ -87,7 +87,14 @@ export const Slider = () => {
         ) : null}
 
         {/* After image */}
-        <Image alt="After" fill draggable={false} src="/After.webp" />
+        <Image
+          alt="After"
+          draggable={false}
+          src={After}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+        />
 
         {/* Before image */}
         <div
@@ -97,7 +104,14 @@ export const Slider = () => {
             transition: isDragging ? "none" : "clip-path 0.3s ease-out",
           }}
         >
-          <Image fill draggable={false} alt="Before" src="/Before.webp" />
+          <Image
+            draggable={false}
+            alt="Before"
+            src={Before}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
         </div>
 
         {/* Slider line */}

@@ -15,7 +15,7 @@ const About = () => {
   const t = useTranslations("AboutSection");
   return (
     <>
-      <section className="flex flex-col lg:flex-row w-full h-auto items-center lg:items-start py-[2rem] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
+      <section className="flex flex-col lg:flex-row w-full h-auto items-center lg:items-start py-[2rem] container-padding">
         <div className="flex relative order-2 lg:order-1 w-full md:w-[80%] lg:w-[50%] h-auto items-end sm:pl-[4rem] lg:pl-0 pb-20 mb-10 lg:mb-0">
           <div className="flex w-1/2 h-full rounded-xl overflow-hidden border-l-8 border-t-8 border-[#006eff]">
             <Image
@@ -26,7 +26,13 @@ const About = () => {
             />
           </div>
           <div className="flex absolute -bottom-0 right-[15%] w-[50%] h-[40%] rounded-xl overflow-hidden border-l-8 border-t-8 border-[#006eff]">
-            <Image src="/About2.webp" alt="equipments2" fill />
+            <Image
+              src="/About2.webp"
+              alt="equipments2"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
           </div>
         </div>
         <div className="flex flex-col order-1 lg:order-2 w-auto sm:w-[80%] lg:w-1/2 h-full items-center lg:items-end lg:ml-5">

@@ -29,7 +29,7 @@ const Services = () => {
 
   if (isMobile) {
     return (
-      <section className="flex w-full h-full justify-start items-center flex-col py-[2rem] px-[1rem] lg:px-[2rem] xl:px-[10rem]">
+      <section className="flex w-full h-full justify-start items-center flex-col py-[2rem] container-padding">
         <div className="flex flex-col w-full h-auto justify-center items-center m-5">
           <p className="blue-text">{t("nameTitle")}</p>
           <h2 className="title-text-m text-center">
@@ -39,47 +39,75 @@ const Services = () => {
         </div>
 
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image
-            src="/diagnostic.svg"
-            alt="diagnostic"
-            width={50}
-            height={52}
-          />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/diagnostic.svg"
+              alt="diagnostic"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Diagnostic")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image
-            src="/prevention.svg"
-            alt="prevention"
-            width={50}
-            height={52}
-          />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/prevention.svg"
+              alt="prevention"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Preventive")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image
-            src="/orthopedics.svg"
-            alt="orthopedics"
-            width={50}
-            height={52}
-          />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/orthopedics.svg"
+              alt="orthopedics"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Orthopedics")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image
-            src="/orthodontics.svg"
-            alt="orthodontics"
-            width={50}
-            height={52}
-          />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/orthodontics.svg"
+              alt="orthodontics"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Orthodontics")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image src="/Surgery.svg" alt="surgery" width={50} height={52} />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/Surgery.svg"
+              alt="surgery"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Surgery")}</h3>
         </div>
         <div className="flex w-[19rem] h-[4.5rem] justify-start items-center shadow-md border-t border-[1px] rounded-lg py-2 px-3 my-3 mx-auto">
-          <Image src="/Implant.svg" alt="implants" width={50} height={52} />
+          <div className="flex relative w-[3.125rem] h-[3.25rem]">
+            <Image
+              src="/Implant.svg"
+              alt="implants"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Implantation")}</h3>
         </div>
         <Link
@@ -123,19 +151,22 @@ const Services = () => {
             {t("Title3")}
           </h2>
         </div>
-        <div className="hidden sm:flex w-full h-full">
+        <div className="flex w-full h-full lg:bg-none bg-[url('/bg-tooth.png')] bg-no-repeat bg-contain bg-center">
           <div className="flex flex-col w-1/2 lg:w-1/3 h-full justify-start p-5">
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start">
               <div className="flex w-full h-auto justify-end my-2">
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] mr-3">
                   {t("Diagnostic")}
                 </h3>
-                <Image
-                  src="/diagnostic.svg"
-                  alt="diagnostic"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/diagnostic.svg"
+                    alt="diagnostic"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
               <p className="text-right">{t("DiagnosticDescription")}</p>
             </div>
@@ -144,12 +175,15 @@ const Services = () => {
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] mr-3">
                   {t("Preventive")}
                 </h3>
-                <Image
-                  src="/prevention.svg"
-                  alt="prevention"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/prevention.svg"
+                    alt="prevention"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
               <p className="text-right">{t("PreventiveDescription")}</p>
             </div>
@@ -158,12 +192,15 @@ const Services = () => {
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] mr-3">
                   {t("Orthopedics")}
                 </h3>
-                <Image
-                  src="/orthopedics.svg"
-                  alt="orthopedics"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/orthopedics.svg"
+                    alt="orthopedics"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
               <p className="text-right">{t("OrthopedicsDescription")}</p>
             </div>
@@ -174,8 +211,9 @@ const Services = () => {
               alt="tooth"
               width={430}
               height={420}
-              className="my-auto"
+              className="object-cover my-auto"
             />
+
             <Link
               // href={`/${locale}/appointment`}
               href="#"
@@ -207,12 +245,15 @@ const Services = () => {
           <div className="flex flex-col w-1/2 lg:w-1/3 h-full justify-start p-5">
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start">
               <div className="flex w-full h-auto justify-start my-2">
-                <Image
-                  src="/orthodontics.svg"
-                  alt="orthodontics"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/orthodontics.svg"
+                    alt="orthodontics"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] ml-3">
                   {t("Orthodontics")}
                 </h3>
@@ -221,12 +262,15 @@ const Services = () => {
             </div>
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start end">
               <div className="flex w-full h-auto justify-start my-2">
-                <Image
-                  src="/Surgery.svg"
-                  alt="surgery"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/Surgery.svg"
+                    alt="surgery"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] ml-3">
                   {t("Surgery")}
                 </h3>
@@ -235,12 +279,15 @@ const Services = () => {
             </div>
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start end">
               <div className="flex w-full h-auto justify-start my-2">
-                <Image
-                  src="/Implant.svg"
-                  alt="implant"
-                  width={50}
-                  height={52}
-                />
+                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                  <Image
+                    src="/Implant.svg"
+                    alt="implant"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] ml-3">
                   {t("Implantation")}
                 </h3>

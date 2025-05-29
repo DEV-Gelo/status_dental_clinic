@@ -1,130 +1,254 @@
-"use client";
-import React, { useState } from "react";
-import useSWR from "swr";
-import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
-import { popup_form_variants } from "@/utils/variants";
-// --------------Import MUI components-----------------//
-import CircularProgress from "@mui/material/CircularProgress";
-import Alert from "@mui/material/Alert";
+import PricePage from "./price";
 
-// Function for receiving category data
-const fetchData = async () => {
-  const response = await fetch("/api/admin_setting/category");
-  if (!response.ok) throw new Error("An error occurred while receiving data");
-  return response.json();
+export const metadata = {
+  title: "Ціни",
+  description:
+    "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг",
+  openGraph: {
+    title: "Ціни",
+    description:
+      "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
+    url: "https://dentalpro-gzla.vercel.app/about",
+    images: [
+      {
+        url: "https://dentalpro.com/images/home-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Стоматологічна клініка Status",
+      },
+    ],
+  },
 };
-// Function for receiving pricing data
-const fetchPricingData = async () => {
-  const response = await fetch("/api/admin_setting/pricing");
-  if (!response.ok) throw new Error("An error occurred while receiving data");
-  return response.json();
-};
 
-const PricePage = () => {
-  const [isOpenCategory, setIsOpenCategory] = useState({});
-  // ------- Calling function for receiving data from server------------//
-  const { data, error } = useSWR("/api/admin_setting/category", fetchData);
-  const { data: dataPricing, error: errorPricing } = useSWR(
-    "/api/admin_setting/pricing",
-    fetchPricingData
-  );
-  // -----Translations------//
-  const t = useTranslations("Price_page");
+export default function Cases() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": "https://example.com/prices#webpage",
+    name: "Ціни на стоматологічні послуги",
+    url: "https://example.com/prices",
+    description:
+      "Актуальні ціни на стоматологічні послуги клініки Status. Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
+    inLanguage: "uk",
+    lastReviewed: "2025-05-28",
+    mainEntityOfPage: {
+      "@type": "ItemList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "Service",
+            name: "Лікування карієсу",
+            description:
+              "Якісне лікування карієсу з використанням сучасних матеріалів.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 700",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "Service",
+            name: "Імплантація зубів",
+            description:
+              "Сучасна дентальна імплантація для відновлення зубного ряду.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 15000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          item: {
+            "@type": "Service",
+            name: "Ортодонтія",
+            description:
+              "Виправлення прикусу і вирівнювання зубів за допомогою брекет-систем.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 10000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          item: {
+            "@type": "Service",
+            name: "Ортодонтія",
+            description:
+              "Виправлення прикусу і вирівнювання зубів за допомогою брекет-систем.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 10000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          item: {
+            "@type": "Service",
+            name: "Ортопедія",
+            description:
+              "Відновлення зубного ряду за допомогою протезування та коронок.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 12000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 5,
+          item: {
+            "@type": "Service",
+            name: "Реставрація зубів",
+            description:
+              "Відновлення форми та функції зубів за допомогою сучасних композитних матеріалів.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 3000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 6,
+          item: {
+            "@type": "Service",
+            name: "Хірургія",
+            description:
+              "Видалення зубів, складні операції та імплантація зубів.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 5000",
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 7,
+          item: {
+            "@type": "Service",
+            name: "Професійна гігієна",
+            description:
+              "Ультразвукове чищення зубів, Air Flow та ремінералізація емалі.",
+            serviceType: "Стоматологічні послуги",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "UAH",
+              price: "від 1500",
+            },
+          },
+        },
+      ],
+    },
+    mainEntity: {
+      "@type": "DentalClinic",
+      "@id": "https://example.com/#dental-clinic",
+      name: "Стоматологічна клініка «Status»",
+      image: {
+        "@type": "ImageObject",
+        url: "https://example.com/banner.jpg",
+        width: "1200",
+        height: "630",
+      },
+      url: "https://example.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://example.com/logo.png",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "вул. Софії Русової, 3",
+        addressLocality: "Київ",
+        postalCode: "02144",
+        addressCountry: "UA",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "50.3888611",
+        longitude: "30.6233163",
+      },
+      hasMap:
+        "https://www.google.com/maps/place/Софії+Русової+3/@50.3888611,30.6233163",
 
-  const toggleCategory = (categoryId) => {
-    setIsOpenCategory((prev) => ({
-      ...prev,
-      [categoryId]: !prev[categoryId], // Toggle status for each category separately
-    }));
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+380667668819",
+          contactType: "customer service",
+          areaServed: "UA",
+          availableLanguage: ["Ukrainian", "Russian"],
+        },
+        {
+          "@type": "ContactPoint",
+          telephone: "+380637668819",
+          contactType: "customer service",
+          areaServed: "UA",
+          availableLanguage: ["Ukrainian", "Russian"],
+        },
+      ],
+      medicalSpecialty: [
+        "https://schema.org/Dentistry",
+        "https://schema.org/CosmeticDentistry",
+        "https://schema.org/Diagnostic",
+        "https://schema.org/Preventive",
+        "https://schema.org/Prosthodontics",
+        "https://schema.org/Orthodontics",
+        "https://schema.org/OralSurgery",
+        "https://health-lifesci.schema.org/Implantology",
+        "https://health-lifesci.schema.org/Gnathology",
+        "https://health-lifesci.schema.org/RestorativeDentistry",
+        "https://health-lifesci.schema.org/DentalHygiene",
+      ],
+
+      potentialAction: {
+        "@type": "ReserveAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://example.com/appointment",
+          inLanguage: "uk",
+          actionPlatform: [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform",
+          ],
+        },
+        name: "Записатися на прийом",
+      },
+    },
   };
 
   return (
     <>
-      <div className="flex w-full h-screen justify-center items-center text-[3rem] font-bold mt-[5rem]">
-        <h1>Дана сторінка знаходиться у розробці.</h1>
-      </div>
-      {/* <div className="flex flex-col w-full min-h-[100vh] justify-center items-center py-[5rem] px-[1rem] sm:px-[2rem]">
-        <h1
-          id="Up"
-          className="font-bold text-[1.5rem] sm:text-[3rem] text-[#555] m-10"
-        >
-          {t("title")}
-        </h1>
-        {!data && !error && (
-          <div className="flex justify-center items-center w-full h-full">
-            <p className="font-semibold text-[1.5rem]">{t("loading")}</p>
-            <CircularProgress size="1rem" />
-          </div>
-        )}
-        {error && (
-          <div className="flex justify-center items-center w-full h-full">
-            <Alert
-              className="flex justify-center items-center"
-              severity="warning"
-            >
-              <h6>{t("Error loading data")}</h6>
-            </Alert>
-          </div>
-        )}
-        <div
-          id="Down"
-          className="flex flex-wrap w-full h-auto justify-center items-center"
-        >
-          {!error &&
-            data?.map((category) => (
-              <div
-                onClick={() => toggleCategory(category.id)}
-                key={category.id}
-                className="flex flex-col w-full h-auto my-5 mx-[1rem] sm:mx-[4rem] lg:mx-[8rem] bg-[#f5f5f5] border-[1px] rounded-md cursor-pointer"
-              >
-                <div className="flex w-full h-[4rem] justify-center items-center bg-[#ccdde470] p-5">
-                  <h3 className="font-semibold text-[1rem] sm:text-[1.5rem] text-[#555]">
-                    {category.name}
-                  </h3>
-                </div>
-                <AnimatePresence mode="wait">
-                  {isOpenCategory[category.id] && (
-                    <motion.ul
-                      key={category.id} // Unique `key` for correct animation
-                      initial="closed"
-                      animate="open"
-                      exit="closed" // Using `exit` for a graceful shutdown
-                      variants={popup_form_variants}
-                      className="overflow-hidden"
-                    >
-                      {dataPricing &&
-                        dataPricing
-                          .filter(
-                            (pricing) => pricing.categoryId === category.id
-                          ) // Filter by category
-                          .map((pricing, index) => (
-                            <li
-                              key={pricing.id}
-                              className={`flex w-full min-h-[3rem] justify-between items-center font-semibold text-[#555] text-[0.8rem] sm:text-[1.2rem] px-5 py-2 ${
-                                index % 2 === 0
-                                  ? "bg-[#f9f9f9]"
-                                  : "bg-[#f1f1f1]"
-                              }`}
-                            >
-                              <p className="mx-2">
-                                <span>{index + 1 + "."}</span> &nbsp;{" "}
-                                {pricing.name}
-                              </p>{" "}
-                              <p className="mx-2">
-                                {pricing.price} <span>{t("currence")}</span>{" "}
-                              </p>
-                            </li>
-                          ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-        </div>
-      </div> */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <PricePage />
     </>
   );
-};
-
-export default PricePage;
+}

@@ -76,7 +76,15 @@ const Navbar = () => {
       >
         <div className="flex w-full h-full justify-start items-center border-b-2 border-[#006eff]">
           <div className="flex w-[13rem] justify-start items-center pr-5 mr-6">
-            <Image src="/Tooth.png" alt="logo" width={34} height={50} />
+            <div className="flex relative w-[34px] h-[50px]">
+              <Image
+                src="/Tooth.png"
+                alt="logo"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain"
+              />
+            </div>
             <Link href="/" className="w-[10rem]">
               <p className="w-auto text-[1.5rem] text-center leading-none font-astron font-bold blue-text">
                 STATUS

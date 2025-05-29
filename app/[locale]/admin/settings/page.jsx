@@ -13,7 +13,6 @@ import Snackbar from "@mui/material/Snackbar";
 // ---------------Iternal components----------------------------//
 import Services from "@/components/admin_settings/Services";
 import Pricing from "@/components/admin_settings/Pricing";
-import Contacts from "@/components/admin_settings/Contacts";
 
 const Settings = () => {
   const [isOpenAside, setIsOpenAside] = useState(false);
@@ -30,12 +29,10 @@ const Settings = () => {
   const menu = [
     { icon: <MedicalServicesIcon />, text: t("Services"), id: "services" },
     { icon: <PriceChangeIcon />, text: t("Price"), id: "pricing" },
-    { icon: <ContactEmergencyIcon />, text: t("Contacts"), id: "contacts" },
   ];
   const titles = {
     services: t("Services_title"),
     pricing: t("Price_title"),
-    contacts: t("Contacts_title"),
   };
 
   // -----------Alert windows--------------------------//
@@ -123,9 +120,6 @@ const Settings = () => {
             )}
             {menu[activeIndex].id === "pricing" && (
               <Pricing onAlert={showAlert} />
-            )}
-            {menu[activeIndex].id === "contacts" && (
-              <Contacts onAlert={showAlert} />
             )}
           </div>
         )}
