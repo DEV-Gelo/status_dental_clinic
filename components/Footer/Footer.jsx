@@ -86,12 +86,14 @@ const Footer = () => {
         <ul className="flex w-full justify-between items-center gap-1">
           {socialIcons.map((item) => (
             <li key={item.id} className="text-[#fff] text-[2rem] my-2 ">
-              <Link
+              <a
                 href={item.link}
+                rel="noopener noreferrer"
+                target="_blank"
                 aria-label={item.link.split(".")[0].split("/")[2]}
               >
                 {item.icon}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

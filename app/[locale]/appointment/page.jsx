@@ -24,7 +24,7 @@ import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 // ----------Stylisation buttons MUI-----------------//
 import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
-// -----------Import components--------------------//
+// -----------Import Iternal Components--------------------//
 import UserCalendar from "../../../components/Appointment/UserCalendar/UserCalendar";
 import AvailableDoctors from "../../../components/Appointment/UserCalendar/AvailableDoctors/AvailableDoctors";
 
@@ -284,6 +284,7 @@ const Appointment = () => {
                   <Image
                     src="/Success_appointment_IMG.png"
                     alt="success appointment"
+                    priority
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
