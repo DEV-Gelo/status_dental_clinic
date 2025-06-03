@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -43,7 +43,7 @@ const Footer = () => {
     { title: t("Legal.Licenses"), link: "#" },
     { title: t("Legal.Contract"), link: "#" },
     { title: t("Legal.Policy"), link: `/${locale}/polityka_konfidentsiynosti` },
-    { title: t("Legal.Agreement"), link: `/${locale}/ugoda_korystuvacha` },
+    { title: t("Legal.Agreement"), link: `/${locale}/uhoda_korystuvacha` },
   ];
   // ------------Social network icons--------------//
   const socialIcons = [

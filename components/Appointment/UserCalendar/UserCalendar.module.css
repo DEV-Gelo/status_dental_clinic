@@ -1,11 +1,11 @@
 .calendar {
   position: relative;
-  width: 100%;
+  width: auto;
   height: 380px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ccdde4;
+  background-color: #fdfdfd;
   overflow: hidden;
 }
 
@@ -14,24 +14,29 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #5ba3bb;
-  border-bottom: 1px solid #ddd;
+  background-color: #006eff;
 }
 
 .header h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
   margin: 0 20px 0 20px;
+  text-wrap: nowrap;
 }
 
 .header button {
   padding: 5px 10px;
   cursor: pointer;
   font-size: 2rem;
-  color: #ccdde4;
+  color: #cccccc80;
 }
 
 .header button:hover {
-  color: #3498db;
+  color: #fdfdfd;
+}
+.header button:active {
+  color: #fdfdfd;
 }
 
 .grid {
@@ -44,7 +49,6 @@
 .dayName {
   font-weight: bold;
   text-align: center;
-  color: #555;
 }
 
 .day {
@@ -69,18 +73,18 @@
 }
 
 .highlighted_available {
-  background-color: #baf8ba;
+  background-color: #f5f5f5;
   color: black;
+  font-weight: 600;
 }
 .highlighted_notavailable {
-  background-color: #f8baba;
-  color: black;
+  background-color: #f5f5f5;
+  color: #bfbfbf;
   pointer-events: none;
 }
 
 .today {
   font-weight: 600;
-  border: 1px solid #3498db;
 }
 
 .emptyDay {
@@ -91,19 +95,20 @@
   background-color: transparent;
 }
 .selected {
-  background-color: #3498db;
+  background-color: #006eff;
   color: white;
 }
+.selected:hover {
+  background-color: #006eff;
+  color: white;
+}
+
 .disabled {
-  background-color: #55555520;
+  background-color: #f5f5f5;
   color: #22222250;
   pointer-events: none;
 }
 
-.selected:hover {
-  background-color: #74bae9;
-  color: white;
-}
 .selectedDates {
   margin-top: 20px;
 }

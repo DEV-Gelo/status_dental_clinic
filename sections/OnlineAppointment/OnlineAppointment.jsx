@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 // -----------Import MUI components--------------//
@@ -11,6 +12,9 @@ import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 const OnlineAppointment = () => {
   // -----Translation-----//
   const t = useTranslations("OnlineAppointmentSection");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
   return (
     <>
       <section className="flex relative w-full h-auto sm:h-[50rem] lg:h-[40rem] mb-28 lg:mb-10 mt-10">
@@ -36,10 +40,7 @@ const OnlineAppointment = () => {
               </h1>
             </div>
             <div className="hidden lg:flex w-full h-auto justify-center">
-              <Link
-                // href={`/${locale}/appointment`}
-                href="#"
-              >
+              <Link href={`/${locale}/appointment`}>
                 <ThemeProvider theme={theme}>
                   <Button
                     size="large"
@@ -64,10 +65,7 @@ const OnlineAppointment = () => {
         </div>
         <div className="flex w-full h-[10rem] sm:h-[12.5rem] absolute bottom-0 z-0 bg-[#006eff]" />
         <div className="flex lg:hidden absolute bottom-[-5rem] w-full h-auto justify-center">
-          <Link
-            // href={`/${locale}/appointment`}
-            href="#"
-          >
+          <Link href={`/${locale}/appointment`}>
             <ThemeProvider theme={theme}>
               <Button
                 size="large"

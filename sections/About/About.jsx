@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 // -----------Import MUI components--------------//
@@ -13,6 +14,9 @@ import { BsArrowUpRightCircle } from "react-icons/bs";
 const About = () => {
   // -----Translation-----//
   const t = useTranslations("AboutSection");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
   return (
     <>
       <section className="flex flex-col lg:flex-row w-full h-auto items-center lg:items-start py-[2rem] container-padding">
@@ -45,8 +49,7 @@ const About = () => {
             {t("Description")}
           </p>
           <Link
-            // href={`/${locale}/appointment`}
-            href="#"
+            href={`/${locale}/about`}
             className="hidden lg:flex justify-start items-center my-5 lg:my-10"
           >
             <ThemeProvider theme={theme}>
@@ -73,8 +76,7 @@ const About = () => {
           </Link>
         </div>
         <Link
-          // href={`/${locale}/appointment`}
-          href="#"
+          href={`/${locale}/about`}
           className="flex order-3 lg:hidden justify-start items-center my-5 lg:my-10"
         >
           <ThemeProvider theme={theme}>

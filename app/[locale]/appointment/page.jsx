@@ -3,8 +3,14 @@ import React, { useState, useEffect } from "react";
 import { mutate } from "swr";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import styles from "./AppointmentStyle.module.css";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+// --------------Import React Icon--------------------//
+import { BsCheck2Circle, BsCalendar3 } from "react-icons/bs";
+import { AiOutlineUser } from "react-icons/ai";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
 // --------------Import MUI--------------------------//
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,10 +18,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
 import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 // ----------Stylisation buttons MUI-----------------//
@@ -55,6 +59,13 @@ const Appointment = () => {
   const t = useTranslations("appointment");
   const local = t("language");
   const pathname = usePathname();
+
+  // -------Back Button -------//
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.back();
+  };
 
   // ------------Get data from AvailableDoctors-----------//
   const handleSlotSelection = (slotData) => {
@@ -243,39 +254,87 @@ const Appointment = () => {
   return (
     <>
       {isSuccess && (
+        // ----- Success appointment section ----- //
         <section
-          className={styles.modal_window_info}
+          className="flex w-full h-auto lg:h-screen overflow-hidden lg:justify-center lg:items-center pt-[7rem]"
           aria-labelledby="registration-success"
         >
-          <div className={styles.modal_container}>
-            <div className={styles.modal_form}>
-              <h2 id="registration-success">{t("REGISTRATION SUCCESSFUL")}</h2>
-              <div>
-                <p>{t("Administrator will contact")}</p>
-                <p>{t("We are waiting for you at the address")}</p>
-                <p>{`${t("dental clinic")} DentaPro`}</p>
+          <div className="flex flex-col w-full h-full justify-center items-center">
+            <div className="flex flex-col w-full h-[40rem] justify-center items-center">
+              <h2
+                id="registration-success"
+                className="title-text-m lg:title-text blue-text text-center px-4"
+              >
+                {t("REGISTRATION SUCCESSFUL")}
+              </h2>
+
+              <div className="flex flex-col max-w-[25rem] justify-center items-center px-4">
+                <h3 className="text-[1.25rem] text-center font-semibold my-10">
+                  Дякуємо, що обрали нашу клініку
+                </h3>
+                <h3 className="text-center text-[1.25rem] font-semibold mb-10">
+                  {t("Administrator will contact")}
+                </h3>
+                <p className="font-semibold text-center mb-10">
+                  {t("We are waiting for you")}
+                </p>
               </div>
-              <p>
-                <span>{t("fullName")}</span> {appointmentData.lastName}{" "}
-                {appointmentData.firstName} {appointmentData.patronymic}
-              </p>
-              <p>
-                <span>{t("Date")}</span> {formattedDate}
-              </p>
-              <p>
-                <span>{t("Time")}</span> {appointmentData.time}
-              </p>
-              <p>
-                <span>{t("Doctor")}</span> {appointmentData.doctorName}
-              </p>
+              <div className="flex relative w-full min-h-[16rem] justify-start items-end bg-[#006eff] 2xl:px-[20rem]">
+                <div className="hidden lg:flex relative w-[24rem] h-[30rem]">
+                  <Image
+                    src="/Success_appointment_IMG.png"
+                    alt="success appointment"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex absolute top-2 lg:top-10 left-[calc(50%-9rem)] flex-col max-w-[25rem] bg-[#006eff]">
+                  <p className="flex items-center text-white font-medium my-2">
+                    <span className="flex text-[2rem] mx-2">
+                      <AiOutlineUser />
+                    </span>{" "}
+                    {appointmentData.lastName} {appointmentData.firstName}{" "}
+                    {appointmentData.patronymic}
+                  </p>
+                  <p className="flex items-center text-white font-medium my-2">
+                    <span className="flex text-[2rem] mx-2">
+                      <FaLocationDot />
+                    </span>
+                    {t("Address")}
+                  </p>
+                  <p className="flex items-center text-white font-medium my-2">
+                    <span className="flex text-[2rem] mx-2">
+                      <BsCalendar3 />
+                    </span>{" "}
+                    {formattedDate}
+                  </p>
+                  <p className="flex items-center text-white font-medium my-2">
+                    <span className="flex text-[2rem] mx-2">
+                      <MdAccessTime />
+                    </span>{" "}
+                    {appointmentData.time}
+                  </p>
+                </div>
+              </div>
             </div>
             <ThemeProvider theme={theme}>
-              <Link href="/">
+              <Link href="/" className="my-10">
                 <LoadingButton
-                  sx={{ m: 1 }}
-                  color="save"
-                  variant="contained"
                   size="large"
+                  color="appointment"
+                  variant="outlined"
+                  sx={{
+                    width: "16rem",
+                    whiteSpace: "nowrap",
+                    borderRadius: 10,
+                    fontWeight: "600",
+                    fontFamily: "var(--font-montserrat)",
+                    borderWidth: 2,
+                    borderColor: "#006eff",
+                    color: "#006eff",
+                  }}
                 >
                   {t("TO THE MAIN")}
                 </LoadingButton>
@@ -284,70 +343,120 @@ const Appointment = () => {
           </div>
         </section>
       )}
-
-      <div className={styles.appointment_form}>
-        <h1 className={styles.title}>{t("Creating an record")}</h1>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={alertConfig.open}
-          autoHideDuration={6000}
-          onClose={handleCloseAlert}
-        >
-          <Alert
+      {!isSuccess && (
+        <section className="flex flex-col w-full h-auto justify-center items-center p-5">
+          {/* -----Title Block-----*/}
+          <div className="flex flex-col w-auto">
+            <p className="blue-text text-center">Онлайн Запис</p>
+            <h1 className="title-text-m lg:title-text text-center">
+              {t("Creating an record")}
+            </h1>
+          </div>
+          {/* -----Alert Message Block-----*/}
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={alertConfig.open}
+            autoHideDuration={6000}
             onClose={handleCloseAlert}
-            severity={alertConfig.severity}
-            variant="filled"
-            sx={{ width: "100%" }}
           >
-            {alertConfig.message}
-          </Alert>
-        </Snackbar>
-        <div className={styles.main_container}>
-          <div className={styles.calendar_wrapper}>
-            <div className={styles.calendar_container}>
-              <div className={styles.title_task}>
+            <Alert
+              onClose={handleCloseAlert}
+              severity={alertConfig.severity}
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {alertConfig.message}
+            </Alert>
+          </Snackbar>
+          {/* ----------Main Container----------*/}
+          <div className="flex flex-col lg:flex-row mt-16 lg:mt-24">
+            {/* ----------Calendar Block----------*/}
+
+            <div className="flex flex-col w-auto max-w-[25rem] h-auto mb-5 p-1">
+              <div className="flex items-center min-h-10 mb-2">
                 {selectedDate ? (
                   <>
-                    <span className={styles.TaskAltIcon}>
-                      <TaskAltIcon
-                        sx={{ width: "100%", height: "100%", color: "green" }}
-                      />
+                    <span className="flex h-full items-end">
+                      <p className="blue-text">{t("Step")}</p>
                     </span>
-                    <h3>{t("Choose an available date")}</h3>
+                    <span className="w-10 h-10 blue-text text-[2rem]">
+                      <BsCheck2Circle />
+                    </span>
+                    <h3 className="font-semibold">{t("Done")}</h3>
                   </>
                 ) : (
                   <>
-                    <span className={styles.title_task_number}>1</span>
-                    <h3>{t("Choose an available date")}</h3>
+                    <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
+                      1
+                    </span>
+                    <h3 className="font-semibold">
+                      {t("Choose an available date")}
+                    </h3>
                   </>
                 )}
               </div>
               <UserCalendar onDateSelect={handleDateSelect} />
             </div>
-          </div>
-          <div className={styles.form_fields_wrapper}>
-            <div className={styles.form_fields}>
-              <div className={styles.title_task}>
+
+            {/* -----Available Doctors Block-----*/}
+            <div className="flex flex-col p-1">
+              <div className="flex items-center min-h-10 mb-2">
+                {appointmentData.time ? (
+                  <>
+                    <span className="flex h-full items-end">
+                      <p className="blue-text">{t("Step")}</p>
+                    </span>
+                    <span className="w-10 h-10 blue-text text-[2rem]">
+                      <BsCheck2Circle />
+                    </span>
+                    <h3 className="font-semibold">{t("Done")}</h3>
+                  </>
+                ) : (
+                  <>
+                    <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
+                      2
+                    </span>
+                    <h3 className="font-semibold">{t("Choose an hour")}</h3>
+                  </>
+                )}
+              </div>
+              <AvailableDoctors
+                selectedDate={selectedDate}
+                onSlotSelect={handleSlotSelection}
+                onAvailability={handleAvailabilityChange}
+              />
+            </div>
+            {/* ----------Form Block----------*/}
+
+            <div className="flex flex-col w-auto p-1">
+              <div className="flex items-center min-h-10 mb-2">
                 {appointmentData.firstName &&
                 appointmentData.lastName &&
                 appointmentData.phone &&
                 appointmentData.email ? (
                   <>
-                    <span className={styles.TaskAltIcon}>
-                      <TaskAltIcon
-                        sx={{ width: "100%", height: "100%", color: "green" }}
-                      />
+                    <span className="flex h-full items-end">
+                      <p className="blue-text">{t("Step")}</p>
                     </span>
-                    <h3>{t("Fill out the form")}</h3>
+                    <span className="w-10 h-10 blue-text text-[2rem]">
+                      <BsCheck2Circle />
+                    </span>
+                    <h3 className="font-semibold">{t("Done")}</h3>
                   </>
                 ) : (
                   <>
-                    <span className={styles.title_task_number}>3</span>
-                    <h3>{t("Fill out the form")}</h3>
+                    <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
+                      3
+                    </span>
+                    <h3 className="font-semibold">{t("Fill out the form")}</h3>
                   </>
                 )}
               </div>
-              {/* <FormControl id="target" fullWidth sx={{ my: 3 }}>
+              <div
+                id="target"
+                className="flex flex-col w-full min-h-[23.7rem] h-auto shadow-lg rounded-lg border-t-[1px] border-[#f5f5f5] p-3"
+              >
+                {/* <FormControl id="target" fullWidth sx={{ my: 3 }}>
                 <InputLabel id="select-label">
                   {t("Type of service")}
                 </InputLabel>
@@ -366,131 +475,125 @@ const Appointment = () => {
                 </Select>
               </FormControl> */}
 
-              <TextField
-                id="lastname"
-                sx={{
-                  width: "100%",
-                  "& .MuiFormHelperText-root": {
-                    color: "red",
-                  },
-                }}
-                helperText=" "
-                label={t("LastName")}
-                name="lastName"
-                value={appointmentData.lastName}
-                onChange={handleInputChange}
-              />
-              <TextField
-                id="firstname"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label={t("FirstName")}
-                name="firstName"
-                value={appointmentData.firstName}
-                onChange={handleInputChange}
-              />
-              {pathname.split("/")[1] === "uk" && (
                 <TextField
-                  id="patronymic"
-                  sx={{ width: "100%" }}
+                  id="lastname"
+                  size="small"
+                  sx={{
+                    width: "100%",
+                    "& .MuiFormHelperText-root": {
+                      color: "red",
+                    },
+                  }}
                   helperText=" "
-                  label="По батькові"
-                  name="patronymic"
-                  value={appointmentData.patronymic}
+                  label={t("LastName")}
+                  name="lastName"
+                  value={appointmentData.lastName}
                   onChange={handleInputChange}
                 />
-              )}
-              <TextField
-                id="phone"
-                sx={{ width: "100%" }}
-                helperText=" "
-                label={t("Phone number")}
-                placeholder={t("placeholder")}
-                name="phone"
-                value={appointmentData.phone}
-                onChange={handleInputChange}
-                slotProps={{
-                  input: {
-                    inputMode: "numeric",
-                    maxLength: 10,
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        {t("prefix")}
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-              <TextField
-                id="email"
-                sx={{ width: "100%" }}
-                label={t("Email")}
-                name="email"
-                value={appointmentData.email}
-                onChange={handleInputChange}
-                error={emailError}
-                helperText={emailError ? t("emailError") : " "}
-              />
-            </div>
-          </div>
-          <div className={styles.AvailableDoctors_wrapper}>
-            <div
-              className={`${styles.AvailableDoctors_container} ${
-                pathname.split("/")[1] === "uk" ? "h-[1016px]" : "h-[938px]"
-              }`}
-            >
-              <div className={styles.title_task}>
-                {appointmentData.time ? (
-                  <>
-                    <span className={styles.TaskAltIcon}>
-                      <TaskAltIcon
-                        sx={{ width: "100%", height: "100%", color: "green" }}
-                      />
-                    </span>
-                    <h3>{t("Choose an hour")}</h3>
-                  </>
-                ) : (
-                  <>
-                    <span className={styles.title_task_number}>2</span>
-                    <h3>{t("Choose an hour")}</h3>
-                  </>
+                <TextField
+                  id="firstname"
+                  size="small"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label={t("FirstName")}
+                  name="firstName"
+                  value={appointmentData.firstName}
+                  onChange={handleInputChange}
+                />
+                {pathname.split("/")[1] === "uk" && (
+                  <TextField
+                    id="patronymic"
+                    size="small"
+                    sx={{ width: "100%" }}
+                    helperText=" "
+                    label="По батькові"
+                    name="patronymic"
+                    value={appointmentData.patronymic}
+                    onChange={handleInputChange}
+                  />
                 )}
+                <TextField
+                  id="phone"
+                  size="small"
+                  sx={{ width: "100%" }}
+                  helperText=" "
+                  label={t("Phone number")}
+                  placeholder={t("placeholder")}
+                  name="phone"
+                  value={appointmentData.phone}
+                  onChange={handleInputChange}
+                  slotProps={{
+                    input: {
+                      inputMode: "numeric",
+                      maxLength: 10,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {t("prefix")}
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                />
+                <TextField
+                  id="email"
+                  size="small"
+                  sx={{ width: "100%" }}
+                  label={t("Email")}
+                  name="email"
+                  value={appointmentData.email}
+                  onChange={handleInputChange}
+                  error={emailError}
+                  helperText={emailError ? t("emailError") : " "}
+                />
               </div>
-              <AvailableDoctors
-                selectedDate={selectedDate}
-                onSlotSelect={handleSlotSelection}
-                onAvailability={handleAvailabilityChange}
-              />
             </div>
           </div>
-        </div>
-        <div className={styles.buttons_container}>
-          <ThemeProvider theme={theme}>
-            <LoadingButton
-              sx={{ m: 1 }}
-              color="save"
-              onClick={handleSubmit}
-              loading={loading}
-              loadingPosition="start"
-              startIcon={<SaveIcon />}
-              variant="contained"
-              size="large"
-            >
-              {t("Save")}
-            </LoadingButton>
-            <Link href="/">
+          <div className="flex w-full max-w-[62rem] h-[3rem] justify-center lg:justify-between my-5">
+            <ThemeProvider theme={theme}>
+              <Link href="/" className="hidden lg:flex">
+                <LoadingButton
+                  size="large"
+                  color="appointment"
+                  variant="outlined"
+                  sx={{
+                    width: "16rem",
+                    whiteSpace: "nowrap",
+                    borderRadius: 10,
+                    fontWeight: "600",
+                    fontFamily: "var(--font-montserrat)",
+                    borderWidth: 2,
+                    borderColor: "#006eff",
+                    color: "#006eff",
+                  }}
+                  onClick={handleClick}
+                >
+                  {t("Back")}
+                </LoadingButton>
+              </Link>
               <LoadingButton
-                sx={{ m: 1 }}
-                color="cancel"
-                variant="contained"
                 size="large"
+                color="appointment"
+                variant="outlined"
+                sx={{
+                  width: "16rem",
+                  whiteSpace: "nowrap",
+                  borderRadius: 10,
+                  fontWeight: "600",
+                  fontFamily: "var(--font-montserrat)",
+                  borderWidth: 2,
+                  borderColor: "#006eff",
+                  color: "#006eff",
+                }}
+                onClick={handleSubmit}
+                loading={loading}
+                loadingPosition="start"
               >
-                {t("Cancel")}
+                {t("Save")}
               </LoadingButton>
-            </Link>
-          </ThemeProvider>
-        </div>
-      </div>
+            </ThemeProvider>
+          </div>
+        </section>
+      )}
     </>
   );
 };

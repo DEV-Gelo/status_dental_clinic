@@ -110,8 +110,7 @@ const Navbar = () => {
           <MobileMenu links={links} />
 
           <Link
-            // href={`/${locale}/appointment`}
-            href="#"
+            href={`/${locale}/appointment`}
             className="hidden lg:flex justify-end items-center ml-[2rem]"
           >
             <ThemeProvider theme={theme}>

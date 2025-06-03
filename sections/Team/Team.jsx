@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -29,6 +30,11 @@ import {
 const Team = () => {
   // -----Translation-----//
   const t = useTranslations("TeamSection");
+
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
+
   // -----Doctors Data-----//
   const doctors = [
     {
@@ -124,8 +130,7 @@ const Team = () => {
           </button>
         </div>
         <Link
-          // href={`/${locale}/appointment`}
-          href="#"
+          href={`/${locale}/doctors`}
           className="flex justify-start items-center my-5 lg:my-10"
         >
           <ThemeProvider theme={theme}>

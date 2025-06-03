@@ -23,7 +23,7 @@ export default function Doctors() {
       "Команда лікарів стоматологічної клініки Status. Кваліфіковані стоматологи, імплантологи, ортодонти та гігієністи з багаторічним досвідом.",
     inLanguage: "uk",
     lastReviewed: "2025-05-28",
-    mainEntityOfPage: {
+    mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
@@ -34,7 +34,7 @@ export default function Doctors() {
             name: "Олександр Олександрович",
             jobTitle: "Лікар-стоматолог",
             worksFor: {
-              "@type": "DentalClinic",
+              "@type": "MedicalClinic",
               name: "Стоматологічна клініка «Status»",
             },
           },
@@ -47,7 +47,7 @@ export default function Doctors() {
             name: "Іван Миколайович",
             jobTitle: "Стоматолог-терапевт",
             worksFor: {
-              "@type": "DentalClinic",
+              "@type": "MedicalClinic",
               name: "Стоматологічна клініка «Status»",
             },
           },
@@ -60,14 +60,14 @@ export default function Doctors() {
             name: "Володимир Володимирович",
             jobTitle: "Стоматолог-ортопед",
             worksFor: {
-              "@type": "DentalClinic",
+              "@type": "MedicalClinic",
               name: "Стоматологічна клініка «Status»",
             },
           },
         },
       ],
     },
-    mainEntity: {
+    about: {
       "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",

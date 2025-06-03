@@ -64,7 +64,7 @@ export async function GET(req) {
         doctorId: doctor.id,
         doctorName: `${doctor.lastName} ${doctor.firstName} ${doctor.patronymic}`,
         specialization: doctor.specialization,
-        photo: doctor.photo || "/image-placeholder.png",
+        photo: doctor.photo || "/image-placeholder.svg",
         availableTimes: doctor.schedules.flatMap((schedule) =>
           schedule.slots.map((slot) => ({
             time: slot.time,

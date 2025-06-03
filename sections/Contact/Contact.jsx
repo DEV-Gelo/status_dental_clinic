@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
@@ -20,6 +21,10 @@ const MapComponent = dynamic(() => import("@/components/Map/CustomMap"), {
 const Contact = () => {
   // -----------Translations--------------//
   const t = useTranslations("ContactSection");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
+
   return (
     <>
       <section className="flex w-full h-[75rem] md:h-[70rem] justify-start items-center flex-col">
@@ -93,8 +98,7 @@ const Contact = () => {
                   {t("Appointment.Title")}
                 </h3>
                 <Link
-                  // href={`/${locale}/appointment`}
-                  href="#"
+                  href={`/${locale}/appointment`}
                   className="flex justify-end items-center"
                 >
                   <ThemeProvider theme={theme}>

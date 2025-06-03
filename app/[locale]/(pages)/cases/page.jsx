@@ -23,17 +23,17 @@ export default function Cases() {
       "Приклади реальних клінічних випадків стоматологічної клініки Status: лікування, імплантація, естетична стоматологія та реставрації",
     inLanguage: "uk",
     lastReviewed: "2025-05-28",
-    mainEntityOfPage: {
+    mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
           "@type": "ListItem",
           position: 1,
           item: {
-            "@type": "MedicalCase",
+            "@type": "MedicalCondition",
             name: "Реставрація передніх зубів",
             description: "Повна реставрація естетики посмішки",
-            medicalProcedure: {
+            possibleTreatment: {
               "@type": "MedicalProcedure",
               name: "Естетична реставрація",
             },
@@ -43,18 +43,18 @@ export default function Cases() {
           "@type": "ListItem",
           position: 2,
           item: {
-            "@type": "MedicalCase",
+            "@type": "MedicalCondition",
             name: "Імплантація зубів",
             description: "Повне відновлення зубного ряду",
-            medicalProcedure: {
+            possibleTreatment: {
               "@type": "MedicalProcedure",
-              name: "Дентальна імплантація",
+              name: "Естетична реставрація",
             },
           },
         },
       ],
     },
-    mainEntity: {
+    about: {
       "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",

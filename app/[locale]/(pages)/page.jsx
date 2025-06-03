@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
-import homeStructuredData from "@/lib/structured-data/home";
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
 import { ThemeProvider } from "@mui/material/styles";
@@ -24,20 +23,12 @@ import Advantages from "@/sections/Advantages/Advantages";
 const Home = () => {
   // -----Translations--------//
   const t = useTranslations("Home_page");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   return (
     <>
-      {/* -----Script Structured Data----- */}
-      <Script
-        id="structured-data-home"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(homeStructuredData),
-        }}
-      />
-      {/* ----------Main Section---------- */}
-
       <section className="flex relative flex-col md:flex-row w-full h-auto min-h-[35rem] items-end mt-[6rem] container-padding">
         <div className="flex flex-col w-full md:w-1/2 md:pr-10">
           <p className="blue-text text-center md:text-start mt-3">
@@ -52,8 +43,7 @@ const Home = () => {
             {t("mainSection.Description")}
           </p>
           <Link
-            // href={`/${locale}/appointment`}
-            href="#"
+            href={`/${locale}/appointment`}
             className="hidden md:flex justify-start items-center my-5 lg:my-10"
           >
             <ThemeProvider theme={theme}>
@@ -97,8 +87,7 @@ const Home = () => {
         </div>
         <div className="flex md:hidden w-screen h-[14rem] absolute bottom-[130px] left-0 z-0 bg-[#006eff]" />
         <Link
-          // href={`/${locale}/appointment`}
-          href="#"
+          href={`/${locale}/appointment`}
           className="flex md:hidden justify-center items-center mx-auto my-5 lg:my-10"
         >
           <ThemeProvider theme={theme}>

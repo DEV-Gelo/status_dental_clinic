@@ -31,7 +31,7 @@ export default function Cases() {
       "Актуальні ціни на стоматологічні послуги клініки Status. Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
     inLanguage: "uk",
     lastReviewed: "2025-05-28",
-    mainEntityOfPage: {
+    mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
@@ -164,7 +164,7 @@ export default function Cases() {
         },
       ],
     },
-    mainEntity: {
+    about: {
       "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",

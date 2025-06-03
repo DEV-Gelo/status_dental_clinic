@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 // -----------Import MUI components--------------//
@@ -20,6 +21,9 @@ const Services = () => {
 
   // -----Translation-----//
   const t = useTranslations("ServiceSection");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   useEffect(() => {
     setHasMounted(true);
@@ -111,8 +115,7 @@ const Services = () => {
           <h3 className="font-bold text-[1.75rem] ml-3">{t("Implantation")}</h3>
         </div>
         <Link
-          // href={`/${locale}/appointment`}
-          href="#"
+          href={`/${locale}/service`}
           className="flex justify-start items-center my-5 lg:my-10"
         >
           <ThemeProvider theme={theme}>
@@ -215,8 +218,7 @@ const Services = () => {
             />
 
             <Link
-              // href={`/${locale}/appointment`}
-              href="#"
+              href={`/${locale}/service`}
               className="hidden md:flex justify-start items-center my-5 lg:my-10"
             >
               <ThemeProvider theme={theme}>
@@ -298,8 +300,7 @@ const Services = () => {
         </div>
         <div className="lg:hidden flex w-full h-auto items-center justify-center">
           <Link
-            // href={`/${locale}/appointment`}
-            href="#"
+            href={`/${locale}/service`}
             className="flex justify-start items-center my-5 lg:my-10"
           >
             <ThemeProvider theme={theme}>

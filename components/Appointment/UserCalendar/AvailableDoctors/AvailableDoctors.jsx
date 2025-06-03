@@ -3,7 +3,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
 import CircularProgress from "@mui/material/CircularProgress";
-import AccessPhoto from "@/components/DataTable/AccessPhoto/AccessPhoto";
+import { Spa } from "@mui/icons-material";
 
 // Data download function
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -28,18 +28,6 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
     if (selectedDate) {
       if (isLoading) {
         setDoctorTimesMessage(t("LoaadingData"));
-      } else if (doctorsAvailability && doctorsAvailability.length > 0) {
-        setDoctorTimesMessage(
-          `${t("Available records as of")} ${selectedDate.toLocaleDateString(
-            locale
-          )}`
-        );
-      } else if (!isLoading && doctorsAvailability) {
-        setDoctorTimesMessage(
-          `${t("No entry available")}  ${selectedDate.toLocaleDateString(
-            locale
-          )}`
-        );
       }
       onAvailability(doctorsAvailability || []);
     }
@@ -62,55 +50,112 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-auto">
       {!selectedDate && (
-        <div className="flex w-full h-full justify-center items-center m-2 p-5 rounded-lg bg-[#f5f5f5]">
-          <h1 className="text-[1rem] text-[#44444460]">
-            {t("Select a date to display the hours")}
-          </h1>
+        <div className="flex flex-col w-[23rem] min-h-[13.5rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
+          <div className="flex w-auto h-auto justify-start items-center border-b-[1px] border-[#006eff] py-2 mx-4">
+            <span className="flex relative min-w-[5rem] min-h-[5rem] filter blur-sm rounded-full bg-[#cccccc]">
+              <Image
+                src="/image-placeholder.svg"
+                alt="placeholder-avatar"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </span>
+            <div className="flex flex-col pl-16">
+              <h3 className="text-[0.8rem] filter blur-sm">Лікар-стоматолог</h3>
+              <p className="font-medium text-lg filter blur-sm">
+                Олександр Олександрович
+              </p>
+            </div>
+          </div>
+          <div className="flex relative w-auto h-full flex-wrap px-5 justify-center items-center">
+            {[...Array(8)].map((_, index) => {
+              const hour = 8 + index;
+              const formattedHour = hour.toString().padStart(2, "0"); // Format 2 digits
+              return (
+                <span
+                  key={index}
+                  className="flex w-[4.5rem] text-center justify-center items-center px-2 py-1 rounded-md bg-[#f5f5f5] filter blur-sm m-1 cursor-pointer"
+                >
+                  {formattedHour}:00
+                </span>
+              );
+            })}
+            {/* <h3 className="flex absolute top-[40%] left-5 text-[1rem]">
+              {t("Select a date to display the hours")}
+            </h3> */}
+          </div>
         </div>
       )}
       {selectedDate && (
-        <div className="flex w-full flex-col justify-center items-center mx-5">
-          <h2 className="font-semibold text-xl text-center text-[#44444460] mb-5">
-            {doctorTimesMessage}
-            {isLoading ? (
-              <div className="p-5">
-                <CircularProgress size="3rem" />
+        <div className="flex w-full flex-col justify-center items-center lg:mx-5">
+          {isLoading ? (
+            <div className="flex flex-col w-[23rem] min-h-[13.5rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
+              <div className="flex w-auto h-auto justify-start items-center border-b-[1px] border-[#006eff] py-2 mx-4">
+                <span className="flex relative min-w-[5rem] min-h-[5rem] filter blur-sm rounded-full bg-[#cccccc]">
+                  <CircularProgress size="5rem" />
+                </span>
+                <div className="flex flex-col pl-16">
+                  <h3 className="text-[0.8rem] filter blur-sm">
+                    Лікар-стоматолог
+                  </h3>
+                  <p className="font-medium text-lg filter blur-sm">
+                    Олександр Олександрович
+                  </p>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
-          </h2>
+              <div className="flex relative w-auto h-full flex-wrap px-5 justify-center items-center">
+                {[...Array(8)].map((_, index) => {
+                  const hour = 8 + index;
+                  const formattedHour = hour.toString().padStart(2, "0"); // Format 2 digits
+                  return (
+                    <span
+                      key={index}
+                      className="flex w-[4.5rem] text-center justify-center items-center px-2 py-1 rounded-md bg-[#f5f5f5] filter blur-sm m-1 cursor-pointer"
+                    >
+                      {formattedHour}:00
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
           {error && (
-            <p className="text-red-500">
-              {t("Error")}: {error.message}
-            </p>
+            <div className="flex w-[23rem] min-h-[13.5rem] justify-center items-center rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
+              <p className="text-red-500">
+                {t("Error")}: {error.message}
+              </p>
+            </div>
           )}
 
           {doctorsAvailability && doctorsAvailability.length > 0
             ? doctorsAvailability.map((doctor) => (
                 <div
                   key={doctor.doctorId}
-                  className="flex flex-col xl:flex-row xl:items-start w-full h-auto justify-center items-center mb-5 border-[1px] border-[#d3d3d3] rounded-md"
+                  className="flex flex-col w-auto max-w-[23rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd] mb-10"
                 >
-                  <div className="flex min-w-[200px] w-auto h-full flex-col items-center justify-center text-center p-2">
-                    <h3 className="font-semibold ">
-                      {doctor.specialization || t("defaultSpecialization")}
-                    </h3>
-                    <div className="flex w-[100px] h-[100px] rounded-full overflow-hidden m-2">
+                  <div className="flex w-auto h-auto border-b-[1px] border-[#006eff] mx-3">
+                    <div className="flex relative min-w-[80px] min-h-[5rem] rounded-full overflow-hidden m-2">
                       <Image
                         src={doctor.photo}
                         alt={doctor.doctorName}
-                        width={100}
-                        height={100}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                       />
                     </div>
-                    <p className="font-medium text-lg">{doctor.doctorName}</p>
+                    <div className="flex flex-col w-full items-start justify-center ml-8">
+                      <h3 className="text-[0.8rem] ">
+                        {doctor.specialization || t("defaultSpecialization")}
+                      </h3>
+                      <p className="font-medium text-lg">{doctor.doctorName}</p>
+                    </div>
                   </div>
-                  <div className="flex flex-col w-full h-full justify-center items-center m-2">
-                    <h3 className="font-semibold ">{t("Available hours")}:</h3>
+                  <div className="flex flex-col w-full h-full justify-center items-center p-2">
+                    {/* <h3 className="font-semibold ">{t("Available hours")}:</h3> */}
                     <ul className="flex flex-wrap justify-center items-center">
                       {doctor.availableTimes
                         .sort((a, b) => {
@@ -139,9 +184,9 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                             className={`${
                               selectedSlot?.doctorId === doctor.doctorId &&
                               selectedSlot?.time === slot.time
-                                ? "bg-blue-700 text-white"
-                                : " bg-green-200 text-black"
-                            } flex w-14 text-center justify-center items-center px-2 py-1 rounded-lg m-2 cursor-pointer`}
+                                ? "bg-[#006eff] text-white"
+                                : " bg-[#f5f5f5] text-black"
+                            } flex w-[4.5rem] text-center justify-center items-center px-2 py-1 rounded-md m-1 cursor-pointer`}
                           >
                             {slot.time}
                           </li>

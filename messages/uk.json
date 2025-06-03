@@ -75,8 +75,6 @@
 
   "admin__AvailableDoctors": {
     "LoaadingData": "Завантаження даних, будь ласка, зачекайте...",
-    "Available records as of": "Доступні записи станом на",
-    "No entry available": "Вибачте, немає доступного запису станом на",
     "Select a date to display the hours": "Для відображення годин оберіть дату",
     "Error": "Помилка",
     "defaultSpecialization": "Лікар-стоматолог",
@@ -367,17 +365,15 @@
     "Unknown error": "Невідома помилка",
     "Error_alert": "Сталася непередбачувана помилка.",
     "An error occurred while receiving data": "Помилка при отриманні даних",
-    "REGISTRATION SUCCESSFUL": "ЗАПИС ВИКОНАНО УСПІШНО",
-    "Administrator will contact": "Для підтвердження запису з вами зв'яжеться адміністратор.",
-    "We are waiting for you at the address": "Чекаємо Вас за адресою:",
-    "dental clinic": "Стоматологічна клініка",
-    "fullName": "ПІБ:",
-    "Date": "Дата:",
-    "Time": "Час:",
-    "Doctor": "Лікар:",
+    "REGISTRATION SUCCESSFUL": "ЗАПИС УСПІШНО СТВОРЕНО",
+    "Administrator will contact": "Для підтвердження запису з Вами зв'яжеться адміністратор.",
+    "We are waiting for you": "Чекаємо на Вас",
+    "Address": "м. Київ вул. Софії Русової 3, стоматологічна клініка “STATUS”",
     "TO THE MAIN": "НА ГОЛОВНУ",
     "Creating an record": "ЗАПИС НА ПРИЙОМ",
     "Choose an available date": "Оберіть доступну дату",
+    "Step": "Крок",
+    "Done": "Виконано",
     "Fill out the form": "Заповніть форму",
     "Type of service": "Вид послуги",
     "FirstName": "Ім'я",
@@ -388,8 +384,8 @@
     "Email": "Електронна пошта",
     "emailError": "Некоректний формат Е-пошти",
     "Choose an hour": "Оберіть годину",
-    "Save": "Записати",
-    "Cancel": "Відміна",
+    "Save": "Записатися",
+    "Back": "Повернутися",
     "defaultSpecialization": "Лікар-стоматолог",
     "language": "uk-UA"
   },
@@ -566,11 +562,11 @@
     "Title2": "СУЧАСНА",
     "Title3": "КЛІНІКА",
     "DescriptionTitle1": "Сучасна комфортабельна клініка",
-    "Description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Description1": "Наша клініка — це поєднання інноваційного обладнання, затишної атмосфери та турботливого персоналу. Ми створили простір, де кожен пацієнт почувається комфортно й упевнено.",
     "DescriptionTitle2": "Новітнє стоматологічне обладнання",
-    "Description2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Description2": "Ми використовуємо передові технології для точної діагностики та безболісного лікування. Сучасне обладнання забезпечує ефективність процедур і максимальний комфорт для пацієнтів та високу якість.",
     "DescriptionTitle3": "Ввічливий та доброзичливий персонал",
-    "Description3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    "Description3": "Наші фахівці завжди уважні до ваших потреб. Ми створюємо теплу атмосферу, щоб кожен відвідувач відчував турботу, підтримку та щиру посмішку з першої хвилини візиту."
   },
 
   "OnlineAppointmentSection": {

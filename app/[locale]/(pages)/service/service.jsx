@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,6 +27,9 @@ import Cases from "@/sections/Cases/Cases";
 const ServicePage = () => {
   // --------Translations---------//
   const t = useTranslations("ServicePage");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   const [hasMounted, setHasMounted] = useState(false);
   const [idService, setIdService] = useState(1);
@@ -281,7 +285,7 @@ const ServicePage = () => {
             <div className="flex flex-col w-1/3 h-full mr-10">
               <div className="flex flex-col w-full h-[41rem] items-center justify-start border-[1px] shadow-lg rounded-lg bg-[#fdfdfd] mb-4 p-4">
                 <h2 className="text-[1.5rem] font-semibold my-4">
-                  Наші Послуги
+                  {t("OurServices")}
                 </h2>
                 {services.map((service) => (
                   <button
@@ -333,11 +337,7 @@ const ServicePage = () => {
                     </span>
                     {t("Step3")}
                   </p>
-                  <Link
-                    // href={`/${locale}/appointment`}
-                    href="#"
-                    className="mt-5"
-                  >
+                  <Link href={`/${locale}/appointment`} className="mt-5">
                     <ThemeProvider theme={theme}>
                       <Button
                         size="large"

@@ -2,10 +2,8 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import styles from "./UserCalendar.module.css";
-import {
-  MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
+// -----------Import React Icon----------//
+import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 
 export default function UserCalendar({ onDateSelect }) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -107,13 +105,13 @@ export default function UserCalendar({ onDateSelect }) {
     <div className={styles.calendar}>
       <div className={styles.header}>
         <button onClick={prevMonth}>
-          <MdOutlineArrowBackIosNew />
+          <BsArrowLeftCircle />
         </button>
         <h2>
           {capitalizedMonthName} {year}
         </h2>
         <button onClick={nextMonth}>
-          <MdOutlineArrowForwardIos />
+          <BsArrowRightCircle />
         </button>
       </div>
       <div className={styles.grid}>

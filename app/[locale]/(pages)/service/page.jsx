@@ -23,7 +23,7 @@ export default function Service() {
       "Повний спектр стоматологічних послуг у клініці «Status»: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика та профілактика. Помірні ціни, безболісне лікування, індивідуальний підхід та професійне обладнання.",
     inLanguage: "uk",
     lastReviewed: "2025-05-28",
-    mainEntityOfPage: {
+    mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
@@ -128,7 +128,7 @@ export default function Service() {
         },
       ],
     },
-    mainEntity: {
+    about: {
       "@type": "MedicalClinic",
       "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
       name: "Стоматологічна клініка «Status»",

@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 // -----------Import MUI components--------------//
 import Button from "@mui/material/Button";
@@ -14,6 +15,9 @@ import { Slider } from "@/components/Compare_Image/Slider";
 const Cases = () => {
   // -----Translation-----//
   const t = useTranslations("CasesSection");
+  // -----Get the path-----//
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   return (
     <>
@@ -37,8 +41,7 @@ const Cases = () => {
         </div>
         <div className="flex w-full justify-center lg:justify-start items-start mt-10 lg:mt-0">
           <Link
-            // href={`/${locale}/appointment`}
-            href="#"
+            href={`/${locale}/cases`}
             className="flex justify-start items-center my-5 lg:my-10"
           >
             <ThemeProvider theme={theme}>
