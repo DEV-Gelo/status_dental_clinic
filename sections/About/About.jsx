@@ -51,6 +51,7 @@ const About = () => {
           <Link
             href={`/${locale}/about`}
             className="hidden lg:flex justify-start items-center my-5 lg:my-10"
+            aria-label={t("MoreLong")}
           >
             <ThemeProvider theme={theme}>
               <Button
@@ -78,6 +79,7 @@ const About = () => {
         <Link
           href={`/${locale}/about`}
           className="flex order-3 lg:hidden justify-start items-center my-5 lg:my-10"
+          aria-label={t("MoreLong")}
         >
           <ThemeProvider theme={theme}>
             <Button

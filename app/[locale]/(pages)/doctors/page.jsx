@@ -10,6 +10,13 @@ export const metadata = {
       "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
     url: "https://dentalpro-gzla.vercel.app/doctors",
   },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/doctors",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/doctors",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/doctors",
+    },
+  },
 };
 
 export default function Doctors() {

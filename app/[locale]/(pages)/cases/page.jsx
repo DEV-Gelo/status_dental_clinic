@@ -10,6 +10,13 @@ export const metadata = {
       "Переконайтеся в якості нашої роботи! На цій сторінці ви знайдете реальні приклади лікування, реставрації, встановлення імплантів та естетичних змін усмішок наших пацієнтів. Фото «до» та «після» демонструють професіоналізм лікарів клініки «Status» та сучасні підходи до стоматології.",
     url: "https://dentalpro-gzla.vercel.app/cases",
   },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/cases",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/cases",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/cases",
+    },
+  },
 };
 
 export default function Cases() {

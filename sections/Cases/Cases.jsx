@@ -43,6 +43,7 @@ const Cases = () => {
           <Link
             href={`/${locale}/cases`}
             className="flex justify-start items-center my-5 lg:my-10"
+            aria-label={t("MoreLong")}
           >
             <ThemeProvider theme={theme}>
               <Button

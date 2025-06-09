@@ -10,6 +10,13 @@ export const metadata = {
       "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
     url: "https://dentalpro-gzla.vercel.app/service",
   },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/service",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/service",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/service",
+    },
+  },
 };
 
 export default function Service() {

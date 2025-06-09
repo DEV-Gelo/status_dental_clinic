@@ -10,6 +10,13 @@ export const metadata = {
       "Зв’яжіться з нами — адреса, телефон, email та зручна форма для онлайн-запису. Стоматологічна клініка «Status» знаходиться в Києві на вул. Софії Русової, 3. Працюємо щодня, запис за телефоном або онлайн.",
     url: "https://dentalpro-gzla.vercel.app/contacts",
   },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/contacts",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/contacts",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/contacts",
+    },
+  },
 };
 
 export default function Contacts() {

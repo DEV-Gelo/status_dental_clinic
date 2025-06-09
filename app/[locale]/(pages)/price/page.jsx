@@ -9,14 +9,13 @@ export const metadata = {
     description:
       "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
     url: "https://dentalpro-gzla.vercel.app/price",
-    images: [
-      {
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Стоматологічна клініка Status",
-      },
-    ],
+  },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/price",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/price",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/price",
+    },
   },
 };
 

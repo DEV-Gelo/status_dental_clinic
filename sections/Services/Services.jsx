@@ -117,6 +117,7 @@ const Services = () => {
         <Link
           href={`/${locale}/service`}
           className="flex justify-start items-center my-5 lg:my-10"
+          aria-label={t("MoreLong")}
         >
           <ThemeProvider theme={theme}>
             <Button
@@ -220,6 +221,7 @@ const Services = () => {
             <Link
               href={`/${locale}/service`}
               className="hidden md:flex justify-start items-center my-5 lg:my-10"
+              aria-label={t("MoreLong")}
             >
               <ThemeProvider theme={theme}>
                 <Button
@@ -302,6 +304,7 @@ const Services = () => {
           <Link
             href={`/${locale}/service`}
             className="flex justify-start items-center my-5 lg:my-10"
+            aria-label={t("MoreLong")}
           >
             <ThemeProvider theme={theme}>
               <Button

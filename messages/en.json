@@ -450,7 +450,8 @@
     "SurgeryDescription": "Painless, safe, professional. Tooth extraction, resection, and other surgical procedures are in reliable hands.",
     "Implantation": "Implantation",
     "ImplantationDescription": "We restore teeth permanently. Implants are a reliable alternative to natural teeth with a natural look and function.",
-    "More": "LEARN MORE"
+    "More": "LEARN MORE",
+    "MoreLong": "Learn more about our services"
   },
   "TeamSection": {
     "nameTitle": "Doctors",
@@ -458,6 +459,8 @@
     "Title2": "PROFESSIONALS",
     "Description": "Dentists who give you perfect healthy smiles every day.",
     "More": "LEARN MORE",
+    "MoreLong": "Learn more about our team",
+
     "Doctor": {
       "Name1": "Oleksandr Oleksandrovych",
       "Specialization1": "Dentist",
@@ -474,6 +477,7 @@
     "Title2": "SMILES",
     "Title3": "OF OUR PATIENTS",
     "More": "MORE EXAMPLES",
+    "MoreLong": "See more examples of our work",
     "Description": "Each smile is the result of meticulous work, a personalized approach, and genuine care for the patient. We don’t just treat teeth — we restore confidence, comfort in communication, and the joy of seeing your reflection in the mirror. A beautiful smile begins right here, in our hands."
   },
 
@@ -487,6 +491,7 @@
     "Title2": "MODERN",
     "Title3": "CLINIC",
     "More": "LEARN MORE",
+    "MoreLong": "Learn more about our clinic",
     "Description": "We are a team of professionals who truly love what we do. Our clinic combines the latest technologies, modern equipment, and a compassionate approach to every patient. We continually improve our skills, pursue ongoing education, and implement global treatment standards."
   },
 

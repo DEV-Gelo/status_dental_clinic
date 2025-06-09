@@ -10,6 +10,13 @@ export const metadata = {
       "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
     url: "https://dentalpro-gzla.vercel.app/about",
   },
+  alternates: {
+    canonical: "https://dentalpro-gzla.vercel.app/ua/about",
+    languages: {
+      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/about",
+      "en-US": "https://dentalpro-gzla.vercel.app/en/about",
+    },
+  },
 };
 
 export default function About() {

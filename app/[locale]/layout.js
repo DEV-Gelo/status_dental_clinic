@@ -99,13 +99,6 @@ export const metadata = {
       "Індивідуальний підхід, сучасне обладнання, професійна команда стоматологів — довірте свою усмішку клініці Status.",
     images: ["https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg"],
   },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk",
-      "en-US": "https://dentalpro-gzla.vercel.app/en",
-    },
-  },
 };
 
 export default async function RootLayout({ children, params }) {
