@@ -11,9 +11,9 @@ export const metadata = {
     url: "https://dentalpro-gzla.vercel.app/about",
   },
   alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/ua/about",
+    canonical: "https://dentalpro-gzla.vercel.app/uk/about",
     languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/ua/about",
+      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/about",
       "en-US": "https://dentalpro-gzla.vercel.app/en/about",
     },
   },

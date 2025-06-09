@@ -8,12 +8,12 @@ export const metadata = {
     title: "Головна",
     description:
       "Стоматологічна клініка Status у Києві — сучасне, безболісне лікування зубів для дорослих та дітей. Індивідуальний підхід для вашої здорової посмішки.",
-    url: "https://dentalpro-gzla.vercel.app/about",
+    url: "https://dentalpro-gzla.vercel.app/",
   },
   alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/ua",
+    canonical: "https://dentalpro-gzla.vercel.app/uk",
     languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/ua",
+      "uk-UA": "https://dentalpro-gzla.vercel.app/uk",
       "en-US": "https://dentalpro-gzla.vercel.app/en",
     },
   },
