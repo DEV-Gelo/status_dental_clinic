@@ -138,7 +138,7 @@ const Services = ({ onAlert }) => {
         ref={containerRef}
         className="flex flex-col relative w-full sm:w-[30rem] max-h-[35rem] min-h-[20rem] justify-start items-start bg-[#f5f5f5] rounded-md overflow-hidden"
       >
-        <h1 className="w-full h-[4rem] text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold p-4 bg-[#5ba3bb]">
+        <h1 className="w-full h-[4rem] text-center text-[1rem] sm:text-[1.2rem] text-white font-semibold p-4 bg-[#006eff]">
           {t("Services")}
         </h1>
         {error && (
@@ -226,11 +226,11 @@ const Services = ({ onAlert }) => {
                   key={service.id}
                   className={`flex ${
                     selectedRow === index
-                      ? "bg-[#1976D2] text-[#fff]"
+                      ? "bg-[#e1f1f8] border-t-[1px] border-b-[1px] border-[#5ba3bb]"
                       : index % 2 === 0
-                      ? "bg-[#eaeaea]"
-                      : "bg-[#f5f5f5]"
-                  } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap py-2 px-5 hover:bg-[#1976D2] hover:text-[#fff] cursor-default`}
+                      ? "bg-[#f9f9f9]"
+                      : "bg-[#f0f0f0]"
+                  } justify-between w-full font-semibold text-[1rem] sm:text-[1.2rem] text-wrap py-2 px-5 hover:bg-[#e1f1f8] cursor-default`}
                 >
                   <p>
                     <span className="mr-2">{index + 1}.</span>
@@ -266,9 +266,16 @@ const Services = ({ onAlert }) => {
           onClick={() => setIsOpen(true)}
           className="sticky bottom-0 p-1 right-2 ml-auto mt-auto"
         >
-          <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">
-            <AddIcon />
-          </Fab>
+          <ThemeProvider theme={theme}>
+            <Fab
+              sx={{ zIndex: 0 }}
+              color="primary"
+              size="small"
+              aria-label="add"
+            >
+              <AddIcon />
+            </Fab>
+          </ThemeProvider>
         </span>
       </div>
     </div>

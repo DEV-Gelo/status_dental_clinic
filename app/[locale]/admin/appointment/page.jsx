@@ -7,7 +7,6 @@ import Calendar from "@/components/Schedule/Calendar/Calendar";
 import SliderTime from "@/components/Schedule/SliderTime/SliderTime";
 import ScheduleGenerator from "@/components/Schedule/ScheduleGenerator/ScheduleGenerator";
 import DataTable from "@/components/Schedule/DataTable/DataTable";
-import AccessPhoto from "@/components/DataTable/AccessPhoto/AccessPhoto";
 // --------------Import MUI components-----------------//
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
@@ -104,7 +103,7 @@ const Appointment = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-auto lg:h-full justify-center items-start p-1 lg:p-4 pt-2 mb-5 lg:mb-0">
+      <div className="flex flex-col w-full h-auto lg:h-full justify-center items-start p-1 sm:p-5 lg:p-4 pt-2 mb-5 lg:mb-0">
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alertConfig.open}
@@ -126,7 +125,7 @@ const Appointment = () => {
           </h1>
         </div>
         <div className="flex flex-col lg:flex-row h-full w-full justify-center items-center lg:items-start ">
-          <div className="flex relative flex-col md:flex-row lg:flex-col w-full lg:w-auto h-full justify-between items-start bg-[#f5f5f5] rounded-lg p-2 lg:p-0 my-10 lg:my-0">
+          <div className="flex relative flex-col md:flex-row lg:flex-col w-full lg:w-auto h-full justify-between items-start bg-[#fdfdfd] rounded-lg p-1 sm:p-24 md:p-2 lg:p-0 my-10 lg:my-0">
             {deleting && (
               <div className="flex absolute top-0 left-0 w-full h-full z-30 rounded-lg bg-[#66666650] animate-pulse" />
             )}
@@ -143,7 +142,7 @@ const Appointment = () => {
               />
             </div>
             <div className="flex flex-col w-full h-full ml-0 md:ml-3 lg:ml-0">
-              <div className="flex w-full h-auto py-5 my-3 px-10 rounded-lg shadow-lg bg-[#ccdde4]">
+              <div className="flex w-full h-auto py-5 my-3 px-10 rounded-lg shadow-lg bg-[#f0f0f0]">
                 <SliderTime
                   selectedDates={selectedDates}
                   onTimeSelect={setSelectedTimes}
@@ -165,7 +164,7 @@ const Appointment = () => {
           </div>
 
           <div className="flex flex-col w-full h-full lg:ml-10 order-first lg:order-none">
-            <div className="flex justify-center items-center bg-[#5ba3bb] rounded-t-lg p-[0.3rem]">
+            <div className="flex justify-center items-center bg-[#f5f5f5] rounded-t-lg p-[0.3rem]">
               <div className="flex ">
                 <div className="flex w-[50px] h-[50px] rounded-full overflow-hidden">
                   <Image
@@ -178,7 +177,15 @@ const Appointment = () => {
                 </div>
               </div>
               <div className="flex p-3">
-                <FormControl sx={{ minWidth: "10rem" }}>
+                <FormControl
+                  sx={{
+                    minWidth: "10rem",
+                    maxWidth: {
+                      xs: "15rem",
+                      sm: "none",
+                    },
+                  }}
+                >
                   <InputLabel id="select-label">
                     {selectedDoctor ? t("Doctor") : t("Choose a doctor")}
                   </InputLabel>

@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Spa } from "@mui/icons-material";
 
 // Data download function
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [doctorTimesMessage, setDoctorTimesMessage] = useState("");
 
   // -------Translations----------//
   const t = useTranslations("admin__AvailableDoctors");
-  const locale = t("language");
 
   // Form the URL depending on the selected date
   const url = selectedDate
@@ -23,15 +20,6 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
 
   // Use SWR to download data
   const { data: doctorsAvailability, error, isLoading } = useSWR(url, fetcher);
-
-  useEffect(() => {
-    if (selectedDate) {
-      if (isLoading) {
-        setDoctorTimesMessage(t("LoaadingData"));
-      }
-      onAvailability(doctorsAvailability || []);
-    }
-  }, [doctorsAvailability, selectedDate, isLoading]);
 
   // -------Get selected data and send to Appointment page -----------//
   const handleSlotClick = (doctorName, doctorId, time, scheduleId, slotId) => {
@@ -52,7 +40,7 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
   return (
     <div className="flex w-auto">
       {!selectedDate && (
-        <div className="flex flex-col w-[23rem] min-h-[13.5rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
+        <div className="flex flex-col w-auto sm:w-[23rem] max-w-[23rem] min-h-[13.5rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
           <div className="flex w-auto h-auto justify-start items-center border-b-[1px] border-[#006eff] py-2 mx-4">
             <span className="flex relative min-w-[5rem] min-h-[5rem] filter blur-sm rounded-full bg-[#cccccc]">
               <Image

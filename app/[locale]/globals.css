@@ -4,7 +4,8 @@
 
 /* Custom scrollbar */
 *::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 *::-webkit-scrollbar-track {
@@ -13,7 +14,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #444;
+  background: #006eff60;
   border-radius: 10px;
 }
 

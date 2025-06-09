@@ -277,7 +277,9 @@ export default function Calendar({
                 !isPastDate &&
                 slotsForDay &&
                 slotsForDay.slots.length > 0 && (
-                  <span className={styles.slot}>
+                  <span
+                    className={isSelected ? styles.selected_slot : styles.slot}
+                  >
                     {slotsForDay.slots[0].time} -{" "}
                     {slotsForDay.slots[slotsForDay.slots.length - 1].time}
                   </span>

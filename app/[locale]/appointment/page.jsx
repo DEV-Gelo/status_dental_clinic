@@ -13,10 +13,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdAccessTime } from "react-icons/md";
 // --------------Import MUI--------------------------//
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+// import InputLabel from "@mui/material/InputLabel";
+// import MenuItem from "@mui/material/MenuItem";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -34,7 +34,6 @@ const Appointment = () => {
   const [emailError, setEmailError] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   // const [serviceData, setServiceData] = useState([]);
-  const [contact, setContact] = useState([]);
   const [doctorsAvailability, setDoctorsAvailability] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
     firstName: "",
@@ -256,10 +255,10 @@ const Appointment = () => {
       {isSuccess && (
         // ----- Success appointment section ----- //
         <section
-          className="flex w-full h-auto lg:h-screen overflow-hidden lg:justify-center lg:items-center pt-[7rem]"
+          className="flex w-full h-full overflow-y-auto py-[1rem]"
           aria-labelledby="registration-success"
         >
-          <div className="flex flex-col w-full h-full justify-center items-center">
+          <div className="flex flex-col w-full h-auto justify-center items-center my-auto">
             <div className="flex flex-col w-full h-[40rem] justify-center items-center">
               <h2
                 id="registration-success"
@@ -269,17 +268,17 @@ const Appointment = () => {
               </h2>
 
               <div className="flex flex-col max-w-[25rem] justify-center items-center px-4">
-                <h3 className="text-[1.25rem] text-center font-semibold my-10">
-                  Дякуємо, що обрали нашу клініку
+                <h3 className="sm:text-[1.25rem] text-center font-semibold sm:my-10 my-5">
+                  {t("Thanks")}
                 </h3>
-                <h3 className="text-center text-[1.25rem] font-semibold mb-10">
+                <h3 className="text-center sm:text-[1.25rem] font-semibold sm:mb-10 mb-5">
                   {t("Administrator will contact")}
                 </h3>
-                <p className="font-semibold text-center mb-10">
+                <p className="font-semibold text-center sm:mb-10 mb-5">
                   {t("We are waiting for you")}
                 </p>
               </div>
-              <div className="flex relative w-full min-h-[16rem] justify-start items-end bg-[#006eff] 2xl:px-[20rem]">
+              <div className="flex relative w-full min-h-[16rem] justify-start items-end bg-[#006eff]">
                 <div className="hidden lg:flex relative w-[24rem] h-[30rem]">
                   <Image
                     src="/Success_appointment_IMG.png"
@@ -321,12 +320,13 @@ const Appointment = () => {
               </div>
             </div>
             <ThemeProvider theme={theme}>
-              <Link href="/" className="my-10">
+              <Link href="/">
                 <LoadingButton
                   size="large"
                   color="appointment"
                   variant="outlined"
                   sx={{
+                    mt: "1rem",
                     width: "16rem",
                     whiteSpace: "nowrap",
                     borderRadius: 10,
@@ -377,7 +377,7 @@ const Appointment = () => {
               <div className="flex items-center min-h-10 mb-2">
                 {selectedDate ? (
                   <>
-                    <span className="flex h-full items-end">
+                    <span className="flex h-full items-end mr-2">
                       <p className="blue-text">{t("Step")}</p>
                     </span>
                     <span className="w-10 h-10 blue-text text-[2rem]">
@@ -387,6 +387,9 @@ const Appointment = () => {
                   </>
                 ) : (
                   <>
+                    <span className="flex h-full items-end mr-2">
+                      <p className="blue-text">{t("Step")}</p>
+                    </span>
                     <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
                       1
                     </span>
@@ -404,7 +407,7 @@ const Appointment = () => {
               <div className="flex items-center min-h-10 mb-2">
                 {appointmentData.time ? (
                   <>
-                    <span className="flex h-full items-end">
+                    <span className="flex h-full items-end mr-2">
                       <p className="blue-text">{t("Step")}</p>
                     </span>
                     <span className="w-10 h-10 blue-text text-[2rem]">
@@ -414,6 +417,9 @@ const Appointment = () => {
                   </>
                 ) : (
                   <>
+                    <span className="flex h-full items-end mr-2">
+                      <p className="blue-text">{t("Step")}</p>
+                    </span>
                     <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
                       2
                     </span>
@@ -436,7 +442,7 @@ const Appointment = () => {
                 appointmentData.phone &&
                 appointmentData.email ? (
                   <>
-                    <span className="flex h-full items-end">
+                    <span className="flex h-full items-end mr-2">
                       <p className="blue-text">{t("Step")}</p>
                     </span>
                     <span className="w-10 h-10 blue-text text-[2rem]">
@@ -446,6 +452,9 @@ const Appointment = () => {
                   </>
                 ) : (
                   <>
+                    <span className="flex h-full items-end mr-2">
+                      <p className="blue-text">{t("Step")}</p>
+                    </span>
                     <span className="flex w-8 h-8 justify-center items-center rounded-full text-white font-semibold bg-[#006eff] mr-3">
                       3
                     </span>

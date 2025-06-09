@@ -47,8 +47,16 @@ const Footer = () => {
   ];
   // ------------Social network icons--------------//
   const socialIcons = [
-    { id: 1, icon: <FaInstagram />, link: "https://instagram.com" },
-    { id: 2, icon: <FaFacebookF />, link: "https://facebook.com" },
+    {
+      id: 1,
+      icon: <FaInstagram />,
+      link: "https://www.instagram.com/status.dental.clinic/",
+    },
+    {
+      id: 2,
+      icon: <FaFacebookF />,
+      link: "https://www.facebook.com/dentalclinicStatus/",
+    },
     { id: 3, icon: <FaTiktok />, link: "https://tiktok.com" },
     { id: 4, icon: <FaXTwitter />, link: "https://twitter.com" },
   ];

@@ -178,7 +178,7 @@ const Services = () => {
                 <h3 className="font-bold text-[1.5rem] lg:text-[1.75rem] mr-3">
                   {t("Preventive")}
                 </h3>
-                <div className="flex relative w-[3.125rem] h-[3.25rem]">
+                <div className="flex relative min-w-[3.125rem] w-[3.125rem] h-[3.25rem]">
                   <Image
                     src="/prevention.svg"
                     alt="prevention"

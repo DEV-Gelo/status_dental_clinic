@@ -317,6 +317,14 @@ const PopupForm = ({ onClose, onAlert, role }) => {
             <div className={styles.switch_display_photo}>
               <h6>{t("addPhoto")}</h6>
               <Switch
+                sx={{
+                  "& .MuiSwitch-switchBase.Mui-checked": {
+                    color: "#006eff",
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "#006eff",
+                  },
+                }}
                 onClick={handleSwitch}
                 {...label}
                 checked={switchDisplayPhoto}
@@ -328,7 +336,7 @@ const PopupForm = ({ onClose, onAlert, role }) => {
           <ThemeProvider theme={theme}>
             <LoadingButton
               sx={{ m: 1 }}
-              color="save"
+              color="appointment"
               onClick={handleSubmit}
               loading={loading}
               loadingPosition="start"
@@ -340,12 +348,12 @@ const PopupForm = ({ onClose, onAlert, role }) => {
             </LoadingButton>
             <LoadingButton
               sx={{ m: 1 }}
-              color="cancel"
+              color="appointment"
               onClick={() => {
                 closeForm();
                 setImage(null);
               }}
-              variant="contained"
+              variant="outlined"
               size="large"
             >
               {t("cancel")}

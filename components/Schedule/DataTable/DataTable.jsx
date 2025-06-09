@@ -126,7 +126,7 @@ const DataTable = ({
                 ) : (
                   <tr
                     key={date}
-                    className={`${styles.tr_body} hover:bg-[#5ba3bb20]`}
+                    className={`${styles.tr_body} hover:bg-[#f0f0f0]`}
                   >
                     <td
                       className={`${styles.td} ${styles.date_body} ${

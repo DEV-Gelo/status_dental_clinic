@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl";
 // --------------Import MUI--------------------------//
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// -----------Import Stylisation for MUI Buttons--------------//
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 
 export default function UploadPhotoForm({ handleFileChange }) {
   const fileInput = useRef(null);
@@ -27,27 +30,30 @@ export default function UploadPhotoForm({ handleFileChange }) {
 
   return (
     <form className="flex flex-col w-full justify-center items-center p-[1rem]">
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUploadIcon />}
-      >
-        {t("DOWNLOAD")}
-        <input
-          className="hidden"
-          id="file-input"
-          type="file"
-          accept="image/*"
-          name="file"
-          ref={fileInput}
-          onChange={(e) => {
-            handleFileChange(e);
-            // uploadFile(e);
-          }}
-        />
-      </Button>
+      <ThemeProvider theme={theme}>
+        <Button
+          color="appointment"
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+        >
+          {t("DOWNLOAD")}
+          <input
+            className="hidden"
+            id="file-input"
+            type="file"
+            accept="image/*"
+            name="file"
+            ref={fileInput}
+            onChange={(e) => {
+              handleFileChange(e);
+              // uploadFile(e);
+            }}
+          />
+        </Button>
+      </ThemeProvider>
     </form>
   );
 }

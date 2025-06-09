@@ -43,8 +43,8 @@ const DeleteAppointmentForm = ({
           <div className={styles.icon_text_container}>
             <WarningAmberIcon sx={{ color: "#ffa726" }} />
             <h6>
-              {t("You really want to delete")}{" "}
-              <strong>{selectedInitials}</strong>?
+              {t("You really want to delete")} <br />
+              <strong>{selectedInitials}</strong> <strong>?</strong>
             </h6>
           </div>
           <div className={styles.button_block}>

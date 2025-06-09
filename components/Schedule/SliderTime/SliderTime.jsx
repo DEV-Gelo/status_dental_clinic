@@ -88,22 +88,55 @@ const SliderTime = ({ onTimeSelect, selectedDates }) => {
           >
             <FormControlLabel
               value="30"
-              control={<Radio />}
+              control={
+                <Radio
+                  sx={{
+                    color: "#006eff",
+                    "&.Mui-checked": { color: "#006eff" },
+                  }}
+                />
+              }
               label={t("30 min")}
             />
             <FormControlLabel
               value="45"
-              control={<Radio />}
+              control={
+                <Radio
+                  sx={{
+                    color: "#006eff",
+                    "&.Mui-checked": { color: "#006eff" },
+                  }}
+                />
+              }
               label={t("45 min")}
             />
             <FormControlLabel
               value="60"
-              control={<Radio />}
+              control={
+                <Radio
+                  sx={{
+                    color: "#006eff",
+                    "&.Mui-checked": { color: "#006eff" },
+                  }}
+                />
+              }
               label={t("1 hour")}
             />
           </RadioGroup>
         </div>
         <Slider
+          sx={{
+            color: "#006eff",
+            "& .MuiSlider-thumb": {
+              borderColor: "#006eff",
+            },
+            "& .MuiSlider-track": {
+              backgroundColor: "#006eff",
+            },
+            "& .MuiSlider-rail": {
+              backgroundColor: "#b3d4ff", // менш насичений колір для фону
+            },
+          }}
           value={timeRange}
           onChange={handleChange}
           valueLabelDisplay="on"

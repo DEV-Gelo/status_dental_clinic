@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   height: 70px;
-  background: #5ba3bb;
+  background: #006eff;
   justify-content: center;
   align-items: center;
 
@@ -41,7 +41,7 @@
 
 .navigation ul li.active .icon {
   opacity: 1;
-  color: #5ba3bb;
+  color: #006eff;
   transform: translateY(-15px);
 }
 
@@ -90,9 +90,9 @@
   display: flex;
   width: 65px;
   height: 65px;
-  color: #5ba3bb;
+  color: #006eff;
   opacity: 0.75;
-  border: 4px solid #5ba3bb;
+  border: 4px solid #006eff;
   border-radius: 50%;
   transform: scale(0.85);
 }

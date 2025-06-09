@@ -1,6 +1,6 @@
 {
   "admin": {
-    "Appointments": "Записи на прийом",
+    "Appointments": "Записи",
     "Search": "Пошук...",
     "Search_title": "Введіть текст для пошуку",
     "Add a record": "Додати запис",
@@ -57,6 +57,7 @@
     "Error_alert": "Сталася непередбачувана помилка.",
     "An error occurred while receiving data": "Помилка при отриманні даних",
     "Creating an entry": "Створення запису",
+    "Done": "Виконано",
     "Choose an available date": "Оберіть доступну дату",
     "Fill out the form": "Заповніть форму",
     "Type of service": "Вид послуги",
@@ -74,12 +75,9 @@
   },
 
   "admin__AvailableDoctors": {
-    "LoaadingData": "Завантаження даних, будь ласка, зачекайте...",
-    "Select a date to display the hours": "Для відображення годин оберіть дату",
     "Error": "Помилка",
     "defaultSpecialization": "Лікар-стоматолог",
-    "Available hours": "Доступні години",
-    "language": "uk-UA"
+    "Available hours": "Доступні години"
   },
 
   "admin__edit_window": {
@@ -102,6 +100,8 @@
     "Time": "Час",
     "Doctor FullName": "ПІБ лікаря",
     "Choose an hour": "Оберіть годину",
+    "Fill out the form": "Редагування форми",
+    "Done": "Виконано",
     "Save": "Записати",
     "Cancel": "Відміна",
     "Failed to update appointment": "Не вдалося оновити дані",
@@ -230,7 +230,7 @@
 
   "schedule": {
     "Error doctor": "Помилка при завантаженні лікарів",
-    "Reception schedule": "Графік прийому",
+    "Reception schedule": "Графіки",
     "Doctor": "Лікар",
     "Choose a doctor": "Оберіть лікаря",
     "No doctors found": "Лікарі не знайдені"
@@ -367,6 +367,7 @@
     "An error occurred while receiving data": "Помилка при отриманні даних",
     "REGISTRATION SUCCESSFUL": "ЗАПИС УСПІШНО СТВОРЕНО",
     "Administrator will contact": "Для підтвердження запису з Вами зв'яжеться адміністратор.",
+    "Thanks": "Дякуємо, що обрали нашу клініку",
     "We are waiting for you": "Чекаємо на Вас",
     "Address": "м. Київ вул. Софії Русової 3, стоматологічна клініка “STATUS”",
     "TO THE MAIN": "НА ГОЛОВНУ",

@@ -17,6 +17,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import SearchIcon from "@mui/icons-material/Search";
+// -----------Import Stylisation for MUI Buttons--------------//
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 // ----------Import stylisation for serch input----------------//
 import {
   Search,
@@ -210,38 +213,40 @@ const Users = () => {
         <div className={styles.table_navbar}>
           {/* -------Buttons navigstion------- */}
           <div className={styles.table_navigation}>
-            <Fab
-              sx={{ zIndex: 0, m: 2 }}
-              onClick={handlePopup_form}
-              title={t("Add user")}
-              size="small"
-              aria-label="add"
-              color="primary"
-            >
-              <AddIcon />
-            </Fab>
+            <ThemeProvider theme={theme}>
+              <Fab
+                sx={{ zIndex: 0, m: 2 }}
+                onClick={handlePopup_form}
+                title={t("Add user")}
+                size="small"
+                aria-label="add"
+                color="primary"
+              >
+                <AddIcon />
+              </Fab>
 
-            <Fab
-              sx={{ zIndex: 0, m: 2 }}
-              onClick={handlePopupEdit_form}
-              title={t("Edit user")}
-              size="small"
-              aria-label="edit"
-              color="primary"
-            >
-              <EditIcon />
-            </Fab>
+              <Fab
+                sx={{ zIndex: 0, m: 2 }}
+                onClick={handlePopupEdit_form}
+                title={t("Edit user")}
+                size="small"
+                aria-label="edit"
+                color="primary"
+              >
+                <EditIcon />
+              </Fab>
 
-            <Fab
-              sx={{ zIndex: 0, m: 2 }}
-              onClick={handleDelete}
-              title={t("Delete user")}
-              size="small"
-              aria-label="delete"
-              color="primary"
-            >
-              <DeleteIcon />
-            </Fab>
+              <Fab
+                sx={{ zIndex: 0, m: 2 }}
+                onClick={handleDelete}
+                title={t("Delete user")}
+                size="small"
+                aria-label="delete"
+                color="primary"
+              >
+                <DeleteIcon />
+              </Fab>
+            </ThemeProvider>
           </div>
           {/* ------Switch role container----- */}
           <div className={styles.table_switch} title={t("Filter")}>

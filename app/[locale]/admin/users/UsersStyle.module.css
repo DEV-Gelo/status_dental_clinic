@@ -52,14 +52,15 @@
   width: auto;
   justify-content: space-between;
   border-radius: 10px 10px 0 0;
-  border-bottom: 2px solid white;
-  background-color: #5ba3bb;
+  border-bottom: 2px solid #006eff;
+  background-color: #f5f5f5;
 }
 
 .table_navigation {
   display: flex;
   align-items: center;
-  width: auto;
+  min-width: 15rem;
+  width: 25%;
   height: 3.5rem;
   border-radius: 10px;
   margin: 0.5rem;
@@ -86,9 +87,10 @@
   width: auto;
   height: auto;
   margin: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #44444470;
   order: 2;
+  padding-left: 2rem;
 }
 
 .table_switch_button_doctor {
@@ -104,16 +106,16 @@
   border-radius: 0 5px 5px 0;
 }
 .table_switch_button_active {
-  background-color: #1976d2;
+  background-color: #006eff;
   color: #fff;
-  border: 1px solid #1976d2;
+  border: 1px solid #006eff;
 }
 
 .table_search {
   display: flex;
   align-items: center;
   justify-content: end;
-  min-width: auto;
+  width: 30%;
   height: auto;
   padding: 0.5rem;
   margin: 0.5rem;
@@ -127,16 +129,15 @@
   height: 100%;
   width: 100%;
   align-items: end;
-  overflow: hidden;
-  border: 2px solid #5ba3bb;
+  overflow-x: auto;
+  border: 2px solid #f5f5f5;
   border-top: none;
-  background-color: #5ba3bb;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .table {
-  min-width: 700px;
+  min-width: 1024px;
   width: 100%;
   height: 100%;
   border-collapse: collapse;
@@ -144,9 +145,8 @@
 
 .thead {
   height: 3rem;
-  background-color: #5ba3bb;
-  font-size: 20px;
-  color: #444;
+  background-color: #f5f5f5;
+  font-size: 1.15rem;
 }
 .thead tr {
   display: table;
@@ -181,8 +181,8 @@
   border-bottom: 1px solid #5ba3bb20;
 }
 .tr_body_selected {
-  border-top: 2px solid #5ba3bb;
-  border-bottom: 2px solid #5ba3bb;
+  border-top: 2px solid #006eff;
+  border-bottom: 2px solid #006eff;
   background-color: #e1f1f8;
 }
 
@@ -193,7 +193,10 @@
 
 .email_th,
 .email_td {
-  width: 12rem;
+  width: 15rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 .photo_th,
 .photo_td {
@@ -214,7 +217,7 @@
 .create_record_td {
   width: 4rem;
   text-align: center !important;
-  color: #2e8b57;
+  color: #006eff;
   cursor: pointer;
 }
 
@@ -225,13 +228,25 @@
   .id_th {
     width: 4rem;
   }
+  .table_navbar {
+    flex-direction: column;
+  }
+  .table_search {
+    justify-content: start;
+    width: auto;
+    max-width: 25rem;
+  }
+  .table_switch {
+    padding-left: 0.5rem;
+    justify-content: start;
+  }
 }
 @media screen and (max-width: 768px) {
   .users_page_wrap {
     padding: 1rem;
   }
   .table_container {
-    overflow: auto;
+    overflow-x: auto;
   }
   .thead {
     font-size: 16px;
@@ -249,6 +264,6 @@
 }
 @media screen and (max-width: 640px) {
   .users_page_wrap {
-    padding: 0;
+    padding: 0.5rem;
   }
 }

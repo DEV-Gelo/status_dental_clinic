@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 // ---------Import React icons------------//
-import { MdAutorenew } from "react-icons/md";
+import { PiPaintBrushHousehold } from "react-icons/pi";
 
 const FilterDate = ({
   doctors,
@@ -156,7 +156,7 @@ const FilterDate = ({
           onClick={handleClearDate}
           type="button"
         >
-          <MdAutorenew />
+          <PiPaintBrushHousehold />
         </button>
       </div>
 
@@ -187,7 +187,7 @@ const FilterDate = ({
           onClick={handleClearDoctor}
           type="button"
         >
-          <MdAutorenew />
+          <PiPaintBrushHousehold />
         </button>
       </div>
     </div>

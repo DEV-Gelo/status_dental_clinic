@@ -5,9 +5,9 @@
   width: 100%;
   align-items: end;
   overflow: hidden;
-  border: 2px solid #5ba3bb;
+  border: 2px solid #f0f0f0;
   border-top: none;
-  background-color: #5ba3bb;
+  background-color: #f5f5f5;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -31,7 +31,7 @@
 
 .thead {
   height: 3rem;
-  background-color: #ccdde4;
+  background-color: #f5f5f5;
   font-size: 20px;
   color: #444;
 }
@@ -48,16 +48,21 @@
 
 .date_header {
   width: 8rem;
-  border-right: 2px solid #5ba3bb20;
+  border-width: 2px 2px 2px 0;
+  border-style: solid;
+  border-color: #f0f0f0;
 }
 .date_body {
   width: 8rem;
-  border-right: 2px solid #5ba3bb20;
+  /* border: 2px solid #f0f0f0; */
   font-size: large;
   font-weight: 600;
 }
 .time_header {
   width: calc(100% - 8rem);
+  border-width: 2px 0 2px 0;
+  border-style: solid;
+  border-color: #f0f0f0;
 }
 
 .tbody {
@@ -71,8 +76,8 @@
   display: table;
   width: 100%;
   table-layout: fixed;
-  border-top: 1px solid #5ba3bb20;
-  border-bottom: 1px solid #5ba3bb20;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .thead tr {
@@ -91,28 +96,27 @@
   flex-wrap: wrap;
   width: 100%;
   gap: 0.5rem;
-  border-right: 2px solid #5ba3bb20;
+  border-right: 2px solid #f0f0f0;
 
   padding: 0.5rem;
 }
 
 .slot {
   display: inline-block;
-  background-color: rgb(248, 239, 223);
-  border: 1px solid #3ae90e60;
+  background-color: #c8c8c8;
+  border: 1px solid #006eff;
   min-width: 3.5rem;
   padding: 0.2rem 0.5rem;
   text-align: center;
   border-radius: 0.3rem;
-  color: #444;
   font-weight: 400;
   cursor: pointer;
 }
 .past_date_slot {
   display: inline-block;
-  background-color: #55555520;
+  background-color: #cdcdcd;
+  border: 1px solid #f0f0f0;
   color: #22222250;
-  border: 1px solid #5ba3bb40;
   min-width: 3.5rem;
   padding: 0.2rem 0.5rem;
   text-align: center;
@@ -122,9 +126,8 @@
 }
 .isBooked_slot {
   display: inline-block;
-  background-color: #55555520;
-  color: #5ba3bb60;
-  border: 1px solid #f78b4d60;
+  background-color: #f5f5f5;
+  color: #00000050;
   min-width: 3.5rem;
   padding: 0.2rem 0.5rem;
   text-align: center;
@@ -133,8 +136,9 @@
   pointer-events: none;
 }
 .selected_slot {
-  background-color: #cde6f7;
-  border: 1px solid #0077cc;
+  background-color: #006eff;
+  border: 1px solid #006eff;
+  color: #ffffff;
   cursor: pointer;
 }
 .button_container {
@@ -147,8 +151,11 @@
   padding: 5px;
 }
 .delete_button {
-  color: #df9f8c;
+  color: #c1c1c1;
   cursor: pointer;
+}
+.delete_button:hover {
+  color: #df9f8c;
 }
 .noDataMessage {
   width: 100%;
@@ -173,17 +180,17 @@
     padding: 1rem;
   }
   .thead {
-    font-size: 16px;
+    font-size: 1rem;
   }
   .tbody {
-    font-size: 14px;
+    font-size: 0.8rem;
     padding-top: 0;
   }
   .search_icon {
     display: none;
   }
   .table_search {
-    width: 200px;
+    width: 13rem;
   }
   .table th {
     padding: 0.2rem;

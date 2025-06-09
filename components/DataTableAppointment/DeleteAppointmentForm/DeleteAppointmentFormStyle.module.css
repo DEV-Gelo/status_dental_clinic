@@ -16,7 +16,7 @@
   min-width: 20rem;
   width: auto;
   height: auto;
-  border: 1px solid #ffa726;
+  border: 1px solid #006eff;
   border-radius: 0.5rem;
   background-color: #fff;
 
@@ -29,7 +29,6 @@
 }
 .icon_text_container h6 {
   margin-left: 1rem;
-  color: #8a6d3b;
 }
 .button_block {
   display: flex;
@@ -38,4 +37,10 @@
   justify-content: center;
   align-items: center;
   margin: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  .icon_text_container h6 {
+    font-size: 0.8rem;
+  }
 }

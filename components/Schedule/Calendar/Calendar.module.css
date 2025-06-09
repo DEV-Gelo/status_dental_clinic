@@ -6,7 +6,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ccdde4;
+  background-color: #f0f0f0;
 }
 
 .header {
@@ -14,11 +14,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #5ba3bb;
+  background-color: #006eff;
   border-radius: 8px 8px 0 0;
 }
 
 .header h2 {
+  color: #ffffff;
   font-size: 1.5rem;
   margin: 0 20px 0 20px;
 }
@@ -31,10 +32,10 @@
 }
 
 .header button:hover {
-  color: #3498db;
+  color: #ffffff;
 }
-button.switch_month_button {
-  color: #77777750;
+.header button {
+  color: #115eef;
 }
 
 .checkbox {
@@ -57,7 +58,6 @@ button.switch_month_button {
 .dayName {
   font-weight: bold;
   text-align: center;
-  color: #555;
 }
 
 .day {
@@ -73,7 +73,11 @@ button.switch_month_button {
 }
 
 .slot {
-  color: orange;
+  color: #006eff;
+  font-size: 8px;
+}
+.selected_slot {
+  color: #fff;
   font-size: 8px;
 }
 
@@ -82,7 +86,6 @@ button.switch_month_button {
 }
 
 .today {
-  border: 2px solid #3498db;
   color: black;
   font-weight: 600;
 }

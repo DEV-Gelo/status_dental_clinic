@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 // --------------Import React icons-----------------//
-import { CiSaveUp2 } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa6";
 
 import { ThemeProvider } from "@mui/material/styles";
 // ----------Stylisation buttons MUI-----------------//
@@ -52,6 +52,7 @@ const Pricing = ({ onAlert }) => {
   const [loading, setLoading] = useState(false);
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeletingRow, setIsDeletingRow] = useState(false);
 
   // ---------------Translations-----------------//
   const t = useTranslations("settings__Pricing");
@@ -64,6 +65,7 @@ const Pricing = ({ onAlert }) => {
   );
 
   // ---Cancellation of line selection with a key Esc and delete with key Delete---//
+  const ignoreClickRef = useRef(false);
   const containerRefs = useRef(new Map());
 
   useEffect(() => {
@@ -77,6 +79,11 @@ const Pricing = ({ onAlert }) => {
     };
 
     const handleClickOutside = (event) => {
+      if (ignoreClickRef.current) {
+        ignoreClickRef.current = false; // drop the flag
+        return; // doing nothing — it was "inner click"
+      }
+
       let isInsideAnyContainer = false;
 
       containerRefs.current.forEach((ref) => {
@@ -242,6 +249,7 @@ const Pricing = ({ onAlert }) => {
       successMessage = t("SuccessAlertDel");
       errorMessage = t("Deletion error");
       mutatePath = "/api/admin_setting/pricing";
+      setIsDeletingRow(id);
     } else if (action === "edit") {
       if (!data.name || data.name.trim().length === 0) {
         onAlert("warning", t("NameOfCategoryAlert"));
@@ -273,7 +281,7 @@ const Pricing = ({ onAlert }) => {
         const errorResult = await response.json();
         throw new Error(errorResult.error || errorMessage);
       }
-
+      setIsDeletingRow(null);
       mutate(mutatePath);
       onAlert("success", successMessage);
 
@@ -303,9 +311,11 @@ const Pricing = ({ onAlert }) => {
         onClick={() => closeCategoryWindow()}
         className="fixed top-[4rem] left-[0.8rem] sm:top-[2rem] sm:left-[10rem]"
       >
-        <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">
-          <AddIcon />
-        </Fab>
+        <ThemeProvider theme={theme}>
+          <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">
+            <AddIcon />
+          </Fab>
+        </ThemeProvider>
       </span>
       {!data && !error && (
         <div className="flex justify-center items-center w-full h-full">
@@ -323,7 +333,7 @@ const Pricing = ({ onAlert }) => {
         </div>
       )}
       {isOpenCategory && (
-        <div className="flex flex-col sm:w-[30rem] h-auto justify-center items-center fixed z-30 mt-auto mr-auto rounded-md p-2 bg-[#ccdde4]">
+        <div className="flex flex-col sm:w-[30rem] h-auto justify-center items-center fixed z-30 mt-auto mr-auto rounded-md p-2 border-[1px] border-[#006eff] bg-[#fff]">
           <div className="flex sticky top-2 right-2 ml-auto mb-auto">
             <IconButton
               size="small"
@@ -361,7 +371,7 @@ const Pricing = ({ onAlert }) => {
               <LoadingButton
                 onClick={handleSubmit}
                 sx={{ m: 1 }}
-                color="save"
+                color="primary"
                 loading={loading}
                 loadingPosition="start"
                 startIcon={<SaveIcon />}
@@ -380,20 +390,23 @@ const Pricing = ({ onAlert }) => {
           <div
             ref={(el) => containerRefs.current.set(index, el)}
             onClick={() => {
-              setSelectedCategory(index);
+              if (!isOpenEdit && !isOpenDelete && !isOpen) {
+                ignoreClickRef.current = true;
+                setSelectedCategory(index);
+              }
             }}
             key={category.id}
             className={`flex flex-col relative w-full sm:w-[30rem] h-[30rem] m-2 sm:m-5 justify-start items-start rounded-md bg-[#f5f5f5] overflow-hidden ${
               selectedCategory === index
-                ? "outline outline-2 outline-[#5ba3bb]"
+                ? "outline outline-2 outline-[#006eff]"
                 : "outline-none"
             }`}
           >
             {/* ---------------------Category header and navbar------------------------------- */}
-            <header className="flex justify-end items-center w-full h-[4rem] p-2 bg-[#5ba3bb]">
+            <header className="flex justify-end items-center w-full h-[4rem] p-2 bg-[#006eff]">
               {/* ---------------Edit window---------------------- */}
               {selectedCategory === index && isOpenEdit && (
-                <form className="flex absolute top-0 left-0 z-30 justify-center items-center w-full h-[4rem] p-[0.3rem] bg-[#5ba3bb]">
+                <form className="flex absolute top-0 left-0 z-30 justify-center items-center w-full h-[4rem] p-[0.3rem] bg-[#006eff]">
                   <div className="flex flex-[20%]"></div>
                   <div className="flex flex-[60%] justify-center items-center">
                     <input
@@ -412,10 +425,10 @@ const Pricing = ({ onAlert }) => {
                       color="inherit"
                       aria-label="close"
                       onClick={() => handleEditSubmit(category.id)}
-                      className="text-[#444444]"
+                      className="text-[#fff]"
                       title={t("Save")}
                     >
-                      <CiSaveUp2 />
+                      <FaCheck />
                     </IconButton>
                   </div>
                 </form>
@@ -423,7 +436,7 @@ const Pricing = ({ onAlert }) => {
 
               <div className="flex flex-[15%]"></div>
               <div className="flex flex-[70%]">
-                <h1 className="w-full text-center text-[1rem] sm:text-[1.2rem] text-[#333] font-semibold ">
+                <h1 className="w-full text-center text-[1rem] sm:text-[1.2rem] text-white font-semibold ">
                   {category.name}
                 </h1>
               </div>
@@ -440,11 +453,11 @@ const Pricing = ({ onAlert }) => {
                         }}
                         sx={{
                           mx: 1,
-                          color: "#77777750",
+                          color: "#00000030",
                           "@media (max-width: 600px)": {
                             fontSize: 20,
                           },
-                          "&:hover": { color: "#777", cursor: "pointer" },
+                          "&:hover": { color: "#fff", cursor: "pointer" },
                         }}
                       />
                     </span>
@@ -455,11 +468,11 @@ const Pricing = ({ onAlert }) => {
                         }}
                         sx={{
                           mx: 1,
-                          color: "#77777750",
+                          color: "#00000030",
                           "@media (max-width: 600px)": {
                             fontSize: 20,
                           },
-                          "&:hover": { color: "#777", cursor: "pointer" },
+                          "&:hover": { color: "#fff", cursor: "pointer" },
                         }}
                       />
                     </span>
@@ -479,11 +492,11 @@ const Pricing = ({ onAlert }) => {
                       key={pricing.id}
                       className={`flex relative ${
                         selectedRow === pricing.id
-                          ? "bg-[#1976D2] text-[#fff]"
+                          ? "bg-[#e1f1f8] border-t-[1px] border-b-[1px] border-[#5ba3bb]"
                           : index % 2 === 0
-                          ? "bg-[#eaeaea]"
-                          : "f5f5f5"
-                      } justify-start w-full font-semibold text-[1rem] sm:text-[1.2rem] text-[#555] text-wrap p-2 hover:bg-[#1976D2] hover:text-[#fff] cursor-default`}
+                          ? "bg-[#f9f9f9]"
+                          : "bg-[#f0f0f0]"
+                      } justify-start w-full font-semibold text-[1rem] sm:text-[1.2rem] text-wrap p-2 hover:bg-[#e1f1f8] cursor-default`}
                     >
                       {/* -----------Edit window --------------- */}
                       {selectedRow === pricing.id && isOpenEditRow && (
@@ -524,7 +537,7 @@ const Pricing = ({ onAlert }) => {
                               className="text-[#fff]"
                               title={t("Save")}
                             >
-                              <CiSaveUp2 />
+                              <FaCheck />
                             </IconButton>
                           </div>
                         </form>
@@ -559,13 +572,18 @@ const Pricing = ({ onAlert }) => {
                           title={t("Delete")}
                           className="flex w-10 justify-center items-center ml-1 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
                         >
-                          {selectedRow === pricing.id && (
+                          {selectedRow === pricing.id && !isDeletingRow && (
                             <DeleteIcon
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handlePriceAction("delete", pricing.id);
                               }}
                             />
+                          )}
+                          {isDeletingRow === pricing.id ? (
+                            <CircularProgress size="1rem" />
+                          ) : (
+                            ""
                           )}
                         </span>
                       </div>
@@ -645,7 +663,7 @@ const Pricing = ({ onAlert }) => {
                     <ThemeProvider theme={theme}>
                       <LoadingButton
                         sx={{ m: 1 }}
-                        color="save"
+                        color="primary"
                         onClick={() => handlePriceSubmit(category.id)}
                         loading={loadingPrice}
                         loadingPosition="start"
@@ -662,7 +680,7 @@ const Pricing = ({ onAlert }) => {
 
               {/*------------------- Delete modal window -----------------------------*/}
               {selectedCategory === index && isOpenDelete && (
-                <div className="flex flex-col absolute top-[8rem] left-0 w-[90%] h-auto mx-[0.8rem] sm:mx-[1.5rem] z-30 justify-center items-center bg-slate-100 border-[1px] p-1 sm:p-5 border-[#ffa726] rounded-md">
+                <div className="flex flex-col absolute top-[8rem] left-0 w-[90%] h-auto mx-[0.8rem] sm:mx-[1.5rem] z-30 justify-center items-center bg-slate-100 border-[1px] p-1 sm:p-5 border-[#006eff] rounded-md">
                   <div className="flex mb-5">
                     <WarningAmberIcon sx={{ color: "#ffa726" }} />
                     <h6 className="w-full text-[0.8rem] sm:text-[1rem] text-center ml-1 sm:ml-3">
@@ -709,14 +727,16 @@ const Pricing = ({ onAlert }) => {
               }}
               className="sticky bottom-2 right-2 ml-auto mt-auto"
             >
-              <Fab
-                sx={{ zIndex: 0 }}
-                color="primary"
-                size="small"
-                aria-label="add"
-              >
-                <AddIcon />
-              </Fab>
+              <ThemeProvider theme={theme}>
+                <Fab
+                  sx={{ zIndex: 0 }}
+                  color="primary"
+                  size="small"
+                  aria-label="add"
+                >
+                  <AddIcon />
+                </Fab>
+              </ThemeProvider>
             </span>
           </div>
         ))}

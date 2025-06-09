@@ -90,7 +90,9 @@ const Settings = () => {
               <div
                 key={index}
                 className={`flex w-full h-auto justify-start items-center pl-4 py-2 cursor-pointer hover:outline hover:outline-1 hover:outline-[#cccccc] hover:bg-[#cccccc60] ${
-                  activeIndex === index ? "bg-[#cccccc60]" : ""
+                  activeIndex === index
+                    ? "bg-[#cccccc60] border-t-[1px] border-b-[1px] border-[#006eff] "
+                    : ""
                 }`}
                 onClick={() => setActiveIndex(index)}
               >

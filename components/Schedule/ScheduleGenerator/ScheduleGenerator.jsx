@@ -122,7 +122,7 @@ const ScheduleGenerator = ({
       <ThemeProvider theme={theme}>
         <LoadingButton
           sx={{ m: 1 }}
-          color="save"
+          color="appointment"
           onClick={saveSchedule}
           loading={isSaving}
           loadingPosition="start"
@@ -135,12 +135,12 @@ const ScheduleGenerator = ({
         </LoadingButton>
         <LoadingButton
           sx={{ m: 1 }}
-          color="cancel"
+          color="appointment"
           onClick={() => deleteSchedule(dates, doctorId)}
           loading={isDeleting}
           loadingPosition="start"
           startIcon={<DeleteForeverIcon className="text-red-300" />}
-          variant="contained"
+          variant="outlined"
           size="large"
           disabled={isSaving}
         >
