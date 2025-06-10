@@ -75,13 +75,15 @@ export default function HomePage() {
             {t("mainSection.google2")}
           </p>
         </div>
-        <div className="flex relative w-full md:w-1/2 h-[25rem] sm:h-[35rem] z-10 lg:mt-auto md:pl-10">
+        <div className="flex relative w-full md:w-1/2 h-[25rem] sm:h-[35rem] justify-center z-10 lg:mt-auto md:pl-10">
           <Image
             src="/Main.webp"
             alt="main doctor"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
+            width={350}
+            height={600}
+            // fill
+            // sizes="(max-width: 768px) 100vw, 50vw"
+            className="h-auto w-[250px] sm:w-[350px]"
             priority
           />
         </div>
