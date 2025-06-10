@@ -161,9 +161,9 @@ const Footer = () => {
           </h3>
           <ul>
             {resurce.map((item, index) => (
-              <Link key={index} href={item.link}>
-                <li className="my-3 hover:underline">{item.title}</li>
-              </Link>
+              <li key={index} className="my-3 hover:underline">
+                <Link href={item.link}>{item.title}</Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -173,11 +173,12 @@ const Footer = () => {
         <h3 className="font-semibold text-[#fff] my-2">{t("Legal.title")}</h3>
         <ul>
           {legal.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <li className="my-3 hover:underline">{item.title}</li>
-            </Link>
+            <li key={index} className="my-3 hover:underline">
+              <Link href={item.link}>{item.title}</Link>
+            </li>
           ))}
         </ul>
+
         {/* E-mail */}
         <p className="flex justify-start items-center text-[#fff] font-normal gap-2 mt-5">
           <span className="text-[2rem]">

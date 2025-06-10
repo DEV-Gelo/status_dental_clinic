@@ -57,7 +57,10 @@ const Testimonials = () => {
           </h2>
         </div>
         <div className="flex relative flex-col sm:flex-row w-full sm:w-[80%] h-auto sm:h-full justify-center items-center sm:px-[1rem]">
-          <button className="hidden sm:flex custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="hidden sm:flex custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Previous slide"
+          >
             <BsArrowLeftCircle />
           </button>
           <div className="flex w-full h-auto sm:h-full items-center">
@@ -150,15 +153,24 @@ const Testimonials = () => {
             </Swiper>
           </div>
 
-          <button className="hidden sm:flex custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="hidden sm:flex custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Next slide"
+          >
             <BsArrowRightCircle />
           </button>
         </div>
         <div className="flex sm:hidden absolute bottom-[5rem] right-[calc(50%-56px)] z-30">
-          <button className="custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Previous slide"
+          >
             <BsArrowLeftCircle />
           </button>
-          <button className="custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Next slide"
+          >
             <BsArrowRightCircle />
           </button>
         </div>

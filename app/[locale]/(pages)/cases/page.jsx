@@ -1,23 +1,41 @@
 import CasesPage from "./cases";
 
-export const metadata = {
-  title: "Наші роботи",
-  description:
-    "Переконайтеся в якості нашої роботи! На цій сторінці ви знайдете реальні приклади лікування, реставрації, встановлення імплантів та естетичних змін усмішок наших пацієнтів. Фото «до» та «після» демонструють професіоналізм лікарів клініки «Status» та сучасні підходи до стоматології.",
-  openGraph: {
-    title: "Наші роботи",
-    description:
-      "Переконайтеся в якості нашої роботи! На цій сторінці ви знайдете реальні приклади лікування, реставрації, встановлення імплантів та естетичних змін усмішок наших пацієнтів. Фото «до» та «після» демонструють професіоналізм лікарів клініки «Status» та сучасні підходи до стоматології.",
-    url: "https://dentalpro-gzla.vercel.app/cases",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/cases",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/cases",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/cases",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Наші роботи",
+      description:
+        "Переконайтеся в якості нашої роботи! На цій сторінці ви знайдете реальні приклади лікування, реставрації, встановлення імплантів та естетичних змін усмішок наших пацієнтів. Фото «до» та «після» демонструють професіоналізм лікарів клініки «Status» та сучасні підходи до стоматології.",
     },
-  },
-};
+    en: {
+      title: "Our Work",
+      description:
+        "See the quality of our work for yourself! On this page, you’ll find real examples of treatments, restorations, implant placements, and aesthetic smile transformations of our patients. The 'before' and 'after' photos showcase the professionalism of the doctors at Status Clinic and modern approaches to dentistry.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/cases`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/cases`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/cases`,
+        "en-US": `${baseUrl}/en/cases`,
+      },
+    },
+  };
+}
 
 export default function Cases() {
   const jsonLd = {

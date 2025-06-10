@@ -1,23 +1,41 @@
 import DoctorsPage from "./doctors";
 
-export const metadata = {
-  title: "Лікарі",
-  description:
-    "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
-  openGraph: {
-    title: "Лікарі",
-    description:
-      "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
-    url: "https://dentalpro-gzla.vercel.app/doctors",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/doctors",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/doctors",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/doctors",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Лікарі",
+      description:
+        "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
     },
-  },
-};
+    en: {
+      title: "Doctors",
+      description:
+        "Meet the team of the Status Dental Clinic. Experienced doctors, modern treatment approaches, and an individual approach to each patient.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/doctors`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/doctors`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/doctors`,
+        "en-US": `${baseUrl}/en/doctors`,
+      },
+    },
+  };
+}
 
 export default function Doctors() {
   const jsonLd = {

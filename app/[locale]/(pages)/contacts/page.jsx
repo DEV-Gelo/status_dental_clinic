@@ -1,23 +1,41 @@
 import ContactPage from "./contacts";
 
-export const metadata = {
-  title: "Контакти",
-  description:
-    "Зв’яжіться з нами — адреса, телефон, email та зручна форма для онлайн-запису. Стоматологічна клініка «Status» знаходиться в Києві на вул. Софії Русової, 3. Працюємо щодня, запис за телефоном або онлайн.",
-  openGraph: {
-    title: "Контакти",
-    description:
-      "Зв’яжіться з нами — адреса, телефон, email та зручна форма для онлайн-запису. Стоматологічна клініка «Status» знаходиться в Києві на вул. Софії Русової, 3. Працюємо щодня, запис за телефоном або онлайн.",
-    url: "https://dentalpro-gzla.vercel.app/contacts",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/contacts",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/contacts",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/contacts",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Контакти",
+      description:
+        "Зв’яжіться з нами — адреса, телефон, email та зручна форма для онлайн-запису. Стоматологічна клініка «Status» знаходиться в Києві на вул. Софії Русової, 3. Працюємо щодня, запис за телефоном або онлайн.",
     },
-  },
-};
+    en: {
+      title: "Contacts",
+      description:
+        "Get in touch with us — address, phone, email, and a convenient online appointment form. The Status Dental Clinic is located in Kyiv at 3 Sofiya Rusova Street. We work every day, appointments by phone or online.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/contacts`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/contacts`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/contacts`,
+        "en-US": `${baseUrl}/en/contacts`,
+      },
+    },
+  };
+}
 
 export default function Contacts() {
   const jsonLd = {

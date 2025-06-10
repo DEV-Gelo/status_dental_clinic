@@ -1,23 +1,41 @@
 import ServicePage from "./service";
 
-export const metadata = {
-  title: "Послуги",
-  description:
-    "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
-  openGraph: {
-    title: "Послуги",
-    description:
-      "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
-    url: "https://dentalpro-gzla.vercel.app/service",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/service",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/service",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/service",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Послуги",
+      description:
+        "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
     },
-  },
-};
+    en: {
+      title: "Services",
+      description:
+        "Explore the full range of dental services at the Status Clinic in Kyiv: cavity treatment, implantation, prosthetics, orthodontics, cosmetic dentistry, professional hygiene, surgery, restoration, diagnostics, and prevention. Individual approach and modern equipment.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/service`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/service`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/service`,
+        "en-US": `${baseUrl}/en/service`,
+      },
+    },
+  };
+}
 
 export default function Service() {
   const jsonLd = {

@@ -68,7 +68,10 @@ const Team = () => {
           <p className="text-center font-medium m-5">{t("Description")}</p>
         </div>
         <div className="flex w-[70%] sm:w-[80%] h-auto sm:h-full justify-center items-center">
-          <button className="flex lg:hidden custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="flex lg:hidden custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Previous slide"
+          >
             <BsArrowLeftCircle />
           </button>
           <div className="flex w-[15rem] sm:w-[20rem] md:w-full h-auto sm:h-full items-center">
@@ -125,7 +128,10 @@ const Team = () => {
             </Swiper>
           </div>
 
-          <button className="flex lg:hidden custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]">
+          <button
+            className="flex lg:hidden custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            aria-label="Next slide"
+          >
             <BsArrowRightCircle />
           </button>
         </div>

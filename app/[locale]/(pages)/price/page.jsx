@@ -1,23 +1,41 @@
 import PricePage from "./price";
 
-export const metadata = {
-  title: "Ціни",
-  description:
-    "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг",
-  openGraph: {
-    title: "Ціни",
-    description:
-      "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
-    url: "https://dentalpro-gzla.vercel.app/price",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/price",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/price",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/price",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Ціни",
+      description:
+        "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг",
     },
-  },
-};
+    en: {
+      title: "Prices",
+      description:
+        "Find out the current prices for dental services at the Status Clinic. Quality dentistry at affordable prices in Kyiv. Moderate prices for all types of dental services.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/price`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/price`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/price`,
+        "en-US": `${baseUrl}/en/price`,
+      },
+    },
+  };
+}
 
 export default function Cases() {
   const jsonLd = {

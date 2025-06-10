@@ -1,23 +1,41 @@
 import AboutPage from "./about";
 
-export const metadata = {
-  title: "Про нас",
-  description:
-    "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
-  openGraph: {
-    title: "Про нас",
-    description:
-      "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
-    url: "https://dentalpro-gzla.vercel.app/about",
-  },
-  alternates: {
-    canonical: "https://dentalpro-gzla.vercel.app/uk/about",
-    languages: {
-      "uk-UA": "https://dentalpro-gzla.vercel.app/uk/about",
-      "en-US": "https://dentalpro-gzla.vercel.app/en/about",
+export async function generateMetadata({ params }) {
+  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const locale = params?.locale || "uk";
+
+  const metadataByLocale = {
+    uk: {
+      title: "Про нас",
+      description:
+        "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
     },
-  },
-};
+    en: {
+      title: "About Us",
+      description:
+        "Learn more about Status dental clinic — a team of experienced doctors, modern equipment, and personalized care for every patient. Our clinic in Darnytskyi district, Kyiv, provides high-quality services for the whole family.",
+    },
+  };
+
+  const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      description: t.description,
+      url: `${baseUrl}/${locale}/about`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/about`,
+      languages: {
+        "uk-UA": `${baseUrl}/uk/about`,
+        "en-US": `${baseUrl}/en/about`,
+      },
+    },
+  };
+}
 
 export default function About() {
   const jsonLd = {
@@ -65,7 +83,6 @@ export default function About() {
         "https://health-lifesci.schema.org/RestorativeDentistry",
         "https://health-lifesci.schema.org/DentalHygiene",
       ],
-
       employee: [
         {
           "@type": "Person",
