@@ -91,7 +91,6 @@ export const Slider = ({ Before, After }) => {
           alt="After"
           draggable={false}
           src={After}
-          priority
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
@@ -109,7 +108,6 @@ export const Slider = ({ Before, After }) => {
             draggable={false}
             alt="Before"
             src={Before}
-            priority
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"

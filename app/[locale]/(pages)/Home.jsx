@@ -19,7 +19,6 @@ import About from "@/sections/About/About";
 import Testimonials from "@/sections/Testimonials/Testimonials";
 import Contact from "@/sections/Contact/Contact";
 import Advantages from "@/sections/Advantages/Advantages";
-import MainImage from "@/public/Main.webp";
 
 export default function HomePage() {
   // -----Translations--------//
@@ -78,11 +77,13 @@ export default function HomePage() {
         </div>
         <div className="flex relative w-full md:w-1/2 h-[25rem] sm:h-[35rem] z-10 lg:mt-auto md:pl-10">
           <Image
-            src={MainImage}
+            src="/Main.webp"
             alt="main doctor"
+            width={600}
+            height={600}
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
+            className="object-contain w-full h-auto"
           />
         </div>
         <div className="flex md:hidden w-screen h-[14rem] absolute bottom-[130px] left-0 z-0 bg-[#006eff]" />
