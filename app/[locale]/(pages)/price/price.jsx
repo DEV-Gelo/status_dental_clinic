@@ -73,7 +73,7 @@ const PricePage = () => {
         )}
         <div
           id="Down"
-          className="flex flex-wrap w-full h-auto justify-center items-center"
+          className="flex flex-wrap w-full h-auto min-h-[38rem] justify-center items-center"
         >
           {!error &&
             data?.map((category) => (

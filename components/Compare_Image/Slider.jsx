@@ -76,14 +76,14 @@ export const Slider = ({ Before, After }) => {
         onTouchStart={() => setIsDragging(true)}
       >
         {sliderPosition < 95 ? (
-          <h3 className="absolute top-2 right-4 z-10 text-[1.2rem] text-[#f5f5f570] font-semibold">
+          <p className="absolute top-2 right-4 z-10 text-[1.2rem] text-[#f5f5f570] font-semibold">
             {t("After")}
-          </h3>
+          </p>
         ) : null}
         {sliderPosition > 5 ? (
-          <h3 className="absolute top-2 left-4 z-10 text-[1.2rem] text-[#f5f5f570] font-semibold">
+          <p className="absolute top-2 left-4 z-10 text-[1.2rem] text-[#f5f5f570] font-semibold">
             {t("Before")}
-          </h3>
+          </p>
         ) : null}
 
         {/* After image */}

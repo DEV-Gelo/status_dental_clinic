@@ -30,7 +30,10 @@ const montserrat = localFont({
       style: "normal",
     },
   ],
+  display: "swap",
+  preload: true,
 });
+
 export const benzin = localFont({
   src: [
     {
@@ -39,8 +42,11 @@ export const benzin = localFont({
       style: "normal",
     },
   ],
+  display: "swap",
+  preload: true,
   variable: "--font-benzin",
 });
+
 export const astron = localFont({
   src: [
     {
@@ -49,6 +55,8 @@ export const astron = localFont({
       style: "normal",
     },
   ],
+  display: "swap",
+  preload: true,
   variable: "--font-astron",
 });
 

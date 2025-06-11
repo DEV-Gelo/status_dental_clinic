@@ -191,12 +191,16 @@ const ServicePage = () => {
                     const selectedId = event.target.value;
                     const selected = services.find((s) => s.id === selectedId);
                     if (selected) {
-                      setIdService(selected.id); // ID
-                      setServiceIMG(selected.link); // Image
-                      setNameService(selected.name); // Name
-                      setDescriptionService(selected.description); // Description
-                      setAdvantages(selected.advantages); // advantages (array)
+                      setIdService(selected.id);
+                      setServiceIMG(selected.link);
+                      setNameService(selected.name);
+                      setDescriptionService(selected.description);
+                      setAdvantages(selected.advantages);
                     }
+                  }}
+                  inputProps={{
+                    "aria-label": t("OurServices"),
+                    "aria-labelledby": "service-select-label",
                   }}
                   IconComponent={BsArrowDownCircle}
                   sx={{
@@ -210,9 +214,9 @@ const ServicePage = () => {
                     fontFamily: "var(--font-montserrat)",
                     fontWeight: 600,
                     borderRadius: "10px",
-                    textAlign: "center", // text center
+                    textAlign: "center",
                     "& .MuiSelect-select": {
-                      textAlign: "center", // text center
+                      textAlign: "center",
                     },
                   }}
                 >
