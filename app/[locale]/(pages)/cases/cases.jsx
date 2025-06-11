@@ -24,7 +24,7 @@ const Cases = () => {
         {/* Slider + Description block #1 */}
         <div className="flex flex-col lg:flex-row w-full max-w-[48rem] lg:max-w-full h-auto min-h-[22.8rem]">
           <div className="flex relative w-full lg:w-1/2 lg:aspect-[70/45]">
-            <Slider Before="/Case1Before.jpg" After="/Case1After.jpg" />
+            <Slider Before="/Case1Before.webp" After="/Case1After.webp" />
           </div>
           <div className="flex flex-col w-auto lg:w-1/2 h-auto md:p-[2rem] lg:p-[4rem] py-5">
             <h2 className="text-[1.5rem] lg:text-[2rem] font-semibold leading-tight mb-2">
@@ -42,13 +42,13 @@ const Cases = () => {
             <p>{t("Description2")}</p>
           </div>
           <div className="flex relative w-full lg:w-1/2 lg:aspect-[70/45] order-1 lg:order-2">
-            <Slider Before="/Case2Before.jpg" After="/Case2After.jpg" />
+            <Slider Before="/Case2Before.webp" After="/Case2After.webp" />
           </div>
         </div>
         {/* Slider + Description block #3 */}
         <div className="flex flex-col lg:flex-row w-full max-w-[48rem] lg:max-w-full h-auto min-h-[22.8rem]">
           <div className="flex relative w-full lg:w-1/2 lg:aspect-[70/45]">
-            <Slider Before="/Case3Before.jpg" After="/Case3After.jpg" />
+            <Slider Before="/Case3Before.webp" After="/Case3After.webp" />
           </div>
           <div className="flex flex-col w-auto lg:w-1/2 h-full md:p-[2rem] lg:p-[4rem] py-5">
             <h2 className="text-[1.5rem] lg:text-[2rem] font-semibold leading-tight mb-2">

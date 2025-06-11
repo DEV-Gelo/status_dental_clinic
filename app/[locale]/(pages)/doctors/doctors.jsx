@@ -26,7 +26,7 @@ const Doctors = () => {
         <div className="flex flex-col md:flex-row w-full h-auto my-5">
           <div className="flex relative min-w-[17.5rem] w-[17.5rem] h-[22rem] rounded-lg overflow-hidden mb-5 md:mb-0">
             <Image
-              src="/Doc1.png"
+              src="/Doc1.webp"
               alt="Doctor1"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -80,7 +80,7 @@ const Doctors = () => {
           </div>
           <div className="flex order-1 md:order-2 relative min-w-[17.5rem] w-[17.5rem] h-[22rem] rounded-lg overflow-hidden mb-5 md:mb-0">
             <Image
-              src="/Doc3.png"
+              src="/Doc3.webp"
               alt="Doctor3"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -92,7 +92,7 @@ const Doctors = () => {
         <div className="flex flex-col md:flex-row w-full h-auto my-5">
           <div className="flex relative min-w-[17.5rem] w-[17.5rem] h-[22rem] rounded-lg overflow-hidden mb-5 md:mb-0">
             <Image
-              src="/Doc2.png"
+              src="/Doc2.webp"
               alt="Doctor2"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

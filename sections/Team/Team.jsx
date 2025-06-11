@@ -39,19 +39,19 @@ const Team = () => {
   const doctors = [
     {
       id: 1,
-      image: "/Doc1.png",
+      image: "/Doc1.webp",
       name: t("Doctor.Name1"),
       specialization: t("Doctor.Specialization1"),
     },
     {
       id: 2,
-      image: "/Doc2.png",
+      image: "/Doc2.webp",
       name: t("Doctor.Name2"),
       specialization: t("Doctor.Specialization2"),
     },
     {
       id: 3,
-      image: "/Doc3.png",
+      image: "/Doc3.webp",
       name: t("Doctor.Name3"),
       specialization: t("Doctor.Specialization3"),
     },

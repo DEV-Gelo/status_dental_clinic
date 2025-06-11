@@ -27,7 +27,7 @@ export default function AboutPage() {
         <div className="flex flex-col lg:flex-row w-full h-auto min-h-[25rem]">
           <div className="flex relative w-full lg:w-1/2 aspect-[70/45]">
             <Image
-              src="/About3.png"
+              src="/About3.webp"
               alt="Modern dental clinic"
               priority
               fill
@@ -52,7 +52,7 @@ export default function AboutPage() {
           </div>
           <div className="flex relative w-full lg:w-1/2 aspect-[70/45] order-1 lg:order-2">
             <Image
-              src="/About4.png"
+              src="/About4.webp"
               alt="Dental equipment"
               priority
               fill
@@ -65,7 +65,7 @@ export default function AboutPage() {
         <div className="flex flex-col lg:flex-row w-full h-auto min-h-[25rem]">
           <div className="flex relative w-full lg:w-1/2 aspect-[70/45]">
             <Image
-              src="/About5.jpg"
+              src="/About5.webp"
               alt="Staff"
               priority
               fill

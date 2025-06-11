@@ -85,7 +85,7 @@ const Footer = () => {
           </Link>
         </div>
         {/* Slogan */}
-        <p className="flex justify-start items-center text-[#fff] text-[0.8rem] font-normal mt-5">
+        <p className="flex w-full h-[5rem] justify-start items-center text-[#fff] text-[0.8rem] font-normal mt-5">
           {t("Slogan")}
         </p>
 

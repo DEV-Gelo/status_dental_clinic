@@ -36,7 +36,7 @@ const Cases = () => {
             </p>
           </div>
           <div className="flex w-full sm:w-[80%] lg:w-1/2 h-full rounded-md overflow-hidden lg:ml-5">
-            <Slider Before="/Before.jpg" After="/After.jpg" />
+            <Slider Before="/Before.webp" After="/After.webp" />
           </div>
         </div>
         <div className="flex w-full justify-center lg:justify-start items-start mt-10 lg:mt-0">

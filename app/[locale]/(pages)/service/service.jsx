@@ -73,7 +73,7 @@ const ServicePage = () => {
     {
       id: 2,
       name: t("Services.Name2"),
-      link: "/Prevention.jpg",
+      link: "/Prevention.webp",
       description: t("Services.Description2"),
       advantages: [
         t("Services.Advantages2.Av1"),
@@ -85,7 +85,7 @@ const ServicePage = () => {
     {
       id: 3,
       name: t("Services.Name3"),
-      link: "/Orthopedics.jpg",
+      link: "/Orthopedics.webp",
       description: t("Services.Description3"),
       advantages: [
         t("Services.Advantages3.Av1"),
@@ -97,7 +97,7 @@ const ServicePage = () => {
     {
       id: 4,
       name: t("Services.Name4"),
-      link: "/Orthodontic.jpg",
+      link: "/Orthodontic.webp",
       description: t("Services.Description4"),
       advantages: [
         t("Services.Advantages4.Av1"),
@@ -121,7 +121,7 @@ const ServicePage = () => {
     {
       id: 6,
       name: t("Services.Name6"),
-      link: "/Implant.jpg",
+      link: "/Implant.webp",
       description: t("Services.Description6"),
       advantages: [
         t("Services.Advantages6.Av1"),
@@ -133,7 +133,7 @@ const ServicePage = () => {
     {
       id: 7,
       name: t("Services.Name7"),
-      link: "/Gnathology.jpg",
+      link: "/Gnathology.webp",
       description: t("Services.Description7"),
       advantages: [
         t("Services.Advantages7.Av1"),
@@ -157,7 +157,7 @@ const ServicePage = () => {
     {
       id: 9,
       name: t("Services.Name9"),
-      link: "/Hygiene.jpg",
+      link: "/Hygiene.webp",
       description: t("Services.Description9"),
       advantages: [
         t("Services.Advantages9.Av1"),
