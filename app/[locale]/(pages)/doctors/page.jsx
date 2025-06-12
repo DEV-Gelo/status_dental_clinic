@@ -27,14 +27,18 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: t.title,
       description: t.description,
-      url: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
+      url: isDefaultLocale
+        ? `${baseUrl}/doctors`
+        : `${baseUrl}/${locale}/doctors`,
     },
     alternates: {
-      canonical: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
+      canonical: isDefaultLocale
+        ? `${baseUrl}/doctors`
+        : `${baseUrl}/${locale}/doctors`,
       languages: {
-        "x-default": `${baseUrl}/`,
-        "uk-UA": `${baseUrl}/`,
-        "en-US": `${baseUrl}/en`,
+        "x-default": `${baseUrl}/doctors`,
+        "uk-UA": `${baseUrl}/doctors`,
+        "en-US": `${baseUrl}/en/doctors`,
       },
     },
   };
