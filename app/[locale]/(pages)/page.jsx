@@ -8,22 +8,16 @@ export async function generateMetadata({ params }) {
       title: "Головна",
       description:
         "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
-      ogDescription:
-        "Стоматологічна клініка Status у Києві — сучасне, безболісне лікування зубів для дорослих та дітей. Індивідуальний підхід для вашої здорової посмішки.",
     },
     en: {
       title: "Home",
       description:
         "Learn more about Status dental clinic — a team of experienced doctors, modern equipment, and personalized care for every patient. Our clinic in Darnytskyi district, Kyiv, provides high-quality services for the whole family.",
-      ogDescription:
-        "Status Dental Clinic in Kyiv — modern and painless dental treatment for adults and children. Personalized approach for your healthy smile.",
     },
   };
 
   const locale = params?.locale || "uk";
   const t = metadataByLocale[locale] || metadataByLocale.uk;
-
-  const isDefaultLocale = locale === "uk";
 
   return {
     title: t.title,
@@ -31,13 +25,13 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: t.title,
       description: t.description,
-      url: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
+      url: `${baseUrl}/${locale}`,
     },
     alternates: {
-      canonical: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
+      canonical: `${baseUrl}/${locale}`,
       languages: {
-        "x-default": `${baseUrl}/`,
-        "uk-UA": `${baseUrl}/`,
+        "x-default": `${baseUrl}/uk`,
+        "uk-UA": `${baseUrl}/uk`,
         "en-US": `${baseUrl}/en`,
       },
     },

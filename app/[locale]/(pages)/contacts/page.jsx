@@ -19,25 +19,19 @@ export async function generateMetadata({ params }) {
   const locale = params?.locale || "uk";
   const t = metadataByLocale[locale] || metadataByLocale.uk;
 
-  const isDefaultLocale = locale === "uk";
-
   return {
     title: t.title,
     description: t.description,
     openGraph: {
       title: t.title,
       description: t.description,
-      url: isDefaultLocale
-        ? `${baseUrl}/contacts`
-        : `${baseUrl}/${locale}/contacts`,
+      url: `${baseUrl}/${locale}/contacts`,
     },
     alternates: {
-      canonical: isDefaultLocale
-        ? `${baseUrl}/contacts`
-        : `${baseUrl}/${locale}/contacts`,
+      canonical: `${baseUrl}/${locale}/contacts`,
       languages: {
-        "x-default": `${baseUrl}/contacts`,
-        "uk-UA": `${baseUrl}/contacts`,
+        "x-default": `${baseUrl}/uk/contacts`,
+        "uk-UA": `${baseUrl}/uk/contacts`,
         "en-US": `${baseUrl}/en/contacts`,
       },
     },
