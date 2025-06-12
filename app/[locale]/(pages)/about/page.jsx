@@ -2,7 +2,6 @@ import AboutPage from "./about";
 
 export async function generateMetadata({ params }) {
   const baseUrl = "https://dentalpro-gzla.vercel.app";
-  const locale = params?.locale || "uk";
 
   const metadataByLocale = {
     uk: {
@@ -17,7 +16,10 @@ export async function generateMetadata({ params }) {
     },
   };
 
+  const locale = params?.locale || "uk";
   const t = metadataByLocale[locale] || metadataByLocale.uk;
+
+  const isDefaultLocale = locale === "uk";
 
   return {
     title: t.title,
@@ -25,13 +27,14 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: t.title,
       description: t.description,
-      url: `${baseUrl}/${locale}/about`,
+      url: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/about`,
+      canonical: isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}`,
       languages: {
-        "uk-UA": `${baseUrl}/uk/about`,
-        "en-US": `${baseUrl}/en/about`,
+        "x-default": `${baseUrl}/`,
+        "uk-UA": `${baseUrl}/`,
+        "en-US": `${baseUrl}/en`,
       },
     },
   };
