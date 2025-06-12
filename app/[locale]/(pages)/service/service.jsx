@@ -109,7 +109,7 @@ const ServicePage = () => {
     {
       id: 5,
       name: t("Services.Name5"),
-      link: "/Surgery.jpg",
+      link: "/Surgery.webp",
       description: t("Services.Description5"),
       advantages: [
         t("Services.Advantages5.Av1"),
@@ -145,7 +145,7 @@ const ServicePage = () => {
     {
       id: 8,
       name: t("Services.Name8"),
-      link: "/Restoration.jpg",
+      link: "/Restoration.webp",
       description: t("Services.Description8"),
       advantages: [
         t("Services.Advantages8.Av1"),

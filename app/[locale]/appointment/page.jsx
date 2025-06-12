@@ -281,7 +281,7 @@ const Appointment = () => {
               <div className="flex relative w-full min-h-[16rem] justify-start items-end bg-[#006eff]">
                 <div className="hidden lg:flex relative w-[24rem] h-[30rem]">
                   <Image
-                    src="/Success_appointment_IMG.png"
+                    src="/Success_appointment_IMG.webp"
                     alt="success appointment"
                     priority
                     fill

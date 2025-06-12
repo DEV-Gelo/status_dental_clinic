@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 // ----------Import React icons----------//
 import { RiArrowRightSFill, RiArrowLeftSFill } from "react-icons/ri";
 
-export const Slider = ({ Before, After }) => {
+export const Slider = ({ Before, After, priority = false }) => {
   const [sliderPosition, setSliderPosition] = useState(49);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
@@ -92,6 +92,7 @@ export const Slider = ({ Before, After }) => {
           draggable={false}
           src={After}
           fill
+          priority={priority}
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
         />
@@ -109,6 +110,7 @@ export const Slider = ({ Before, After }) => {
             alt="Before"
             src={Before}
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
           />

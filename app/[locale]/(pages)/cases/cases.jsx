@@ -24,7 +24,11 @@ const Cases = () => {
         {/* Slider + Description block #1 */}
         <div className="flex flex-col lg:flex-row w-full max-w-[48rem] lg:max-w-full h-auto min-h-[22.8rem]">
           <div className="flex relative w-full lg:w-1/2 lg:aspect-[70/45]">
-            <Slider Before="/Case1Before.webp" After="/Case1After.webp" />
+            <Slider
+              Before="/Case1Before.webp"
+              After="/Case1After.webp"
+              priority
+            />
           </div>
           <div className="flex flex-col w-auto lg:w-1/2 h-auto md:p-[2rem] lg:p-[4rem] py-5">
             <h2 className="text-[1.5rem] lg:text-[2rem] font-semibold leading-tight mb-2">

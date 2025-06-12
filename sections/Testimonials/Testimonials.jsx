@@ -26,21 +26,21 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      image: "/avatar-1.png",
+      image: "/avatar-1.webp",
       name: t("Card.name1"),
       specialization: t("Card.specialization1"),
       description: t("Card.description1"),
     },
     {
       id: 2,
-      image: "/avatar-3.png",
+      image: "/avatar-3.webp",
       name: t("Card.name2"),
       specialization: t("Card.specialization2"),
       description: t("Card.description2"),
     },
     {
       id: 3,
-      image: "/avatar-2.png",
+      image: "/avatar-2.webp",
       name: t("Card.name3"),
       specialization: t("Card.specialization3"),
       description: t("Card.description3"),

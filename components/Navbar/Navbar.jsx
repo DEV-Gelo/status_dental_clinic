@@ -78,7 +78,7 @@ const Navbar = () => {
           <div className="flex w-[13rem] justify-start items-center pr-5 mr-6">
             <div className="flex relative w-[34px] h-[50px]">
               <Image
-                src="/Tooth.png"
+                src="/Tooth.webp"
                 alt="logo"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

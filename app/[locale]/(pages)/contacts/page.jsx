@@ -59,7 +59,7 @@ export default function Contacts() {
       },
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
       },
       url: "https://dentalpro-gzla.vercel.app",
       address: {

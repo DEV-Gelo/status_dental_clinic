@@ -92,7 +92,7 @@ export default function Cases() {
       url: "https://dentalpro-gzla.vercel.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",

@@ -155,7 +155,7 @@ const Services = () => {
             {t("Title3")}
           </h2>
         </div>
-        <div className="flex w-full h-full lg:bg-none bg-[url('/bg-tooth.png')] bg-no-repeat bg-contain bg-center">
+        <div className="flex w-full h-full lg:bg-none bg-[url('/bg-tooth.webp')] bg-no-repeat bg-contain bg-center">
           <div className="flex flex-col w-1/2 lg:w-1/3 h-full justify-start p-5">
             <div className="flex flex-col w-full h-[10rem] my-5 justify-start">
               <div className="flex w-full h-auto justify-end my-2">
@@ -211,7 +211,7 @@ const Services = () => {
           </div>
           <div className="hidden lg:flex flex-col w-1/3 h-full justify-end items-center p-5">
             <Image
-              src="/ServiceTooth.png"
+              src="/ServiceTooth.webp"
               alt="tooth"
               width={430}
               height={420}

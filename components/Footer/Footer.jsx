@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="flex w-[14rem] justify-start items-center mt-1">
           <div className="flex relative w-[44px] h-[60px]">
             <Image
-              src="/Tooth.png"
+              src="/Tooth.webp"
               alt="logo"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

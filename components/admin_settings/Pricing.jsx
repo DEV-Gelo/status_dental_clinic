@@ -14,6 +14,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 // --------------Import React icons-----------------//
 import { FaCheck } from "react-icons/fa6";
 
@@ -52,7 +56,23 @@ const Pricing = ({ onAlert }) => {
   const [loading, setLoading] = useState(false);
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isDeletingRow, setIsDeletingRow] = useState(false);
+
+  // -----MUI Kebab Menu-----//
+  const ITEM_HEIGHT = 48;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  console.log("isOpen :", isOpen);
+  console.log("isOpenCategory :", isOpenCategory);
+  console.log("isOpenEdit :", isOpenEdit);
+  console.log("isOpenEditRow :", isOpenEditRow);
 
   // ---------------Translations-----------------//
   const t = useTranslations("settings__Pricing");
@@ -96,6 +116,8 @@ const Pricing = ({ onAlert }) => {
         setSelectedRow(null);
         setSelectedCategory(null);
         setIsOpenEditRow(false);
+        setIsOpenEdit(false);
+        setIsOpenDelete(false);
         closeAddWindow();
       }
     };
@@ -249,7 +271,6 @@ const Pricing = ({ onAlert }) => {
       successMessage = t("SuccessAlertDel");
       errorMessage = t("Deletion error");
       mutatePath = "/api/admin_setting/pricing";
-      setIsDeletingRow(id);
     } else if (action === "edit") {
       if (!data.name || data.name.trim().length === 0) {
         onAlert("warning", t("NameOfCategoryAlert"));
@@ -281,7 +302,7 @@ const Pricing = ({ onAlert }) => {
         const errorResult = await response.json();
         throw new Error(errorResult.error || errorMessage);
       }
-      setIsDeletingRow(null);
+
       mutate(mutatePath);
       onAlert("success", successMessage);
 
@@ -425,7 +446,7 @@ const Pricing = ({ onAlert }) => {
                       color="inherit"
                       aria-label="close"
                       onClick={() => handleEditSubmit(category.id)}
-                      className="text-[#fff]"
+                      className="text-[#fff] hover:text-green-500"
                       title={t("Save")}
                     >
                       <FaCheck />
@@ -444,38 +465,64 @@ const Pricing = ({ onAlert }) => {
               <nav className="flex flex-[15%] h-auto justify-end items-center">
                 {selectedCategory === index && (
                   <>
-                    <span title={t("Edit")}>
-                      <EditIcon
-                        onClick={() => {
-                          setIsOpenEdit(true),
-                            setSelectedCategory(index),
-                            setCategoryName(category.name);
-                        }}
-                        sx={{
-                          mx: 1,
-                          color: "#00000030",
-                          "@media (max-width: 600px)": {
-                            fontSize: 20,
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={open ? "long-menu" : undefined}
+                      aria-expanded={open ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      slotProps={{
+                        paper: {
+                          style: {
+                            maxHeight: ITEM_HEIGHT * 4.5,
+                            width: "auto",
                           },
-                          "&:hover": { color: "#fff", cursor: "pointer" },
-                        }}
-                      />
-                    </span>
-                    <span title={t("Delete")}>
-                      <DeleteIcon
-                        onClick={() => {
-                          setSelectedCategory(index), setIsOpenDelete(true);
-                        }}
-                        sx={{
-                          mx: 1,
-                          color: "#00000030",
-                          "@media (max-width: 600px)": {
-                            fontSize: 20,
-                          },
-                          "&:hover": { color: "#fff", cursor: "pointer" },
-                        }}
-                      />
-                    </span>
+                        },
+                        list: {
+                          "aria-labelledby": "long-button",
+                        },
+                      }}
+                    >
+                      <MenuItem onClick={handleClose} title={t("Delete")}>
+                        <DeleteIcon
+                          onClick={() => {
+                            setSelectedCategory(index), setIsOpenDelete(true);
+                          }}
+                          sx={{
+                            color: "#00000030",
+                            "@media (max-width: 600px)": {
+                              fontSize: 20,
+                            },
+                            "&:hover": { color: "#000", cursor: "pointer" },
+                          }}
+                        />
+                      </MenuItem>
+                      <MenuItem onClick={handleClose} title={t("Edit")}>
+                        <EditIcon
+                          onClick={() => {
+                            setIsOpenEdit(true),
+                              setSelectedCategory(index),
+                              setCategoryName(category.name);
+                          }}
+                          sx={{
+                            color: "#00000030",
+                            "@media (max-width: 600px)": {
+                              fontSize: 20,
+                            },
+                            "&:hover": { color: "#000", cursor: "pointer" },
+                          }}
+                        />
+                      </MenuItem>
+                    </Menu>
                   </>
                 )}
               </nav>
@@ -500,28 +547,28 @@ const Pricing = ({ onAlert }) => {
                     >
                       {/* -----------Edit window --------------- */}
                       {selectedRow === pricing.id && isOpenEditRow && (
-                        <form className="flex absolute top-0 left-0 z-30 justify-center items-center w-full h-auto p-[0.3rem] bg-[#1976D2]">
-                          <div className="flex flex-[60%]">
+                        <form className="flex absolute top-0 left-0 z-30 justify-center items-center w-full h-full p-[0.3rem] bg-[#fff]">
+                          <div className="flex flex-[70%]">
                             <input
                               type="text"
                               name="service"
                               id="service"
                               value={serviceEdit}
                               onChange={(e) => setServiceEdit(e.target.value)}
-                              className="flex w-full px-3 py-1 rounded-sm bg-slate-200 text-[#444]"
+                              className="flex w-full px-3 py-1 rounded-sm border-[1px] bg-white"
                             />
                           </div>
-                          <div className="flex flex-[30%] justify-center items-center">
+                          <div className="flex flex-[25%] justify-end items-center">
                             <input
                               type="number"
                               name="price"
                               id="price"
                               value={priceEdit}
                               onChange={(e) => setPriceEdit(e.target.value)}
-                              className="flex w-[6rem] px-3 py-1 rounded-sm bg-slate-200 text-[#444]"
+                              className="flex w-[6rem] px-3 py-1 rounded-sm border-[1px] bg-white"
                             />
                           </div>
-                          <div className="flex mr-3 flex-[10%] justify-end items-center">
+                          <div className="flex mx-3 flex-[5%] justify-end items-center">
                             <IconButton
                               size="small"
                               edge="start"
@@ -534,7 +581,7 @@ const Pricing = ({ onAlert }) => {
                                   categoryId: category.id,
                                 })
                               }
-                              className="text-[#fff]"
+                              className="text-[#000] hover:text-green-500"
                               title={t("Save")}
                             >
                               <FaCheck />
@@ -544,48 +591,90 @@ const Pricing = ({ onAlert }) => {
                       )}
                       {/*------------- Main content------------- */}
                       <div className="flex w-full">
-                        <p>
+                        <p className="pr-3">
                           <span className="mr-2">{index + 1}.</span>
                           {pricing.name}
                         </p>
                       </div>
-                      <div className="flex w-full justify-end items-center ml-3">
+                      <div className="flex min-w-[8rem] w-auto justify-end items-center ml-3">
                         <p className="flex items-center flex-nowrap">
                           {pricing.price}&nbsp;<span>{t("Currency")}</span>
                         </p>
-                        <span
-                          title={t("Edit")}
-                          className="flex w-10 justify-center items-center ml-2 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
-                        >
-                          {selectedRow === pricing.id && (
-                            <EditIcon
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setIsOpenEditRow(true);
-                                setServiceEdit(pricing.name);
-                                setPriceEdit(pricing.price);
+                        {selectedRow === pricing.id && (
+                          <>
+                            <IconButton
+                              sx={{ p: 0 }}
+                              aria-label="more"
+                              id="long-button"
+                              aria-controls={open ? "long-menu" : undefined}
+                              aria-expanded={open ? "true" : undefined}
+                              aria-haspopup="true"
+                              onClick={handleClick}
+                            >
+                              <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                              id="long-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              slotProps={{
+                                paper: {
+                                  style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: "auto",
+                                  },
+                                },
+                                list: {
+                                  "aria-labelledby": "long-button",
+                                },
                               }}
-                            />
-                          )}
-                        </span>
-                        <span
-                          title={t("Delete")}
-                          className="flex w-10 justify-center items-center ml-1 text-[#a7adaf60] hover:text-[#df9f8c] cursor-pointer"
-                        >
-                          {selectedRow === pricing.id && !isDeletingRow && (
-                            <DeleteIcon
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handlePriceAction("delete", pricing.id);
-                              }}
-                            />
-                          )}
-                          {isDeletingRow === pricing.id ? (
-                            <CircularProgress size="1rem" />
-                          ) : (
-                            ""
-                          )}
-                        </span>
+                            >
+                              <MenuItem
+                                onClick={handleClose}
+                                title={t("Delete")}
+                              >
+                                <DeleteIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleClose();
+                                    handlePriceAction("delete", pricing.id);
+                                  }}
+                                  sx={{
+                                    color: "#00000030",
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20,
+                                    },
+                                    "&:hover": {
+                                      color: "#000",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                />
+                              </MenuItem>
+                              <MenuItem onClick={handleClose} title={t("Edit")}>
+                                <EditIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsOpenEditRow(true);
+                                    setServiceEdit(pricing.name);
+                                    setPriceEdit(pricing.price);
+                                  }}
+                                  sx={{
+                                    color: "#00000030",
+                                    "@media (max-width: 600px)": {
+                                      fontSize: 20,
+                                    },
+                                    "&:hover": {
+                                      color: "#000",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                />
+                              </MenuItem>
+                            </Menu>
+                          </>
+                        )}
                       </div>
                     </div>
                   ))}

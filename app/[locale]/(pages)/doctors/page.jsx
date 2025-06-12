@@ -105,7 +105,7 @@ export default function Doctors() {
       url: "hhttps://dentalpro-gzla.vercel.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.png",
+        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",
