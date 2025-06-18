@@ -70,9 +70,9 @@ const Footer = () => {
             <Image
               src="/Tooth.webp"
               alt="logo"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain"
+              width={44}
+              height={60}
+              className="object-contain h-auto"
             />
           </div>
           <Link href="/" className="w-[10rem] ml-2">
