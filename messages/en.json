@@ -327,6 +327,8 @@
     "and all content": "and all its content?",
     "Yes": "YES",
     "No": "NO",
+    "Order": "Position",
+    "Description": "Detailed description",
     "Deleting": "DELETING...",
     "AddService_title": "Create service"
   },
@@ -693,7 +695,8 @@
     "Title3": "SERVICES",
     "currence": "UAH",
     "loading": "Loading...",
-    "Error loading data": "Error loading data"
+    "Error loading data": "Error loading data",
+    "close": "Close"
   },
 
   "CustomMap": {

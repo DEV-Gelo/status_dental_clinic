@@ -16,7 +16,14 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { name } = await req.json();
+    const { name, order } = await req.json();
+
+    if (order !== null && typeof order !== "number") {
+      return NextResponse.json(
+        { message: "Order must be a number" },
+        { status: 400 }
+      );
+    }
 
     if (!name) {
       return NextResponse.json(
@@ -26,7 +33,7 @@ export async function POST(req) {
     }
 
     const newCategory = await prisma.category.create({
-      data: { name },
+      data: { name, order },
     });
 
     return NextResponse.json(

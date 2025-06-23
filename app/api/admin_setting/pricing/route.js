@@ -16,18 +16,18 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { name, price, categoryId } = await req.json();
+    const { name, price, description, categoryId } = await req.json();
 
-    if (!name || typeof name !== "string" || name.trim().length === 0) {
+    if (!name || name.trim().length === 0) {
       return NextResponse.json(
         { message: "The service name cannot be empty" },
         { status: 400 }
       );
     }
 
-    if (!price || isNaN(Number(price))) {
+    if (!price) {
       return NextResponse.json(
-        { message: "The value must be a number" },
+        { message: "The price cannot be empty" },
         { status: 400 }
       );
     }
@@ -42,7 +42,8 @@ export async function POST(req) {
     const newPrice = await prisma.pricing.create({
       data: {
         name: name.trim(),
-        price: Number(price),
+        price: price,
+        description: description,
         categoryId: Number(categoryId),
       },
     });

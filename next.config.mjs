@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "naajexduhqhlzvoabekd.supabase.co", // Domen Supabase
+        hostname: "zhkodokuheeoalcrlems.supabase.co", // Domen Supabase
         pathname: "/storage/v1/object/public/uploads/**", // Allowed path
       },
     ],

@@ -46,7 +46,6 @@ const Users = () => {
     severity: "success",
     message: "",
   });
-
   // -------Translations----------//
   const t = useTranslations("users");
 
@@ -325,6 +324,7 @@ const Users = () => {
                     );
                   }}
                 >
+                  {console.log("URL :", user.photo)}
                   <td className={styles.id_td}>{index + 1}</td>
                   <td className={styles.photo_td}>
                     {user.photo && (

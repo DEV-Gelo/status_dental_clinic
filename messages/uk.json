@@ -348,6 +348,8 @@
     "and all content": "та увесь її вміст?",
     "Yes": "ТАК",
     "No": "НІ",
+    "Order": "Позиція",
+    "Description": "Детальний опис",
     "Deleting": "ВИДАЛЕННЯ...",
     "AddService_title": "Створити послугу"
   },
@@ -719,7 +721,8 @@
     "Title3": "ПОСЛУГИ",
     "currence": "грн.",
     "loading": "Завантаження...",
-    "Error loading data": "Помилка завантаження даних"
+    "Error loading data": "Помилка завантаження даних",
+    "close": "Закрити"
   },
 
   "CustomMap": {

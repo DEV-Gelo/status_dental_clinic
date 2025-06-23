@@ -4,11 +4,18 @@ import prisma from "@/lib/prisma";
 export async function PUT(req, { params }) {
   const { id } = params;
   try {
-    const { name } = await req.json();
+    const { name, order } = await req.json();
 
     if (!id || isNaN(Number(id))) {
       return NextResponse.json(
         { error: "Invalid category ID" },
+        { status: 400 }
+      );
+    }
+
+    if (order !== null && typeof order !== "number") {
+      return NextResponse.json(
+        { message: "Order must be a number" },
         { status: 400 }
       );
     }
@@ -22,7 +29,7 @@ export async function PUT(req, { params }) {
 
     const updatedCategory = await prisma.category.update({
       where: { id: Number(id) },
-      data: { name },
+      data: { name, order },
     });
 
     return NextResponse.json(updatedCategory, { status: 200 });

@@ -112,7 +112,7 @@ const Settings = () => {
         {activeIndex !== null && (
           <div className="flex flex-col w-full h-full py-4 px-1 sm:px-4">
             <header className="flex w-full h-auto justify-center items-center">
-              <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-5 sm:mb-3">
+              <h1 className="text-[1.2rem] sm:text-[1.5rem] font-semibold text-[#a7adaf] mb-5 sm:mb-6">
                 {t("Settings")}{" "}
                 {activeIndex >= 0 ? titles[menu[activeIndex]?.id] || "" : ""}
               </h1>
