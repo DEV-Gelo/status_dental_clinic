@@ -6,11 +6,8 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 // -----------Import React Icon--------------//
-import {
-  BsCheck2Circle,
-  BsArrowRightCircle,
-  BsArrowDownCircle,
-} from "react-icons/bs";
+import { BsCheck2Circle, BsArrowRightCircle } from "react-icons/bs";
+import { FaChevronDown } from "react-icons/fa6";
 // -----------Import MUI components--------------//
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -32,7 +29,7 @@ const ServicePage = () => {
   const locale = pathname.split("/")[1];
 
   const [hasMounted, setHasMounted] = useState(false);
-  const [idService, setIdService] = useState(1);
+  const [idService, setIdService] = useState("");
   const [serviceIMG, setServiceIMG] = useState("/Diagnostic.webp");
   const [nameService, setNameService] = useState(t("Services.Name1"));
   const [descriptionService, setDescriptionService] = useState(
@@ -181,28 +178,34 @@ const ServicePage = () => {
           </div>
           <div className="flex flex-col w-full h-full items-center">
             <div className="flex flex-col w-full max-w-[30rem] justify-center h-auto my-10">
-              <h2 className="blue-text font-medium">{t("OurServices")}</h2>
+              <h2 className="blue-text font-medium">{t("menuServices")}</h2>
               <FormControl fullWidth>
                 <Select
                   id="service-select"
                   value={idService}
-                  label={t("OurServices")}
+                  displayEmpty
                   onChange={(event) => {
                     const selectedId = event.target.value;
+                    setIdService(selectedId);
+
                     const selected = services.find((s) => s.id === selectedId);
                     if (selected) {
-                      setIdService(selected.id);
                       setServiceIMG(selected.link);
                       setNameService(selected.name);
                       setDescriptionService(selected.description);
                       setAdvantages(selected.advantages);
+                    } else {
+                      setServiceIMG("");
+                      setNameService("");
+                      setDescriptionService("");
+                      setAdvantages([]);
                     }
                   }}
                   inputProps={{
                     "aria-label": t("OurServices"),
                     "aria-labelledby": "service-select-label",
                   }}
-                  IconComponent={BsArrowDownCircle}
+                  IconComponent={FaChevronDown}
                   sx={{
                     "& .MuiSelect-icon": {
                       color: "#ffffff",
@@ -220,6 +223,9 @@ const ServicePage = () => {
                     },
                   }}
                 >
+                  <MenuItem value="" disabled>
+                    {t("chooseService")}
+                  </MenuItem>
                   {services.map((service) => (
                     <MenuItem key={service.id} value={service.id}>
                       {service.name}
