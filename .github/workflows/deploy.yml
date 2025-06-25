@@ -16,4 +16,4 @@ jobs:
         uses: railwayapp/railway-deploy-action@v1.2
         with:
           railwayToken: ${{ secrets.STATUS_RAILWAY_TOKEN }}
-          projectId: 3658acad-ba45-42aa-b1fb-dd0e6425e29f
+          projectId: fb610aa5-89fa-4415-a5df-9f80b62c5ea8
