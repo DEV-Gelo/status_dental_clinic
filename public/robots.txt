@@ -7,8 +7,8 @@ Disallow: /404
 Disallow: /500
 
 # Host
-Host: https://dentalpro-production.up.railway.app
+Host: https://status-gzla.vercel.app
 
 # Sitemaps
-Sitemap: https://dentalpro-production.up.railway.app/sitemap.xml
-Sitemap: https://dentalpro-production.up.railway.app/server-sitemap.xml
+Sitemap: https://status-gzla.vercel.app/sitemap.xml
+Sitemap: https://status-gzla.vercel.app/server-sitemap.xml
