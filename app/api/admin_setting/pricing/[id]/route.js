@@ -3,6 +3,13 @@ import prisma from "@/lib/prisma";
 
 export const revalidate = 0;
 
+export async function GET(req, context) {
+  return NextResponse.json(
+    { message: "GET method not supported" },
+    { status: 405 }
+  );
+}
+
 export async function PUT(req, context) {
   const { id } = context.params;
 
