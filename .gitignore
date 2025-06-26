@@ -1,3 +1,13 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next
+
+# old clean repo (just in case)
+/status.git
+
+
 # local env files
 .env
 .env.*
