@@ -75,6 +75,7 @@ export default function HomePage() {
             {t("mainSection.google2")}
           </p>
         </div>
+        {/* Main image */}
         <div className="flex relative w-full md:w-1/2 h-[25rem] sm:h-[35rem] z-10 lg:mt-auto md:pl-10">
           <Image
             src="/Main.webp"
