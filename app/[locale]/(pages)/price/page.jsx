@@ -26,6 +26,24 @@ export async function generateMetadata({ params }) {
       title: t.title,
       description: t.description,
       url: `${baseUrl}/${locale}/price`,
+      siteName: "Status",
+      locale: locale === "en" ? "en-US" : "uk-UA",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/openGraph_IMG.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Стоматологічна клініка Status",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Стоматологічна клініка Status",
+      description:
+        "Дізнайтеся актуальні ціни на стоматологічні послуги в клініці «Status». Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг",
+      images: [`${baseUrl}/openGraph_IMG.jpg`],
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/price`,

@@ -26,6 +26,24 @@ export async function generateMetadata({ params }) {
       title: t.title,
       description: t.description,
       url: `${baseUrl}/${locale}/service`,
+      siteName: "Status",
+      locale: locale === "en" ? "en-US" : "uk-UA",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/openGraph_IMG.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Стоматологічна клініка Status",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Стоматологічна клініка Status",
+      description:
+        "Ознайомтеся з повним переліком стоматологічних послуг клініки «Status» у Києві: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика, профілактика. Індивідуальний підхід та сучасне обладнання.",
+      images: [`${baseUrl}/openGraph_IMG.jpg`],
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/service`,

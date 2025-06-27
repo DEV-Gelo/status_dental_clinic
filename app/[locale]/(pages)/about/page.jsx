@@ -26,6 +26,24 @@ export async function generateMetadata({ params }) {
       title: t.title,
       description: t.description,
       url: `${baseUrl}/${locale}/about`,
+      siteName: "Status",
+      locale: locale === "en" ? "en-US" : "uk-UA",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/openGraph_IMG.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Стоматологічна клініка Status",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Стоматологічна клініка Status",
+      description:
+        "Дізнайтеся більше про стоматологічну клініку Status — команду досвідчених лікарів, сучасне обладнання та індивідуальний підхід до кожного пацієнта. Наша стоматологія у Дарницькому районі м. Києва, на Осокорках, пропонує високоякісні послуги для всієї родини, поєднуючи турботу, професіоналізм і новітні технології.",
+      images: [`${baseUrl}/openGraph_IMG.jpg`],
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/about`,

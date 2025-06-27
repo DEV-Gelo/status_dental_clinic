@@ -26,6 +26,24 @@ export async function generateMetadata({ params }) {
       title: t.title,
       description: t.description,
       url: `${baseUrl}/${locale}/doctors`,
+      siteName: "Status",
+      locale: locale === "en" ? "en-US" : "uk-UA",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/openGraph_IMG.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Стоматологічна клініка Status",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Стоматологічна клініка Status",
+      description:
+        "Познайомтесь з командою стоматологічної клініки «Status». Досвідчені лікарі, сучасні підходи до лікування та індивідуальний підхід до кожного пацієнта.",
+      images: [`${baseUrl}/openGraph_IMG.jpg`],
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/doctors`,
