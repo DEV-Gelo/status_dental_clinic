@@ -43,13 +43,13 @@ export default function About() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Про клініку «Status»",
-    url: "https://dentalpro-gzla.vercel.app/about",
+    url: "https://status-dental-clinic.vercel.app/about",
     mainEntity: {
       "@type": "MedicalClinic",
       name: "Стоматологічна клініка «Status»",
-      image: "https://dentalpro-gzla.vercel.app/openGraph.jpg",
-      url: "https://dentalpro-gzla.vercel.app",
-      logo: "https://dentalpro-gzla.vercel.app/Logo.webp",
+      image: "https://status-dental-clinic.vercel.app/openGraph.jpg",
+      url: "https://status-dental-clinic.vercel.app/",
+      logo: "https://status-dental-clinic.vercel.app/Logo.webp",
       description:
         "Стоматологічна клініка «Status» у Києві (Дарницький район, Осокорки) — це поєднання сучасних технологій, досвідчених лікарів і турботи про кожного пацієнта. Ми надаємо повний спектр стоматологічних послуг: лікування зубів, імплантація, професійна гігієна, естетична стоматологія, ортодонтія та дитяча стоматологія. Дізнайтеся більше про нашу команду, прочитайте реальні відгуки пацієнтів та скористайтеся зручним онлайн-записом.",
       address: {
@@ -89,26 +89,26 @@ export default function About() {
           "@type": "Person",
           name: "Олександр Олександрович",
           jobTitle: "Лікар-стоматолог",
-          image: "https://dentalpro-gzla.vercel.app/Doc1.webp",
+          image: "https://status-dental-clinic.vercel.app/Doc1.webp",
         },
         {
           "@type": "Person",
           name: "Іван Миколайович",
           jobTitle: "Стоматолог-терапевт",
-          image: "https://dentalpro-gzla.vercel.app/Doc3.webp",
+          image: "https://status-dental-clinic.vercel.app/Doc3.webp",
         },
         {
           "@type": "Person",
           name: "Володимир Володимирович",
           jobTitle: "Стоматолог-ортопед",
-          image: "https://dentalpro-gzla.vercel.app/Doc2.webp",
+          image: "https://status-dental-clinic.vercel.app/Doc2.webp",
         },
       ],
       potentialAction: {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.vercel.app/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

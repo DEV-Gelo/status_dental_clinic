@@ -1,7 +1,7 @@
 import HomePage from "./Home";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.vercel.app";
 
   const metadataByLocale = {
     uk: {
