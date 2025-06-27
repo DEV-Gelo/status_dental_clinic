@@ -17,17 +17,18 @@ const OnlineAppointment = () => {
   const locale = pathname.split("/")[1];
   return (
     <>
-      <section className="flex relative w-full h-auto sm:h-[50rem] lg:h-[40rem] mb-28 lg:mb-10 mt-10">
-        <div className="flex flex-col lg:flex-row w-full h-full items-center justify-end lg:items-start z-10 container-padding">
-          <div className="flex relative w-[15rem] sm:w-[45%] h-[20rem] sm:h-full order-2 lg:order-1">
+      <section className="flex relative w-full h-auto sm:h-[50rem] lg:h-[45rem] mb-28 lg:mb-10 mt-10">
+        <div className="flex flex-col lg:flex-row w-full h-full items-center lg:items-end justify-end z-10 container-padding">
+          <div className="flex relative w-[15rem] sm:w-[45%] aspect-[3/4] order-2 lg:order-1">
             <Image
               src="/OnlineAppointment.webp"
               alt="online appointment"
               fill
+              className="object-contain object-bottom"
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
             />
           </div>
+
           <div className="flex flex-col w-full sm:w-[80%] lg:w-[55%] h-auto lg:h-full order-1 lg:order-2 justify-between py-10 sm:py-[4.5rem]">
             {/* Title */}
             <div className="flex flex-col w-full h-auto">

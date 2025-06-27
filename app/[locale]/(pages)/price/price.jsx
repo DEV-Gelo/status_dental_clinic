@@ -65,8 +65,7 @@ const PricePage = () => {
     setPriceID(id);
     setIsOpenDescription((prev) => !prev);
   };
-  console.log("ID :", priceID);
-  console.log("toggle open/close :", isOpenDescription);
+
   return (
     <>
       <section className="flex relative flex-col w-full h-auto items-center py-10 sm:py-[5rem] container-padding">

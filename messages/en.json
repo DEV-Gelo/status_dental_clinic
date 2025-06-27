@@ -469,7 +469,9 @@
       "Name2": "Volodymyr Volodymyrovych",
       "Specialization2": "Prosthodontist",
       "Name3": "Ivan Mykolayovych",
-      "Specialization3": "Therapist Dentist"
+      "Specialization3": "Therapist Dentist",
+      "Name4": "Vitalii Valeriiovych",
+      "Specialization4": "General Practitioner"
     }
   },
 
@@ -674,6 +676,13 @@
       "Description": "A specialist in prosthodontic dentistry with over 10 years of experience. His main focus is restoring dental function and aesthetics using crowns, bridges, inlays, and modern prostheses. He pays great attention to precision, which ensures patient comfort. Volodymyr Volodymyrovych combines classical prosthodontic knowledge with modern digital technologies, allowing for a natural appearance and perfect fit of dental constructions.",
       "qualities1": "Maximum precision in work — thanks to digital scanning and a personalized approach, prosthetic constructions are long-lasting and comfortable.",
       "qualities2": "Natural smile aesthetics — helps restore not only dental functionality but also patient confidence in their smile."
+    },
+    "Doctor4": {
+      "Position": "General Practitioner",
+      "Name": "Vitalii Valeriiovych",
+      "Description": "A general practitioner with many years of experience, providing comprehensive primary medical care to patients of all ages. Vitalii Valeriiovych specializes in diagnosing and treating common illnesses, as well as preventing complications. He pays great attention to a personalized approach, carefully analyzing symptoms and medical history. His goal is timely medical assistance and building patient trust through professionalism and compassion.",
+      "qualities1": "Comprehensive approach — the doctor considers the overall health condition, lifestyle, and medical history to ensure accurate diagnosis and effective treatment.",
+      "qualities2": "Care and trust — patients appreciate his calm communication style, attention to detail, and ability to explain complex things in simple terms."
     }
   },
 

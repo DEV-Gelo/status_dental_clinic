@@ -55,6 +55,12 @@ const Team = () => {
       name: t("Doctor.Name3"),
       specialization: t("Doctor.Specialization3"),
     },
+    {
+      id: 4,
+      image: "/Doc4.webp",
+      name: t("Doctor.Name4"),
+      specialization: t("Doctor.Specialization4"),
+    },
   ];
 
   return (
@@ -69,7 +75,7 @@ const Team = () => {
         </div>
         <div className="flex w-[70%] sm:w-[80%] h-auto sm:h-full justify-center items-center">
           <button
-            className="flex lg:hidden custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            className="flex custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
             aria-label="Previous slide"
           >
             <BsArrowLeftCircle />
@@ -129,7 +135,7 @@ const Team = () => {
           </div>
 
           <button
-            className="flex lg:hidden custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
+            className="flex custom-next m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
             aria-label="Next slide"
           >
             <BsArrowRightCircle />

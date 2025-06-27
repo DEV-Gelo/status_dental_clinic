@@ -121,6 +121,39 @@ const Doctors = () => {
             </ul>
           </div>
         </div>
+        {/* Doctor block #2 */}
+        <div className="flex flex-col md:flex-row w-full items-end h-auto my-5">
+          <div className="flex order-2 md:order-1 flex-col w-full h-auto md:min-h-[22rem] justify-between items-end md:pr-[3rem]">
+            <div className="flex flex-col">
+              <h2 className="text-right">{t("Doctor4.Position")}</h2>
+              <h3 className="text-[2rem] text-right">{t("Doctor4.Name")}</h3>
+              <p className="my-5 text-right">{t("Doctor4.Description")}</p>
+            </div>
+            <ul className="flex flex-col">
+              <li className="flex items-center mb-2">
+                <span className="text-[#006eff] text-[2rem] mr-3">
+                  <BsCheck2Circle />
+                </span>
+                {t("Doctor4.qualities1")}
+              </li>
+              <li className="flex items-center mt-2">
+                <span className="text-[#006eff] text-[2rem] mr-3">
+                  <BsCheck2Circle />
+                </span>
+                {t("Doctor4.qualities2")}
+              </li>
+            </ul>
+          </div>
+          <div className="flex order-1 md:order-2 relative min-w-[17.5rem] w-[17.5rem] h-[22rem] rounded-lg overflow-hidden mb-5 md:mb-0">
+            <Image
+              src="/Doc4.webp"
+              alt="Doctor4"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </section>
       {/* Online Appointment Section */}
       <OnlineAppointment />
