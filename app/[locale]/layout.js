@@ -82,16 +82,16 @@ export const metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-icon.png",
   },
-  metadataBase: new URL("https://dentalpro-gzla.vercel.app"),
+  metadataBase: new URL("https://status-dental-clinic.vercel.app/"),
   openGraph: {
     title: "Стоматологічна клініка Status",
     description:
       "Відвідайте стоматологічну клініку Status — сучасний підхід, професійні лікарі, безболісне лікування та дбайливе ставлення до кожного пацієнта.",
-    url: "https://dentalpro-gzla.vercel.app",
+    url: "https://status-dental-clinic.vercel.app/",
     siteName: "Status",
     images: [
       {
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        url: "https://status-dental-clinic.vercel.app/openGraph_IMG.jpg",
         width: 1200,
         height: 630,
         alt: "Стоматологічна клініка Status",
@@ -105,7 +105,7 @@ export const metadata = {
     title: "Стоматологічна клініка Status",
     description:
       "Індивідуальний підхід, сучасне обладнання, професійна команда стоматологів — довірте свою усмішку клініці Status.",
-    images: ["https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg"],
+    images: ["https://status-dental-clinic.vercel.app/openGraph_IMG.jpg"],
   },
 };
 
