@@ -1,7 +1,7 @@
 import ContactPage from "./contacts";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -60,27 +60,27 @@ export default function Contacts() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "@id": "https://dentalpro-gzla.vercel.app/contacts#webpage",
+    "@id": "https://status-dental-clinic.com.ua/contacts#webpage",
     name: "Контакти",
-    url: "https://dentalpro-gzla.vercel.app/contacts",
+    url: "https://status-dental-clinic.com.ua/contacts",
     description:
       "Контактна інформація стоматологічної клініки «Status» у Києві: адреса, телефони, email, карта проїзду та форма запису онлайн.",
     inLanguage: "uk",
     mainEntity: {
       "@type": "MedicalClinic",
-      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
+      "@id": "https://status-dental-clinic.com.ua/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        url: "https://status-dental-clinic.com.ua/openGraph_IMG.jpg",
         width: 1200,
         height: 630,
       },
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
+        url: "https://status-dental-clinic.com.ua/Logo.webp",
       },
-      url: "https://dentalpro-gzla.vercel.app",
+      url: "https://status-dental-clinic.com.ua",
       address: {
         "@type": "PostalAddress",
         streetAddress: "вул. Софії Русової, 3",
@@ -128,7 +128,7 @@ export default function Contacts() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

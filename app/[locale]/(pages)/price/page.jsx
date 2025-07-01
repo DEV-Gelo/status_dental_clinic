@@ -1,7 +1,7 @@
 import PricePage from "./price";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -60,9 +60,9 @@ export default function Cases() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://dentalpro-gzla.vercel.app/price#webpage",
+    "@id": "https://status-dental-clinic.com.ua/price#webpage",
     name: "Ціни на стоматологічні послуги",
-    url: "https://dentalpro-gzla.vercel.app/price",
+    url: "https://status-dental-clinic.com.ua/price",
     description:
       "Актуальні ціни на стоматологічні послуги клініки Status. Якісна стоматологія за доступною вартістю у Києві. Помірні ціни на всі види стоматологічних послуг.",
     inLanguage: "uk",
@@ -114,7 +114,7 @@ export default function Cases() {
             offers: {
               "@type": "Offer",
               priceCurrency: "UAH",
-              price: "від 10000",
+              price: "від 5000",
             },
           },
         },
@@ -130,7 +130,7 @@ export default function Cases() {
             offers: {
               "@type": "Offer",
               priceCurrency: "UAH",
-              price: "від 10000",
+              price: "від 5000",
             },
           },
         },
@@ -146,7 +146,7 @@ export default function Cases() {
             offers: {
               "@type": "Offer",
               priceCurrency: "UAH",
-              price: "від 12000",
+              price: "від 4000",
             },
           },
         },
@@ -202,18 +202,18 @@ export default function Cases() {
     },
     about: {
       "@type": "MedicalClinic",
-      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
+      "@id": "https://status-dental-clinic.com.ua/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        url: "https://status-dental-clinic.com.ua/openGraph_IMG.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://dentalpro-gzla.vercel.app",
+      url: "https://status-dental-clinic.com.ua",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
+        url: "https://status-dental-clinic.com.ua/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",
@@ -264,7 +264,7 @@ export default function Cases() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

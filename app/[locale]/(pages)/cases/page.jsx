@@ -1,7 +1,7 @@
 import CasesPage from "./cases";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -60,9 +60,9 @@ export default function Cases() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://dentalpro-gzla.vercel.app/cases#webpage",
+    "@id": "https://status-dental-clinic.com.ua/cases#webpage",
     name: "Наші роботи",
-    url: "https://dentalpro-gzla.vercel.app/cases",
+    url: "https://status-dental-clinic.com.ua/cases",
     description:
       "Приклади реальних клінічних випадків стоматологічної клініки Status: лікування, імплантація, естетична стоматологія та реставрації",
     inLanguage: "uk",
@@ -100,18 +100,18 @@ export default function Cases() {
     },
     about: {
       "@type": "MedicalClinic",
-      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
+      "@id": "https://status-dental-clinic.com.ua/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/openGraph.jpg",
+        url: "https://status-dental-clinic.com.ua/openGraph.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://dentalpro-gzla.vercel.app",
+      url: "https://status-dental-clinic.com.ua",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
+        url: "https://status-dental-clinic.com.ua/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",
@@ -162,7 +162,7 @@ export default function Cases() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

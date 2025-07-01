@@ -1,7 +1,7 @@
 import ServicePage from "./service";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -60,9 +60,9 @@ export default function Service() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "hhttps://dentalpro-gzla.vercel.app/service#webpage",
+    "@id": "https://status-dental-clinic.com.ua/service#webpage",
     name: "Стоматологічні послуги",
-    url: "https://dentalpro-gzla.vercel.app/service",
+    url: "https://status-dental-clinic.com.ua/service",
     description:
       "Повний спектр стоматологічних послуг у клініці «Status»: лікування карієсу, імплантація, протезування, ортодонтія, естетична стоматологія, професійна гігієна, хірургія, реставрація, діагностика та профілактика. Помірні ціни, безболісне лікування, індивідуальний підхід та професійне обладнання.",
     inLanguage: "uk",
@@ -174,18 +174,18 @@ export default function Service() {
     },
     about: {
       "@type": "MedicalClinic",
-      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
+      "@id": "https://status-dental-clinic.com.ua/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        url: "https://status-dental-clinic.com.ua/openGraph_IMG.jpg",
         width: "1200",
         height: "630",
       },
-      url: "https://dentalpro-gzla.vercel.app",
+      url: "https://status-dental-clinic.com.ua",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
+        url: "https://status-dental-clinic.com.ua/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",
@@ -234,7 +234,7 @@ export default function Service() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

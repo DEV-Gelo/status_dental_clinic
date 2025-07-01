@@ -1,7 +1,7 @@
 import AboutPage from "./about";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -61,13 +61,13 @@ export default function About() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Про клініку «Status»",
-    url: "https://status-dental-clinic.vercel.app/about",
+    url: "https://status-dental-clinic.com.ua/about",
     mainEntity: {
       "@type": "MedicalClinic",
       name: "Стоматологічна клініка «Status»",
-      image: "https://status-dental-clinic.vercel.app/openGraph.jpg",
-      url: "https://status-dental-clinic.vercel.app/",
-      logo: "https://status-dental-clinic.vercel.app/Logo.webp",
+      image: "https://status-dental-clinic.com.ua/openGraph.jpg",
+      url: "https://status-dental-clinic.com.ua/",
+      logo: "https://status-dental-clinic.com.ua/Logo.webp",
       description:
         "Стоматологічна клініка «Status» у Києві (Дарницький район, Осокорки) — це поєднання сучасних технологій, досвідчених лікарів і турботи про кожного пацієнта. Ми надаємо повний спектр стоматологічних послуг: лікування зубів, імплантація, професійна гігієна, естетична стоматологія, ортодонтія та дитяча стоматологія. Дізнайтеся більше про нашу команду, прочитайте реальні відгуки пацієнтів та скористайтеся зручним онлайн-записом.",
       address: {
@@ -107,26 +107,32 @@ export default function About() {
           "@type": "Person",
           name: "Олександр Олександрович",
           jobTitle: "Лікар-стоматолог",
-          image: "https://status-dental-clinic.vercel.app/Doc1.webp",
+          image: "https://status-dental-clinic.com.ua/Doc1.webp",
         },
         {
           "@type": "Person",
           name: "Іван Миколайович",
           jobTitle: "Стоматолог-терапевт",
-          image: "https://status-dental-clinic.vercel.app/Doc3.webp",
+          image: "https://status-dental-clinic.com.ua/Doc3.webp",
         },
         {
           "@type": "Person",
           name: "Володимир Володимирович",
           jobTitle: "Стоматолог-ортопед",
-          image: "https://status-dental-clinic.vercel.app/Doc2.webp",
+          image: "https://status-dental-clinic.com.ua/Doc2.webp",
+        },
+        {
+          "@type": "Person",
+          name: "Віталій Валерійович",
+          jobTitle: "Лікар загального прийому",
+          image: "https://status-dental-clinic.com.ua/Doc4.webp",
         },
       ],
       potentialAction: {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://status-dental-clinic.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",

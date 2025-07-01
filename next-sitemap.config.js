@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://status-gzla.vercel.app",
+  siteUrl: process.env.SITE_URL || "https://status-dental-clinic.com.ua/",
   generateRobotsTxt: true, // Generate robots.txt
   changefreq: "daily",
   priority: 0.7,
@@ -32,9 +32,11 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      `${process.env.SITE_URL || "https://status-gzla.vercel.app"}/sitemap.xml`,
       `${
-        process.env.SITE_URL || "https://status-gzla.vercel.app"
+        process.env.SITE_URL || "https://status-dental-clinic.com.ua/"
+      }/sitemap.xml`,
+      `${
+        process.env.SITE_URL || "https://status-dental-clinic.com.ua/"
       }/server-sitemap.xml`,
     ],
   },

@@ -1,7 +1,7 @@
 import DoctorsPage from "./doctors";
 
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://dentalpro-gzla.vercel.app";
+  const baseUrl = "https://status-dental-clinic.com.ua";
 
   const metadataByLocale = {
     uk: {
@@ -60,9 +60,9 @@ export default function Doctors() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://dentalpro-gzla.vercel.app/doctors#webpage",
+    "@id": "https://status-dental-clinic.com.ua/doctors#webpage",
     name: "Наша команда",
-    url: "https://dentalpro-gzla.vercel.app/doctors",
+    url: "https://status-dental-clinic.com.ua/doctors",
     description:
       "Команда лікарів стоматологічної клініки Status. Кваліфіковані стоматологи, імплантологи, ортодонти та гігієністи з багаторічним досвідом.",
     inLanguage: "uk",
@@ -98,7 +98,7 @@ export default function Doctors() {
         },
         {
           "@type": "ListItem",
-          position: 2,
+          position: 3,
           item: {
             "@type": "Person",
             name: "Володимир Володимирович",
@@ -109,22 +109,35 @@ export default function Doctors() {
             },
           },
         },
+        {
+          "@type": "ListItem",
+          position: 4,
+          item: {
+            "@type": "Person",
+            name: "Віталій Валерійович",
+            jobTitle: "Лікар загального прийому",
+            worksFor: {
+              "@type": "MedicalClinic",
+              name: "Стоматологічна клініка «Status»",
+            },
+          },
+        },
       ],
     },
     about: {
       "@type": "MedicalClinic",
-      "@id": "https://dentalpro-gzla.vercel.app/#dental-clinic",
+      "@id": "https://status-dental-clinic.com.ua/#dental-clinic",
       name: "Стоматологічна клініка «Status»",
       image: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/openGraph_IMG.jpg",
+        url: "https://status-dental-clinic.com.ua/openGraph_IMG.jpg",
         width: "1200",
         height: "630",
       },
-      url: "hhttps://dentalpro-gzla.vercel.app",
+      url: "https://status-dental-clinic.com.ua/",
       logo: {
         "@type": "ImageObject",
-        url: "https://dentalpro-gzla.vercel.app/Logo.webp",
+        url: "https://status-dental-clinic.com.ua/Logo.webp",
       },
       address: {
         "@type": "PostalAddress",
@@ -174,7 +187,7 @@ export default function Doctors() {
         "@type": "ReserveAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://dentalpro-gzla.vercel.app/appointment",
+          urlTemplate: "https://status-dental-clinic.com.ua/appointment",
           inLanguage: "uk",
           actionPlatform: [
             "http://schema.org/DesktopWebPlatform",
