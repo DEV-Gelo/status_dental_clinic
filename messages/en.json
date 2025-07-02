@@ -462,13 +462,13 @@
     "MoreLong": "Learn more about our team",
 
     "Doctor": {
-      "Name1": "Oleksandr Oleksandrovych",
-      "Specialization1": "Dentist",
-      "Name2": "Volodymyr Volodymyrovych",
-      "Specialization2": "Prosthodontist",
-      "Name3": "Ivan Mykolayovych",
-      "Specialization3": "Therapist Dentist",
-      "Name4": "Vitalii Valeriiovych",
+      "Name1": "Kokhanov Oleksandr Oleksandrovych",
+      "Specialization1": "Dental Surgeon",
+      "Name2": "Tatur Volodymyr Volodymyrovych",
+      "Specialization2": "Endodontist (Microscopist)",
+      "Name3": "Sventukh Ivan Mykolayovych",
+      "Specialization3": "Prosthodontist",
+      "Name4": "Senchuk Vitaliy Valeriyovych",
       "Specialization4": "General Practitioner"
     }
   },
@@ -655,32 +655,32 @@
     "Title2": "PROFESSIONALS",
     "Description": "Dentists who give you perfect, healthy smiles every day.",
     "Doctor1": {
-      "Position": "General Dentist",
-      "Name": "Oleksandr Oleksandrovych",
-      "Description": "An experienced general dentist with a personalized approach to each patient. He has over 15 years of practice in therapeutic and aesthetic dentistry. Works with both adults and children, focusing not only on the quality of treatment but also on patient comfort. Continuously improves his skills through courses and internships both in Ukraine and abroad.",
-      "qualities1": "Extremely gentle approach — the doctor knows how to work with patients who are afraid of dental visits. Even the youngest patients feel calm and safe.",
-      "qualities2": "Modern treatment methods — uses the latest technologies and materials to ensure effective and painless treatment."
+      "Position": "Dental Surgeon",
+      "Name": "Kokhanov Oleksandr Oleksandrovych",
+      "Description": "A dental surgeon with over 20 years of experience. Specializes in bone grafting, dental implants, complex wisdom tooth extractions, and soft tissue surgeries. Thanks to his extensive practice and use of modern techniques, he performs even the most challenging procedures quickly, precisely, and with minimal discomfort for the patient. Believes that quality surgery is not only about technique, but also about care and careful planning of each stage of treatment. Always explains all aspects of the upcoming procedure in simple terms to ensure patients feel calm and confident.",
+      "qualities1": "Exceptionally gentle approach — knows how to work with patients who have a fear of dentists. Even the youngest patients feel calm and safe.",
+      "qualities2": "Modern treatment methods — uses the latest technologies and materials to make procedures effective and pain-free."
     },
     "Doctor2": {
-      "Position": "Therapist Dentist",
-      "Name": "Ivan Mykolayovych",
-      "Description": "Specializes in therapeutic dental treatment — particularly caries, pulpitis, periodontitis, and the prevention of oral diseases. He has over 12 years of hands-on experience and continuously enhances his knowledge through specialized courses and conferences. His main principle is pain-free, stress-free treatment. He is great at explaining complex issues in simple terms and always aims to preserve the patient’s natural teeth for as long as possible.",
-      "qualities1": "Comprehensive approach to treatment — Ivan Mykolayovych always considers the overall condition of the oral cavity, not just individual symptoms.",
-      "qualities2": "Clear communication and guidance — explains each step of the treatment process so the patient feels confident and calm."
+      "Position": "Prosthodontist",
+      "Name": "Sventukh Ivan Mykolayovych",
+      "Description": "Specializes in aesthetic dentistry and veneers, helping patients achieve their perfect smile with minimal intervention. Believes the main goal is to preserve the health of natural teeth while enhancing their natural beauty and harmony. With over 12 years of practical experience, he continually hones his skills at international courses and congresses. Truly believes that high-quality veneers can not only transform a smile but also give new confidence. Always listens carefully, clearly explains every step of the treatment, and finds tailored solutions for the best result.",
+      "qualities1": "Comprehensive approach — Ivan Mykolayovych always assesses the entire oral cavity, caring not only about individual teeth but about the overall harmony of the smile.",
+      "qualities2": "Open communication and clarity — thoroughly explains each stage of treatment so patients feel confident and at ease."
     },
     "Doctor3": {
-      "Position": "Prosthodontist",
-      "Name": "Volodymyr Volodymyrovych",
-      "Description": "A specialist in prosthodontic dentistry with over 10 years of experience. His main focus is restoring dental function and aesthetics using crowns, bridges, inlays, and modern prostheses. He pays great attention to precision, which ensures patient comfort. Volodymyr Volodymyrovych combines classical prosthodontic knowledge with modern digital technologies, allowing for a natural appearance and perfect fit of dental constructions.",
-      "qualities1": "Maximum precision in work — thanks to digital scanning and a personalized approach, prosthetic constructions are long-lasting and comfortable.",
-      "qualities2": "Natural smile aesthetics — helps restore not only dental functionality but also patient confidence in their smile."
+      "Position": "Endodontist (Microscopist)",
+      "Name": "Tatur Volodymyr Volodymyrovych",
+      "Description": "An endodontics specialist with over 10 years of experience. Focuses on root canal treatment under a microscope, which makes it possible to save even the most challenging cases and preserve patients' natural teeth. Volodymyr Volodymyrovych pays special attention to precision and control at every stage of treatment, knowing this is the key to long-lasting results. He continually improves his skills through specialized courses and actively implements modern techniques so patients receive the highest quality and pain-free care.",
+      "qualities1": "High-precision work under a microscope — allows him to see the finest details and ensure complete cleaning and sealing of root canals.",
+      "qualities2": "Preserving natural teeth — the main goal of the doctor, who does everything possible to avoid extractions."
     },
     "Doctor4": {
       "Position": "General Practitioner",
-      "Name": "Vitalii Valeriiovych",
-      "Description": "A general practitioner with many years of experience, providing comprehensive primary medical care to patients of all ages. Vitalii Valeriiovych specializes in diagnosing and treating common illnesses, as well as preventing complications. He pays great attention to a personalized approach, carefully analyzing symptoms and medical history. His goal is timely medical assistance and building patient trust through professionalism and compassion.",
-      "qualities1": "Comprehensive approach — the doctor considers the overall health condition, lifestyle, and medical history to ensure accurate diagnosis and effective treatment.",
-      "qualities2": "Care and trust — patients appreciate his calm communication style, attention to detail, and ability to explain complex things in simple terms."
+      "Name": "Senchuk Vitaliy Valeriyovych",
+      "Description": "A general practitioner with many years of experience who provides comprehensive primary care to patients. Vitaliy Valeriyovych specializes in diagnosing, treating common diseases, and preventing complications. Places great emphasis on a personalized approach, thoroughly analyzing symptoms and medical history. His goal is timely medical care and building patient trust based on professionalism and compassion.",
+      "qualities1": "Continuous development — actively participates in various educational events to enhance his professional skills and knowledge.",
+      "qualities2": "Care and trust — patients appreciate his calm communication style, attention to detail, and ability to explain complex things in simple language."
     }
   },
 
