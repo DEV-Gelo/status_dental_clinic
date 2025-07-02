@@ -8,11 +8,9 @@ import { useTranslations } from "next-intl";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTiktok,
   FaViber,
   FaTelegramPlane,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { BiSolidPhone } from "react-icons/bi";
@@ -40,8 +38,6 @@ const Footer = () => {
     { title: t("Resurce.Contact"), link: `/${locale}/contacts` },
   ];
   const legal = [
-    { title: t("Legal.Licenses"), link: "#" },
-    { title: t("Legal.Contract"), link: "#" },
     { title: t("Legal.Policy"), link: `/${locale}/polityka_konfidentsiynosti` },
     { title: t("Legal.Agreement"), link: `/${locale}/uhoda_korystuvacha` },
   ];
@@ -57,8 +53,6 @@ const Footer = () => {
       icon: <FaFacebookF />,
       link: "https://www.facebook.com/dentalclinicStatus/",
     },
-    { id: 3, icon: <FaTiktok />, link: "https://tiktok.com" },
-    { id: 4, icon: <FaXTwitter />, link: "https://twitter.com" },
   ];
 
   return (
@@ -91,7 +85,7 @@ const Footer = () => {
 
         {/* Social network block */}
         <h3 className="text-[#fff] font-semibold mt-5">{t("StayConnected")}</h3>
-        <ul className="flex w-full justify-between items-center gap-1">
+        <ul className="flex w-full justify-center items-center gap-10">
           {socialIcons.map((item) => (
             <li key={item.id} className="text-[#fff] text-[2rem] my-2 ">
               <a
@@ -183,8 +177,10 @@ const Footer = () => {
         <p className="flex justify-start items-center text-[#fff] font-normal gap-2 mt-5">
           <span className="text-[2rem]">
             <AiOutlineMail />
-          </span>{" "}
-          STATUS@example.com
+          </span>
+          <a href="mailto:statusclinic89@gmail.com" className="hover:underline">
+            statusclinic89@gmail.com
+          </a>
         </p>
       </div>
       <div className="flex absolute bottom-0 left-[10%] w-[80%] h-auto text-[0.8rem] text-[#fdfdfd] justify-center items-center border-white border-t-2 py-5 mx-auto">
