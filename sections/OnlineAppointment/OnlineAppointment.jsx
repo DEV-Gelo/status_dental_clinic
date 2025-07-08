@@ -29,18 +29,16 @@ const OnlineAppointment = () => {
             />
           </div>
 
-          <div className="flex flex-col w-full sm:w-[80%] lg:w-[55%] h-auto lg:h-full order-1 lg:order-2 justify-between py-10 sm:py-[4.5rem]">
+          <div className="flex flex-col w-full sm:w-[80%] lg:w-[55%] h-auto lg:h-full order-1 lg:order-2  py-10 sm:py-[4.5rem]">
             {/* Title */}
             <div className="flex flex-col w-full h-auto">
-              <p className="blue-text text-center lg:text-end">
-                {t("nameTitle")}
-              </p>
-              <h1 className="title-text-xs xs:title-text-m sm:title-text text-center lg:text-end">
+              <p className="blue-text text-center">{t("nameTitle")}</p>
+              <h1 className="title-text-xs xs:title-text-m sm:title-text text-center">
                 {t("Title1")} <span className="blue-text">{t("Title2")}</span>{" "}
                 {t("Title3")}
               </h1>
             </div>
-            <div className="hidden lg:flex w-full h-auto justify-center">
+            <div className="hidden lg:flex w-full h-auto justify-center items-center mt-10">
               <Link href={`/${locale}/appointment`}>
                 <ThemeProvider theme={theme}>
                   <Button
@@ -53,8 +51,8 @@ const OnlineAppointment = () => {
                       fontWeight: "600",
                       fontFamily: "var(--font-montserrat)",
                       borderWidth: 2,
-                      borderColor: "#ffffff",
-                      color: "#ffffff",
+                      borderColor: "#006eff",
+                      color: "#006eff",
                     }}
                   >
                     {t("appointment")}
