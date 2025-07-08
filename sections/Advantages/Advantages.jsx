@@ -18,7 +18,7 @@ const Advantages = () => {
               className="object-cover"
             />
           </div>
-          <p className="text-nowrap font-astron text-[2rem] mt-3">750 +</p>
+          <p className="text-nowrap font-astron text-[2rem] mt-3">1575 +</p>
           <p className="">{t("Title1")}</p>
         </div>
         <div className="flex flex-col w-[7rem] h-auto justify-center items-start text-white m-[1rem]">
@@ -31,7 +31,7 @@ const Advantages = () => {
               className="object-cover"
             />
           </div>
-          <p className="text-nowrap font-astron text-[2rem] mt-3">985 +</p>
+          <p className="text-nowrap font-astron text-[2rem] mt-3">1795 +</p>
           <p className="">{t("Title2")}</p>
         </div>
         <div className="flex flex-col w-[7rem] h-auto justify-center items-start text-white m-[1rem]">
@@ -44,7 +44,7 @@ const Advantages = () => {
               className="object-cover"
             />
           </div>
-          <p className="text-nowrap font-astron text-[2rem] mt-3">10 +</p>
+          <p className="text-nowrap font-astron text-[2rem] mt-3">15 +</p>
           <p className="">{t("Title3")}</p>
         </div>
         <div className="flex flex-col w-[7rem] h-auto justify-center items-start text-white m-[1rem]">
@@ -57,7 +57,7 @@ const Advantages = () => {
               className="object-cover"
             />
           </div>
-          <p className="text-nowrap font-astron text-[2rem] mt-3">50 +</p>
+          <p className="text-nowrap font-astron text-[2rem] mt-3">10 +</p>
           <p className="">{t("Title4")}</p>
         </div>
       </section>
