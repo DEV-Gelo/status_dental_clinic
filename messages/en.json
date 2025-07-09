@@ -416,6 +416,7 @@
   },
   "Home_page": {
     "appointment": "BOOK AN APPOINTMENT",
+    "call": "Hurry up and sign up for a free consultation!",
     "mainSection": {
       "nameTitle": "High-Quality Dental Services",
       "Title1": "WE CARE ABOUT YOUR",
@@ -530,7 +531,8 @@
     },
     "Appointment": {
       "Title": "Online booking 24/7",
-      "Appointment": "BOOK AN APPOINTMENT"
+      "Appointment": "BOOK AN APPOINTMENT",
+      "call": "Hurry up and sign up for a free consultation!"
     },
     "Address": {
       "Title": "Address",
@@ -555,7 +557,8 @@
     "Title1": "CREATE A",
     "Title2": "BEAUTIFUL",
     "Title3": "SMILE WITH OUR PROFESSIONALS",
-    "appointment": "MAKE AN APPOINTMENT"
+    "appointment": "MAKE AN APPOINTMENT",
+    "call": "Hurry up and sign up for a free consultation!"
   },
 
   "ServicePage": {
@@ -564,6 +567,7 @@
     "Title2": "QUALITY",
     "Title3": "SERVICES FOR YOU",
     "appointment": "MAKE AN APPOINTMENT",
+    "call": "Hurry up and sign up for a free consultation!",
     "OurServices": "Our Services",
     "menuServices": "Services Menu",
     "chooseService": "Choose a service",

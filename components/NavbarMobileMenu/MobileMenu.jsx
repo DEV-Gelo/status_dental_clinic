@@ -75,7 +75,7 @@ export default function MobileMenu({ links }) {
     <motion.div
       initial={false}
       animate={isOpen ? "open" : "closed"}
-      className="flex lg:hidden justify-end w-full absolute top-[2rem] right-0"
+      className="flex lg:hidden justify-end w-full absolute top-[3.5rem] right-0"
     >
       <div ref={toggleButtonRef}>
         <MenuToggle toggle={handleMenu} aria-label="Menu" />

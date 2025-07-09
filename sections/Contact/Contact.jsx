@@ -97,26 +97,28 @@ const Contact = () => {
                 <h3 className="font-semibold  my-2">
                   {t("Appointment.Title")}
                 </h3>
-                <Link
-                  href={`/${locale}/appointment`}
-                  className="flex justify-end items-center"
-                >
-                  <ThemeProvider theme={theme}>
-                    <Button
-                      size="large"
-                      color="appointment"
-                      variant="contained"
-                      sx={{
-                        whiteSpace: "nowrap",
-                        borderRadius: 10,
-                        fontWeight: "semibold",
-                        fontFamily: "var(--font-montserrat)",
-                      }}
-                    >
-                      {t("Appointment.Appointment")}
-                    </Button>
-                  </ThemeProvider>
-                </Link>
+                <div className="flex flex-col justify-end items-center">
+                  <Link href={`/${locale}/appointment`}>
+                    <ThemeProvider theme={theme}>
+                      <Button
+                        size="large"
+                        color="appointment"
+                        variant="contained"
+                        sx={{
+                          whiteSpace: "nowrap",
+                          borderRadius: 10,
+                          fontWeight: "semibold",
+                          fontFamily: "var(--font-montserrat)",
+                        }}
+                      >
+                        {t("Appointment.Appointment")}
+                      </Button>
+                    </ThemeProvider>
+                  </Link>
+                  <p className="w-48 font-semibold text-[0.8rem] mt-1">
+                    {t("Appointment.call")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

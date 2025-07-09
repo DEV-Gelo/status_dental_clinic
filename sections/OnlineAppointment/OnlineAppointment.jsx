@@ -38,7 +38,7 @@ const OnlineAppointment = () => {
                 {t("Title3")}
               </h1>
             </div>
-            <div className="hidden lg:flex w-full h-auto justify-center items-center mt-10">
+            <div className="hidden lg:flex flex-col w-full h-auto justify-center items-center mt-10">
               <Link href={`/${locale}/appointment`}>
                 <ThemeProvider theme={theme}>
                   <Button
@@ -59,11 +59,12 @@ const OnlineAppointment = () => {
                   </Button>
                 </ThemeProvider>
               </Link>
+              <p className="font-semibold p-5">{t("call")}</p>
             </div>
           </div>
         </div>
         <div className="flex w-full h-[10rem] sm:h-[12.5rem] absolute bottom-0 z-0 bg-[#006eff]" />
-        <div className="flex lg:hidden absolute bottom-[-5rem] w-full h-auto justify-center">
+        <div className="flex flex-col lg:hidden absolute bottom-[-5.5rem] w-full h-auto justify-center items-center">
           <Link href={`/${locale}/appointment`}>
             <ThemeProvider theme={theme}>
               <Button
@@ -83,6 +84,9 @@ const OnlineAppointment = () => {
               </Button>
             </ThemeProvider>
           </Link>
+          <p className="w-full text-center font-semibold text-[0.8rem] mt-1">
+            {t("call")}
+          </p>
         </div>
       </section>
     </>

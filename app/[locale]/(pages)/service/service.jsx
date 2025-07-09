@@ -364,6 +364,9 @@ const ServicePage = () => {
                       </Button>
                     </ThemeProvider>
                   </Link>
+                  <p className="w-full font-semibold text-[0.8rem] mt-1">
+                    {t("call")}
+                  </p>
                 </div>
               </div>
             </div>
