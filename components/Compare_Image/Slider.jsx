@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { RiArrowRightSFill, RiArrowLeftSFill } from "react-icons/ri";
 
 export const Slider = ({ Before, After, priority = false }) => {
-  const [sliderPosition, setSliderPosition] = useState(49);
+  const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
   // Translation
