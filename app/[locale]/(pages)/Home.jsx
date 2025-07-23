@@ -29,7 +29,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="flex relative flex-col md:flex-row w-full h-auto min-h-[35rem] mt-[6rem] container-padding">
+      <section className="flex relative flex-col md:flex-row w-full h-auto md:h-[40rem] items-center min-h-[35rem] mt-[6rem] container-padding">
         <div className="flex flex-col w-full md:w-1/2 justify-end md:pr-10">
           <p className="blue-text text-center md:text-start mt-3">
             {t("mainSection.nameTitle")}
@@ -76,16 +76,20 @@ export default function HomePage() {
           </p> */}
         </div>
         {/* Main image */}
-        <div className="flex relative w-full md:w-1/2 h-[25rem] sm:h-[35rem] z-10 md:pl-10 bg-[url('/bg.jpg')] bg-no-repeat bg-center bg-cover">
-          <Image
-            src="/Main.webp"
-            alt="main doctor"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
-            priority
-          />
+
+        <div className="flex flex-col w-full md:w-1/2 h-full justify-end bg-[url('/bg.jpg')] bg-no-repeat bg-center bg-cover">
+          <div className="flex relative w-full  h-[25rem] sm:h-[35rem] z-10 md:pl-10">
+            <Image
+              src="/Main.webp"
+              alt="main doctor"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain"
+              priority
+            />
+          </div>
         </div>
+
         {/* <div className="flex md:hidden w-screen h-[14rem] absolute bottom-[130px] left-0 z-0 bg-[#006eff]" /> */}
         <div className="flex flex-col md:hidden justify-center items-center mx-auto my-5 lg:my-10">
           <Link href={`/${locale}/appointment`}>

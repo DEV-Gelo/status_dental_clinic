@@ -71,7 +71,7 @@ export const Slider = ({ Before, After, priority = false }) => {
     <div className="w-full relative">
       <div
         ref={containerRef}
-        className="relative w-full max-w-[700px] aspect-[70/45] m-auto overflow-hidden select-none touch-none"
+        className="relative w-full max-w-[700px] aspect-[70/50] m-auto overflow-hidden select-none touch-none"
         onMouseDown={() => setIsDragging(true)}
         onTouchStart={() => setIsDragging(true)}
       >
@@ -99,7 +99,7 @@ export const Slider = ({ Before, After, priority = false }) => {
 
         {/* Before image */}
         <div
-          className="absolute top-0 left-0 right-0 w-full max-w-[700px] aspect-[70/45] m-auto overflow-hidden select-none"
+          className="absolute top-0 left-0 right-0 w-full max-w-[700px] aspect-[70/50] m-auto overflow-hidden select-none"
           style={{
             clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
             transition: isDragging ? "none" : "clip-path 0.3s ease-out",

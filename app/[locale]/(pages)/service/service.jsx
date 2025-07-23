@@ -327,26 +327,28 @@ const ServicePage = () => {
                 ))}
               </div>
               <div className="flex flex-col w-full h-[20rem] justify-center items-center border-[1px] shadow-lg rounded-lg bg-[#fdfdfd] mt-4 p-5">
-                <div className="flex flex-col w-auto h-auto justify-start">
+                <div className="flex flex-col w-auto h-auto justify-center items-center">
                   <h3 className="font-semibold mb-3">{t("StepTitle")}</h3>
-                  <p className="flex m-3">
-                    <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
-                      1
-                    </span>
-                    {t("Step1")}
-                  </p>
-                  <p className="flex m-3">
-                    <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
-                      2
-                    </span>
-                    {t("Step2")}
-                  </p>
-                  <p className="flex m-3">
-                    <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
-                      3
-                    </span>
-                    {t("Step3")}
-                  </p>
+                  <div className="flex flex-col justify-start">
+                    <p className="flex m-3">
+                      <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
+                        1
+                      </span>
+                      {t("Step1")}
+                    </p>
+                    <p className="flex m-3">
+                      <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
+                        2
+                      </span>
+                      {t("Step2")}
+                    </p>
+                    <p className="flex m-3">
+                      <span className="flex w-6 h-6 justify-center items-center text-white rounded-full bg-[#006eff] mr-3">
+                        3
+                      </span>
+                      {t("Step3")}
+                    </p>
+                  </div>
                   <Link href={`/${locale}/appointment`} className="mt-5">
                     <ThemeProvider theme={theme}>
                       <Button
@@ -364,7 +366,7 @@ const ServicePage = () => {
                       </Button>
                     </ThemeProvider>
                   </Link>
-                  <p className="w-full font-semibold text-[0.8rem] mt-1">
+                  <p className="w-full text-center font-semibold text-[0.8rem] mt-1">
                     {t("call")}
                   </p>
                 </div>

@@ -348,7 +348,7 @@ const Appointment = () => {
         <section className="flex flex-col w-full h-auto justify-center items-center p-5">
           {/* -----Title Block-----*/}
           <div className="flex flex-col w-auto">
-            <p className="blue-text text-center">Онлайн Запис</p>
+            <p className="blue-text text-center">{t("OnlineAppointment")}</p>
             <h1 className="title-text-m lg:title-text text-center">
               {t("Creating an record")}
             </h1>
@@ -558,7 +558,7 @@ const Appointment = () => {
               </div>
             </div>
           </div>
-          <div className="flex w-full max-w-[62rem] h-[3rem] justify-center lg:justify-between my-5">
+          <div className="flex w-full max-w-[60rem] h-[3rem] justify-center lg:justify-between my-5">
             <ThemeProvider theme={theme}>
               <Link href="/" className="hidden lg:flex">
                 <LoadingButton

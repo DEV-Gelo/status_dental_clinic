@@ -72,7 +72,8 @@
   "admin__AvailableDoctors": {
     "Error": "Error",
     "defaultSpecialization": "Dentist",
-    "Available hours": "Available hours"
+    "Available hours": "Available hours",
+    "NamePlaceholder": "Full Name"
   },
   "admin__edit_window": {
     "Date_alert": "Please select a date for the appointment",
@@ -352,6 +353,7 @@
     "We are waiting for you": "We are waiting for you",
     "Address": "Kyiv, Sofii Rusovoi St. 3, dental clinic “STATUS”",
     "TO THE MAIN": "TO THE MAIN PAGE",
+    "OnlineAppointment": "Online Appointment",
     "Creating an record": "APPOINTMENT BOOKING",
     "Choose an available date": "Choose an available date",
     "Step": "Step",
@@ -386,7 +388,8 @@
     "cases": "Our cases",
     "price": "Prices",
     "contact": "Contacts",
-    "appointment": "BOOK AN APPOINTMENT"
+    "appointment": "BOOK AN APPOINTMENT",
+    "free": "it's free"
   },
   "Footer": {
     "Resurce": {
@@ -693,12 +696,29 @@
     "Title1": "NEW",
     "Title2": "SMILES",
     "Title3": "OF OUR PATIENTS",
-    "DescriptionTitle1": "Service Name",
-    "Description1": "Description of the procedure performed",
-    "DescriptionTitle2": "Service Name",
-    "Description2": "Description of the procedure performed",
-    "DescriptionTitle3": "Service Name",
-    "Description3": "Description of the procedure performed"
+    "DescriptionTitle1": "Veneers — a perfect smile in just a few visits",
+    "boldText1": "The patient came to us with the desire to improve the aesthetics of their smile.",
+    "beforeText1": "In the 'Before' photo, you can see uneven tooth edges, enamel discoloration, and slight wear.",
+    "whatWeDidTitle1": "What we did:",
+    "whatWeDidText1": "After a consultation, it was decided to place high-quality ceramic veneers. First, we conducted Digital Smile Design planning, then performed minimally invasive tooth preparation, followed by the fabrication and placement of veneers that fully match the patient’s facial anatomy.",
+    "resultTitle1": "Result:",
+    "resultText1": "Even, natural, and pearly-white smile with minimal intervention. The patient was thrilled with the changes — comfort during speaking, smiling, and eating significantly improved.",
+
+    "DescriptionTitle2": "Full smile reconstruction in a complex clinical case",
+    "boldText2": "Initial condition:",
+    "beforeText2": "The patient presented with severe damage to the front teeth — deep cracks, discoloration, and significant loss of enamel and shape. Function and aesthetics were compromised.",
+    "whatWeDidTitle2": "Solution:",
+    "whatWeDidText2": "Following diagnosis and consultations, we chose a comprehensive rehabilitation using zirconia crowns. We performed treatment, oral sanitation, preparation of supporting teeth, and fabrication of aesthetic crowns with a highly natural shape and color.",
+    "resultTitle2": "Result:",
+    "resultText2": "A complete transformation: a healthy, strong, and aesthetically perfect smile that not only changed the patient’s appearance but also significantly improved quality of life and self-confidence.",
+
+    "DescriptionTitle3": "Comprehensive whitening and shape enhancement",
+    "boldText3": "Before treatment:",
+    "beforeText3": "The patient was unhappy with the dull tooth color, uneven edges, and the overall loss of smile aesthetics.",
+    "whatWeDidTitle3": "What we did:",
+    "whatWeDidText3": "After a consultation, we chose a personalized solution — placement of ceramic veneers to improve both tooth color and the shape of the front teeth. We also conducted 3D mock-up modeling to visualize the expected result before starting.",
+    "resultTitle3": "Result:",
+    "resultText3": "A naturally radiant smile, correct anatomical tooth shape, and a complete transformation of appearance. The patient got exactly what she dreamed of — a flawless smile that looks natural and harmonious."
   },
 
   "PricePage": {

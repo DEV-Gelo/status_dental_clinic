@@ -17,7 +17,7 @@ import { theme } from "@/components/Stylisation_MUI/stylisation_button_MUI";
 const Navbar = () => {
   // Scroll-away Navbar ----------------------------------------//
 
-  const slideDistance = 80; // if we are sliding out a nav bar at the top of the screen, this will be it's height
+  const slideDistance = 100; // if we are sliding out a nav bar at the top of the screen, this will be it's height
   const threshold = 200; // only slide it back when scrolling back at velocity above this positive (or zero) value
 
   const { scrollY } = useScroll();

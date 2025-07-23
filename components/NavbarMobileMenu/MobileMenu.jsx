@@ -114,8 +114,10 @@ export default function MobileMenu({ links }) {
                     fontFamily: "var(--font-montserrat)",
                     fontWeight: "semibold",
                   }}
+                  className="flex flex-col"
                 >
-                  {t("appointment")}
+                  <span>{t("appointment")}</span>
+                  <span className="text-[0.6rem]">{t("free")}</span>
                 </Button>
               </ThemeProvider>
             </Link>

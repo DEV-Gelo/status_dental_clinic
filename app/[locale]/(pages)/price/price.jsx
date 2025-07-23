@@ -159,20 +159,23 @@ const PricePage = () => {
                                     {index + 1 + "."}
                                   </span>
                                   {/* -----Information Icon----- */}
-                                  <span
-                                    onClick={() =>
-                                      toggleOpenDescription(pricing.id)
-                                    }
-                                    className="group relative flex justify-center items-center mx-2 cursor-pointer text-[#006eff]"
-                                  >
-                                    <BsInfoSquare className="block group-hover:hidden" />
-                                    <BsInfoSquareFill className="hidden group-hover:block" />
-                                  </span>
+                                  {pricing.description && (
+                                    <span
+                                      onClick={() =>
+                                        toggleOpenDescription(pricing.id)
+                                      }
+                                      className="group relative flex justify-center items-center mx-2 cursor-pointer text-[#006eff]"
+                                    >
+                                      <BsInfoSquare className="block group-hover:hidden" />
+                                      <BsInfoSquareFill className="hidden group-hover:block" />
+                                    </span>
+                                  )}
                                   {pricing.name}
                                 </p>{" "}
                                 {/* -----Price----- */}
-                                <p className="mx-2">
-                                  {pricing.price} <span>{t("currence")}</span>{" "}
+                                <p className="flex text-nowrap mx-2">
+                                  {pricing.price}
+                                  {/* <span>{t("currence")}</span>{" "} */}
                                 </p>
                               </li>
                             ))}

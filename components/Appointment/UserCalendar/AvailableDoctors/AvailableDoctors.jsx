@@ -42,7 +42,7 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
       {!selectedDate && (
         <div className="flex flex-col w-auto sm:w-[23rem] max-w-[23rem] min-h-[13.5rem] rounded-lg shadow-lg border-t-[1px] border-[#f5f5f5] bg-[#fdfdfd]">
           <div className="flex w-auto h-auto justify-start items-center border-b-[1px] border-[#006eff] py-2 mx-4">
-            <span className="flex relative min-w-[5rem] min-h-[5rem] filter blur-sm rounded-full bg-[#cccccc]">
+            <span className="flex relative min-w-[5rem] min-h-[5rem] rounded-full bg-[#cccccc]">
               <Image
                 src="/image-placeholder.svg"
                 alt="placeholder-avatar"
@@ -52,10 +52,8 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
               />
             </span>
             <div className="flex flex-col pl-16">
-              <h3 className="text-[0.8rem] filter blur-sm">Лікар-стоматолог</h3>
-              <p className="font-medium text-lg filter blur-sm">
-                Олександр Олександрович
-              </p>
+              <h3 className="text-[0.8rem] ">{t("defaultSpecialization")}</h3>
+              <p className="font-medium text-lg">{t("NamePlaceholder")}</p>
             </div>
           </div>
           <div className="flex relative w-auto h-full flex-wrap px-5 justify-center items-center">
@@ -65,7 +63,7 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
               return (
                 <span
                   key={index}
-                  className="flex w-[4.5rem] text-center justify-center items-center px-2 py-1 rounded-md bg-[#f5f5f5] filter blur-sm m-1 cursor-pointer"
+                  className="flex w-[4.5rem] text-center justify-center items-center px-2 py-1 rounded-md bg-[#f5f5f5] m-1 cursor-pointer"
                 >
                   {formattedHour}:00
                 </span>
@@ -87,10 +85,10 @@ const AvailableDoctors = ({ selectedDate, onSlotSelect, onAvailability }) => {
                 </span>
                 <div className="flex flex-col pl-16">
                   <h3 className="text-[0.8rem] filter blur-sm">
-                    Лікар-стоматолог
+                    {t("defaultSpecialization")}
                   </h3>
                   <p className="font-medium text-lg filter blur-sm">
-                    Олександр Олександрович
+                    {t("NamePlaceholder")}
                   </p>
                 </div>
               </div>

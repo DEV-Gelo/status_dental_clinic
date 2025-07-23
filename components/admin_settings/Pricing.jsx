@@ -67,7 +67,7 @@ const Pricing = ({ onAlert }) => {
 
   const [menuState, setMenuState] = React.useState({
     anchorEl: null,
-    openForIndex: null, // індекс або id елемента для якого відкрито меню
+    openForIndex: null, // index or id of the element for which the menu is opened
   });
 
   const handleClick = (event, id) => {
@@ -745,14 +745,14 @@ const Pricing = ({ onAlert }) => {
                             {pricing.name}
                           </p>
                         </div>
-                        <div className="flex min-w-[8rem] w-auto justify-end items-center ml-3">
-                          <p className="text-nowrap">
-                            {pricing.price}&nbsp;
-                            <span>
+                        <div className="flex w-auto justify-end items-center ml-3">
+                          <p className="text-nowrap ml-2">
+                            {pricing.price}
+                            {/* <span>
                               {!isNaN(Number(pricing.price))
                                 ? t("Currency")
                                 : ""}
-                            </span>
+                            </span> */}
                           </p>
                           {selectedRow === pricing.id && (
                             <>

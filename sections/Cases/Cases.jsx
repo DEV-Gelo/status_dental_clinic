@@ -22,7 +22,7 @@ const Cases = () => {
   return (
     <>
       <section className="flex flex-col w-full h-auto py-[2rem] container-padding">
-        <div className="flex flex-col lg:flex-row w-full h-full justify-center items-center lg:justify-start lg:items-start lg:mt-10">
+        <div className="flex flex-col lg:flex-row w-full h-full justify-center items-center lg:justify-start lg:items-center lg:mt-10">
           <div className="flex flex-col w-full sm:w-[80%] lg:w-1/2 h-full lg:mr-5">
             <p className="blue-text text-center lg:text-start">
               {t("nameTitle")}

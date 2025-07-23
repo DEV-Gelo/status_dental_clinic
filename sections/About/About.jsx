@@ -39,13 +39,15 @@ const About = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col order-1 lg:order-2 w-auto sm:w-[80%] lg:w-1/2 h-full items-center lg:items-end lg:ml-5">
-          <p className="blue-text text-center lg:text-end">{t("nameTitle")}</p>
-          <h2 className="title-text-m sm:title-text text-center lg:text-end">
+        <div className="flex flex-col order-1 lg:order-2 w-auto sm:w-[80%] lg:w-1/2 h-full items-center lg:items-start lg:ml-5">
+          <p className="blue-text text-center lg:text-start">
+            {t("nameTitle")}
+          </p>
+          <h2 className="title-text-m sm:title-text text-center lg:text-start">
             {t("Title1")} <span className="blue-text">{t("Title2")}</span>{" "}
             {t("Title3")}
           </h2>
-          <p className="font-medium text-center lg:text-end my-10">
+          <p className="font-medium text-center lg:text-start my-10">
             {t("Description")}
           </p>
           <Link
