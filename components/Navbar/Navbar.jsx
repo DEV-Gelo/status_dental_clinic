@@ -138,8 +138,10 @@ const Navbar = () => {
                     fontWeight: "semibold",
                     fontFamily: "var(--font-montserrat)",
                   }}
+                  className="flex flex-col"
                 >
-                  {t("appointment")}
+                  <span>{t("appointment")}</span>
+                  <span className="text-[0.6rem]">{t("free")}</span>
                 </Button>
               </ThemeProvider>
             </Link>
