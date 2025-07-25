@@ -7,7 +7,7 @@ import styles from "./AdminNav.module.css";
 // ------------Import React icons------------//
 import { FiUsers } from "react-icons/fi";
 import { RiPagesLine } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
+import { RiMoneyDollarBoxLine } from "react-icons/ri";
 import { SlNote } from "react-icons/sl";
 
 const AdminNav = () => {
@@ -36,8 +36,8 @@ const AdminNav = () => {
       link: `/${locale}/admin`,
     },
     {
-      icon: <IoSettingsOutline />,
-      title: t("settingTitle"),
+      icon: <RiMoneyDollarBoxLine />,
+      title: t("priceTitle"),
       link: `/${locale}/admin/settings`,
     },
   ];

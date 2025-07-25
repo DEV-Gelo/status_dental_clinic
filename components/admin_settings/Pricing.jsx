@@ -359,7 +359,7 @@ const Pricing = ({ onAlert }) => {
       <span
         title={t("AddCategory")}
         onClick={() => toggleCategoryWindow()}
-        className="fixed top-[4rem] left-[0.8rem] sm:top-[1rem] sm:left-[10rem]"
+        className="fixed top-[1rem] left-[1rem]"
       >
         <ThemeProvider theme={theme}>
           <Fab sx={{ zIndex: 0 }} color="primary" size="small" aria-label="add">

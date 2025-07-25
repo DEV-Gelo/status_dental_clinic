@@ -288,13 +288,7 @@
   },
 
   "settings": {
-    "Services": "Послуги",
-    "Price": "Прайс",
-    "Contacts": "Контакти",
-    "Services_title": "послуг",
-    "Price_title": "прайсу",
-    "Contacts_title": "контактів",
-    "Settings": "Налаштування"
+    "price": "Налаштування прайсу"
   },
 
   "settings__Services": {
@@ -399,7 +393,7 @@
     "userTitle": "Користувачі",
     "scheduleTitle": "Графіки",
     "appointmentTitle": "Записи",
-    "settingTitle": "Налаштування"
+    "priceTitle": "Прайс"
   },
 
   "Navbar": {

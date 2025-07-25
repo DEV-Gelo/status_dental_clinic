@@ -269,13 +269,7 @@
     "language": "en-US"
   },
   "settings": {
-    "Services": "Services",
-    "Price": "Price",
-    "Contacts": "Contacts",
-    "Services_title": "services",
-    "Price_title": "price",
-    "Contacts_title": "contacts",
-    "Settings": "Settings"
+    "price": "Setting price"
   },
   "settings__Services": {
     "fetchError": "Error fetching data",
@@ -377,7 +371,7 @@
     "userTitle": "Users",
     "scheduleTitle": "Schedules",
     "appointmentTitle": "Appointments",
-    "settingTitle": "Settings"
+    "priceTitle": "Price"
   },
   "Navbar": {
     "main": "Home",
