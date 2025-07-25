@@ -10,6 +10,8 @@ import { RiPagesLine } from "react-icons/ri";
 import { RiMoneyDollarBoxLine } from "react-icons/ri";
 import { SlNote } from "react-icons/sl";
 
+const num = 0;
+
 const AdminNav = () => {
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
