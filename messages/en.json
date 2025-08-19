@@ -382,8 +382,7 @@
     "cases": "Our cases",
     "price": "Prices",
     "contact": "Contacts",
-    "appointment": "BOOK AN APPOINTMENT",
-    "free": "it's free"
+    "appointment": "BOOK AN APPOINTMENT"
   },
   "Footer": {
     "Resurce": {
@@ -413,7 +412,6 @@
   },
   "Home_page": {
     "appointment": "BOOK AN APPOINTMENT",
-    "call": "Hurry up and sign up for a free consultation!",
     "mainSection": {
       "nameTitle": "High-Quality Dental Services",
       "Title1": "WE CARE ABOUT YOUR",
@@ -499,17 +497,15 @@
     "nameTitle": "Testimonials",
     "Title1": "WHAT PATIENTS SAY ABOUT US",
     "Card": {
-      "name1": "Ihor Sydorenko",
+      "name1": "Ihor Stytcenko",
       "specialization1": "Sales Manager",
-      "description1": "Greetings! Thank you to the doctors for the excellent work. The service is top-notch! Truly golden hands! 13 out of 12 points! I’ll be back again. Highly recommend.",
-
-      "name2": "Iryna Poida",
+      "description1": "I thank the doctors for their excellent work. The service is top-notch. Wonderful doctors who know their job well. Highly recommend.",
+      "name2": "Anna Guteyami",
       "specialization2": "Beauty Salon Manager",
-      "description2": "I came to Status Dental Clinic with dental issues that needed to be fixed after another doctor (and as we all know, no one likes to correct someone else’s mistakes!). I was impressed by the quality of service and the professionalism of the doctor! Now I know exactly where I’ll be going in the future. If you’re looking for a great dental clinic, experienced doctors, and reasonable prices — this is the place! Highly recommend!",
-
-      "name3": "Kateryna Shevchenko",
+      "description2": "I was impressed by the quality of service and the professionalism of the doctor! Now I know exactly where I will go in the future! For everyone looking for a good dental clinic, experienced doctors, and reasonable prices — this is the place! Highly recommend!",
+      "name3": "Kateryna Huseynova",
       "specialization3": "Designer",
-      "description3": "I visited this dental clinic and was very pleased! The staff is polite, attentive, and professional. The doctor explained everything in detail, worked carefully and painlessly. The equipment is modern, and the atmosphere is pleasant and calm. Now I recommend it to all my friends! Thank you for the high-quality service! I will definitely come back if needed."
+      "description3": "I visited this dental clinic and was very satisfied! The staff is polite, attentive, and professional. The equipment is modern, and the atmosphere is pleasant and calm. Now I recommend it to all my friends! Thank you for the high-quality service!"
     }
   },
 
@@ -528,8 +524,7 @@
     },
     "Appointment": {
       "Title": "Online booking 24/7",
-      "Appointment": "BOOK AN APPOINTMENT",
-      "call": "Hurry up and sign up for a free consultation!"
+      "Appointment": "BOOK AN APPOINTMENT"
     },
     "Address": {
       "Title": "Address",
@@ -554,8 +549,7 @@
     "Title1": "CREATE A",
     "Title2": "BEAUTIFUL",
     "Title3": "SMILE WITH OUR PROFESSIONALS",
-    "appointment": "MAKE AN APPOINTMENT",
-    "call": "Hurry up and sign up for a free consultation!"
+    "appointment": "MAKE AN APPOINTMENT"
   },
 
   "ServicePage": {
@@ -564,7 +558,6 @@
     "Title2": "QUALITY",
     "Title3": "SERVICES FOR YOU",
     "appointment": "MAKE AN APPOINTMENT",
-    "call": "Hurry up and sign up for a free consultation!",
     "OurServices": "Our Services",
     "menuServices": "Services Menu",
     "chooseService": "Choose a service",

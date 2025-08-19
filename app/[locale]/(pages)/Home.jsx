@@ -63,9 +63,8 @@ export default function HomePage() {
                 </Button>
               </ThemeProvider>
             </Link>
-            <p className="font-semibold mt-5">{t("call")}</p>
           </div>
-          {/* <p className="flex flex-wrap text-[0.8rem] sm:text-[1rem] items-center justify-center md:justify-start my-5">
+          <p className="flex flex-wrap text-[0.8rem] sm:text-[1rem] items-center justify-center md:justify-start my-5">
             {t("mainSection.google1")}
             <span className="flex mx-2 text-[#FF9800]">
               {[...Array(5)].map((_, i) => (
@@ -73,11 +72,11 @@ export default function HomePage() {
               ))}
             </span>
             {t("mainSection.google2")}
-          </p> */}
+          </p>
         </div>
         {/* Main image */}
 
-        <div className="flex flex-col w-full md:w-1/2 h-full justify-end bg-[url('/bg.jpg')] bg-no-repeat bg-center bg-cover">
+        <div className="flex flex-col w-full md:w-1/2 h-full justify-end ">
           <div className="flex relative w-full  h-[25rem] sm:h-[35rem] z-10 md:pl-10">
             <Image
               src="/Main.webp"
@@ -113,9 +112,6 @@ export default function HomePage() {
               </Button>
             </ThemeProvider>
           </Link>
-          <p className="w-full text-center font-semibold text-[0.8rem] mt-1">
-            {t("call")}
-          </p>
         </div>
       </section>
       {/* ----------Advantages Section---------- */}

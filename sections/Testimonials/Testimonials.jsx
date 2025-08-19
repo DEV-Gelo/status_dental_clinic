@@ -33,14 +33,14 @@ const Testimonials = () => {
     },
     {
       id: 2,
-      image: "/avatar-3.svg",
+      image: "/avatar-3.webp",
       name: t("Card.name2"),
       specialization: t("Card.specialization2"),
       description: t("Card.description2"),
     },
     {
       id: 3,
-      image: "/avatar-2.svg",
+      image: "/avatar-2.webp",
       name: t("Card.name3"),
       specialization: t("Card.specialization3"),
       description: t("Card.description3"),
@@ -108,7 +108,7 @@ const Testimonials = () => {
                   >
                     <div className="flex flex-col w-full min-h-[55%] h-auto rounded-lg p-4 shadow-lg border-[1px] bg-[#fdfdfd]">
                       <div className="flex pb-2">
-                        <div className="flex relative min-w-[4rem] h-[4rem] rounded-full overflow-hidden">
+                        <div className="flex relative min-w-[4rem] h-[5rem] rounded-md bg-red-400 overflow-hidden">
                           <Image
                             src={testimonial.image}
                             alt={`Photo of ${testimonial.name}, ${testimonial.specialization}`}
@@ -121,9 +121,9 @@ const Testimonials = () => {
                           <p className="font-semibold text-nowrap">
                             {testimonial.name}
                           </p>
-                          {/* <p className="text-[0.8rem] text-nowrap">
+                          <p className="text-[0.8rem] text-nowrap">
                             {testimonial.specialization}
-                          </p> */}
+                          </p>
                           <span className="flex mx-2 my-3 text-[#FF9800]">
                             {[...Array(5)].map((_, i) => (
                               <FaStar key={i} className="mx-[3px]" />

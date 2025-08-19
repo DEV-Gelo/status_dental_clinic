@@ -54,7 +54,7 @@ const Contact = () => {
                   <span className="text-[1.5rem] mr-3">
                     <BiSolidPhone />
                   </span>{" "}
-                  066 766 88 19
+                  066 755 88 00
                 </p>
                 <p className="flex justify-start items-start my-2">
                   <span className="text-[1.5rem] mr-3">
@@ -66,7 +66,7 @@ const Contact = () => {
                   <span className="text-[1.5rem] mr-3">
                     <BiSolidPhone />
                   </span>{" "}
-                  063 766 88 19
+                  063 755 88 00
                 </p>
               </div>
               {/* Time block*/}
@@ -115,9 +115,6 @@ const Contact = () => {
                       </Button>
                     </ThemeProvider>
                   </Link>
-                  <p className="w-48 font-semibold text-[0.8rem] mt-1">
-                    {t("Appointment.call")}
-                  </p>
                 </div>
               </div>
             </div>

@@ -59,7 +59,6 @@ const OnlineAppointment = () => {
                   </Button>
                 </ThemeProvider>
               </Link>
-              <p className="font-semibold p-5">{t("call")}</p>
             </div>
           </div>
         </div>
@@ -84,9 +83,6 @@ const OnlineAppointment = () => {
               </Button>
             </ThemeProvider>
           </Link>
-          <p className="w-full text-center font-semibold text-[0.8rem] mt-1">
-            {t("call")}
-          </p>
         </div>
       </section>
     </>

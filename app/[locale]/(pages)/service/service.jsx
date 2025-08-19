@@ -366,9 +366,6 @@ const ServicePage = () => {
                       </Button>
                     </ThemeProvider>
                   </Link>
-                  <p className="w-full text-center font-semibold text-[0.8rem] mt-1">
-                    {t("call")}
-                  </p>
                 </div>
               </div>
             </div>
@@ -377,6 +374,7 @@ const ServicePage = () => {
                 <Image
                   src={serviceIMG}
                   alt="Diagnostic"
+                  priority
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"

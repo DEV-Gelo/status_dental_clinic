@@ -81,12 +81,12 @@ const Navbar = () => {
             <span className="mx-1">
               <BiSolidPhone />
             </span>
-            <a href="tel:+380667668819">+38 (066) 766-88-19</a>
+            <a href="tel:+380667668819">+38 (066) 755-88-00</a>
 
             <span className="ml-4 mx-1">
               <BiSolidPhone />
             </span>
-            <a href="tel:+3800637668819">+38 (063) 766-88-19</a>
+            <a href="tel:+3800637668819">+38 (063) 755-88-00</a>
           </div>
           <div className="flex w-full justify-between py-2">
             <div className="flex w-[13rem] justify-start items-center pr-5 mr-6">
@@ -141,7 +141,6 @@ const Navbar = () => {
                   className="flex flex-col"
                 >
                   <span>{t("appointment")}</span>
-                  <span className="text-[0.6rem]">{t("free")}</span>
                 </Button>
               </ThemeProvider>
             </Link>

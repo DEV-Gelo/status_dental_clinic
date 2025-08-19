@@ -10,10 +10,12 @@ import {
   FaInstagram,
   FaViber,
   FaTelegramPlane,
+  FaTiktok,
 } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { BiSolidPhone } from "react-icons/bi";
+import { FaXTwitter } from "react-icons/fa6";
 
 export async function getContactData() {
   const response = await fetch("/api/admin_setting/contact", {
@@ -53,6 +55,16 @@ const Footer = () => {
       icon: <FaFacebookF />,
       link: "https://www.facebook.com/dentalclinicStatus/",
     },
+    {
+      id: 3,
+      icon: <FaTiktok />,
+      link: "https://www.tiktok.com/",
+    },
+    {
+      id: 4,
+      icon: <FaXTwitter />,
+      link: "https://twitter.com/",
+    },
   ];
 
   return (
@@ -85,7 +97,7 @@ const Footer = () => {
 
         {/* Social network block */}
         <h3 className="text-[#fff] font-semibold mt-5">{t("StayConnected")}</h3>
-        <ul className="flex w-full justify-center items-center gap-10">
+        <ul className="flex w-full justify-start items-center gap-8">
           {socialIcons.map((item) => (
             <li key={item.id} className="text-[#fff] text-[2rem] my-2 ">
               <a
@@ -131,7 +143,7 @@ const Footer = () => {
             <span className="text-[1.5rem] mr-3">
               <BiSolidPhone />
             </span>{" "}
-            066 766 88 19
+            066 755 88 00
           </p>
           <p className="flex justify-start items-start my-2">
             <span className="text-[1.5rem] mr-3">
@@ -143,7 +155,7 @@ const Footer = () => {
             <span className="text-[1.5rem] mr-3">
               <BiSolidPhone />
             </span>{" "}
-            063 766 88 19
+            063 755 88 00
           </p>
         </div>
       </div>
@@ -179,7 +191,7 @@ const Footer = () => {
             <AiOutlineMail />
           </span>
           <a href="mailto:statusclinic89@gmail.com" className="hover:underline">
-            statusclinic89@gmail.com
+            statusclinic@example.com
           </a>
         </p>
       </div>
