@@ -145,7 +145,7 @@ export async function POST(req) {
 `;
 
     // Send message to Telegram
-    await sendTelegramMessage(message);
+    // await sendTelegramMessage(message);
 
     return new Response(
       JSON.stringify({
