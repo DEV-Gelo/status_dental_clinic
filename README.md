@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🦷 Status Dental Clinic
 
-## Getting Started
+Веб-додаток для стоматологічної клініки з онлайн-записом, адмініструванням та SEO-оптимізацією.
 
-First, run the development server:
+## 🚀 Технології
+- Next.js, React, Tailwind CSS, MUI
+- Prisma, PostgreSQL, Supabase Storage
+- Google Maps API, Search Console
+- SEO: metadata, jsonLD, sitemap
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ⚙️ Функціонал
+- Онлайн-запис на прийом з повідомленням у Telegram адміністратора
+- Панель адміністратора на 4 сторінки:
+    1.База даних лікарів та пацієнтів з CRUD-операціями, фільтром та пошуком
+    2.Створення робочих графіків для лікарів з прив'язкою до онлайн запису та CRUD-операціями
+    3.База даних записів на прийом з CRUD-операціями, фільтром та пошуком
+    4.Прайс - створення карток сервісу з додаванням послуг та вартості
+- Інтеграція з Google Maps
+- SEO-оптимізація для пошукових систем
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Деплой
+Розгорнуто на [Vercel](https://vercel.com)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📸 Скриншоти
+### Головна сторінка
+![Головна сторінка](public/screenshots/homepage.jpg)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Панель адміністратора
+![Адмінка](public/screenshots/admin-panel.jpg)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 👨‍💻 Роль у проєкті
+Самостійна розробка повного циклу:
+- Розробка дизайну (Figma)
+- Архітектура та структура проєкту
+- Реалізація функціоналу
+- SEO та інтеграції
+- Продакшн-деплой
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📬 Контакти
+- [LinkedIn](# В процесі заповнення профілю)
+- [Email](mailto:chichkoff@gmail.com)
+- Телефон: [+380962040986](tel:+380962040986)
+- WhatsApp: [Написати](https://wa.me/380962040986)
+- Telegram: [@Gelotrop](https://t.me/Gelotrop)
+- Viber: [Написати](viber://chat?number=+380962040986)
