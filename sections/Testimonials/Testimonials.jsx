@@ -49,21 +49,21 @@ const Testimonials = () => {
 
   return (
     <>
-      <section className="flex relative flex-col w-full h-auto py-10 justify-start items-center bg-[url('/BackgroundAbstraction.png')] bg-cover bg-center">
+      <section className="flex relative flex-col w-full h-auto py-10 justify-start items-center bg-[url('/BackgroundAbstraction.png')] bg-cover bg-center container-padding">
         <div className="flex flex-col max-w-[52rem] h-auto justify-center items-center m-5 mb-10">
           <p className="blue-text">{t("nameTitle")}</p>
           <h2 className="title-text-m sm:title-text text-center">
             {t("Title1")}
           </h2>
         </div>
-        <div className="flex relative flex-col sm:flex-row w-full sm:w-[80%] h-auto sm:h-full justify-center items-center sm:px-[1rem]">
+        <div className="flex relative flex-col sm:flex-row w-full h-auto sm:h-full justify-center items-center">
           {/* <button
             className="hidden sm:flex custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff]"
             aria-label="Previous slide"
           >
             <BsArrowLeftCircle />
           </button> */}
-          <div className="flex w-full h-auto sm:h-full items-center">
+          <div className="flex w-full h-auto sm:h-full">
             <Swiper
               modules={[Navigation, Pagination]}
               navigation={{
@@ -100,7 +100,7 @@ const Testimonials = () => {
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id} className="pb-10">
                   <div
-                    className={`flex max-w-[25rem] w-auto h-[25rem] p-1 mx-auto items-center ${
+                    className={`flex w-auto h-[25rem] p-1 items-center ${
                       testimonial.id % 2 === 0
                         ? "lg:items-start"
                         : "lg:items-center"

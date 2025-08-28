@@ -81,7 +81,7 @@ const Team = () => {
   ];
 
   return (
-    <section className="flex flex-col w-full h-auto pb-5 sm:h-[55rem] justify-start items-center bg-[url('/IMG_BG.webp')] bg-cover bg-center">
+    <section className="flex flex-col w-full h-auto pb-5 sm:h-[55rem] justify-start items-center bg-[url('/IMG_BG.webp')] bg-cover bg-center container-padding">
       <div className="flex flex-col max-w-[52rem] h-auto justify-center items-center m-5 mb-10">
         <p className="blue-text">{t("nameTitle")}</p>
         <h2 className="title-text-m sm:title-text text-center">
@@ -90,7 +90,7 @@ const Team = () => {
         <p className="text-center font-medium m-5">{t("Description")}</p>
       </div>
 
-      <div className="flex w-[70%] sm:w-[80%] h-auto sm:h-full justify-center items-center">
+      <div className="flex w-full h-auto sm:h-full justify-center items-center">
         {/* Button prev */}
         <button
           className={`custom-prev m-4 sm:m-10 text-[1.5rem] text-[#444] hover:text-[#006eff] transition-opacity duration-300 ${

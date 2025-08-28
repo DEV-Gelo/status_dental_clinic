@@ -7,7 +7,7 @@ const Advantages = () => {
   const t = useTranslations("AdvantagesSection");
   return (
     <>
-      <section className="hidden md:flex w-full h-[12.5rem] justify-between items-center bg-[#006eff] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
+      <section className="hidden md:flex w-full h-[12.5rem] justify-between items-center bg-[#006eff] container-padding">
         <div className="flex flex-col w-[7rem] h-auto justify-center items-start text-white m-[1rem]">
           <div className="flex relative w-[2.5rem] h-[3.125rem]">
             <Image

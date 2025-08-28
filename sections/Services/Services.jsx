@@ -147,7 +147,7 @@ const Services = () => {
 
   if (isDesktop) {
     return (
-      <section className="flex w-full h-full lg:h-[55rem] justify-start items-center flex-col py-[2rem] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
+      <section className="flex w-full h-full lg:h-[55rem] justify-start items-center flex-col py-[2rem] container-padding">
         <div className="flex flex-col w-full sm:w-[36.5rem] h-auto justify-center items-center m-5">
           <p className="blue-text">{t("nameTitle")}</p>
           <h2 className="title-text-m sm:title-text text-center">

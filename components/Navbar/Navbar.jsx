@@ -74,7 +74,7 @@ const Navbar = () => {
         animate={{ y: isInView ? 0 : -slideDistance }}
         transition={{ duration: 0.2, delay: 0.25, ease: "easeInOut" }}
         style={{ height: slideDistance }}
-        className="flex fixed top-0 right-0 w-full min-h-[6rem] justify-center items-center z-50 bg-[#fff] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]"
+        className="flex fixed top-0 right-0 w-full min-h-[6rem] justify-center items-center z-50 bg-[#fff] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[15rem]"
       >
         <div className="flex flex-col w-full h-full justify-center items-start border-b-2 border-[#006eff]">
           <div className="flex w-full justify-center items-center h-10 text-[0.8rem] sm:text-[1rem] py-1 bg-[#006eff10]">

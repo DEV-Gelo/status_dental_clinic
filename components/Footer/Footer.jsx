@@ -68,7 +68,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="flex relative flex-wrap w-full h-auto min-h-[25rem] p-[4rem] justify-between bg-[#000] px-[1rem] lg:px-[2rem] xl:px-[10rem] 2xl:px-[20rem]">
+    <footer className="flex relative flex-wrap w-full h-auto min-h-[25rem] p-[4rem] justify-between bg-[#000] container-padding">
       {/* ------Logo ------ */}
       <div className="flex flex-col w-[15.6rem] m-4 mt-3 pr-4">
         <div className="flex w-[14rem] justify-start items-center mt-1">
