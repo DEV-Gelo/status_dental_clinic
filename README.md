@@ -43,4 +43,4 @@
 - Телефон: [+380962040986](tel:+380962040986)
 - WhatsApp: [Написати](https://wa.me/380962040986)
 - Telegram: [@Gelotrop](https://t.me/Gelotrop)
-- Viber: [Написати](viber://chat?number=+380962040986)
+- Viber: +380962040986
