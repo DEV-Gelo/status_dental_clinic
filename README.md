@@ -1,6 +1,6 @@
 # 🦷 Status Dental Clinic
 
-Веб-додаток для стоматологічної клініки з онлайн-записом, адмініструванням та SEO-оптимізацією.
+Web application for a dental clinic with online booking, administration, and SEO optimization.
 
 ## 🚀 Технології
 - Next.js, React, Tailwind CSS, MUI
@@ -8,39 +8,39 @@
 - Google Maps API, Search Console
 - SEO: metadata, jsonLD, sitemap
 
-## ⚙️ Функціонал
-- Онлайн-запис на прийом з повідомленням у Telegram адміністратора
-- Панель адміністратора на 4 сторінки:
-    1.База даних лікарів та пацієнтів з CRUD-операціями, фільтром та пошуком
-    2.Створення робочих графіків для лікарів з прив'язкою до онлайн запису та CRUD-операціями
-    3.База даних записів на прийом з CRUD-операціями, фільтром та пошуком
-    4.Прайс - створення карток сервісу з додаванням послуг та вартості
-- Інтеграція з Google Maps
-- SEO-оптимізація для пошукових систем
+## ⚙️ Functional
+- Online appointment booking with administrator's Telegram message
+- Admin panel with 4 pages:
+1. Database of doctors and patients with CRUD operations, filter and search
+2. Creation of work schedules for doctors with a link to online appointment and CRUD operations
+3. Database of appointment bookings with CRUD operations, filter and search
+4. Price - creation of service cards with adding services and cost
+- Integration with Google Maps
+- SEO optimization for search engines
 
-## 📦 Деплой
-Розгорнуто на [Vercel](https://vercel.com)
+## 📦 Deploy
+Deployed on [Vercel](https://vercel.com)
 
-## 📸 Скриншоти
-### Головна сторінка
-![Головна сторінка](public/screenshots/homepage.jpg)
+## 📸 Screenshotspg
+### Main page
+![Main page](public/screenshots/homepage.jpg)
 
-### Панель адміністратора
-![Адмінка](public/screenshots/admin-panel.jpg)
+### Admin panel
+![Admin panel](public/screenshots/admin-panel.jpg)
 
 
-## 👨‍💻 Роль у проєкті
-Самостійна розробка повного циклу:
-- Розробка дизайну (Figma)
-- Архітектура та структура проєкту
-- Реалізація функціоналу
-- SEO та інтеграції
-- Продакшн-деплой
+## 👨‍💻 Role in the project
+Independent development of the full cycle:
+- Design development (Figma)
+- Architecture and project structure
+- Functional implementation
+- SEO and integrations
+- Production deployment
 
-## 📬 Контакти
-- [LinkedIn](# В процесі заповнення профілю)
+## 📬 Contacts
+- [LinkedIn](www.linkedin.com/in/oleg-chychkov-a63038234)
 - [Email](mailto:chichkoff@gmail.com)
-- Телефон: [+380962040986](tel:+380962040986)
-- WhatsApp: [Написати](https://wa.me/380962040986)
+- Телефон: [+380962040986](tel:+12046989967)
+- WhatsApp: [Написати](https://wa.me/12046989967)
 - Telegram: [@Gelotrop](https://t.me/Gelotrop)
-- Viber: +380962040986
+- Viber: +12046989967
