@@ -2,7 +2,7 @@
 
 Web application for a dental clinic with online booking, administration, and SEO optimization.
 
-## 🚀 Технології
+## 🚀 Technologies
 - Next.js, React, Tailwind CSS, MUI
 - Prisma, PostgreSQL, Supabase Storage
 - Google Maps API, Search Console
@@ -40,7 +40,7 @@ Independent development of the full cycle:
 ## 📬 Contacts
 - [LinkedIn](www.linkedin.com/in/oleg-chychkov-a63038234)
 - [Email](mailto:chichkoff@gmail.com)
-- Телефон: [+380962040986](tel:+12046989967)
+- Телефон: [+12046989967](tel:+12046989967)
 - WhatsApp: [Написати](https://wa.me/12046989967)
 - Telegram: [@Gelotrop](https://t.me/Gelotrop)
 - Viber: +12046989967
